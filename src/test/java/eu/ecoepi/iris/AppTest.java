@@ -1,4 +1,4 @@
-package eu.ecoepi;
+package eu.ecoepi.iris;
 
 import static org.junit.Assert.assertTrue;
 
