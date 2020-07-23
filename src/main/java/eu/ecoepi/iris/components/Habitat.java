@@ -4,21 +4,22 @@ import com.artemis.Component;
 
 import java.util.Objects;
 
-public class Habitat extends Component{
+public class Habitat extends Component {
 
     public Habitat() {
 
     }
 
-    public Habitat(Type type){
+    public Habitat(Type type) {
         this.type = type;
     }
 
-    public enum Type  {
+    public enum Type {
 
         WOOD, ECOTONE, PASTURE
 
     }
+
     Type type;
 
     public Type getType() {

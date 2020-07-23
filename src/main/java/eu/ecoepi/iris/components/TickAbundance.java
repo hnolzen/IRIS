@@ -17,7 +17,7 @@ public class TickAbundance extends Component {
 
     }
 
-    public TickAbundance(int larvae, int nymphs, int adults){
+    public TickAbundance(int larvae, int nymphs, int adults) {
         this.larvae = larvae;
         this.nymphs = nymphs;
         this.adults = adults;
@@ -39,5 +39,29 @@ public class TickAbundance extends Component {
     @Override
     public int hashCode() {
         return Objects.hash(larvae, nymphs, adults, infectedLarvae, infectedNymphs, infectedAdults);
+    }
+
+    public int getLarvae() {
+        return larvae;
+    }
+
+    public int getNymphs() {
+        return nymphs;
+    }
+
+    public int getAdults() {
+        return adults;
+    }
+
+    public void addLarvae(int larvae) {
+        this.larvae += larvae;
+    }
+
+    public void addNymphs(int nymphs) {
+        this.nymphs += nymphs;
+    }
+
+    public void addAdults(int adults) {
+        this.adults += adults;
     }
 }
