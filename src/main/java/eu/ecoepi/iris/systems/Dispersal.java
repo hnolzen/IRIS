@@ -22,6 +22,7 @@ public class Dispersal extends IteratingSystem {
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
+
         var neighbourToNorth = index.lookUp(position.moveBy(0, 1));
         if (neighbourToNorth.isPresent()) {
             var abundanceToNorth = abundanceMapper.get(neighbourToNorth.get());
@@ -34,8 +35,17 @@ public class Dispersal extends IteratingSystem {
             processPair(abundance, abundanceToSouth);
         }
 
-        // TODO: Ost und West
+        var neighbourToEast = index.lookUp(position.moveBy(1, 0));
+        if (neighbourToEast.isPresent()) {
+            var abundanceToEast = abundanceMapper.get(neighbourToEast.get());
+            processPair(abundance, abundanceToEast);
+        }
 
+        var neighbourToWest = index.lookUp(position.moveBy(-1, 0));
+        if (neighbourToWest.isPresent()) {
+            var abundanceToWest = abundanceMapper.get(neighbourToWest.get());
+            processPair(abundance, abundanceToWest);
+        }
     }
 
     void processPair(TickAbundance abundance, TickAbundance neighbour) {
@@ -43,7 +53,15 @@ public class Dispersal extends IteratingSystem {
         abundance.addLarvae(-movingLarvae);
         neighbour.addLarvae(movingLarvae);
 
-        // TODO: Nymphs, Adults, Habitatabhängigkeit, etc.
+        var movingNymphs = (int) (abundance.getNymphs() * Parameters.NYMPH_DISPERSAL_RATE);
+        abundance.addNymphs(-movingNymphs);
+        neighbour.addNymphs(movingNymphs);
+
+        var movingAdults = (int) (abundance.getAdults() * Parameters.ADULT_DISPERSAL_RATE);
+        abundance.addAdults(-movingAdults);
+        neighbour.addAdults(movingAdults);
+
+        // TODO: Habitatabhängigkeit, etc.
 
     }
 }
