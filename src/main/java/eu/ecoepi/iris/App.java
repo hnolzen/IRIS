@@ -50,7 +50,7 @@ public class App {
                 editor.add(position);
                 index.insert(position, entityId);
 
-                var abundance = new TickAbundance(100, 100, 100);
+                var abundance = new TickAbundance(100, 100, 100, 0, 0, 0);
                 editor.add(abundance);
 
                 var habitat = new Habitat(habitatType);

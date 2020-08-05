@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.LifeCycleStage;
 import eu.ecoepi.iris.Parameters;
 import eu.ecoepi.iris.SpatialIndex;
 import eu.ecoepi.iris.components.Position;
@@ -49,17 +50,11 @@ public class Dispersal extends IteratingSystem {
     }
 
     void processPair(TickAbundance abundance, TickAbundance neighbour) {
-        var movingLarvae = (int) (abundance.getLarvae() * Parameters.LARVA_DISPERSAL_RATE);
-        abundance.addLarvae(-movingLarvae);
-        neighbour.addLarvae(movingLarvae);
-
-        var movingNymphs = (int) (abundance.getNymphs() * Parameters.NYMPH_DISPERSAL_RATE);
-        abundance.addNymphs(-movingNymphs);
-        neighbour.addNymphs(movingNymphs);
-
-        var movingAdults = (int) (abundance.getAdults() * Parameters.ADULT_DISPERSAL_RATE);
-        abundance.addAdults(-movingAdults);
-        neighbour.addAdults(movingAdults);
+        Parameters.DISPERSAL_RATE.forEach((stage, rate) -> {
+            var moving = (int) (abundance.getStage(stage) * rate);
+            abundance.addStage(stage, -moving);
+            neighbour.addStage(stage, moving);
+        });
 
         // TODO: Habitatabhängigkeit, etc.
 
