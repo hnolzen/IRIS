@@ -2,15 +2,14 @@ package eu.ecoepi.iris;
 
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
-import eu.ecoepi.iris.components.Habitat;
-import eu.ecoepi.iris.components.Position;
-import eu.ecoepi.iris.components.TickAbundance;
+import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.systems.Dispersal;
 import eu.ecoepi.iris.systems.PrintAbundance;
 import eu.ecoepi.iris.systems.TickLifeCycle;
+import eu.ecoepi.iris.systems.Weather;
 import org.knowm.xchart.*;
 
-import java.util.Random;
+import java.io.IOException;
 
 /**
  * Hello world!
@@ -22,14 +21,15 @@ public class App {
                 .with(new TickLifeCycle())
                 .with(new Dispersal())
                 .with(new PrintAbundance())
+                .with(new Weather())
                 .build()
                 .register(new SpatialIndex())
-                .register(new TimeStep());
+                .register(new TimeStep())
+                .register(new Randomness());
 
         var world = new World(config);
 
         var index = world.getRegistered(SpatialIndex.class);
-
 
         for (int x = 0; x < Parameters.GRID_WIDTH; ++x) {
             Habitat.Type habitatType;
@@ -56,12 +56,18 @@ public class App {
                 var habitat = new Habitat(habitatType);
                 editor.add(habitat);
 
+                var temperature = new Temperature();
+                editor.add(temperature);
+
+                var humidity = new Humidity();
+                editor.add(humidity);
+
             }
         }
 
         // Create Chart
         HeatMapChart chart =
-                new HeatMapChartBuilder().width(1000).height(600).title("Heatmap").build();
+                new HeatMapChartBuilder().width(800).height(800).title("Heatmap").build();
 
         chart.getStyler().setPlotContentSize(1);
         chart.getStyler().setShowValue(true);
@@ -113,6 +119,12 @@ public class App {
                     chart.updateSeries("Basic HeatMap", xData, yData, heatData);
                     //chart.updateXYSeries("sine", data[0], data[1], null);
                     sw.repaintChart();
+                    try {
+                        BitmapEncoder.saveBitmap(chart, "./sample_chart_", BitmapEncoder.BitmapFormat.PNG);
+                        //BitmapEncoder.saveBitmap(chart, "./sample_chart_" + TimeStep.getCurrent(), BitmapEncoder.BitmapFormat.PNG);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

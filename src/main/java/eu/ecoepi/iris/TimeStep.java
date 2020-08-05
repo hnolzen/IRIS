@@ -1,7 +1,7 @@
 package eu.ecoepi.iris;
 
 public class TimeStep {
-    int current;
+    private int current;
 
     public int getCurrent() {
         return current;
