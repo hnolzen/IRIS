@@ -3,6 +3,7 @@ package eu.ecoepi.iris;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
+import eu.ecoepi.iris.observers.AbundanceWriter;
 import eu.ecoepi.iris.systems.Dispersal;
 import eu.ecoepi.iris.systems.PrintAbundance;
 import eu.ecoepi.iris.systems.TickLifeCycle;
@@ -21,6 +22,7 @@ public class App {
                 .with(new TickLifeCycle())
                 .with(new Dispersal())
                 .with(new PrintAbundance())
+                .with(new AbundanceWriter())
                 .with(new Weather())
                 .build()
                 .register(new SpatialIndex())
