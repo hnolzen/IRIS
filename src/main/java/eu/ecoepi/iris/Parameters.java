@@ -12,6 +12,13 @@ public class Parameters {
     public static final int BOUNDARY_ECOTONE = 4;
     public static final int BOUNDARY_PASTURE = 8;
 
+    public static final int INITIAL_LARVAE = 10;
+    public static final int INITIAL_NYMPHS = 10;
+    public static final int INITIAL_ADULTS = 10;
+    public static final int INITIAL_INFECTED_LARVAE = 0;
+    public static final int INITIAL_INFECTED_NYMPHS = 0;
+    public static final int INITIAL_INFECTED_ADULTS = 0;
+
     public static final float LARVAE_TO_NYMPHS = 0.4f;
     public static final float NYMPHS_TO_ADULTS = 0.3f;
 
