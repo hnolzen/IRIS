@@ -12,10 +12,11 @@ import eu.ecoepi.iris.components.Humidity;
 import eu.ecoepi.iris.components.Temperature;
 import eu.ecoepi.iris.TimeStep;
 import eu.ecoepi.iris.components.Habitat;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @All({Habitat.class})
 public class Weather extends IteratingSystem {
@@ -24,10 +25,10 @@ public class Weather extends IteratingSystem {
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
 
-    final Map<Integer, Float> meanTempTimeSeries = new HashMap();
-    final Map<Integer, Float> minTempTimeSeries = new HashMap();
-    final Map<Integer, Float> maxTempTimeSeries = new HashMap();
-    final Map<Integer, Float> humidityTimeSeries = new HashMap();
+    final List<Float> meanTempTimeSeries = new ArrayList<>();
+    final List<Float> minTempTimeSeries = new ArrayList<>();
+    final List<Float> maxTempTimeSeries = new ArrayList<>();
+    final List<Float> humidityTimeSeries = new ArrayList<>();
 
     @Wire
     TimeStep timestep;
@@ -41,13 +42,11 @@ public class Weather extends IteratingSystem {
                 .build();
         String[] nextLine;
 
-        int i = 0;
         while ((nextLine = reader.readNext()) != null) {
-            meanTempTimeSeries.put(i, Float.parseFloat(nextLine[0]));
-            minTempTimeSeries.put(i, Float.parseFloat(nextLine[1]));
-            maxTempTimeSeries.put(i, Float.parseFloat(nextLine[2]));
-            humidityTimeSeries.put(i, Float.parseFloat(nextLine[3]));
-            ++i;
+            meanTempTimeSeries.add(Float.parseFloat(nextLine[0]));
+            minTempTimeSeries.add(Float.parseFloat(nextLine[1]));
+            maxTempTimeSeries.add(Float.parseFloat(nextLine[2]));
+            humidityTimeSeries.add(Float.parseFloat(nextLine[3]));
         }
     }
 
@@ -61,14 +60,6 @@ public class Weather extends IteratingSystem {
         temperature.setMinTemperature(minTempTimeSeries.get(timestep.getCurrent()));
         temperature.setMaxTemperature(maxTempTimeSeries.get(timestep.getCurrent()));
         humidity.setRelativeHumidity(humidityTimeSeries.get(timestep.getCurrent()));
-
-//        if (habitat.getType() == Habitat.Type.PASTURE) {
-//            humidity.setRelativeHumidity(humidityTimeSeries.get(timestep.getCurrent()));
-//        } else if (habitat.getType() == Habitat.Type.ECOTONE) {
-//            humidity.setRelativeHumidity(humidityTimeSeries.get(timestep.getCurrent()));
-//        } else {
-//            humidity.setRelativeHumidity(humidityTimeSeries.get(timestep.getCurrent()));
-//        }
 
     }
 }
