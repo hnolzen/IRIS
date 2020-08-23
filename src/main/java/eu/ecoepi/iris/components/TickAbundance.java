@@ -10,19 +10,24 @@ import java.util.Objects;
 public class TickAbundance extends Component {
 
     final Map<LifeCycleStage, Integer> abundance = new HashMap<>();
-    final Map<LifeCycleStage, Integer> infectedAbundance = new HashMap<>();
+    final Map<LifeCycleStage, Integer> infectedTicks = new HashMap<>();
 
     public TickAbundance() {
 
     }
 
-    public TickAbundance(int larvae, int nymphs, int adults, int infectedLarvae, int infectedNymphs, int infectedAdults) {
+    public TickAbundance(int larvae, int nymphs, int adults,
+                         int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
+                         int infectedLarvae, int infectedNymphs, int infectedAdults) {
         abundance.put(LifeCycleStage.LARVAE, larvae);
         abundance.put(LifeCycleStage.NYMPH, nymphs);
         abundance.put(LifeCycleStage.ADULT, adults);
-        infectedAbundance.put(LifeCycleStage.LARVAE, infectedLarvae);
-        infectedAbundance.put(LifeCycleStage.NYMPH, infectedNymphs);
-        infectedAbundance.put(LifeCycleStage.ADULT, infectedAdults);
+        abundance.put(LifeCycleStage.LARVAE_INACTIVE, inactiveLarvae);
+        abundance.put(LifeCycleStage.NYMPH_INACTIVE, inactiveNymphs);
+        abundance.put(LifeCycleStage.ADULT_INACTIVE, inactiveAdults);
+        infectedTicks.put(LifeCycleStage.LARVAE, infectedLarvae);
+        infectedTicks.put(LifeCycleStage.NYMPH, infectedNymphs);
+        infectedTicks.put(LifeCycleStage.ADULT, infectedAdults);
     }
 
     @Override
@@ -31,12 +36,12 @@ public class TickAbundance extends Component {
         if (o == null || getClass() != o.getClass()) return false;
         TickAbundance that = (TickAbundance) o;
         return Objects.equals(abundance, that.abundance) &&
-                Objects.equals(infectedAbundance, that.infectedAbundance);
+                Objects.equals(infectedTicks, that.infectedTicks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(abundance, infectedAbundance);
+        return Objects.hash(abundance, infectedTicks);
     }
 
     public int getStage(LifeCycleStage stage){
@@ -55,16 +60,28 @@ public class TickAbundance extends Component {
         return abundance.get(LifeCycleStage.ADULT);
     }
 
+    public int getInactiveLarvae() {
+        return abundance.get(LifeCycleStage.LARVAE_INACTIVE);
+    }
+
+    public int getInactiveNymphs() {
+        return abundance.get(LifeCycleStage.NYMPH_INACTIVE);
+    }
+
+    public int getInactiveAdults() {
+        return abundance.get(LifeCycleStage.ADULT_INACTIVE);
+    }
+
     public int getInfectedLarvae() {
-        return infectedAbundance.get(LifeCycleStage.LARVAE);
+        return infectedTicks.get(LifeCycleStage.LARVAE);
     }
 
     public int getInfectedNymphs() {
-        return infectedAbundance.get(LifeCycleStage.NYMPH);
+        return infectedTicks.get(LifeCycleStage.NYMPH);
     }
 
     public int getInfectedAdults() {
-        return infectedAbundance.get(LifeCycleStage.ADULT);
+        return infectedTicks.get(LifeCycleStage.ADULT);
     }
 
     public void addStage(LifeCycleStage stage, int num) {
@@ -83,15 +100,27 @@ public class TickAbundance extends Component {
         abundance.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
     }
 
+    public void addInactiveLarvae(int larvae) {
+        abundance.compute(LifeCycleStage.LARVAE_INACTIVE, (stage, count) -> count + larvae);
+    }
+
+    public void addInactiveNymphs(int nymphs) {
+        abundance.compute(LifeCycleStage.NYMPH_INACTIVE, (stage, count) -> count + nymphs);
+    }
+
+    public void addInactiveAdults(int adults) {
+        abundance.compute(LifeCycleStage.ADULT_INACTIVE, (stage, count) -> count + adults);
+    }
+
     public void addInfectedLarvae(int larvae) {
-        infectedAbundance.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
+        infectedTicks.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
     }
 
     public void addInfectedNymphs(int nymphs) {
-        infectedAbundance.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
+        infectedTicks.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
     }
 
     public void addInfectedAdults(int adults) {
-        infectedAbundance.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
+        infectedTicks.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
     }
 }

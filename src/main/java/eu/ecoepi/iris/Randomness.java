@@ -14,4 +14,16 @@ public class Randomness {
         return this.random.nextInt(range);
     }
 
+    public int roundRandom(float value) {
+        int base = (int) value;
+        float remainder = value - base;
+
+        if (remainder == 0) {
+            return base;
+        }
+        if (random() < remainder) {
+            return base + 1;
+        }
+        return base;
+    }
 }

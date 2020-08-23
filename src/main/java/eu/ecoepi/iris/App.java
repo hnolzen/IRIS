@@ -3,9 +3,10 @@ package eu.ecoepi.iris;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
-import eu.ecoepi.iris.observers.AbundanceWriter;
+import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
+import eu.ecoepi.iris.systems.Diapause;
 import eu.ecoepi.iris.systems.Dispersal;
-import eu.ecoepi.iris.systems.PrintAbundance;
+import eu.ecoepi.iris.observers.ConsoleTimeSeriesWriter;
 import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
 import org.knowm.xchart.*;
@@ -26,9 +27,10 @@ public class App {
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
                 .with(new Dispersal())
-                .with(new PrintAbundance())
-                .with(new AbundanceWriter())
+                .with(new ConsoleTimeSeriesWriter())
+                .with(new CsvTimeSeriesWriter())
                 .with(new Weather())
+                .with(new Diapause())
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
@@ -61,6 +63,9 @@ public class App {
                         Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
+                        Parameters.INITIAL_INACTIVE_LARVAE,
+                        Parameters.INITIAL_INACTIVE_NYMPHS,
+                        Parameters.INITIAL_INACTIVE_ADULTS,
                         Parameters.INITIAL_INFECTED_LARVAE,
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);
@@ -75,13 +80,15 @@ public class App {
                 var humidity = new Humidity();
                 editor.add(humidity);
 
+                var precipitation = new Precipitation();
+                editor.add(precipitation);
             }
         }
 
         // Create HeatMap chart to display the model landscape with nymph abundance values
         HeatMapChart heatChart =
                 new HeatMapChartBuilder()
-                        .width(800)
+                        .width(1000)
                         .height(800)
                         .title("Tick Abundance Heatmap")
                         .xAxisTitle("x Coordinate")
@@ -94,9 +101,12 @@ public class App {
         heatChart.getStyler().setMax(100);
         heatChart.getStyler().setMin(0);
         Color[] rangeColors = {
-                new Color(247, 252, 185),
-                new Color(173, 221, 142),
-                new Color(49, 163, 84)};
+                new Color(254,229,217),
+                new Color(252,174,145),
+                new Color(251,106,74),
+                new Color(222,45,38),
+                new Color(165,15,21)};
+
         heatChart.getStyler().setRangeColors(rangeColors);
         heatChart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         heatChart.getStyler().setChartTitleFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
@@ -146,25 +156,43 @@ public class App {
         lineChartTotal.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 
         List<Integer> xDataDays = new ArrayList<>();
-        List<Integer> yDataLarvae = new ArrayList<>();
-        List<Integer> yDataNymphs = new ArrayList<>();
-        List<Integer> yDataAdults = new ArrayList<>();
+        List<Integer> yDataQuestingLarvae = new ArrayList<>();
+        List<Integer> yDataQuestingNymphs = new ArrayList<>();
+        List<Integer> yDataQuestingAdults = new ArrayList<>();
+        List<Integer> yDataInactiveLarvae = new ArrayList<>();
+        List<Integer> yDataInactiveNymphs = new ArrayList<>();
+        List<Integer> yDataInactiveAdults = new ArrayList<>();
         xDataDays.add(0);
-        yDataLarvae.add(0);
-        yDataNymphs.add(0);
-        yDataAdults.add(0);
+        yDataQuestingLarvae.add(0);
+        yDataQuestingNymphs.add(0);
+        yDataQuestingAdults.add(0);
+        yDataInactiveLarvae.add(0);
+        yDataInactiveNymphs.add(0);
+        yDataInactiveAdults.add(0);
 
-        XYSeries seriesLarvae = lineChartTotal.addSeries("Larvae", xDataDays, yDataLarvae);
-        seriesLarvae.setLineColor(new Color(49, 163, 84));
-        seriesLarvae.setMarkerColor(new Color(49, 163, 84));
+        XYSeries seriesQuestingLarvae = lineChartTotal.addSeries("Questing Larvae", xDataDays, yDataQuestingLarvae);
+        seriesQuestingLarvae.setLineColor(new Color(49, 163, 84));
+        seriesQuestingLarvae.setMarkerColor(new Color(49, 163, 84));
 
-        XYSeries seriesNymphs = lineChartTotal.addSeries("Nymphs", xDataDays, yDataNymphs);
-        seriesNymphs.setLineColor(new Color(0, 0, 0));
-        seriesNymphs.setMarkerColor(new Color(0, 0, 0));
+        XYSeries seriesQuestingNymphs = lineChartTotal.addSeries("Questing Nymphs", xDataDays, yDataQuestingNymphs);
+        seriesQuestingNymphs.setLineColor(new Color(0, 0, 0));
+        seriesQuestingNymphs.setMarkerColor(new Color(0, 0, 0));
 
-        XYSeries seriesAdults = lineChartTotal.addSeries("Adults", xDataDays, yDataAdults);
-        seriesAdults.setLineColor(new Color(254, 153, 41));
-        seriesAdults.setMarkerColor(new Color(254, 153, 41));
+        XYSeries seriesQuestingAdults = lineChartTotal.addSeries("Questing Adults", xDataDays, yDataQuestingAdults);
+        seriesQuestingAdults.setLineColor(new Color(254, 153, 41));
+        seriesQuestingAdults.setMarkerColor(new Color(254, 153, 41));
+
+        XYSeries seriesInactiveLarvae = lineChartTotal.addSeries("Inactive Larvae", xDataDays, yDataInactiveLarvae);
+        seriesInactiveLarvae.setLineColor(new Color(51, 95, 63));
+        seriesInactiveLarvae.setMarkerColor(new Color(51, 95, 63));
+
+        XYSeries seriesInactiveNymphs = lineChartTotal.addSeries("Inactive Nymphs", xDataDays, yDataInactiveNymphs);
+        seriesInactiveNymphs.setLineColor(new Color(99, 98, 98));
+        seriesInactiveNymphs.setMarkerColor(new Color(99, 98, 98));
+
+        XYSeries seriesInactiveAdults = lineChartTotal.addSeries("Inactive Adults", xDataDays, yDataInactiveAdults);
+        seriesInactiveAdults.setLineColor(new Color(239, 180, 110));
+        seriesInactiveAdults.setMarkerColor(new Color(239, 180, 110));
 
         // Show HeatMapChart
         final SwingWrapper<HeatMapChart> swHeat = new SwingWrapper<>(heatChart);
@@ -183,6 +211,9 @@ public class App {
             int abundanceSumLarvae = 0;
             int abundanceSumNymphs = 0;
             int abundanceSumAdults = 0;
+            int abundanceSumInactiveLarvae = 0;
+            int abundanceSumInactiveNymphs = 0;
+            int abundanceSumInactiveAdults = 0;
 
             int[][] heatData = new int[xData.length][yData.length];
             for (int i = 0; i < xData.length; i++) {
@@ -193,27 +224,35 @@ public class App {
                     abundanceSumLarvae += abundance.getLarvae();
                     abundanceSumNymphs += abundance.getNymphs();
                     abundanceSumAdults += abundance.getAdults();
+                    abundanceSumInactiveLarvae += abundance.getInactiveLarvae();
+                    abundanceSumInactiveNymphs += abundance.getInactiveNymphs();
+                    abundanceSumInactiveAdults += abundance.getInactiveAdults();
                 }
             }
 
             xDataDays.add(timeStep.getCurrent());
-            yDataLarvae.add(abundanceSumLarvae);
-            yDataNymphs.add(abundanceSumNymphs);
-            yDataAdults.add(abundanceSumAdults);
+            yDataQuestingLarvae.add(abundanceSumLarvae);
+            yDataQuestingNymphs.add(abundanceSumNymphs);
+            yDataQuestingAdults.add(abundanceSumAdults);
+            yDataInactiveLarvae.add(abundanceSumInactiveLarvae);
+            yDataInactiveNymphs.add(abundanceSumInactiveNymphs);
+            yDataInactiveAdults.add(abundanceSumInactiveAdults);
 
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
                     heatChart.updateSeries("Basic HeatMap", xData, yData, heatData);
-                    lineChartTotal.updateXYSeries("Larvae", xDataDays, yDataLarvae, null);
-                    lineChartTotal.updateXYSeries("Nymphs", xDataDays, yDataNymphs, null);
-                    lineChartTotal.updateXYSeries("Adults", xDataDays, yDataAdults, null);
+                    //lineChartTotal.updateXYSeries("Questing Larvae", xDataDays, yDataQuestingLarvae, null);
+                    lineChartTotal.updateXYSeries("Questing Nymphs", xDataDays, yDataQuestingNymphs, null);
+                    //lineChartTotal.updateXYSeries("Questing Adults", xDataDays, yDataQuestingAdults, null);
+                    //lineChartTotal.updateXYSeries("Inactive Larvae", xDataDays, yDataInactiveLarvae, null);
+                    //lineChartTotal.updateXYSeries("Inactive Nymphs", xDataDays, yDataInactiveNymphs, null);
+                    //lineChartTotal.updateXYSeries("Inactive Adults", xDataDays, yDataInactiveAdults, null);
                     swHeat.repaintChart();
                     swLineTotal.repaintChart();
                     try {
-                        BitmapEncoder.saveBitmap(heatChart, "./sample_chart_", BitmapEncoder.BitmapFormat.PNG);
-                        //BitmapEncoder.saveBitmap(chart, "./sample_chart_" + TimeStep.getCurrent(), BitmapEncoder.BitmapFormat.PNG);
+                        BitmapEncoder.saveBitmap(heatChart, "./output/heatmap_" + timeStep.getCurrent(), BitmapEncoder.BitmapFormat.PNG);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
