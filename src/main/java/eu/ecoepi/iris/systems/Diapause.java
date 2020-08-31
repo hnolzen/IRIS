@@ -36,21 +36,21 @@ public class Diapause extends IteratingSystem {
         var isActive = false;
 
         // Necessary conditions for tick activity:
-        if (temperature.getMaxTemperature() < 35 &&     // Gray et al. 2016, McLeod 1935
-            temperature.getMaxTemperature() >= 1.9 &&   // Perret et al. 2000
-            temperature.getMeanTemperature() >= 1.2 &&  // Perret et al. 2000, Schulz et al. 2014
-            humidity.getRelativeHumidity() > 45         // Greenfield 2011
+        if (temperature.getMaxTemperature() < 35 &&         // Gray et al. 2016, McLeod 1935
+            temperature.getMaxTemperature() > 1.9 &&        // Perret et al. 2000
+            temperature.getMeanTemperature() > 1.2 &&       // Perret et al. 2000, Schulz et al. 2014
+            humidity.getRelativeHumidity() > 45             // Greenfield 2011
         ) {
             // Optimal conditions for tick activity:
             if (temperature.getMaxTemperature() > 10.5 &&   // Perrett et al. 2000
-                temperature.getMaxTemperature() < 26 &&     // Greenfield 2011
-                temperature.getMeanTemperature() >= 5.2 &&  // Perret et al. 2000
-                humidity.getRelativeHumidity() > 70         // Hauser et al. 2018
+                temperature.getMaxTemperature() < 26 &&     // Greenfield 2011, Schulz et al. 2014 (25.9)
+                temperature.getMeanTemperature() > 6 &&     // Gilbert et al. 2014
+                temperature.getMeanTemperature() < 20       // Kubiak and Dziekońska−Rynko 2006
             ) {
                 isActive = true;
             } else {
                 // In suboptimal but possible conditions, only a few ticks become active:
-                if(randomness.random() < 0.1) {
+                if(randomness.random() < 0.05) {
                     isActive = true;
                 }
             }
