@@ -31,6 +31,11 @@
       <artifactId>xchart</artifactId>
       <version>3.6.4</version>
     </dependency>
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.2</version>
+    </dependency>
   </dependencies>
 
   <build>
