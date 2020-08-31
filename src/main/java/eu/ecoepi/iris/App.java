@@ -66,6 +66,9 @@ public class App {
                         Parameters.INITIAL_INACTIVE_LARVAE,
                         Parameters.INITIAL_INACTIVE_NYMPHS,
                         Parameters.INITIAL_INACTIVE_ADULTS,
+                        Parameters.INITIAL_FED_LARVAE,
+                        Parameters.INITIAL_FED_NYMPHS,
+                        Parameters.INITIAL_FED_ADULTS,
                         Parameters.INITIAL_INFECTED_LARVAE,
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);
@@ -85,6 +88,7 @@ public class App {
             }
         }
 
+
         // Create HeatMap chart to display the model landscape with nymph abundance values
         HeatMapChart heatChart =
                 new HeatMapChartBuilder()
@@ -98,7 +102,7 @@ public class App {
         heatChart.getStyler().setChartTitleVisible(true);
         heatChart.getStyler().setPlotContentSize(1);
         heatChart.getStyler().setShowValue(true);
-        heatChart.getStyler().setMax(100);
+        heatChart.getStyler().setMax(250);
         heatChart.getStyler().setMin(0);
         Color[] rangeColors = {
                 new Color(254,229,217),
@@ -128,7 +132,8 @@ public class App {
                 for (int j = 0; j < yData.length; j++) {
                     var entityId = index.lookUp(new Position(i, j));
                     var abundance = world.getEntity(entityId.get()).getComponent(TickAbundance.class);
-                    heatData[i][j] = abundance.getNymphs();
+                    //heatData[i][j] = abundance.getNymphs();
+                    heatData[i][j] = abundance.getNymphs() + abundance.getFedNymphs();
                 }
             }
             heatChart.addSeries("Basic HeatMap", xData, yData, heatData);
@@ -156,19 +161,40 @@ public class App {
         lineChartTotal.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 
         List<Integer> xDataDays = new ArrayList<>();
+
         List<Integer> yDataQuestingLarvae = new ArrayList<>();
         List<Integer> yDataQuestingNymphs = new ArrayList<>();
         List<Integer> yDataQuestingAdults = new ArrayList<>();
+
         List<Integer> yDataInactiveLarvae = new ArrayList<>();
         List<Integer> yDataInactiveNymphs = new ArrayList<>();
         List<Integer> yDataInactiveAdults = new ArrayList<>();
+
+        List<Integer> yDataFedLarvae = new ArrayList<>();
+        List<Integer> yDataFedNymphs = new ArrayList<>();
+        List<Integer> yDataFedAdults = new ArrayList<>();
+
+        List<Integer> yDataTotalLarvae = new ArrayList<>();
+        List<Integer> yDataTotalNymphs = new ArrayList<>();
+        List<Integer> yDataTotalAdults = new ArrayList<>();
+
         xDataDays.add(0);
-        yDataQuestingLarvae.add(0);
-        yDataQuestingNymphs.add(0);
-        yDataQuestingAdults.add(0);
-        yDataInactiveLarvae.add(0);
-        yDataInactiveNymphs.add(0);
-        yDataInactiveAdults.add(0);
+
+        yDataQuestingLarvae.add(Parameters.INITIAL_LARVAE * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataQuestingNymphs.add(Parameters.INITIAL_NYMPHS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataQuestingAdults.add(Parameters.INITIAL_ADULTS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+
+        yDataInactiveLarvae.add(Parameters.INITIAL_INACTIVE_LARVAE * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataInactiveNymphs.add(Parameters.INITIAL_INACTIVE_NYMPHS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataInactiveAdults.add(Parameters.INITIAL_INACTIVE_ADULTS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+
+        yDataFedLarvae.add(Parameters.INITIAL_FED_LARVAE * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataFedNymphs.add(Parameters.INITIAL_FED_NYMPHS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataFedAdults.add(Parameters.INITIAL_FED_ADULTS * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+
+        yDataTotalLarvae.add((Parameters.INITIAL_LARVAE + Parameters.INITIAL_INACTIVE_LARVAE + Parameters.INITIAL_FED_LARVAE) * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataTotalNymphs.add((Parameters.INITIAL_NYMPHS + Parameters.INITIAL_INACTIVE_NYMPHS + Parameters.INITIAL_FED_NYMPHS) * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
+        yDataTotalAdults.add((Parameters.INITIAL_ADULTS + Parameters.INITIAL_INACTIVE_ADULTS + Parameters.INITIAL_FED_ADULTS) * Parameters.GRID_WIDTH * Parameters.GRID_HEIGHT);
 
         XYSeries seriesQuestingLarvae = lineChartTotal.addSeries("Questing Larvae", xDataDays, yDataQuestingLarvae);
         seriesQuestingLarvae.setLineColor(new Color(49, 163, 84));
@@ -194,6 +220,30 @@ public class App {
         seriesInactiveAdults.setLineColor(new Color(239, 180, 110));
         seriesInactiveAdults.setMarkerColor(new Color(239, 180, 110));
 
+        XYSeries seriesFedLarvae = lineChartTotal.addSeries("Fed Larvae", xDataDays, yDataFedLarvae);
+        seriesFedLarvae.setLineColor(new Color(51, 77, 165));
+        seriesFedLarvae.setMarkerColor(new Color(51, 77, 165));
+
+        XYSeries seriesFedNymphs = lineChartTotal.addSeries("Fed Nymphs", xDataDays, yDataFedNymphs);
+        seriesFedNymphs.setLineColor(new Color(51, 77, 165));
+        seriesFedNymphs.setMarkerColor(new Color(51, 77, 165));
+
+        XYSeries seriesFedAdults = lineChartTotal.addSeries("Fed Adults", xDataDays, yDataFedAdults);
+        seriesFedAdults.setLineColor(new Color(51, 77, 165));
+        seriesFedAdults.setMarkerColor(new Color(51, 77, 165));
+
+        XYSeries seriesTotalLarvae = lineChartTotal.addSeries("Total Larvae", xDataDays, yDataTotalLarvae);
+        seriesTotalLarvae.setLineColor(new Color(215, 27, 27));
+        seriesTotalLarvae.setMarkerColor(new Color(215, 27, 27));
+
+        XYSeries seriesTotalNymphs = lineChartTotal.addSeries("Total Nymphs", xDataDays, yDataTotalNymphs);
+        seriesTotalNymphs.setLineColor(new Color(215, 27, 27));
+        seriesTotalNymphs.setMarkerColor(new Color(215, 27, 27));
+
+        XYSeries seriesTotalAdults = lineChartTotal.addSeries("Total Adults", xDataDays, yDataTotalAdults);
+        seriesTotalAdults.setLineColor(new Color(215, 27, 27));
+        seriesTotalAdults.setMarkerColor(new Color(215, 27, 27));
+
         // Show HeatMapChart
         final SwingWrapper<HeatMapChart> swHeat = new SwingWrapper<>(heatChart);
         swHeat.displayChart();
@@ -206,37 +256,56 @@ public class App {
         for (var timeStep = world.getRegistered(TimeStep.class); timeStep.getCurrent() < Parameters.TIME_STEPS; timeStep.increment()) {
             world.process();
 
-            Thread.sleep(100);
+            Thread.sleep(80);
 
             int abundanceSumLarvae = 0;
             int abundanceSumNymphs = 0;
             int abundanceSumAdults = 0;
+
             int abundanceSumInactiveLarvae = 0;
             int abundanceSumInactiveNymphs = 0;
             int abundanceSumInactiveAdults = 0;
+
+            int abundanceSumFedLarvae = 0;
+            int abundanceSumFedNymphs = 0;
+            int abundanceSumFedAdults = 0;
 
             int[][] heatData = new int[xData.length][yData.length];
             for (int i = 0; i < xData.length; i++) {
                 for (int j = 0; j < yData.length; j++) {
                     var entityId = index.lookUp(new Position(i, j));
                     var abundance = world.getEntity(entityId.get()).getComponent(TickAbundance.class);
-                    heatData[i][j] = abundance.getNymphs();
+                    //heatData[i][j] = abundance.getNymphs();
+                    heatData[i][j] = abundance.getNymphs() + abundance.getFedNymphs();
                     abundanceSumLarvae += abundance.getLarvae();
                     abundanceSumNymphs += abundance.getNymphs();
                     abundanceSumAdults += abundance.getAdults();
                     abundanceSumInactiveLarvae += abundance.getInactiveLarvae();
                     abundanceSumInactiveNymphs += abundance.getInactiveNymphs();
                     abundanceSumInactiveAdults += abundance.getInactiveAdults();
+                    abundanceSumFedLarvae += abundance.getFedLarvae();
+                    abundanceSumFedNymphs += abundance.getFedNymphs();
+                    abundanceSumFedAdults += abundance.getFedAdults();
                 }
             }
 
             xDataDays.add(timeStep.getCurrent());
+
             yDataQuestingLarvae.add(abundanceSumLarvae);
             yDataQuestingNymphs.add(abundanceSumNymphs);
             yDataQuestingAdults.add(abundanceSumAdults);
+
             yDataInactiveLarvae.add(abundanceSumInactiveLarvae);
             yDataInactiveNymphs.add(abundanceSumInactiveNymphs);
             yDataInactiveAdults.add(abundanceSumInactiveAdults);
+
+            yDataFedLarvae.add(abundanceSumFedLarvae);
+            yDataFedNymphs.add(abundanceSumFedNymphs);
+            yDataFedAdults.add(abundanceSumFedAdults);
+
+            yDataTotalLarvae.add(abundanceSumLarvae + abundanceSumFedLarvae + abundanceSumInactiveLarvae);
+            yDataTotalNymphs.add(abundanceSumNymphs + abundanceSumFedNymphs + abundanceSumInactiveNymphs);
+            yDataTotalAdults.add(abundanceSumAdults + abundanceSumFedAdults + abundanceSumInactiveAdults);
 
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -249,6 +318,13 @@ public class App {
                     //lineChartTotal.updateXYSeries("Inactive Larvae", xDataDays, yDataInactiveLarvae, null);
                     //lineChartTotal.updateXYSeries("Inactive Nymphs", xDataDays, yDataInactiveNymphs, null);
                     //lineChartTotal.updateXYSeries("Inactive Adults", xDataDays, yDataInactiveAdults, null);
+                    //lineChartTotal.updateXYSeries("Fed Larvae", xDataDays, yDataFedLarvae, null);
+                    //lineChartTotal.updateXYSeries("Fed Nymphs", xDataDays, yDataFedNymphs, null);
+                    //lineChartTotal.updateXYSeries("Fed Adults", xDataDays, yDataFedAdults, null);
+                    //lineChartTotal.updateXYSeries("Total Larvae", xDataDays, yDataTotalLarvae, null);
+                    //lineChartTotal.updateXYSeries("Total Nymphs", xDataDays, yDataTotalNymphs, null);
+                    //lineChartTotal.updateXYSeries("Total Adults", xDataDays, yDataTotalAdults, null);
+
                     swHeat.repaintChart();
                     swLineTotal.repaintChart();
                     try {

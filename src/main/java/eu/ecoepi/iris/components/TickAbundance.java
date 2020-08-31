@@ -13,11 +13,11 @@ public class TickAbundance extends Component {
     final Map<LifeCycleStage, Integer> infectedTicks = new HashMap<>();
 
     public TickAbundance() {
-
     }
 
     public TickAbundance(int larvae, int nymphs, int adults,
                          int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
+                         int fedLarvae, int fedNymphs, int fedAdults,
                          int infectedLarvae, int infectedNymphs, int infectedAdults) {
         abundance.put(LifeCycleStage.LARVAE, larvae);
         abundance.put(LifeCycleStage.NYMPH, nymphs);
@@ -25,6 +25,9 @@ public class TickAbundance extends Component {
         abundance.put(LifeCycleStage.LARVAE_INACTIVE, inactiveLarvae);
         abundance.put(LifeCycleStage.NYMPH_INACTIVE, inactiveNymphs);
         abundance.put(LifeCycleStage.ADULT_INACTIVE, inactiveAdults);
+        abundance.put(LifeCycleStage.LARVAE_FED, fedLarvae);
+        abundance.put(LifeCycleStage.NYMPH_FED, fedNymphs);
+        abundance.put(LifeCycleStage.ADULT_FED, fedAdults);
         infectedTicks.put(LifeCycleStage.LARVAE, infectedLarvae);
         infectedTicks.put(LifeCycleStage.NYMPH, infectedNymphs);
         infectedTicks.put(LifeCycleStage.ADULT, infectedAdults);
@@ -44,7 +47,7 @@ public class TickAbundance extends Component {
         return Objects.hash(abundance, infectedTicks);
     }
 
-    public int getStage(LifeCycleStage stage){
+    public int getStage(LifeCycleStage stage) {
         return abundance.get(stage);
     }
 
@@ -70,6 +73,18 @@ public class TickAbundance extends Component {
 
     public int getInactiveAdults() {
         return abundance.get(LifeCycleStage.ADULT_INACTIVE);
+    }
+
+    public int getFedLarvae() {
+        return abundance.get(LifeCycleStage.LARVAE_FED);
+    }
+
+    public int getFedNymphs() {
+        return abundance.get(LifeCycleStage.NYMPH_FED);
+    }
+
+    public int getFedAdults() {
+        return abundance.get(LifeCycleStage.ADULT_FED);
     }
 
     public int getInfectedLarvae() {
@@ -110,6 +125,18 @@ public class TickAbundance extends Component {
 
     public void addInactiveAdults(int adults) {
         abundance.compute(LifeCycleStage.ADULT_INACTIVE, (stage, count) -> count + adults);
+    }
+
+    public void addFedLarvae(int larvae) {
+        abundance.compute(LifeCycleStage.LARVAE_FED, (stage, count) -> count + larvae);
+    }
+
+    public void addFedNymphs(int nymphs) {
+        abundance.compute(LifeCycleStage.NYMPH_FED, (stage, count) -> count + nymphs);
+    }
+
+    public void addFedAdults(int adults) {
+        abundance.compute(LifeCycleStage.ADULT_FED, (stage, count) -> count + adults);
     }
 
     public void addInfectedLarvae(int larvae) {
