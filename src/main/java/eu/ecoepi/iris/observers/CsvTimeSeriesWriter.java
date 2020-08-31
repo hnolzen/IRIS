@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @All({TickAbundance.class, Position.class})
-public class AbundanceWriter extends IteratingSystem {
+public class CsvTimeSeriesWriter extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Position> positionMapper;
@@ -24,7 +24,7 @@ public class AbundanceWriter extends IteratingSystem {
     @Wire
     TimeStep timeStep;
 
-    public AbundanceWriter() {
+    public CsvTimeSeriesWriter() {
         {
             try {
                 csvWriter = new FileWriter("iris_abundance.csv");
