@@ -32,14 +32,32 @@ public class Parameters {
     public static final float LARVAE_TO_NYMPHS = 0.02f;
     public static final float NYMPHS_TO_ADULTS = 0.02f;
 
-    public static int INITIAL_NEW_ACTIVE_LARVAE = 0;
-    public static int INITIAL_NEW_ACTIVE_NYMPHS = 0;
-    public static int INITIAL_NEW_ACTIVE_ADULTS = 0;
-    public static int INITIAL_NEW_INACTIVE_LARVAE = 0;
-    public static int INITIAL_NEW_INACTIVE_NYMPHS = 0;
-    public static int INITIAL_NEW_INACTIVE_ADULTS = 0;
+    public static final int INITIAL_NEXT_STAGE_LARVAE = 0;
+    public static final int INITIAL_NEXT_STAGE_NYMPHS = 0;
+    public static final int INITIAL_NEXT_STAGE_ADULTS = 0;
+
+    public static final int INITIAL_DESICCATED_LARVAE = 0;
+    public static final int INITIAL_DESICCATED_NYMPHS = 0;
+    public static final int INITIAL_DESICCATED_ADULTS = 0;
+
+    public static final int INITIAL_FROZEN_LARVAE = 0;
+    public static final int INITIAL_FROZEN_NYMPHS = 0;
+    public static final int INITIAL_FROZEN_ADULTS = 0;
+
+    public static final int INITIAL_DEAD_ADULTS = 0;
+
+    public static final int INITIAL_NEW_ACTIVE_LARVAE = 0;
+    public static final int INITIAL_NEW_ACTIVE_NYMPHS = 0;
+    public static final int INITIAL_NEW_ACTIVE_ADULTS = 0;
+
+    public static final int INITIAL_NEW_INACTIVE_LARVAE = 0;
+    public static final int INITIAL_NEW_INACTIVE_NYMPHS = 0;
+    public static final int INITIAL_NEW_INACTIVE_ADULTS = 0;
 
     public static final float ACTIVATION_RATE = 0.05f;
+
+    public static final int BEGIN_OF_DEVELOPMENT = 195;
+    public static final int END_OF_DEVELOPMENT = 255;
 
     public static final Map<Habitat.Type, Float> BIRTH_RATE = Map.of(
             Habitat.Type.PASTURE, 0.8f,

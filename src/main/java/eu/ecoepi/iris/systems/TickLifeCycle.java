@@ -33,28 +33,29 @@ public class TickLifeCycle extends IteratingSystem {
         var humidity = humidityMapper.get(entityId);
         var precipitation = precipitationMapper.get(entityId);
 
-        // Birth processes
-        var newLarvae = 0;
-        var newNymphs = 0;
-        var newAdults = 0;
+        var nextStageLarvae = Parameters.INITIAL_NEXT_STAGE_LARVAE;
+        var nextStageNymphs = Parameters.INITIAL_NEXT_STAGE_NYMPHS;
+        var nextStageAdults = Parameters.INITIAL_NEXT_STAGE_ADULTS;
 
-        // Development to the next life cycle stage only in Summer (insert reference here):
-        if (timestep.getCurrent() > 195 && timestep.getCurrent() < 255) {
-            newLarvae = randomness.roundRandom(abundance.getFedAdults() * Parameters.ADULTS_TO_LARVAE);
-            newNymphs = randomness.roundRandom(abundance.getFedLarvae() * Parameters.LARVAE_TO_NYMPHS);
-            newAdults = randomness.roundRandom(abundance.getFedNymphs() * Parameters.NYMPHS_TO_ADULTS);
+        var desiccatedLarvae = Parameters.INITIAL_DESICCATED_LARVAE;
+        var desiccatedNymphs = Parameters.INITIAL_DESICCATED_NYMPHS;
+        var desiccatedAdults = Parameters.INITIAL_DESICCATED_ADULTS;
+
+        var frozenLarvae = Parameters.INITIAL_FROZEN_LARVAE;
+        var frozenNymphs = Parameters.INITIAL_FROZEN_NYMPHS;
+        var frozenAdults = Parameters.INITIAL_FROZEN_ADULTS;
+
+        var deadAdults = Parameters.INITIAL_DEAD_ADULTS;
+
+        if (timestep.getCurrent() >= Parameters.BEGIN_OF_DEVELOPMENT && timestep.getCurrent() <= Parameters.END_OF_DEVELOPMENT) {
+            nextStageLarvae = randomness.roundRandom(abundance.getFedAdults() * Parameters.ADULTS_TO_LARVAE);
+            nextStageNymphs = randomness.roundRandom(abundance.getFedLarvae() * Parameters.LARVAE_TO_NYMPHS);
+            nextStageAdults = randomness.roundRandom(abundance.getFedNymphs() * Parameters.NYMPHS_TO_ADULTS);
         }
 
-        // Natural death of adults
-        var deadAdults = randomness.roundRandom(abundance.getAdults() * Parameters.NATURAL_DEATH_RATE);
-
-        // Death by desiccation:
-        var desiccatedLarvae = 0;
-        var desiccatedNymphs = 0;
-        var desiccatedAdults = 0;
+        deadAdults = randomness.roundRandom(abundance.getAdults() * Parameters.NATURAL_DEATH_RATE);
 
         var isDesiccated = false;
-
         if (humidity.getRelativeHumidity() < 70 && temperature.getMeanTemperature() > 15) { // Ostfeld and Brunner 2015
             isDesiccated = true;
         }
@@ -65,15 +66,9 @@ public class TickLifeCycle extends IteratingSystem {
             desiccatedAdults = randomness.roundRandom(abundance.getAdults() * Parameters.DESICCATION_RATE.get(habitat.getType()));
         }
 
-        // Death by freezing:
-        var frozenLarvae = 0;
-        var frozenNymphs = 0;
-        var frozenAdults = 0;
-
         var isFrozen = false;
-
-        if (temperature.getMinTemperature() < -18.9 ||                                       // Gray et al. 2009
-           (temperature.getMinTemperature() < -15.0 && precipitation.getSnowHeight() < 1)    // Ostfeld and Brunner 2015, Jore et al. 2014
+        if (temperature.getMinTemperature() < -18.9 ||                                            // Gray et al. 2009
+                (temperature.getMinTemperature() < -15.0 && precipitation.getSnowHeight() < 1)    // Ostfeld and Brunner 2015, Jore et al. 2014
         ) {
             isFrozen = true;
         }
@@ -84,13 +79,13 @@ public class TickLifeCycle extends IteratingSystem {
             frozenAdults = randomness.roundRandom(abundance.getAdults() * Parameters.FREEZING_RATE.get(LifeCycleStage.ADULT));
         }
 
-        abundance.addLarvae(newLarvae - desiccatedLarvae - frozenLarvae);
-        abundance.addFedLarvae(-newLarvae);
+        abundance.addLarvae(nextStageLarvae - desiccatedLarvae - frozenLarvae);
+        abundance.addFedLarvae(-nextStageLarvae);
 
-        abundance.addNymphs(newNymphs - desiccatedNymphs - frozenNymphs);
-        abundance.addFedNymphs(-newNymphs);
+        abundance.addNymphs(nextStageNymphs - desiccatedNymphs - frozenNymphs);
+        abundance.addFedNymphs(-nextStageNymphs);
 
-        abundance.addAdults(-deadAdults + newAdults - desiccatedAdults - frozenAdults);
-        abundance.addFedAdults(-newAdults);
+        abundance.addAdults(-deadAdults + nextStageAdults - desiccatedAdults - frozenAdults);
+        abundance.addFedAdults(-nextStageAdults);
     }
 }
