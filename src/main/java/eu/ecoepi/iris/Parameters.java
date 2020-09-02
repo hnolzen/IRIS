@@ -15,9 +15,11 @@ public class Parameters {
     public static final int INITIAL_LARVAE = 0;
     public static final int INITIAL_NYMPHS = 0;
     public static final int INITIAL_ADULTS = 0;
+
     public static final int INITIAL_INACTIVE_LARVAE = 150;
     public static final int INITIAL_INACTIVE_NYMPHS = 150;
     public static final int INITIAL_INACTIVE_ADULTS = 150;
+
     public static final int INITIAL_FED_LARVAE = 0;
     public static final int INITIAL_FED_NYMPHS = 0;
     public static final int INITIAL_FED_ADULTS = 0;
@@ -30,7 +32,14 @@ public class Parameters {
     public static final float LARVAE_TO_NYMPHS = 0.02f;
     public static final float NYMPHS_TO_ADULTS = 0.02f;
 
-    public static final float ACTIVITY_RATE = 0.05f;
+    public static int NEW_ACTIVE_LARVAE = 0;
+    public static int NEW_ACTIVE_NYMPHS = 0;
+    public static int NEW_ACTIVE_ADULTS = 0;
+    public static int NEW_INACTIVE_LARVAE = 0;
+    public static int NEW_INACTIVE_NYMPHS = 0;
+    public static int NEW_INACTIVE_ADULTS = 0;
+
+    public static final float ACTIVATION_RATE = 0.05f;
 
     public static final Map<Habitat.Type, Float> BIRTH_RATE = Map.of(
             Habitat.Type.PASTURE, 0.8f,
@@ -41,9 +50,9 @@ public class Parameters {
     public static final float NATURAL_DEATH_RATE = 0.1f;
 
     public static final Map<Habitat.Type, Float> DESICCATION_RATE = Map.of(
-            Habitat.Type.PASTURE, 0.20f,
-            Habitat.Type.ECOTONE, 0.10f,
-            Habitat.Type.WOOD, 0.05f
+            Habitat.Type.PASTURE, 0.10f,
+            Habitat.Type.ECOTONE, 0.05f,
+            Habitat.Type.WOOD, 0.02f
     );
 
     public static final Map<LifeCycleStage, Float> FREEZING_RATE = Map.of(
