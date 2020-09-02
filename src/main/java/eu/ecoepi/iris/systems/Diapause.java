@@ -26,6 +26,13 @@ public class Diapause extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
+        var newActiveLarvae = Parameters.INITIAL_NEW_ACTIVE_LARVAE;
+        var newActiveNymphs = Parameters.INITIAL_NEW_ACTIVE_NYMPHS;
+        var newActiveAdults = Parameters.INITIAL_NEW_ACTIVE_ADULTS;
+        var newInactiveLarvae = Parameters.INITIAL_NEW_INACTIVE_LARVAE;
+        var newInactiveNymphs = Parameters.INITIAL_NEW_INACTIVE_NYMPHS;
+        var newInactiveAdults = Parameters.INITIAL_NEW_INACTIVE_ADULTS;
+
         var shareOfActivatedTicks = 0.0f;
                                                                 // Necessary conditions for tick activity:
         if (temperature.getMaxTemperature() < 35 &&             // Gray et al. 2016, McLeod 1935
@@ -45,18 +52,18 @@ public class Diapause extends IteratingSystem {
             }
         }
 
-        Parameters.NEW_ACTIVE_LARVAE = randomness.roundRandom(abundance.getInactiveLarvae() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        Parameters.NEW_ACTIVE_NYMPHS = randomness.roundRandom(abundance.getInactiveNymphs() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        Parameters.NEW_ACTIVE_ADULTS = randomness.roundRandom(abundance.getInactiveAdults() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        Parameters.NEW_INACTIVE_LARVAE = randomness.roundRandom(abundance.getLarvae() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
-        Parameters.NEW_INACTIVE_NYMPHS = randomness.roundRandom(abundance.getNymphs() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
-        Parameters.NEW_INACTIVE_ADULTS = randomness.roundRandom(abundance.getAdults() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
+        newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
+        newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
+        newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
+        newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
+        newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
+        newInactiveAdults = randomness.roundRandom(abundance.getAdults() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
 
-        abundance.addLarvae(Parameters.NEW_ACTIVE_LARVAE - Parameters.NEW_INACTIVE_LARVAE);
-        abundance.addNymphs(Parameters.NEW_ACTIVE_NYMPHS - Parameters.NEW_INACTIVE_NYMPHS);
-        abundance.addAdults(Parameters.NEW_ACTIVE_ADULTS - Parameters.NEW_INACTIVE_ADULTS);
-        abundance.addInactiveLarvae(Parameters.NEW_INACTIVE_LARVAE - Parameters.NEW_ACTIVE_LARVAE);
-        abundance.addInactiveNymphs(Parameters.NEW_INACTIVE_NYMPHS - Parameters.NEW_ACTIVE_NYMPHS);
-        abundance.addInactiveAdults(Parameters.NEW_INACTIVE_ADULTS - Parameters.NEW_ACTIVE_ADULTS);
+        abundance.addLarvae(newActiveLarvae - newInactiveLarvae);
+        abundance.addNymphs(newActiveNymphs - newInactiveNymphs);
+        abundance.addAdults(newActiveAdults - newInactiveAdults);
+        abundance.addInactiveLarvae(newInactiveLarvae - newActiveLarvae);
+        abundance.addInactiveNymphs(newInactiveNymphs - newActiveNymphs);
+        abundance.addInactiveAdults(newInactiveAdults - newActiveAdults);
     }
 }
