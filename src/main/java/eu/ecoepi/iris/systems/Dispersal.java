@@ -10,6 +10,11 @@ import eu.ecoepi.iris.Randomness;
 import eu.ecoepi.iris.SpatialIndex;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
+import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @All({TickAbundance.class, Position.class})
 public class Dispersal extends IteratingSystem {
@@ -28,163 +33,51 @@ public class Dispersal extends IteratingSystem {
         var abundance = abundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
 
-        // Larvae dispersal
-        var foundLarvaeDispersalNeighbour = false;
-        while (!foundLarvaeDispersalNeighbour) {
-            var randomXDirection = 0;
-            var randX = randomness.random();
-            if (randX < 0.5) {
-                randomXDirection = 1;
-            } else if (randX < 0.75){
-                randomXDirection = 2;
-            } else {
-                randomXDirection = 3;
-            }
+        final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
-            var randomYDirection = 0;
-            var randY = randomness.random();
-            if (randY < 0.5) {
-                randomYDirection = 1;
-            } else if (randY < 0.75){
-                randomYDirection = 2;
-            } else {
-                randomYDirection = 3;
-            }
+        distanceProbabilities.add(new Pair<>(1, 0.25));
+        distanceProbabilities.add(new Pair<>(2, 0.25));
+        distanceProbabilities.add(new Pair<>(3, 0.20));
+        distanceProbabilities.add(new Pair<>(4, 0.15));
+        distanceProbabilities.add(new Pair<>(5, 0.05));
+        distanceProbabilities.add(new Pair<>(6, 0.04));
+        distanceProbabilities.add(new Pair<>(7, 0.03));
+        distanceProbabilities.add(new Pair<>(8, 0.02));
+        distanceProbabilities.add(new Pair<>(9, 0.01));
 
+        final EnumeratedDistribution<Integer> distribution = new EnumeratedDistribution<>(distanceProbabilities);
+
+        while (true) {
+            var x = distribution.sample();
+            var y = distribution.sample();
             if (randomness.random() < 0.5) {
-                randomXDirection = - randomXDirection;
+                x = -x;
             }
-
             if (randomness.random() < 0.5) {
-                randomYDirection = - randomYDirection;
+                y = -y;
             }
 
-            var neighbourToRandom = index.lookUp(position.moveBy(randomXDirection, randomYDirection));
+            var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             if (neighbourToRandom.isPresent()) {
-                foundLarvaeDispersalNeighbour = true;
                 var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                processPair(abundance, abundanceToRandom, LifeCycleStage.LARVAE);
-            }
-        }
-
-        // Nymph dispersal
-        var foundNymphDispersalNeighbour = false;
-        while (!foundNymphDispersalNeighbour) {
-            var randomXDirection = 0;
-            var randX = randomness.random();
-            if (randX < 0.5) {
-                randomXDirection = 1;
-            } else if (randX < 0.75) {
-                randomXDirection = 2;
-            } else if (randX < 0.90) {
-                randomXDirection = 3;
-            } else if (randX < 0.95) {
-                randomXDirection = 4;
-            } else {
-                randomXDirection = 5;
-            }
-
-            var randomYDirection = 0;
-            var randY = randomness.random();
-            if (randY < 0.5) {
-                randomYDirection = 1;
-            } else if (randY < 0.75) {
-                randomYDirection = 2;
-            } else if (randY < 0.90) {
-                randomYDirection = 3;
-            } else if (randY < 0.95) {
-                randomYDirection = 4;
-            } else {
-                randomYDirection = 5;
-            }
-
-            if (randomness.random() < 0.5) {
-                randomXDirection = - randomXDirection;
-            }
-
-            if (randomness.random() < 0.5) {
-                randomYDirection = - randomYDirection;
-            }
-
-            var neighbourToRandom = index.lookUp(position.moveBy(randomXDirection, randomYDirection));
-            if (neighbourToRandom.isPresent()) {
-                foundNymphDispersalNeighbour = true;
-                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                processPair(abundance, abundanceToRandom, LifeCycleStage.NYMPH);
-            }
-        }
-
-        // Adult dispersal
-        var foundAdultDispersalNeighbour = false;
-        while (!foundAdultDispersalNeighbour) {
-            var randomXDirection = 0;
-            var randX = randomness.random();
-            if (randX < 0.5) {
-                randomXDirection = 1;
-            } else if (randX < 0.75) {
-                randomXDirection = 2;
-            } else if (randX < 0.90) {
-                randomXDirection = 3;
-            } else if (randX < 0.95) {
-                randomXDirection = 4;
-            } else {
-                randomXDirection = 5;
-            }
-
-            var randomYDirection = 0;
-            var randY = randomness.random();
-            if (randY < 0.5) {
-                randomYDirection = 1;
-            } else if (randY < 0.60) {
-                randomYDirection = 2;
-            } else if (randY < 0.75) {
-                randomYDirection = 3;
-            } else if (randY < 0.90) {
-                randomYDirection = 4;
-            } else {
-                randomYDirection = 5;
-            }
-
-            if (randomness.random() < 0.5) {
-                randomXDirection = - randomXDirection;
-            }
-
-            if (randomness.random() < 0.5) {
-                randomYDirection = - randomYDirection;
-            }
-
-            var neighbourToRandom = index.lookUp(position.moveBy(randomXDirection, randomYDirection));
-            if (neighbourToRandom.isPresent()) {
-                foundAdultDispersalNeighbour = true;
-                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                processPair(abundance, abundanceToRandom, LifeCycleStage.ADULT);
+                processPair(abundance, abundanceToRandom);
+                break;
             }
         }
     }
 
-    void processPair(TickAbundance abundance, TickAbundance neighbour, LifeCycleStage stage) {
-//        Parameters.DISPERSAL_RATE.forEach((stage, rate) -> {
-//            var moving = (int) (abundance.getStage(stage) * rate);
-//            abundance.addStage(stage, -moving);
-//            neighbour.addStage(stage, moving);
-//        });
+    void processPair(TickAbundance abundance, TickAbundance neighbour) {
+        var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
+        var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
+        var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
 
-        var moving = Math.round(abundance.getStage(stage) * Parameters.DISPERSAL_RATE.get(stage));
+        abundance.addLarvae(-movingLarvae);
+        neighbour.addFedLarvae(movingLarvae);
 
-        switch (stage) {
-            case LARVAE:
-                abundance.addLarvae(-moving);
-                neighbour.addFedLarvae(moving);
-                break;
-            case NYMPH:
-                abundance.addNymphs(-moving);
-                neighbour.addFedNymphs(moving);
-                break;
-            case ADULT:
-                abundance.addAdults(-moving);
-                neighbour.addFedAdults(moving);
-                break;
-        }
+        abundance.addNymphs(-movingNymphs);
+        neighbour.addFedNymphs(movingNymphs);
 
+        abundance.addAdults(-movingAdults);
+        neighbour.addFedAdults(movingAdults);
     }
 }
