@@ -10,7 +10,7 @@ import java.util.Objects;
 public class TickAbundance extends Component {
 
     final Map<LifeCycleStage, Integer> abundance = new HashMap<>();
-    final Map<LifeCycleStage, Integer> infectedTicks = new HashMap<>();
+    final Map<LifeCycleStage, Integer> infected = new HashMap<>();
 
     public TickAbundance() {
     }
@@ -28,9 +28,9 @@ public class TickAbundance extends Component {
         abundance.put(LifeCycleStage.LARVAE_FED, fedLarvae);
         abundance.put(LifeCycleStage.NYMPH_FED, fedNymphs);
         abundance.put(LifeCycleStage.ADULT_FED, fedAdults);
-        infectedTicks.put(LifeCycleStage.LARVAE, infectedLarvae);
-        infectedTicks.put(LifeCycleStage.NYMPH, infectedNymphs);
-        infectedTicks.put(LifeCycleStage.ADULT, infectedAdults);
+        infected.put(LifeCycleStage.LARVAE, infectedLarvae);
+        infected.put(LifeCycleStage.NYMPH, infectedNymphs);
+        infected.put(LifeCycleStage.ADULT, infectedAdults);
     }
 
     @Override
@@ -39,12 +39,12 @@ public class TickAbundance extends Component {
         if (o == null || getClass() != o.getClass()) return false;
         TickAbundance that = (TickAbundance) o;
         return Objects.equals(abundance, that.abundance) &&
-                Objects.equals(infectedTicks, that.infectedTicks);
+                Objects.equals(infected, that.infected);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(abundance, infectedTicks);
+        return Objects.hash(abundance, infected);
     }
 
     public int getStage(LifeCycleStage stage) {
@@ -88,15 +88,15 @@ public class TickAbundance extends Component {
     }
 
     public int getInfectedLarvae() {
-        return infectedTicks.get(LifeCycleStage.LARVAE);
+        return infected.get(LifeCycleStage.LARVAE);
     }
 
     public int getInfectedNymphs() {
-        return infectedTicks.get(LifeCycleStage.NYMPH);
+        return infected.get(LifeCycleStage.NYMPH);
     }
 
     public int getInfectedAdults() {
-        return infectedTicks.get(LifeCycleStage.ADULT);
+        return infected.get(LifeCycleStage.ADULT);
     }
 
     public void addStage(LifeCycleStage stage, int num) {
@@ -140,14 +140,14 @@ public class TickAbundance extends Component {
     }
 
     public void addInfectedLarvae(int larvae) {
-        infectedTicks.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
+        infected.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
     }
 
     public void addInfectedNymphs(int nymphs) {
-        infectedTicks.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
+        infected.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
     }
 
     public void addInfectedAdults(int adults) {
-        infectedTicks.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
+        infected.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
     }
 }
