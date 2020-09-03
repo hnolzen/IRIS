@@ -1,4 +1,4 @@
-package eu.ecoepi.iris.systems;
+package eu.ecoepi.iris.observers;
 
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
@@ -11,7 +11,7 @@ import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
 
 @All({TickAbundance.class, Position.class})
-public class PrintAbundance extends IteratingSystem {
+public class ConsoleTimeSeriesWriter extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Position> positionMapper;
