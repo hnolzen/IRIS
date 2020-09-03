@@ -22,17 +22,15 @@ public class Dispersal extends IteratingSystem {
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Position> positionMapper;
 
+    final EnumeratedDistribution<Integer> distribution;
+
     @Wire
     SpatialIndex index;
 
     @Wire
     Randomness randomness;
 
-    @Override
-    protected void process(int entityId) {
-        var abundance = abundanceMapper.get(entityId);
-        var position = positionMapper.get(entityId);
-
+    public Dispersal() {
         final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
         distanceProbabilities.add(new Pair<>(1, 0.25));
@@ -45,39 +43,60 @@ public class Dispersal extends IteratingSystem {
         distanceProbabilities.add(new Pair<>(8, 0.02));
         distanceProbabilities.add(new Pair<>(9, 0.01));
 
-        final EnumeratedDistribution<Integer> distribution = new EnumeratedDistribution<>(distanceProbabilities);
+        for (int i = 0, n = distanceProbabilities.size(); i < n; ++i) {
+            var distance = distanceProbabilities.get(i);
+            distanceProbabilities.add(new Pair<>(-distance.getFirst(), distance.getSecond()));
+        }
+
+        distribution = new EnumeratedDistribution<>(distanceProbabilities);
+    }
+
+    @Override
+    protected void process(int entityId) {
+        var abundance = abundanceMapper.get(entityId);
+        var position = positionMapper.get(entityId);
 
         while (true) {
             var x = distribution.sample();
             var y = distribution.sample();
-            if (randomness.random() < 0.5) {
-                x = -x;
-            }
-            if (randomness.random() < 0.5) {
-                y = -y;
-            }
 
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             if (neighbourToRandom.isPresent()) {
                 var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                processPair(abundance, abundanceToRandom);
+                var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
+                abundance.addLarvae(-movingLarvae);
+                abundanceToRandom.addFedLarvae(movingLarvae);
+                break;
+            }
+        }
+
+        while (true) {
+            var x = distribution.sample();
+            var y = distribution.sample();
+
+            var neighbourToRandom = index.lookUp(position.moveBy(x, y));
+            if (neighbourToRandom.isPresent()) {
+                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
+                var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
+                abundance.addNymphs(-movingNymphs);
+                abundanceToRandom.addFedNymphs(movingNymphs);
+                break;
+            }
+        }
+
+        while (true) {
+            var x = distribution.sample();
+            var y = distribution.sample();
+
+            var neighbourToRandom = index.lookUp(position.moveBy(x, y));
+            if (neighbourToRandom.isPresent()) {
+                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
+                var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
+                abundance.addAdults(-movingAdults);
+                abundanceToRandom.addFedAdults(movingAdults);
                 break;
             }
         }
     }
 
-    void processPair(TickAbundance abundance, TickAbundance neighbour) {
-        var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
-        var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
-        var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
-
-        abundance.addLarvae(-movingLarvae);
-        neighbour.addFedLarvae(movingLarvae);
-
-        abundance.addNymphs(-movingNymphs);
-        neighbour.addFedNymphs(movingNymphs);
-
-        abundance.addAdults(-movingAdults);
-        neighbour.addFedAdults(movingAdults);
-    }
 }
