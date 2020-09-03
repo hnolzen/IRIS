@@ -7,12 +7,8 @@ import com.artemis.systems.IteratingSystem;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import eu.ecoepi.iris.Randomness;
-import eu.ecoepi.iris.components.Humidity;
-import eu.ecoepi.iris.components.Precipitation;
-import eu.ecoepi.iris.components.Temperature;
+import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.TimeStep;
-import eu.ecoepi.iris.components.Habitat;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,10 +18,10 @@ import java.util.List;
 @All({Habitat.class})
 public class Weather extends IteratingSystem {
 
-    ComponentMapper<Habitat> habitatMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
     ComponentMapper<Precipitation> precipitationMapper;
+    ComponentMapper<Sunshine> sunshineMapper;
 
     final List<Float> meanTempTimeSeries = new ArrayList<>();
     final List<Float> minTempTimeSeries = new ArrayList<>();
@@ -34,12 +30,10 @@ public class Weather extends IteratingSystem {
     final List<Integer> precipitationTypeTimeSeries = new ArrayList<>();
     final List<Float> precipitationHeightTimeSeries = new ArrayList<>();
     final List<Float> snowHeightTimeSeries = new ArrayList<>();
+    final List<Float> sunshineHoursTimeSeries = new ArrayList<>();
 
     @Wire
     TimeStep timestep;
-
-    @Wire
-    Randomness randomness;
 
     public Weather() throws IOException, CsvException {
         CSVReader reader = new CSVReaderBuilder(new FileReader("weatherData.csv"))
@@ -55,15 +49,16 @@ public class Weather extends IteratingSystem {
             precipitationTypeTimeSeries.add(Integer.parseInt(nextLine[4]));
             precipitationHeightTimeSeries.add(Float.parseFloat(nextLine[5]));
             snowHeightTimeSeries.add(Float.parseFloat(nextLine[6]));
+            sunshineHoursTimeSeries.add(Float.parseFloat(nextLine[7]));
         }
     }
 
     @Override
     protected void process(int entityId) {
-        var habitat = habitatMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
         var precipitation = precipitationMapper.get(entityId);
+        var sunshine = sunshineMapper.get(entityId);
 
         temperature.setMeanTemperature(meanTempTimeSeries.get(timestep.getCurrent()));
         temperature.setMinTemperature(minTempTimeSeries.get(timestep.getCurrent()));
@@ -72,6 +67,7 @@ public class Weather extends IteratingSystem {
         precipitation.setPrecipitationType(precipitationTypeTimeSeries.get(timestep.getCurrent()));
         precipitation.setPrecipitationHeight(precipitationHeightTimeSeries.get(timestep.getCurrent()));
         precipitation.setSnowHeight(snowHeightTimeSeries.get(timestep.getCurrent()));
+        sunshine.setSunshineHours(sunshineHoursTimeSeries.get(timestep.getCurrent()));
 
     }
 }

@@ -79,6 +79,9 @@ public class App {
 
                 var precipitation = new Precipitation();
                 editor.add(precipitation);
+
+                var sunshine = new Sunshine();
+                editor.add(sunshine);
             }
         }
 
