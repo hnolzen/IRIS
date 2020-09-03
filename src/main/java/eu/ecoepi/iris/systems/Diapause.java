@@ -33,7 +33,7 @@ public class Diapause extends IteratingSystem {
         var newInactiveNymphs = Parameters.INITIAL_NEW_INACTIVE_NYMPHS;
         var newInactiveAdults = Parameters.INITIAL_NEW_INACTIVE_ADULTS;
 
-        var shareOfActivatedTicks = 0.0f;
+        var shareOfActivationRate = 0.0f;
                                                                 // Necessary conditions for tick activity:
         if (temperature.getMaxTemperature() < 35 &&             // Gray et al. 2016, McLeod 1935
                 temperature.getMaxTemperature() > 1.9 &&        // Perret et al. 2000
@@ -46,18 +46,18 @@ public class Diapause extends IteratingSystem {
                     temperature.getMeanTemperature() > 6 &&     // Gilbert et al. 2014
                     temperature.getMeanTemperature() < 20       // Kubiak and Dziekońska−Rynko 2006
             ) {
-                shareOfActivatedTicks = 1.0f;
+                shareOfActivationRate = 1.0f;
             } else {
-                shareOfActivatedTicks = 0.05f;                  // In suboptimal conditions, only few ticks become active
+                shareOfActivationRate = 0.05f;                  // In suboptimal conditions, only few ticks become active
             }
         }
 
-        newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * Parameters.ACTIVATION_RATE * shareOfActivatedTicks);
-        newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
-        newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
-        newInactiveAdults = randomness.roundRandom(abundance.getAdults() * Parameters.ACTIVATION_RATE * (1 - shareOfActivatedTicks));
+        newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
+        newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
+        newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
+        newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
+        newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
+        newInactiveAdults = randomness.roundRandom(abundance.getAdults() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
 
         abundance.addLarvae(newActiveLarvae - newInactiveLarvae);
         abundance.addNymphs(newActiveNymphs - newInactiveNymphs);
