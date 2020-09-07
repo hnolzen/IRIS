@@ -33,15 +33,9 @@ public class Dispersal extends IteratingSystem {
     public Dispersal() {
         final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
-        distanceProbabilities.add(new Pair<>(1, 0.25));
-        distanceProbabilities.add(new Pair<>(2, 0.25));
-        distanceProbabilities.add(new Pair<>(3, 0.20));
-        distanceProbabilities.add(new Pair<>(4, 0.15));
-        distanceProbabilities.add(new Pair<>(5, 0.05));
-        distanceProbabilities.add(new Pair<>(6, 0.04));
-        distanceProbabilities.add(new Pair<>(7, 0.03));
-        distanceProbabilities.add(new Pair<>(8, 0.02));
-        distanceProbabilities.add(new Pair<>(9, 0.01));
+        for (int i = 0, n = Parameters.DISTANCE_PROB.length; i < n; ++i) {
+            distanceProbabilities.add(new Pair<>(i + 1, Parameters.DISTANCE_PROB[i]));
+        }
 
         for (int i = 0, n = distanceProbabilities.size(); i < n; ++i) {
             var distance = distanceProbabilities.get(i);

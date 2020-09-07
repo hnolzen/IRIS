@@ -33,22 +33,22 @@ public class Diapause extends IteratingSystem {
         var newInactiveNymphs = Parameters.INITIAL_NEW_INACTIVE_NYMPHS;
         var newInactiveAdults = Parameters.INITIAL_NEW_INACTIVE_ADULTS;
 
-        var shareOfActivationRate = 0.0f;
-                                                                // Necessary conditions for tick activity:
-        if (temperature.getMaxTemperature() < 35 &&             // Gray et al. 2016, McLeod 1935
-                temperature.getMaxTemperature() > 1.9 &&        // Perret et al. 2000
-                temperature.getMeanTemperature() > 1.2 &&       // Perret et al. 2000, Schulz et al. 2014
-                humidity.getRelativeHumidity() > 45             // Greenfield 2011
+        var shareOfActivationRate = Parameters.INITIAL_SHARE_OF_ACTIVATION_RATE;
+
+        if (temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP &&
+                temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP &&
+                temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP &&
+                humidity.getRelativeHumidity() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY
         ) {
-                                                                // Optimal conditions for tick activity:
-            if (temperature.getMaxTemperature() > 10.5 &&       // Perret et al. 2000
-                    temperature.getMaxTemperature() < 26 &&     // Greenfield 2011, Schulz et al. 2014 (25.9)
-                    temperature.getMeanTemperature() > 6 &&     // Gilbert et al. 2014
-                    temperature.getMeanTemperature() < 20       // Kubiak and Dziekońska−Rynko 2006
+
+            if (temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP &&
+                    temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP &&
+                    temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP &&
+                    temperature.getMeanTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP
             ) {
-                shareOfActivationRate = 1.0f;
+                shareOfActivationRate = Parameters.OPTIMAL_SHARE_OF_ACTIVATION_RATE;
             } else {
-                shareOfActivationRate = 0.05f;                  // In suboptimal conditions, only few ticks become active
+                shareOfActivationRate = Parameters.SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE;
             }
         }
 

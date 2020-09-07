@@ -59,6 +59,25 @@ public class Parameters {
     public static final int BEGIN_OF_DEVELOPMENT = 195;
     public static final int END_OF_DEVELOPMENT = 255;
 
+    public static final float ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP = 35f;   // Gray et al. 2016, McLeod 1935
+    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP = 1.9f;  // Perret et al. 2000
+    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP = 1.2f; // Perret et al. 2000, Schulz et al. 2014
+    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY = 45.0f; // Greenfield 2011
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP = 10.5f;   // Perret et al. 2000
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP = 26.0f;   // Greenfield 2011, Schulz et al. 2014 (25.9)
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
+
+    public static final float INITIAL_SHARE_OF_ACTIVATION_RATE = 0.0f;
+    public static final float OPTIMAL_SHARE_OF_ACTIVATION_RATE = 1.0f;
+    public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
+
+    public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
+    public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITH_SNOW = -15.0f;    // Ostfeld and Brunner 2015, Jore et al. 2014
+    public static final float DEATH_THRESHOLD_FREEZING_MINIMAL_SNOW_HEIGHT = 1.0f;     // Ostfeld and Brunner 2015, Jore et al. 2014
+    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 70.0f;    // Ostfeld and Brunner 2015
+    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
+
     public static final Map<Habitat.Type, Float> BIRTH_RATE = Map.of(
             Habitat.Type.PASTURE, 0.8f,
             Habitat.Type.ECOTONE, 0.85f,
@@ -84,4 +103,7 @@ public class Parameters {
             LifeCycleStage.NYMPH, 0.03f,
             LifeCycleStage.ADULT, 0.05f
     );
+
+    public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
+
 }

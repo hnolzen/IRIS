@@ -71,8 +71,9 @@ public class TickLifeCycle extends IteratingSystem {
         var frozenNymphs = Parameters.INITIAL_FROZEN_NYMPHS;
         var frozenAdults = Parameters.INITIAL_FROZEN_ADULTS;
         var isFrozen = false;
-        if (temperature.getMinTemperature() < -18.9 ||                                            // Gray et al. 2009
-                (temperature.getMinTemperature() < -15.0 && precipitation.getSnowHeight() < 1)    // Ostfeld and Brunner 2015, Jore et al. 2014
+        if (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW ||
+                (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITH_SNOW
+                        && precipitation.getSnowHeight() < Parameters.DEATH_THRESHOLD_FREEZING_MINIMAL_SNOW_HEIGHT)
         ) {
             isFrozen = true;
         }
@@ -94,7 +95,8 @@ public class TickLifeCycle extends IteratingSystem {
         var desiccatedAdults = Parameters.INITIAL_DESICCATED_ADULTS;
 
         var isDesiccated = false;
-        if (humidity.getRelativeHumidity() < 70 && temperature.getMeanTemperature() > 15) { // Ostfeld and Brunner 2015
+        if (humidity.getRelativeHumidity() < Parameters.DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY &&
+                temperature.getMeanTemperature() > Parameters.DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP) {
             isDesiccated = true;
         }
 
