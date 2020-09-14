@@ -78,6 +78,23 @@ public class Parameters {
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 70.0f;    // Ostfeld and Brunner 2015
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
 
+    public static final int BEGIN_SPRING = 60;
+    public static final int BEGIN_SUMMER = 150;
+    public static final int BEGIN_AUTUMN = 240;
+    public static final int BEGIN_WINTER = 330;
+
+    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SPRING_AUTUMN = Map.of(
+            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.ECOTONE, -1f,
+            Habitat.Type.WOOD, -2f
+    );
+
+    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SUMMER = Map.of(    // Bonan 2016, Geiger et al. 1995
+            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.ECOTONE, -2f,
+            Habitat.Type.WOOD, -4.0f
+    );
+
     public static final Map<Habitat.Type, Float> BIRTH_RATE = Map.of(
             Habitat.Type.PASTURE, 0.8f,
             Habitat.Type.ECOTONE, 0.85f,
