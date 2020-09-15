@@ -50,47 +50,34 @@ public class Dispersal extends IteratingSystem {
         var abundance = abundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
 
-        while (true) {
+        {
             var x = distribution.sample();
             var y = distribution.sample();
-
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            if (neighbourToRandom.isPresent()) {
-                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
-                abundance.addLarvae(-movingLarvae);
-                abundanceToRandom.addFedLarvae(movingLarvae);
-                break;
-            }
+            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
+            var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
+            abundance.addLarvae(-movingLarvae);
+            abundanceToRandom.addFedLarvae(movingLarvae);
         }
 
-        while (true) {
+        {
             var x = distribution.sample();
             var y = distribution.sample();
-
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            if (neighbourToRandom.isPresent()) {
-                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
-                abundance.addNymphs(-movingNymphs);
-                abundanceToRandom.addFedNymphs(movingNymphs);
-                break;
-            }
+            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
+            var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
+            abundance.addNymphs(-movingNymphs);
+            abundanceToRandom.addFedNymphs(movingNymphs);
         }
 
-        while (true) {
+        {
             var x = distribution.sample();
             var y = distribution.sample();
-
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            if (neighbourToRandom.isPresent()) {
-                var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-                var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
-                abundance.addAdults(-movingAdults);
-                abundanceToRandom.addFedAdults(movingAdults);
-                break;
-            }
+            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
+            var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
+            abundance.addAdults(-movingAdults);
+            abundanceToRandom.addFedAdults(movingAdults);
         }
     }
-
 }

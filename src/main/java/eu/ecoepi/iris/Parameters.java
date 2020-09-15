@@ -9,8 +9,6 @@ public class Parameters {
     public static final int TIME_STEPS = 365;
     public static final int GRID_WIDTH = 12;
     public static final int GRID_HEIGHT = 12;
-    public static final int BOUNDARY_ECOTONE = 4;
-    public static final int BOUNDARY_PASTURE = 8;
 
     public static final int INITIAL_LARVAE = 0;
     public static final int INITIAL_NYMPHS = 0;
@@ -78,6 +76,23 @@ public class Parameters {
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 70.0f;    // Ostfeld and Brunner 2015
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
 
+    public static final int BEGIN_SPRING = 60;
+    public static final int BEGIN_SUMMER = 150;
+    public static final int BEGIN_AUTUMN = 240;
+    public static final int BEGIN_WINTER = 330;
+
+    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SPRING_AUTUMN = Map.of(
+            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.ECOTONE, -1f,
+            Habitat.Type.WOOD, -2f
+    );
+
+    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SUMMER = Map.of(    // Bonan 2016, Geiger et al. 1995
+            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.ECOTONE, -2f,
+            Habitat.Type.WOOD, -4.0f
+    );
+
     public static final Map<Habitat.Type, Float> BIRTH_RATE = Map.of(
             Habitat.Type.PASTURE, 0.8f,
             Habitat.Type.ECOTONE, 0.85f,
@@ -99,9 +114,9 @@ public class Parameters {
     );
 
     public static final Map<LifeCycleStage, Float> DISPERSAL_RATE = Map.of(
-            LifeCycleStage.LARVAE, 0.01f,
-            LifeCycleStage.NYMPH, 0.03f,
-            LifeCycleStage.ADULT, 0.05f
+            LifeCycleStage.LARVAE, 0.005f,
+            LifeCycleStage.NYMPH, 0.008f,
+            LifeCycleStage.ADULT, 0.01f
     );
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};

@@ -1,6 +1,7 @@
 package eu.ecoepi.iris.components;
 
 import com.artemis.Component;
+import eu.ecoepi.iris.Parameters;
 
 import java.util.Objects;
 
@@ -26,7 +27,15 @@ public class Position extends Component {
     }
 
     public Position moveBy(int dx, int dy) {
-        return new Position(this.x + dx, this.y + dy);
+        var x = (this.x + dx) % Parameters.GRID_WIDTH;
+        var y = (this.y + dy) % Parameters.GRID_HEIGHT;
+        if (x < 0) {
+            x += Parameters.GRID_WIDTH;
+        }
+        if (y < 0) {
+            y += Parameters.GRID_HEIGHT;
+        }
+        return new Position(x, y);
     }
 
     @Override

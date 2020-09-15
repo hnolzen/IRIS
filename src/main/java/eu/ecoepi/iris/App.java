@@ -37,13 +37,27 @@ public class App {
         for (int x = 0; x < Parameters.GRID_WIDTH; ++x) {
             Habitat.Type habitatType;
 
-            if (x >= Parameters.BOUNDARY_PASTURE) {
-                habitatType = Habitat.Type.PASTURE;
-            } else if (x >= Parameters.BOUNDARY_ECOTONE) {
-                habitatType = Habitat.Type.ECOTONE;
+            if (x < Parameters.GRID_WIDTH / 2) {
+                if (x < Parameters.GRID_WIDTH / 6) {
+                    habitatType = Habitat.Type.PASTURE;
+                } else if (x < Parameters.GRID_WIDTH / 3) {
+                    habitatType = Habitat.Type.ECOTONE;
+                } else {
+                    habitatType = Habitat.Type.WOOD;
+                }
+
             } else {
-                habitatType = Habitat.Type.WOOD;
+                if (x >= Parameters.GRID_WIDTH / 6 * 5) {
+                    habitatType = Habitat.Type.PASTURE;
+                } else if (x >= Parameters.GRID_WIDTH / 3 * 2) {
+                    habitatType = Habitat.Type.ECOTONE;
+                } else {
+                    habitatType = Habitat.Type.WOOD;
+                }
             }
+
+            System.out.print(x);
+            System.out.println(habitatType);
 
             for (int y = 0; y < Parameters.GRID_HEIGHT; ++y) {
                 var entityId = world.create();

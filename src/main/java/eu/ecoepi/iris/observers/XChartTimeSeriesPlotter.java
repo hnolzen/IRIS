@@ -238,7 +238,7 @@ public class XChartTimeSeriesPlotter extends IteratingSystem {
 
         var abundance = abundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
-        heatData[position.getX()][position.getY()] = abundance.getNymphs() + abundance.getFedNymphs();
+        heatData[position.getX()][position.getY()] = abundance.getNymphs(); // + abundance.getFedNymphs();
         abundanceSumLarvae += abundance.getLarvae();
         abundanceSumNymphs += abundance.getNymphs();
         abundanceSumAdults += abundance.getAdults();

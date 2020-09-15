@@ -7,6 +7,7 @@ import com.artemis.systems.IteratingSystem;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import eu.ecoepi.iris.Parameters;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.TimeStep;
 
@@ -22,6 +23,7 @@ public class Weather extends IteratingSystem {
     ComponentMapper<Humidity> humidityMapper;
     ComponentMapper<Precipitation> precipitationMapper;
     ComponentMapper<Sunshine> sunshineMapper;
+    ComponentMapper<Habitat> habitatMapper;
 
     final List<Float> meanTempTimeSeries = new ArrayList<>();
     final List<Float> minTempTimeSeries = new ArrayList<>();
@@ -59,15 +61,36 @@ public class Weather extends IteratingSystem {
         var humidity = humidityMapper.get(entityId);
         var precipitation = precipitationMapper.get(entityId);
         var sunshine = sunshineMapper.get(entityId);
+        var habitat = habitatMapper.get(entityId);
 
-        temperature.setMeanTemperature(meanTempTimeSeries.get(timestep.getCurrent()));
-        temperature.setMinTemperature(minTempTimeSeries.get(timestep.getCurrent()));
-        temperature.setMaxTemperature(maxTempTimeSeries.get(timestep.getCurrent()));
-        humidity.setRelativeHumidity(humidityTimeSeries.get(timestep.getCurrent()));
-        precipitation.setPrecipitationType(precipitationTypeTimeSeries.get(timestep.getCurrent()));
-        precipitation.setPrecipitationHeight(precipitationHeightTimeSeries.get(timestep.getCurrent()));
-        precipitation.setSnowHeight(snowHeightTimeSeries.get(timestep.getCurrent()));
-        sunshine.setSunshineHours(sunshineHoursTimeSeries.get(timestep.getCurrent()));
+        var currentTimeStep = timestep.getCurrent();
+        var adjustedMeanTemperature = 0f;
+        var adjustedMinTemperature = 0f;
+        var adjustedMaxTemperature = 0f;
+
+        if ((currentTimeStep > Parameters.BEGIN_SPRING && currentTimeStep <= Parameters.BEGIN_SUMMER) ||
+                (currentTimeStep > Parameters.BEGIN_AUTUMN && currentTimeStep < Parameters.BEGIN_WINTER)) { // Spring or autumn
+
+            var microTempSpringAutumn = Parameters.SET_LOCAL_CLIMATE_SPRING_AUTUMN.get(habitat.getType());
+            adjustedMeanTemperature = microTempSpringAutumn;
+            adjustedMaxTemperature = microTempSpringAutumn;
+
+        } else if (currentTimeStep > Parameters.BEGIN_SUMMER && currentTimeStep <= Parameters.BEGIN_AUTUMN) { // Summer
+            var microTempSummer = Parameters.SET_LOCAL_CLIMATE_SUMMER.get(habitat.getType());
+            adjustedMeanTemperature = microTempSummer;
+            adjustedMaxTemperature = microTempSummer;
+
+        }
+
+        temperature.setMeanTemperature(meanTempTimeSeries.get(currentTimeStep) + adjustedMeanTemperature);
+        temperature.setMinTemperature(minTempTimeSeries.get(currentTimeStep) + adjustedMinTemperature);
+        temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
+
+        humidity.setRelativeHumidity(humidityTimeSeries.get(currentTimeStep));
+        precipitation.setPrecipitationType(precipitationTypeTimeSeries.get(currentTimeStep));
+        precipitation.setPrecipitationHeight(precipitationHeightTimeSeries.get(currentTimeStep));
+        precipitation.setSnowHeight(snowHeightTimeSeries.get(currentTimeStep));
+        sunshine.setSunshineHours(sunshineHoursTimeSeries.get(currentTimeStep));
 
     }
 }
