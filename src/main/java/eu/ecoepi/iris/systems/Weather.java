@@ -73,13 +73,11 @@ public class Weather extends IteratingSystem {
 
             var microTempSpringAutumn = Parameters.SET_LOCAL_CLIMATE_SPRING_AUTUMN.get(habitat.getType());
             adjustedMeanTemperature = microTempSpringAutumn;
-            adjustedMinTemperature = microTempSpringAutumn;
             adjustedMaxTemperature = microTempSpringAutumn;
 
         } else if (currentTimeStep > Parameters.BEGIN_SUMMER && currentTimeStep <= Parameters.BEGIN_AUTUMN) { // Summer
             var microTempSummer = Parameters.SET_LOCAL_CLIMATE_SUMMER.get(habitat.getType());
             adjustedMeanTemperature = microTempSummer;
-            adjustedMinTemperature = microTempSummer;
             adjustedMaxTemperature = microTempSummer;
 
         }
