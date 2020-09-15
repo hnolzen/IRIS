@@ -5,8 +5,8 @@ import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.observers.XChartTimeSeriesPlotter;
-import eu.ecoepi.iris.systems.Diapause;
-import eu.ecoepi.iris.systems.Dispersal;
+import eu.ecoepi.iris.systems.Activity;
+import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.observers.ConsoleTimeSeriesWriter;
 import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
@@ -19,11 +19,11 @@ public class App {
 
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
-                .with(new Dispersal())
+                .with(new Feeding())
                 .with(new ConsoleTimeSeriesWriter())
                 .with(new CsvTimeSeriesWriter())
                 .with(new Weather())
-                .with(new Diapause())
+                .with(new Activity())
                 .with(new XChartTimeSeriesPlotter())
                 .build()
                 .register(new SpatialIndex())

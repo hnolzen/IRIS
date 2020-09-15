@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @All({TickAbundance.class, Position.class})
-public class Dispersal extends IteratingSystem {
+public class Feeding extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Position> positionMapper;
@@ -30,7 +30,7 @@ public class Dispersal extends IteratingSystem {
     @Wire
     Randomness randomness;
 
-    public Dispersal() {
+    public Feeding() {
         final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
         for (int i = 0, n = Parameters.DISTANCE_PROB.length; i < n; ++i) {
