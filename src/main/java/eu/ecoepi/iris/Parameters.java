@@ -9,8 +9,6 @@ public class Parameters {
     public static final int TIME_STEPS = 365;
     public static final int GRID_WIDTH = 12;
     public static final int GRID_HEIGHT = 12;
-    public static final int BOUNDARY_ECOTONE = 4;
-    public static final int BOUNDARY_PASTURE = 8;
 
     public static final int INITIAL_LARVAE = 0;
     public static final int INITIAL_NYMPHS = 0;
@@ -116,9 +114,9 @@ public class Parameters {
     );
 
     public static final Map<LifeCycleStage, Float> DISPERSAL_RATE = Map.of(
-            LifeCycleStage.LARVAE, 0.01f,
-            LifeCycleStage.NYMPH, 0.03f,
-            LifeCycleStage.ADULT, 0.05f
+            LifeCycleStage.LARVAE, 0.005f,
+            LifeCycleStage.NYMPH, 0.008f,
+            LifeCycleStage.ADULT, 0.01f
     );
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
