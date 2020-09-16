@@ -55,9 +55,9 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var movingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.LARVAE));
-            abundance.addLarvae(-movingLarvae);
-            abundanceToRandom.addFedLarvae(movingLarvae);
+            var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE));
+            abundance.addLarvae(-feedingLarvae);
+            abundanceToRandom.addFedLarvae(feedingLarvae);
         }
 
         {
@@ -65,9 +65,9 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var movingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.NYMPH));
-            abundance.addNymphs(-movingNymphs);
-            abundanceToRandom.addFedNymphs(movingNymphs);
+            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH));
+            abundance.addNymphs(-feedingNymphs);
+            abundanceToRandom.addFedNymphs(feedingNymphs);
         }
 
         {
@@ -75,9 +75,9 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var movingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.DISPERSAL_RATE.get(LifeCycleStage.ADULT));
-            abundance.addAdults(-movingAdults);
-            abundanceToRandom.addFedAdults(movingAdults);
+            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT));
+            abundance.addAdults(-feedingAdults);
+            abundanceToRandom.addFedAdults(feedingAdults);
         }
     }
 }

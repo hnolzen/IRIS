@@ -107,7 +107,7 @@ public class Parameters {
             LifeCycleStage.ADULT, 0.03f
     );
 
-    public static final Map<LifeCycleStage, Float> DISPERSAL_RATE = Map.of(
+    public static final Map<LifeCycleStage, Float> FEEDING_RATE = Map.of(
             LifeCycleStage.LARVAE, 0.005f,
             LifeCycleStage.NYMPH, 0.008f,
             LifeCycleStage.ADULT, 0.01f
