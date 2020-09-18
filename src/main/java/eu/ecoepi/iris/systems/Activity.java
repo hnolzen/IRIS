@@ -11,7 +11,7 @@ import eu.ecoepi.iris.components.Temperature;
 import eu.ecoepi.iris.components.TickAbundance;
 
 @All({TickAbundance.class, Temperature.class, Humidity.class})
-public class Diapause extends IteratingSystem {
+public class Activity extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Temperature> temperatureMapper;
