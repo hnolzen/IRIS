@@ -11,6 +11,7 @@ import eu.ecoepi.iris.SpatialIndex;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.Pair;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Feeding extends IteratingSystem {
     @Wire
     Randomness randomness;
 
-    public Feeding() {
+    public Feeding(RandomGenerator rng) {
         final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
         for (int i = 0, n = Parameters.DISTANCE_PROB.length; i < n; ++i) {
@@ -42,7 +43,7 @@ public class Feeding extends IteratingSystem {
             distanceProbabilities.add(new Pair<>(-distance.getFirst(), distance.getSecond()));
         }
 
-        distribution = new EnumeratedDistribution<>(distanceProbabilities);
+        distribution = new EnumeratedDistribution<>(rng, distanceProbabilities);
     }
 
     @Override

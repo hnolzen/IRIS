@@ -4,31 +4,33 @@ import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
-import eu.ecoepi.iris.observers.XChartTimeSeriesPlotter;
 import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
-import eu.ecoepi.iris.observers.ConsoleTimeSeriesWriter;
 import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
+import org.apache.commons.math3.random.MersenneTwister;
 
 /**
  * IRIS
  */
 public class App {
     public static void main(String[] args) throws Exception {
+        var seed = 42L;
+        if (args.length > 0) {
+            seed = Long.parseLong(args[0]);
+        }
+        var rng = new MersenneTwister(seed);
 
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
-                .with(new Feeding())
-                .with(new ConsoleTimeSeriesWriter())
+                .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter())
                 .with(new Weather())
                 .with(new Activity())
-                .with(new XChartTimeSeriesPlotter())
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
-                .register(new Randomness());
+                .register(new Randomness(rng));
 
         var world = new World(config);
 
@@ -55,9 +57,6 @@ public class App {
                     habitatType = Habitat.Type.WOOD;
                 }
             }
-
-            System.out.print(x);
-            System.out.println(habitatType);
 
             for (int y = 0; y < Parameters.GRID_HEIGHT; ++y) {
                 var entityId = world.create();
@@ -100,10 +99,11 @@ public class App {
         }
 
         // Main loop
+
         for (var timeStep = world.getRegistered(TimeStep.class); timeStep.getCurrent() < Parameters.TIME_STEPS; timeStep.increment()) {
             world.process();
 
-            Thread.sleep(70);
+            //Thread.sleep(70);
 
         }
     }

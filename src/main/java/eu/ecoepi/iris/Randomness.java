@@ -1,17 +1,19 @@
 package eu.ecoepi.iris;
 
+import org.apache.commons.math3.random.RandomGenerator;
+
 import java.util.Random;
 
 public class Randomness {
 
-    final Random random = new Random(42);
+    final RandomGenerator rng;
 
-    public double random() {
-        return this.random.nextDouble();
+    public Randomness(RandomGenerator rng) {
+        this.rng = rng;
     }
 
-    public int randomInt(int range) {
-        return this.random.nextInt(range);
+    public double random() {
+        return this.rng.nextDouble();
     }
 
     /*
