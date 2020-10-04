@@ -12,6 +12,10 @@ public class TickAbundance extends Component {
     final Map<LifeCycleStage, Integer> abundance = new HashMap<>();
     final Map<LifeCycleStage, Integer> infected = new HashMap<>();
 
+    int feedingEventsLarvae = 0;
+    int feedingEventsNymphs = 0;
+    int feedingEventsAdults = 0;
+
     public TickAbundance() {
     }
 
@@ -45,6 +49,30 @@ public class TickAbundance extends Component {
     @Override
     public int hashCode() {
         return Objects.hash(abundance, infected);
+    }
+
+    public void addFeedingEventLarvae(int event){
+        feedingEventsLarvae += event;
+    }
+
+    public void addFeedingEventNymphs(int event){
+        feedingEventsNymphs += event;
+    }
+
+    public void addFeedingEventAdults(int event){
+        feedingEventsAdults += event;
+    }
+
+    public int getFeedingEventsLarvae(){
+        return feedingEventsLarvae;
+    }
+
+    public int getFeedingEventsNymphs(){
+        return feedingEventsNymphs;
+    }
+
+    public int getFeedingEventsAdults(){
+        return feedingEventsNymphs;
     }
 
     public int getStage(LifeCycleStage stage) {
