@@ -37,8 +37,8 @@ public class Weather extends IteratingSystem {
     @Wire
     TimeStep timestep;
 
-    public Weather() throws IOException, CsvException {
-        CSVReader reader = new CSVReaderBuilder(new FileReader("weatherData.csv"))
+    public Weather(String path) throws IOException, CsvException {
+        CSVReader reader = new CSVReaderBuilder(new FileReader(path))
                 .withSkipLines(1)
                 .build();
         String[] nextLine;

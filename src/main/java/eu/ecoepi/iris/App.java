@@ -2,30 +2,58 @@ package eu.ecoepi.iris;
 
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
+import org.apache.commons.cli.*;
 import org.apache.commons.math3.random.MersenneTwister;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * IRIS
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        var seed = 42L;
-        if (args.length > 0) {
-            seed = Long.parseLong(args[0]);
-        }
+
+        Options options = new Options();
+
+        options.addOption(Option.builder("s")
+                .hasArg()
+                .longOpt("seed")
+                .build());
+
+        options.addOption(Option.builder("f")
+                .hasArg()
+                .longOpt("fructification")
+                .build());
+
+        options.addOption(Option.builder("w")
+                .hasArg()
+                .longOpt("weather").required()
+                .build());
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, args);
+
+        var seed = Long.parseLong(cmd.getOptionValue("s", "42"));
+
         var rng = new MersenneTwister(seed);
+
+        var fructification = new Fructification(Integer.parseInt(cmd.getOptionValue("f", "4")));
 
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter())
-                .with(new Weather())
+                .with(new Weather(cmd.getOptionValue("w")))
                 .with(new Activity())
                 .build()
                 .register(new SpatialIndex())
@@ -67,16 +95,16 @@ public class App {
                 index.insert(position, entityId);
 
                 var abundance = new TickAbundance(
-                        Parameters.INITIAL_LARVAE,
+                        (int) (Parameters.INITIAL_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        Parameters.INITIAL_INACTIVE_LARVAE,
+                        (int) (Parameters.INITIAL_INACTIVE_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_INACTIVE_NYMPHS,
                         Parameters.INITIAL_INACTIVE_ADULTS,
-                        Parameters.INITIAL_FED_LARVAE,
+                        (int) (Parameters.INITIAL_FED_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_FED_NYMPHS,
                         Parameters.INITIAL_FED_ADULTS,
-                        Parameters.INITIAL_INFECTED_LARVAE,
+                        (int) (Parameters.INITIAL_INFECTED_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);
                 editor.add(abundance);
