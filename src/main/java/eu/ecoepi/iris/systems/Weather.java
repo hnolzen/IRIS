@@ -21,18 +21,12 @@ public class Weather extends IteratingSystem {
 
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
-    ComponentMapper<Precipitation> precipitationMapper;
-    ComponentMapper<Sunshine> sunshineMapper;
     ComponentMapper<Habitat> habitatMapper;
 
     final List<Float> meanTempTimeSeries = new ArrayList<>();
     final List<Float> minTempTimeSeries = new ArrayList<>();
     final List<Float> maxTempTimeSeries = new ArrayList<>();
     final List<Float> humidityTimeSeries = new ArrayList<>();
-    final List<Integer> precipitationTypeTimeSeries = new ArrayList<>();
-    final List<Float> precipitationHeightTimeSeries = new ArrayList<>();
-    final List<Float> snowHeightTimeSeries = new ArrayList<>();
-    final List<Float> sunshineHoursTimeSeries = new ArrayList<>();
 
     @Wire
     TimeStep timestep;
@@ -48,10 +42,6 @@ public class Weather extends IteratingSystem {
             minTempTimeSeries.add(Float.parseFloat(nextLine[1]));
             maxTempTimeSeries.add(Float.parseFloat(nextLine[2]));
             humidityTimeSeries.add(Float.parseFloat(nextLine[3]));
-            precipitationTypeTimeSeries.add(Integer.parseInt(nextLine[4]));
-            precipitationHeightTimeSeries.add(Float.parseFloat(nextLine[5]));
-            snowHeightTimeSeries.add(Float.parseFloat(nextLine[6]));
-            sunshineHoursTimeSeries.add(Float.parseFloat(nextLine[7]));
         }
     }
 
@@ -59,8 +49,6 @@ public class Weather extends IteratingSystem {
     protected void process(int entityId) {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
-        var precipitation = precipitationMapper.get(entityId);
-        var sunshine = sunshineMapper.get(entityId);
         var habitat = habitatMapper.get(entityId);
 
         var currentTimeStep = timestep.getCurrent();
@@ -87,10 +75,5 @@ public class Weather extends IteratingSystem {
         temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
 
         humidity.setRelativeHumidity(humidityTimeSeries.get(currentTimeStep));
-        precipitation.setPrecipitationType(precipitationTypeTimeSeries.get(currentTimeStep));
-        precipitation.setPrecipitationHeight(precipitationHeightTimeSeries.get(currentTimeStep));
-        precipitation.setSnowHeight(snowHeightTimeSeries.get(currentTimeStep));
-        sunshine.setSunshineHours(sunshineHoursTimeSeries.get(currentTimeStep));
-
     }
 }

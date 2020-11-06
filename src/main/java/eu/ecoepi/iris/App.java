@@ -2,9 +2,6 @@ package eu.ecoepi.iris;
 
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvException;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.systems.Activity;
@@ -13,9 +10,6 @@ import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
 import org.apache.commons.cli.*;
 import org.apache.commons.math3.random.MersenneTwister;
-
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * IRIS
@@ -117,12 +111,6 @@ public class App {
 
                 var humidity = new Humidity();
                 editor.add(humidity);
-
-                var precipitation = new Precipitation();
-                editor.add(precipitation);
-
-                var sunshine = new Sunshine();
-                editor.add(sunshine);
             }
         }
 
