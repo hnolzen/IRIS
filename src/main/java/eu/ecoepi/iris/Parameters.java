@@ -71,8 +71,6 @@ public class Parameters {
     public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
 
     public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
-    public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITH_SNOW = -15.0f;    // Ostfeld and Brunner 2015, Jore et al. 2014
-    public static final float DEATH_THRESHOLD_FREEZING_MINIMAL_SNOW_HEIGHT = 1.0f;     // Ostfeld and Brunner 2015, Jore et al. 2014
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 70.0f;    // Ostfeld and Brunner 2015
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
 

@@ -10,14 +10,13 @@ import eu.ecoepi.iris.Randomness;
 import eu.ecoepi.iris.TimeStep;
 import eu.ecoepi.iris.components.*;
 
-@All({TickAbundance.class, Habitat.class, Temperature.class, Humidity.class, Precipitation.class})
+@All({TickAbundance.class, Habitat.class, Temperature.class, Humidity.class})
 public class TickLifeCycle extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Habitat> habitatMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
-    ComponentMapper<Precipitation> precipitationMapper;
 
     @Wire
     TimeStep timestep;
@@ -31,11 +30,10 @@ public class TickLifeCycle extends IteratingSystem {
         var habitat = habitatMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
-        var precipitation = precipitationMapper.get(entityId);
 
         development(abundance);
         desiccation(abundance, habitat, temperature, humidity);
-        freezing(abundance, temperature, precipitation);
+        freezing(abundance, temperature);
         death(abundance);
 
     }
@@ -66,15 +64,12 @@ public class TickLifeCycle extends IteratingSystem {
         abundance.addAdults(-deadAdults);
     }
 
-    private void freezing(TickAbundance abundance, Temperature temperature, Precipitation precipitation) {
+    private void freezing(TickAbundance abundance, Temperature temperature) {
         var frozenLarvae = Parameters.INITIAL_FROZEN_LARVAE;
         var frozenNymphs = Parameters.INITIAL_FROZEN_NYMPHS;
         var frozenAdults = Parameters.INITIAL_FROZEN_ADULTS;
         var isFrozen = false;
-        if (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW ||
-                (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITH_SNOW
-                        && precipitation.getSnowHeight() < Parameters.DEATH_THRESHOLD_FREEZING_MINIMAL_SNOW_HEIGHT)
-        ) {
+        if (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW) {
             isFrozen = true;
         }
 
