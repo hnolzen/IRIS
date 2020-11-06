@@ -32,7 +32,9 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
                         "questing_larvae,questing_nymphs,questing_adults," +
                         "inactive_larvae,inactive_nymphs,inactive_adults," +
                         "fed_larvae,fed_nymphs,fed_adults," +
-                        "t_mean,t_min,t_max,humidity" +
+                        "t_mean,t_min,t_max,humidity," +
+                        "feeding_events_larvae," + "feeding_events_nymphs," +
+                        "feeding_events_adults" +
                         "\n");
                 csvWriter.flush();
             } catch (IOException e) {
@@ -83,6 +85,12 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
             csvWriter.write(Double.toString(temperature.getMaxTemperature()));
             csvWriter.write(",");
             csvWriter.write(Double.toString(humidity.getRelativeHumidity()));
+            csvWriter.write(",");
+            csvWriter.write(Integer.toString(abundance.getFeedingEventsLarvae()));
+            csvWriter.write(",");
+            csvWriter.write(Integer.toString(abundance.getFeedingEventsNymphs()));
+            csvWriter.write(",");
+            csvWriter.write(Integer.toString(abundance.getFeedingEventsAdults()));
             csvWriter.write("\n");
             csvWriter.flush();
         } catch (IOException e) {

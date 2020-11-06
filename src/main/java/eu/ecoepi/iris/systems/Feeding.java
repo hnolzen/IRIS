@@ -11,6 +11,7 @@ import eu.ecoepi.iris.SpatialIndex;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.Pair;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Feeding extends IteratingSystem {
     @Wire
     Randomness randomness;
 
-    public Feeding() {
+    public Feeding(RandomGenerator rng) {
         final List<Pair<Integer, Double>> distanceProbabilities = new ArrayList<>();
 
         for (int i = 0, n = Parameters.DISTANCE_PROB.length; i < n; ++i) {
@@ -42,7 +43,7 @@ public class Feeding extends IteratingSystem {
             distanceProbabilities.add(new Pair<>(-distance.getFirst(), distance.getSecond()));
         }
 
-        distribution = new EnumeratedDistribution<>(distanceProbabilities);
+        distribution = new EnumeratedDistribution<>(rng, distanceProbabilities);
     }
 
     @Override
@@ -58,6 +59,7 @@ public class Feeding extends IteratingSystem {
             var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE));
             abundance.addLarvae(-feedingLarvae);
             abundanceToRandom.addFedLarvae(feedingLarvae);
+            abundance.addFeedingEventLarvae(feedingLarvae);
         }
 
         {
@@ -68,6 +70,8 @@ public class Feeding extends IteratingSystem {
             var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH));
             abundance.addNymphs(-feedingNymphs);
             abundanceToRandom.addFedNymphs(feedingNymphs);
+            abundance.addFeedingEventNymphs(feedingNymphs);
+
         }
 
         {
@@ -78,6 +82,7 @@ public class Feeding extends IteratingSystem {
             var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT));
             abundance.addAdults(-feedingAdults);
             abundanceToRandom.addFedAdults(feedingAdults);
+            abundance.addFeedingEventAdults(feedingAdults);
         }
     }
 }

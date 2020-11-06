@@ -108,9 +108,9 @@ public class Parameters {
     );
 
     public static final Map<LifeCycleStage, Float> FEEDING_RATE = Map.of(
-            LifeCycleStage.LARVAE, 0.005f,
-            LifeCycleStage.NYMPH, 0.008f,
-            LifeCycleStage.ADULT, 0.01f
+            LifeCycleStage.LARVAE, 0.01f,
+            LifeCycleStage.NYMPH, 0.03f,
+            LifeCycleStage.ADULT, 0.05f
     );
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
