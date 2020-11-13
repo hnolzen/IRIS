@@ -44,13 +44,13 @@ public class TickLifeCycle extends IteratingSystem {
             var nextStageNymphs = randomness.roundRandom(abundance.getFedLarvae() * Parameters.LARVAE_TO_NYMPHS);
             var nextStageAdults = randomness.roundRandom(abundance.getFedNymphs() * Parameters.NYMPHS_TO_ADULTS);
 
-            abundance.addLarvae(nextStageLarvae);
+            abundance.addInactiveLarvae(nextStageLarvae);
             abundance.addFedLarvae(-nextStageLarvae);
 
-            abundance.addNymphs(nextStageNymphs);
+            abundance.addInactiveNymphs(nextStageNymphs);
             abundance.addFedNymphs(-nextStageNymphs);
 
-            abundance.addAdults(nextStageAdults);
+            abundance.addInactiveAdults(nextStageAdults);
             abundance.addFedAdults(-nextStageAdults);
         }
     }
