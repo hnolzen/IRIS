@@ -32,6 +32,7 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
                         "questing_larvae,questing_nymphs,questing_adults," +
                         "inactive_larvae,inactive_nymphs,inactive_adults," +
                         "fed_larvae,fed_nymphs,fed_adults," +
+                        "late_fed_larvae,late_fed_nymphs," +
                         "t_mean,t_min,t_max,humidity," +
                         "feeding_events_larvae," + "feeding_events_nymphs," +
                         "feeding_events_adults" +
@@ -77,6 +78,10 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
             csvWriter.write(Integer.toString(abundance.getFedNymphs()));
             csvWriter.write(",");
             csvWriter.write(Integer.toString(abundance.getFedAdults()));
+            csvWriter.write(",");
+            csvWriter.write(Integer.toString(abundance.getLateFedLarvae()));
+            csvWriter.write(",");
+            csvWriter.write(Integer.toString(abundance.getLateFedNymphs()));
             csvWriter.write(",");
             csvWriter.write(Double.toString(temperature.getMeanTemperature()));
             csvWriter.write(",");

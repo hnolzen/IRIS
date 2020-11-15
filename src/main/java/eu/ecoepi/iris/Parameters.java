@@ -22,18 +22,21 @@ public class Parameters {
     public static final int INITIAL_FED_NYMPHS = 0;
     public static final int INITIAL_FED_ADULTS = 0;
 
+    public static final int INITIAL_LATE_FED_LARVAE = 0;
+    public static final int INITIAL_LATE_FED_NYMPHS = 0;
+
     public static final int INITIAL_INFECTED_LARVAE = 0;
     public static final int INITIAL_INFECTED_NYMPHS = 0;
     public static final int INITIAL_INFECTED_ADULTS = 0;
 
-    public static final float ADULTS_TO_LARVAE = 0.02f;
-    public static final float LARVAE_TO_NYMPHS = 0.02f;
-    public static final float NYMPHS_TO_ADULTS = 0.02f;
-
     public static final float ACTIVATION_RATE = 0.05f;
 
-    public static final int BEGIN_OF_DEVELOPMENT = 195;
-    public static final int END_OF_DEVELOPMENT = 255;
+    public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
+    public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
+    public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October
+    public static final int END_OF_DEVELOPMENT_ADULTS_TO_LARVAE = 289;         // Mid-October
+
+    public static final int LATE_FEEDING_TIME = 232;                        // Mid-September
 
     public static final float ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP = 35f;   // Gray et al. 2016, McLeod 1935
     public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP = 1.9f;  // Perret et al. 2000

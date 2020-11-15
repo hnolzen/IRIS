@@ -22,6 +22,7 @@ public class TickAbundance extends Component {
     public TickAbundance(int larvae, int nymphs, int adults,
                          int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
                          int fedLarvae, int fedNymphs, int fedAdults,
+                         int lateFedLarvae, int lateFedNymphs,
                          int infectedLarvae, int infectedNymphs, int infectedAdults) {
         abundance.put(LifeCycleStage.LARVAE, larvae);
         abundance.put(LifeCycleStage.NYMPH, nymphs);
@@ -32,6 +33,8 @@ public class TickAbundance extends Component {
         abundance.put(LifeCycleStage.LARVAE_FED, fedLarvae);
         abundance.put(LifeCycleStage.NYMPH_FED, fedNymphs);
         abundance.put(LifeCycleStage.ADULT_FED, fedAdults);
+        abundance.put(LifeCycleStage.LARVAE_LATE_FED, lateFedLarvae);
+        abundance.put(LifeCycleStage.NYMPHS_LATE_FED, lateFedNymphs);
         infected.put(LifeCycleStage.LARVAE, infectedLarvae);
         infected.put(LifeCycleStage.NYMPH, infectedNymphs);
         infected.put(LifeCycleStage.ADULT, infectedAdults);
@@ -115,6 +118,14 @@ public class TickAbundance extends Component {
         return abundance.get(LifeCycleStage.ADULT_FED);
     }
 
+    public int getLateFedLarvae() {
+        return abundance.get(LifeCycleStage.LARVAE_LATE_FED);
+    }
+
+    public int getLateFedNymphs() {
+        return abundance.get(LifeCycleStage.NYMPHS_LATE_FED);
+    }
+
     public int getInfectedLarvae() {
         return infected.get(LifeCycleStage.LARVAE);
     }
@@ -165,6 +176,14 @@ public class TickAbundance extends Component {
 
     public void addFedAdults(int adults) {
         abundance.compute(LifeCycleStage.ADULT_FED, (stage, count) -> count + adults);
+    }
+
+    public void addLateFedLarvae(int larvae) {
+        abundance.compute(LifeCycleStage.LARVAE_LATE_FED, (stage, count) -> count + larvae);
+    }
+
+    public void addLateFedNymphs(int nymphs) {
+        abundance.compute(LifeCycleStage.NYMPHS_LATE_FED, (stage, count) -> count + nymphs);
     }
 
     public void addInfectedLarvae(int larvae) {
