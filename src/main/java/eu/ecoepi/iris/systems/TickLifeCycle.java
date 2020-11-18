@@ -34,7 +34,6 @@ public class TickLifeCycle extends IteratingSystem {
         development(abundance);
         desiccation(abundance, habitat, temperature, humidity);
         freezing(abundance, temperature);
-        death(abundance);
 
     }
 
@@ -64,11 +63,6 @@ public class TickLifeCycle extends IteratingSystem {
                 abundance.addFedAdults(-nextStageLarvae);
             }
         }
-    }
-
-    private void death(TickAbundance abundance) {
-        var deadAdults = randomness.roundRandom(abundance.getAdults() * Parameters.NATURAL_DEATH_RATE);
-        abundance.addAdults(-deadAdults);
     }
 
     private void freezing(TickAbundance abundance, Temperature temperature) {

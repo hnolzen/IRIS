@@ -72,8 +72,6 @@ public class Parameters {
             Habitat.Type.WOOD, -4.0f
     );
 
-    public static final float NATURAL_DEATH_RATE = 0.1f;
-
     public static final Map<Habitat.Type, Float> DESICCATION_RATE = Map.of(
             Habitat.Type.PASTURE, 0.10f,
             Habitat.Type.ECOTONE, 0.05f,
