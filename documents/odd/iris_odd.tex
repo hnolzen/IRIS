@@ -16,6 +16,9 @@
 \tableofcontents
 
 \section{Overview}
+IRIS is a population model for local dynamics of \textit{Ixodes ricinis} ticks under changing climate parameters.
+We plan to add a transmission model for borrelian dynamics in the near future.
+
 
 \subsection{Purpose}
 The purpose of the model is to understand the impact of changing climate parameters on local tick and borrelian dynamics. 
@@ -31,15 +34,15 @@ Tick population consisting of cohorts of life cycle stages (larvae, nymphs, adul
 
 \subsubsection{State variables}
 
-list of state variables
+list of state variables (tba.)
 
 
 \subsubsection{Scales}
-1 simulation run - 1 year 
+1 simulation run = 1 year 
 daily time steps
 
 landscape 144 (12 x 12) grid cells
-1 grid cell 100 sqm 
+1 grid cell = 100 sqm 
 
 
 \subsection{Process overview and scheduling}
@@ -52,7 +55,10 @@ Entity-Component-System
 
 
 \subsection{Stochasticity}
-random seed
+seedable random number generator: 
+Mersenne Twister implementation 
+provided by Apache Commons Math library
+
 roundRandom
 
 
