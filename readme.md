@@ -1,6 +1,6 @@
 # IRIS - Ixodes RIcinus Simulator 
 
-IRIS is a local metapopulation transmission model for the simulation of Ixodes ricinus tick and borrelian dynamics under changing climate parameters. 
+IRIS is a population model for local dynamics of Ixodes ricinis ticks under changing climate parameters. We plan to add a transmission model for borrelian dynamics in the near future.
 
 It is designed as a spatially-explicit compartmental model that operates on a local scale.
 
