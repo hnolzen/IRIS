@@ -42,8 +42,8 @@ public class Parameters {
     public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP = 1.9f;  // Perret et al. 2000
     public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP = 1.2f; // Perret et al. 2000, Schulz et al. 2014
     public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY = 45.0f; // Greenfield 2011
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP = 10.5f;   // Perret et al. 2000
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP = 26.0f;   // Greenfield 2011, Schulz et al. 2014 (25.9)
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP = 10.5f;   // Perret et al. 2000
+    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP = 26.0f;   // Greenfield 2011, Schulz et al. 2014 (25.9)
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
 
