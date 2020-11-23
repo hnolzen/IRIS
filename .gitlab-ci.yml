@@ -1,0 +1,8 @@
+image: blang/latex
+  
+build:
+  script:
+    - latexmk -pdf ./documents/odd/iris_odd.tex
+  artifacts:
+    paths:
+      - iris_odd.pdf
