@@ -1,9 +1,8 @@
-image: pandoc/latex
-  
+image: blang/latex
+
 build:
   script:
-    - pandoc -f markdown -t latex documents/odd/iris_odd.tex
-    - pandoc --output=documents/odd/iris_odd.pdf documents/odd/iris_odd.tex
+    - latexmk -pdf ./documents/odd/iris_odd.tex
   artifacts:
     paths:
-      - documents/odd/
+      - iris_odd.pdf
