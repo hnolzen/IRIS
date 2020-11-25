@@ -98,6 +98,8 @@ public class App {
                         (int) (Parameters.INITIAL_FED_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_FED_NYMPHS,
                         Parameters.INITIAL_FED_ADULTS,
+                        Parameters.INITIAL_LATE_FED_LARVAE,
+                        Parameters.INITIAL_LATE_FED_NYMPHS,
                         (int) (Parameters.INITIAL_INFECTED_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);

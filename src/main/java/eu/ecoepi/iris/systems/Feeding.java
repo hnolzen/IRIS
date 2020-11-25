@@ -4,10 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
-import eu.ecoepi.iris.LifeCycleStage;
-import eu.ecoepi.iris.Parameters;
-import eu.ecoepi.iris.Randomness;
-import eu.ecoepi.iris.SpatialIndex;
+import eu.ecoepi.iris.*;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
@@ -24,6 +21,9 @@ public class Feeding extends IteratingSystem {
     ComponentMapper<Position> positionMapper;
 
     final EnumeratedDistribution<Integer> distribution;
+
+    @Wire
+    TimeStep timestep;
 
     @Wire
     SpatialIndex index;
@@ -51,6 +51,8 @@ public class Feeding extends IteratingSystem {
         var abundance = abundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
 
+        var lateFeeding = timestep.getCurrent() >= Parameters.LATE_FEEDING_TIME;
+
         {
             var x = distribution.sample();
             var y = distribution.sample();
@@ -58,7 +60,11 @@ public class Feeding extends IteratingSystem {
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE));
             abundance.addLarvae(-feedingLarvae);
-            abundanceToRandom.addFedLarvae(feedingLarvae);
+            if (lateFeeding) {
+                abundanceToRandom.addLateFedLarvae(feedingLarvae);
+            } else {
+                abundanceToRandom.addFedLarvae(feedingLarvae);
+            }
             abundance.addFeedingEventLarvae(feedingLarvae);
         }
 
@@ -69,9 +75,12 @@ public class Feeding extends IteratingSystem {
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH));
             abundance.addNymphs(-feedingNymphs);
-            abundanceToRandom.addFedNymphs(feedingNymphs);
+            if (lateFeeding) {
+                abundanceToRandom.addLateFedNymphs(feedingNymphs);
+            } else {
+                abundanceToRandom.addFedNymphs(feedingNymphs);
+            }
             abundance.addFeedingEventNymphs(feedingNymphs);
-
         }
 
         {

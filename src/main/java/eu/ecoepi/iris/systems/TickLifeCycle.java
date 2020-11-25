@@ -34,30 +34,35 @@ public class TickLifeCycle extends IteratingSystem {
         development(abundance);
         desiccation(abundance, habitat, temperature, humidity);
         freezing(abundance, temperature);
-        death(abundance);
 
     }
 
     private void development(TickAbundance abundance) {
-        if (timestep.getCurrent() >= Parameters.BEGIN_OF_DEVELOPMENT && timestep.getCurrent() <= Parameters.END_OF_DEVELOPMENT) {
-            var nextStageLarvae = randomness.roundRandom(abundance.getFedAdults() * Parameters.ADULTS_TO_LARVAE);
-            var nextStageNymphs = randomness.roundRandom(abundance.getFedLarvae() * Parameters.LARVAE_TO_NYMPHS);
-            var nextStageAdults = randomness.roundRandom(abundance.getFedNymphs() * Parameters.NYMPHS_TO_ADULTS);
+        var currentTimeStep = timestep.getCurrent();
 
-            abundance.addInactiveLarvae(nextStageLarvae);
-            abundance.addFedLarvae(-nextStageLarvae);
+        if (currentTimeStep >= Parameters.BEGIN_OF_DEVELOPMENT) {
 
-            abundance.addInactiveNymphs(nextStageNymphs);
-            abundance.addFedNymphs(-nextStageNymphs);
+            if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS) {
+                var remainingDays = Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS - currentTimeStep;
+                var nextStageNymphs = randomness.roundRandom((float) abundance.getFedLarvae() / (float) remainingDays);
+                abundance.addInactiveNymphs(nextStageNymphs);
+                abundance.addFedLarvae(-nextStageNymphs);
+            }
 
-            abundance.addInactiveAdults(nextStageAdults);
-            abundance.addFedAdults(-nextStageAdults);
+            if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS) {
+                var remainingDays = Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS - currentTimeStep;
+                var nextStageAdults = randomness.roundRandom((float) abundance.getFedNymphs() / (float) remainingDays);
+                abundance.addInactiveAdults(nextStageAdults);
+                abundance.addFedNymphs(-nextStageAdults);
+            }
+
+            if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
+                var remainingDays = Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE - currentTimeStep;
+                var nextStageLarvae = randomness.roundRandom((float) abundance.getFedAdults() / (float) remainingDays);
+                abundance.addInactiveLarvae(nextStageLarvae);
+                abundance.addFedAdults(-nextStageLarvae);
+            }
         }
-    }
-
-    private void death(TickAbundance abundance) {
-        var deadAdults = randomness.roundRandom(abundance.getAdults() * Parameters.NATURAL_DEATH_RATE);
-        abundance.addAdults(-deadAdults);
     }
 
     private void freezing(TickAbundance abundance, Temperature temperature) {
