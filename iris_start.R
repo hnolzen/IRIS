@@ -57,9 +57,11 @@ for (year in year_start : year_end) {
   iris_seed <- "-s 42"
   iris_mast <- paste0("-f ", get_fructification_index(year))
   iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
+  iris_output <- paste0("-o iris_abundance.csv")
+  iris_larvae <- paste0("-l 150")
   
   # Combine sub strings  
-  iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_mast, sep = " ")
+  iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_mast, iris_output, iris_larvae, sep = " ")
     
   # Run IRIS
   system(iris_run)
