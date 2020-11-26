@@ -34,6 +34,16 @@ public class App {
                 .longOpt("weather").required()
                 .build());
 
+        options.addOption(Option.builder("o")
+                .hasArg()
+                .longOpt("output").required()
+                .build());
+
+        options.addOption(Option.builder("l")
+                .hasArg()
+                .longOpt("larvae")
+                .build());
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
@@ -46,7 +56,7 @@ public class App {
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
-                .with(new CsvTimeSeriesWriter())
+                .with(new CsvTimeSeriesWriter(cmd.getOptionValue("o")))
                 .with(new Weather(cmd.getOptionValue("w")))
                 .with(new Activity())
                 .build()
@@ -88,11 +98,14 @@ public class App {
                 editor.add(position);
                 index.insert(position, entityId);
 
+                String defaultInitialInactiveLarvae = Integer.toString(Parameters.INITIAL_INACTIVE_LARVAE);
+                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", defaultInitialInactiveLarvae));
+
                 var abundance = new TickAbundance(
                         (int) (Parameters.INITIAL_LARVAE * fructification.getRate()),
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        (int) (Parameters.INITIAL_INACTIVE_LARVAE * fructification.getRate()),
+                        (int) (initialInactiveLarvae * fructification.getRate()),
                         Parameters.INITIAL_INACTIVE_NYMPHS,
                         Parameters.INITIAL_INACTIVE_ADULTS,
                         (int) (Parameters.INITIAL_FED_LARVAE * fructification.getRate()),
