@@ -98,8 +98,7 @@ public class App {
                 editor.add(position);
                 index.insert(position, entityId);
 
-                String defaultInitialInactiveLarvae = Integer.toString(Parameters.INITIAL_INACTIVE_LARVAE);
-                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", defaultInitialInactiveLarvae));
+                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", Integer.toString(Parameters.INITIAL_INACTIVE_LARVAE)));
 
                 var abundance = new TickAbundance(
                         (int) (Parameters.INITIAL_LARVAE * fructification.getRate()),
