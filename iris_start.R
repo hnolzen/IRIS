@@ -48,17 +48,19 @@ current_date <- as.character(Sys.Date())
 output_folder <- paste(output_directory, current_date, sep = "")
 dir.create(output_folder)
 
+# Set substrings to start IRIS from R
+iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
+iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
+iris_seed <- "-s 42"
+iris_larvae <- paste0("-l 150")
+
 # Iterate over defined time span
 for (year in year_start : year_end) {
   
-  # Create string to start IRIS from R
-  iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
-  iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
-  iris_seed <- "-s 42"
+  # Set substrings to start IRIS from R
   iris_mast <- paste0("-f ", get_fructification_index(year))
   iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
-  iris_output <- paste0("-o iris_abundance.csv")
-  iris_larvae <- paste0("-l 150")
+  iris_output <- paste0("-o" , output_folder, "/iris_abundance_", year, ".csv")
   
   # Combine sub strings  
   iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_mast, iris_output, iris_larvae, sep = " ")
@@ -66,13 +68,4 @@ for (year in year_start : year_end) {
   # Run IRIS
   system(iris_run)
   
-  # Rename and copy IRIS output file to output directory  
-  output_file <- paste("iris_abundance_", year, ".csv", sep = "")
-  file.rename("iris_abundance.csv", output_file)
-  file.copy(output_file, output_folder, overwrite = TRUE)
-  
-  # Delete output file in jar directory
-  if (file.exists(output_file)) {
-    file.remove(output_file)
-  }
 }
