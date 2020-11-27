@@ -26,12 +26,14 @@ current_tick = 0
 
 for row in data.itertuples():
     if current_tick != row.tick:
-        #plot_heatmap()
+        plot_heatmap()
         
         print(current_tick)
         current_tick = row.tick
         
     heat_array[row.y, row.x] = row.questing_nymphs
+
+plot_heatmap()
 
 frames[0].save(
     "heatmap.gif",
