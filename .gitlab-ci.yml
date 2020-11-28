@@ -1,4 +1,4 @@
-image: blang/latex
+image: texlive/texlife
 
 build:
   script:
