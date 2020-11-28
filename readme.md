@@ -1,10 +1,8 @@
 # IRIS - Ixodes RIcinus Simulator 
 
-IRIS is a population model for local dynamics of Ixodes ricinis ticks under changing climate parameters. We plan to add a transmission model for borrelian dynamics in the near future.
+IRIS is a population model for local dynamics of Ixodes ricinis ticks under changing climate parameters. It is designed as a spatially-explicit compartmental model that operates on a local scale. We plan to add a transmission model for borrelian dynamics in the near future.
 
-It is designed as a spatially-explicit compartmental model that operates on a local scale.
-
-It is being developed developed as part of the [HICAM project][HICAM].
+This model is being developed developed as part of the [HICAM project][HICAM].
 
 ## Run
 
@@ -14,16 +12,17 @@ Command line arguments for model parameterisation:
 
 | parameter    | default     | description                                                                                                                          |
 |--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| -s           | 42          | random seed. Integer values > 0 are valid                                                                                            |
-| -f           | 4           | fructification index of the European beech (Fagus sylvatica). Valid Integer values: 1 = absent, 2 = scarce, 3 = common, 4 = full)    |
+| -s           | 42          | random seed. Integer values >= 0 are valid                                                                                           |
+| -l           | -           | initial number of inactive larvae. Integer values >= 0 are valid                                                                     |
 | -w           | -           | path to weather input file                                                                                                           |
+| -o           | -           | path to set directory of output file                                                                                                 |
 
 
 ## Documents and folders
 
 | file / folder                                          | description                                                                                                         |
 |--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| tba                                                    | Model description (ODD protocol)                                                                                    |
+| [ODD.pdf](documents/odd/iris_odd.pdf)                  | Model description (ODD protocol)                                                                                    |
 | `documents`                                            | Model documentation files                                                                                           |
 | `input`                                                | Location of input files (weather data, fructification data)                                                         |
 | `output`                                               | Location of output files                                                                                            |
