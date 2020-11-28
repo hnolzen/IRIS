@@ -9,6 +9,7 @@ single_year <- 2018
 year_start <- 1947
 year_end <- 2018
 default_initial_number_larvae <- 150
+random_seed <- 42
 
 # Set directory of this file as working directory
 iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -52,7 +53,7 @@ dir.create(output_folder)
 # Set substrings to start IRIS from R
 iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
 iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
-iris_seed <- "-s 42"
+iris_seed <- paste0("-s ", random_seed)
 
 # Iterate over defined time span
 for (year in year_start : year_end) {
