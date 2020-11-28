@@ -24,11 +24,6 @@ public class App {
                 .longOpt("seed")
                 .build());
 
-        options.addOption(Option.builder("f")
-                .hasArg()
-                .longOpt("fructification")
-                .build());
-
         options.addOption(Option.builder("w")
                 .hasArg()
                 .longOpt("weather").required()
@@ -50,8 +45,6 @@ public class App {
         var seed = Long.parseLong(cmd.getOptionValue("s", "42"));
 
         var rng = new MersenneTwister(seed);
-
-        var fructification = new Fructification(Integer.parseInt(cmd.getOptionValue("f", "4")));
 
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
@@ -98,21 +91,21 @@ public class App {
                 editor.add(position);
                 index.insert(position, entityId);
 
-                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", Integer.toString(Parameters.INITIAL_INACTIVE_LARVAE)));
+                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l"));
 
                 var abundance = new TickAbundance(
-                        (int) (Parameters.INITIAL_LARVAE * fructification.getRate()),
+                        Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        (int) (initialInactiveLarvae * fructification.getRate()),
+                        initialInactiveLarvae,
                         Parameters.INITIAL_INACTIVE_NYMPHS,
                         Parameters.INITIAL_INACTIVE_ADULTS,
-                        (int) (Parameters.INITIAL_FED_LARVAE * fructification.getRate()),
+                        Parameters.INITIAL_FED_LARVAE,
                         Parameters.INITIAL_FED_NYMPHS,
                         Parameters.INITIAL_FED_ADULTS,
                         Parameters.INITIAL_LATE_FED_LARVAE,
                         Parameters.INITIAL_LATE_FED_NYMPHS,
-                        (int) (Parameters.INITIAL_INFECTED_LARVAE * fructification.getRate()),
+                        Parameters.INITIAL_INFECTED_LARVAE,
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);
                 editor.add(abundance);
