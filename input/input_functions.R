@@ -16,3 +16,23 @@ get_fructification_index <- function(y) {
     return(fructification_index)
   }
 }
+
+get_initial_number_larvae <- function(year, default_initial_number_larvae) {
+  initial_number_larvae <- default_initial_number_larvae
+  index <- get_fructification_index(year)
+  
+  if (index == 1) {
+    rate = 0.25;
+  } else if (index == 2) {
+    rate = 0.5;
+  } else if (index == 3) {
+    rate = 0.75;
+  } else {
+    rate = 1.0;
+  }
+  
+  initial_number_larvae <- rate * initial_number_larvae
+    
+  return(initial_number_larvae)
+}
+

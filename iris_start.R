@@ -8,6 +8,7 @@ dwd_data <- "regensburg"
 single_year <- 2018
 year_start <- 1947
 year_end <- 2018
+default_initial_number_larvae <- 150
 
 # Set directory of this file as working directory
 iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -52,18 +53,17 @@ dir.create(output_folder)
 iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
 iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
 iris_seed <- "-s 42"
-iris_larvae <- paste0("-l 150")
 
 # Iterate over defined time span
 for (year in year_start : year_end) {
   
   # Set substrings to start IRIS from R
-  iris_mast <- paste0("-f ", get_fructification_index(year))
+  iris_larvae <- paste0("-l ", get_initial_number_larvae(year, default_initial_number_larvae))
   iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
   iris_output <- paste0("-o" , output_folder, "/iris_abundance_", year, ".csv")
   
   # Combine sub strings  
-  iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_mast, iris_output, iris_larvae, sep = " ")
+  iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_output, iris_larvae, sep = " ")
     
   # Run IRIS
   system(iris_run)
