@@ -1,4 +1,4 @@
-image: texlive/texlife
+image: texlive/texlive:latest
 
 build:
   script:
