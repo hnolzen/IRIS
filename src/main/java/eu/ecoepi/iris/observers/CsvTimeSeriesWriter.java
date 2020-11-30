@@ -24,10 +24,10 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
     @Wire
     TimeStep timeStep;
 
-    public CsvTimeSeriesWriter() {
+    public CsvTimeSeriesWriter(String path) {
         {
             try {
-                csvWriter = new FileWriter("iris_abundance.csv");
+                csvWriter = new FileWriter(path);
                 csvWriter.write("tick,x,y,habitat," +
                         "questing_larvae,questing_nymphs,questing_adults," +
                         "inactive_larvae,inactive_nymphs,inactive_adults," +
