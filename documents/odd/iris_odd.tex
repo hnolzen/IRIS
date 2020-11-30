@@ -1,0 +1,95 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{geometry}
+\geometry{top = 2cm, bottom = 2cm, left = 2cm, right = 2cm}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[colorlinks = true, allcolors = blue]{hyperref}
+
+\title{IRIS - ODD Protocol}
+\author{}
+\date{\today}
+
+\begin{document}	
+\maketitle
+\tableofcontents
+
+\section{Overview}
+IRIS is a population model for local dynamics of \textit{Ixodes ricinis} ticks under changing climate parameters.
+We plan to add a transmission model for borrelian dynamics in the near future.
+
+
+\subsection{Purpose}
+The purpose of the model is to understand the impact of changing climate parameters on local tick and borrelian dynamics. 
+
+
+\subsection{Entities, state variables, and scales}
+
+\subsubsection{Entities}
+Idealised model landscape consisting of grid cells 
+habitats (forest, ecotone, pasture)
+Tick population consisting of cohorts of life cycle stages (larvae, nymphs, adults)
+
+
+\subsubsection{State variables}
+
+list of state variables (tba.)
+
+
+\subsubsection{Scales}
+1 simulation run = 1 year 
+daily time steps
+
+landscape 144 (12 x 12) grid cells
+1 grid cell = 100 sqm 
+
+
+\subsection{Process overview and scheduling}
+
+\section{Design concepts}
+
+\subsection{Basic principles}
+Spatially explicit stochastic cohort-based population model
+Entity-Component-System
+
+
+\subsection{Stochasticity}
+seedable random number generator: 
+Mersenne Twister implementation 
+provided by Apache Commons Math library
+
+roundRandom
+
+
+\section{Details}
+
+\subsection{Globals}
+
+
+\subsection{Initialisation}
+initial number of ticks for all life cycle and activity stages 
+initial seed number
+initial fructification index (if available)
+
+list of variables and parameters for initialisation
+
+
+\subsection{Input data}
+weather data from DWD (*.csv file) 
+climate data from GERICS (NetCDF file --> *.csv file) 
+
+daily mean temperature
+daily max temperature
+daily min temperature
+daily humidity
+
+
+\subsection{Submodels}
+development
+desiccation
+freezing
+activity
+feeding
+
+\end{document}
