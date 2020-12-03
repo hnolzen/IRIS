@@ -39,6 +39,11 @@ public class App {
                 .longOpt("larvae")
                 .build());
 
+        options.addOption(Option.builder("n")
+                .hasArg()
+                .longOpt("nymphs")
+                .build());
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
@@ -92,13 +97,14 @@ public class App {
                 index.insert(position, entityId);
 
                 var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l"));
+                var initialInactiveNymphs = Integer.parseInt(cmd.getOptionValue("n"));
 
                 var abundance = new TickAbundance(
                         Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
                         initialInactiveLarvae,
-                        Parameters.INITIAL_INACTIVE_NYMPHS,
+                        initialInactiveNymphs,
                         Parameters.INITIAL_INACTIVE_ADULTS,
                         Parameters.INITIAL_FED_LARVAE,
                         Parameters.INITIAL_FED_NYMPHS,

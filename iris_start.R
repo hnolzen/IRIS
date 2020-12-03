@@ -6,10 +6,32 @@ simulate_single_year <- TRUE
 slope_one <- TRUE 
 dwd_data <- "regensburg"
 single_year <- 2018
-year_start <- 1947
+year_start <- 2009
 year_end <- 2018
-default_initial_number_larvae <- 150
 random_seed <- 42
+
+# Set options for sensitivity analysis
+sensitivity_analysis <- TRUE
+default_number_larvae <- 150
+default_number_nymphs <- 150
+
+if (sensitivity_analysis) {
+  from_larvae <- 5
+  to_larvae <- 500
+  by_larvae <- 5
+  
+  from_nymphs <- 5
+  to_nymphs <- 500
+  by_nymphs <- 5
+} else {
+  from_larvae <- default_number_larvae
+  to_larvae <- default_number_larvae
+  by_larvae <- 0
+  
+  from_nymphs <- default_number_nymphs
+  to_nymphs <- default_number_nymphs
+  by_nymphs <- 0
+}
 
 # Set directory of this file as working directory
 iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -35,7 +57,8 @@ if (climate_simulations) {
     weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean/"
   }  
 } else {
-  weather_directory <- paste0(iris_main_directory, "./input/weather/dwd_", dwd_data, "/")
+  weather_directory <- paste0(iris_main_directory, "./input/weather/dwd_", 
+                              dwd_data, "/")
 }
 
 # Select year or time span
@@ -58,15 +81,32 @@ iris_seed <- paste0("-s ", random_seed)
 # Iterate over defined time span
 for (year in year_start : year_end) {
   
-  # Set substrings to start IRIS from R
-  iris_larvae <- paste0("-l ", get_initial_number_larvae(year, default_initial_number_larvae))
-  iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
-  iris_output <- paste0("-o" , output_folder, "/iris_abundance_", year, ".csv")
-  
-  # Combine sub strings  
-  iris_run <- paste(iris_exe, iris_jar, iris_weather, iris_seed, iris_output, iris_larvae, sep = " ")
+  for(initial_larvae in seq(from = from_larvae, to = to_larvae, by = by_larvae)) {
     
-  # Run IRIS
-  system(iris_run)
-  
+    for(initial_nymphs in seq(from = from_nymphs, to = to_nymphs, by = by_nymphs)) {
+    
+      # Set substrings to start IRIS from R
+      iris_larvae <- paste0("-l ", get_initial_larvae(year, initial_larvae))
+      iris_nymphs <- paste0("-n ", initial_nymphs)
+      iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
+      iris_output <- paste0("-o" , 
+                            output_folder, "/iris_abundance_", 
+                            year, "_", 
+                            initial_larvae, "_", 
+                            initial_nymphs, ".csv")
+      
+      # Combine sub strings  
+      iris_run <- paste(iris_exe, 
+                        iris_jar, 
+                        iris_weather, 
+                        iris_seed, 
+                        iris_output, 
+                        iris_larvae,
+                        iris_nymphs, 
+                        sep = " ")
+        
+      # Run IRIS
+      system(iris_run)
+    }
+  }
 }
