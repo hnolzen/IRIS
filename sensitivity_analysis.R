@@ -26,7 +26,7 @@ to_nymphs <- 10
 by_nymphs <- 5
 
 # Set default number of adult ticks
-default_number_adults <- 150
+initial_adults <- 150
 
 # Set calibration data
 if (slope_one) {
@@ -35,14 +35,18 @@ if (slope_one) {
   weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean/"
 }  
 
-iris(year_start, 
-     year_end,
-     random_seed,
-     from_larvae,
-     to_larvae,
-     by_larvae,
-     from_nymphs,
-     to_nymphs,
-     by_nymphs,
-     defualt_number_adults,
-     weather_directory)
+for (year in year_start : year_end) {
+  
+  for(initial_larvae in seq(from = from_larvae, to = to_larvae, by = by_larvae)) {
+    
+    for(initial_nymphs in seq(from = from_nymphs, to = to_nymphs, by = by_nymphs)) {
+
+      iris(year, 
+           random_seed,
+           initial_larvae,
+           initial_nymphs,
+           initial_adults,
+           weather_directory)
+    }
+  }
+}

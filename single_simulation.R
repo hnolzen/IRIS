@@ -23,13 +23,8 @@ initial_nymphs <- 150
 initial_adults <- 150
 
 iris(year, 
-     year,
      random_seed,
      initial_larvae,
-     initial_larvae,
-     0,
      initial_nymphs,
-     initial_nymphs,
-     0,
      initial_adults,
      weather_directory)
