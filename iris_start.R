@@ -14,6 +14,7 @@ random_seed <- 42
 sensitivity_analysis <- TRUE
 default_number_larvae <- 150
 default_number_nymphs <- 150
+default_number_adults <- 150
 
 if (sensitivity_analysis) {
   from_larvae <- 5
@@ -77,6 +78,7 @@ dir.create(output_folder)
 iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
 iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
 iris_seed <- paste0("-s ", random_seed)
+iris_adults <- paste0("-a ", default_number_adults)
 
 # Iterate over defined time span
 for (year in year_start : year_end) {
@@ -102,7 +104,8 @@ for (year in year_start : year_end) {
                         iris_seed, 
                         iris_output, 
                         iris_larvae,
-                        iris_nymphs, 
+                        iris_nymphs,
+                        iris_adults,
                         sep = " ")
         
       # Run IRIS
