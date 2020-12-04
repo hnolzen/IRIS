@@ -1,6 +1,9 @@
+# R script to systematically vary input parameters 
 
-# Get directory of this file
-iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
+# Get main directory and starting script
+library(stringr)
+iris_experiment_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
+iris_main_directory <- str_remove(iris_experiment_directory, "/experiments")
 source(paste0(iris_main_directory, "/iris_start.r"))
 
 # Set simulation time span

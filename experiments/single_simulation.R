@@ -1,5 +1,9 @@
-# Get directory of this file
-iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
+# R script to simulate a single year
+
+# Get main directory and starting script
+library(stringr)
+iris_experiment_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
+iris_main_directory <- str_remove(iris_experiment_directory, "/experiments")
 source(paste0(iris_main_directory, "/iris_start.r"))
 
 # Set simulation year
@@ -14,7 +18,7 @@ dwd_data <- "regensburg"
 random_seed <- 42
 
 # Set weather input directory
-weather_directory <- paste0(iris_main_directory, "./input/weather/dwd_", 
+weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
                             dwd_data, "/")
 
 # Set default number of initial ticks

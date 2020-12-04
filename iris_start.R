@@ -8,9 +8,6 @@ iris <- function(year,
                  weather_directory
                  ) {
   
-  # Set directory of this file as working directory
-  iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
-  
   # Set directory of FatJar to run the model
   iris_jar_directory <- paste0(iris_main_directory, "/target/")
   
