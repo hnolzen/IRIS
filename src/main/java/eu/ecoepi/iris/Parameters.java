@@ -14,10 +14,6 @@ public class Parameters {
     public static final int INITIAL_NYMPHS = 0;
     public static final int INITIAL_ADULTS = 0;
 
-    public static final int INITIAL_INACTIVE_LARVAE = 150;
-    public static final int INITIAL_INACTIVE_NYMPHS = 150;
-    public static final int INITIAL_INACTIVE_ADULTS = 150;
-
     public static final int INITIAL_FED_LARVAE = 0;
     public static final int INITIAL_FED_NYMPHS = 0;
     public static final int INITIAL_FED_ADULTS = 0;
