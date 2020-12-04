@@ -1,0 +1,48 @@
+
+# Get directory of this file
+iris_main_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
+source(paste0(iris_main_directory, "/iris_start.r"))
+
+# Set simulation time span
+year_start <- 2009
+year_end <- 2018
+
+# Set input data
+climate_simulations <- FALSE
+slope_one <- TRUE 
+dwd_data <- "regensburg"
+
+# Set random seed
+random_seed <- 42
+
+# Set variation options of larvae
+from_larvae <- 5
+to_larvae <- 10
+by_larvae <- 5
+
+# Set variation options of nymphs
+from_nymphs <- 5
+to_nymphs <- 10
+by_nymphs <- 5
+
+# Set default number of adult ticks
+default_number_adults <- 150
+
+# Set calibration data
+if (slope_one) {
+  weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean_slope1/"
+} else {
+  weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean/"
+}  
+
+iris(year_start, 
+     year_end,
+     random_seed,
+     from_larvae,
+     to_larvae,
+     by_larvae,
+     from_nymphs,
+     to_nymphs,
+     by_nymphs,
+     defualt_number_adults,
+     weather_directory)
