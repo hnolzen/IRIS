@@ -1,4 +1,4 @@
-# Calculate the fructifiction index of a given year y
+# Calculate the fructification index of a given year y
 get_fructification_index <- function(y) {
   
   # Fructification index data from Brugger et al. 2018
@@ -7,19 +7,18 @@ get_fructification_index <- function(y) {
   
   fructification <- as.data.frame(cbind(mast_year, mast_index))
   colnames(fructification) <- c("year", "index")
-  
   fructification_index <- subset(fructification, year == y)$index
   
   if (length(fructification_index) == 0) {
-    return(4)
+    return(2)
   } else {
     return(fructification_index)
   }
 }
 
-get_initial_number_larvae <- function(year, default_initial_number_larvae) {
-  initial_number_larvae <- default_initial_number_larvae
-  index <- get_fructification_index(year)
+get_initial_larvae <- function(year, number_larvae) {
+  
+  index <- get_fructification_index(year - 2)
   
   if (index == 1) {
     rate = 0.25;
@@ -31,7 +30,7 @@ get_initial_number_larvae <- function(year, default_initial_number_larvae) {
     rate = 1.0;
   }
   
-  initial_number_larvae <- rate * initial_number_larvae
+  initial_number_larvae <- round(rate * number_larvae, digits = 0)
     
   return(initial_number_larvae)
 }
