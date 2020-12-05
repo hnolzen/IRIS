@@ -27,7 +27,7 @@ iris <- function(year,
   dir.create(output_folder)
   
   # Set substrings to start IRIS from R
-  iris_exe <- "C:/Users/nolzen/.jdks/openjdk-14.0.1/bin/java.exe"
+  iris_exe <- "java.exe"
   iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
   iris_seed <- paste0("-s ", random_seed)
   iris_adults <- paste0("-a ", initial_adults)
