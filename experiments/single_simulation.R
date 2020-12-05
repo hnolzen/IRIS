@@ -13,13 +13,24 @@ year <- 2018
 climate_simulations <- FALSE
 slope_one <- TRUE 
 dwd_data <- "regensburg"
+climate_model <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
 
 # Set random seed
 random_seed <- 42
 
 # Set weather input directory
-weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
-                            dwd_data, "/")
+if (climate_simulations) {
+  if (slope_one) {
+    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                climate_model, "/monthly_mean_ds_slope1")
+  } else {
+    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                climate_model, "/monthly_mean_ds")
+  }
+} else {
+  weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
+                              dwd_data, "/")   
+}
 
 # Set default number of initial ticks
 initial_larvae <- 150

@@ -32,14 +32,19 @@ by_nymphs <- 5
 # Set default number of adult ticks
 initial_adults <- 150
 
-# Set calibration data
-if (slope_one) {
-  weather_directory <- paste0(iris_main_directory,"/input/climate/", 
-                              climate_model, "/monthly_mean_ds_slope1")
+# Set weather input directory
+if (climate_simulations) {
+  if (slope_one) {
+    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                climate_model, "/monthly_mean_ds_slope1")
+  } else {
+    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                climate_model, "/monthly_mean_ds")
+  }
 } else {
-  weather_directory <- paste0(iris_main_directory,"/input/climate/", 
-                              climate_model, "/monthly_mean_ds")
-}  
+  weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
+                              dwd_data, "/")   
+}
 
 for (year in year_start : year_end) {
   
