@@ -14,6 +14,7 @@ year_end <- 2018
 climate_simulations <- FALSE
 slope_one <- TRUE 
 dwd_data <- "regensburg"
+climate_model <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
 
 # Set random seed
 random_seed <- 42
@@ -33,9 +34,11 @@ initial_adults <- 150
 
 # Set calibration data
 if (slope_one) {
-  weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean_slope1/"
+  weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                              climate_model, "/monthly_mean_ds_slope1")
 } else {
-  weather_directory <- "C:/Klimadaten/NC/MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1/time_series_downscaled_monthly_mean/"
+  weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                              climate_model, "/monthly_mean_ds")
 }  
 
 for (year in year_start : year_end) {
