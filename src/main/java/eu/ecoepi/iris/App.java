@@ -49,6 +49,11 @@ public class App {
                 .longOpt("nymphs")
                 .build());
 
+        options.addOption(Option.builder("r")
+                .hasArg()
+                .longOpt("activation").required()
+                .build());
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
@@ -61,7 +66,7 @@ public class App {
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter(cmd.getOptionValue("o")))
                 .with(new Weather(cmd.getOptionValue("w")))
-                .with(new Activity())
+                .with(new Activity(Float.parseFloat(cmd.getOptionValue("r", "0.05"))))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())

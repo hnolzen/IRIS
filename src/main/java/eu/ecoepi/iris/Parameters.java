@@ -25,8 +25,6 @@ public class Parameters {
     public static final int INITIAL_INFECTED_NYMPHS = 0;
     public static final int INITIAL_INFECTED_ADULTS = 0;
 
-    public static final float ACTIVATION_RATE = 0.05f;
-
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
     public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October
