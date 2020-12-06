@@ -6,6 +6,7 @@ import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.Parameters;
 import eu.ecoepi.iris.Randomness;
+import eu.ecoepi.iris.TimeStep;
 import eu.ecoepi.iris.components.Humidity;
 import eu.ecoepi.iris.components.Temperature;
 import eu.ecoepi.iris.components.TickAbundance;
@@ -20,6 +21,9 @@ public class Activity extends IteratingSystem {
 
     @Wire
     Randomness randomness;
+
+    @Wire
+    TimeStep timestep;
 
     public Activity(float activationRate) {
         this.activationRate = activationRate;
@@ -50,7 +54,10 @@ public class Activity extends IteratingSystem {
             }
         }
 
-        var newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+        var newActiveLarvae = 0;
+        if (timestep.getCurrent() > 105) {
+            newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+        }
         var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
         var newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
         var newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * activationRate * (1 - shareOfActivationRate));
