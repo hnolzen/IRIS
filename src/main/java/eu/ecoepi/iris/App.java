@@ -46,7 +46,7 @@ public class App {
 
         options.addOption(Option.builder("a")
                 .hasArg()
-                .longOpt("nymphs")
+                .longOpt("adults")
                 .build());
 
         options.addOption(Option.builder("r")
