@@ -6,6 +6,9 @@ iris_experiment_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
 iris_main_directory <- str_remove(iris_experiment_directory, "/experiments")
 source(paste0(iris_main_directory, "/iris_start.r"))
 
+# Get input functions script to get weather directory
+source(paste0(iris_main_directory, "/input/input_functions.r"))
+
 # Set simulation time span
 year_start <- 2009
 year_end <- 2018
@@ -21,7 +24,7 @@ random_seed <- 42
 
 # Set variation options of larvae
 from_larvae <- 5
-to_larvae <- 10
+to_larvae <- 500
 by_larvae <- 5
 
 # Set variation options of nymphs
@@ -29,35 +32,38 @@ from_nymphs <- 5
 to_nymphs <- 10
 by_nymphs <- 5
 
+# Set variation options of activation rate
+from_rate <- 0.02
+to_rate <- 0.10
+by_rate <- 0.02
+
 # Set default number of adult ticks
 initial_adults <- 150
 
-# Set weather input directory
-if (climate_simulations) {
-  if (slope_one) {
-    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
-                                climate_model, "/monthly_mean_ds_slope1")
-  } else {
-    weather_directory <- paste0(iris_main_directory,"/input/climate/", 
-                                climate_model, "/monthly_mean_ds")
-  }
-} else {
-  weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
-                              dwd_data, "/")   
-}
+# Get weather input directory
+weather_directory <- get_weather_directory(climate_simulations, 
+                                           iris_main_directory, 
+                                           climate_model, 
+                                           dwd_data,
+                                           slope_one)
 
+# Perform sensitivity analysis with selected parameters 
 for (year in year_start : year_end) {
   
   for(initial_larvae in seq(from = from_larvae, to = to_larvae, by = by_larvae)) {
     
     for(initial_nymphs in seq(from = from_nymphs, to = to_nymphs, by = by_nymphs)) {
 
-      iris(year, 
-           random_seed,
-           initial_larvae,
-           initial_nymphs,
-           initial_adults,
-           weather_directory)
+      for (activation_rate in seq(from = from_rate, to = to_rate, by = by_rate)) {
+        
+        iris(year, 
+             random_seed,
+             initial_larvae,
+             initial_nymphs,
+             initial_adults,
+             activation_rate,
+             weather_directory) 
+      }
     }
   }
 }
