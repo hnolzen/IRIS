@@ -49,6 +49,11 @@ public class App {
                 .longOpt("nymphs")
                 .build());
 
+        options.addOption(Option.builder("p")
+                .hasArg()
+                .longOpt("precipitation")
+                .build());
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
@@ -60,7 +65,7 @@ public class App {
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter(cmd.getOptionValue("o")))
-                .with(new Weather(cmd.getOptionValue("w")))
+                .with(new Weather(cmd.getOptionValue("w"), Boolean.parseBoolean(cmd.getOptionValue("p"))))
                 .with(new Activity())
                 .build()
                 .register(new SpatialIndex())
@@ -130,6 +135,10 @@ public class App {
 
                 var humidity = new Humidity();
                 editor.add(humidity);
+
+                var precipitation = new Precipitation();
+                editor.add(precipitation);
+
             }
         }
 

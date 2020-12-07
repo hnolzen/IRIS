@@ -21,17 +21,19 @@ public class Weather extends IteratingSystem {
 
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
+    ComponentMapper<Precipitation> precipitationMapper;
     ComponentMapper<Habitat> habitatMapper;
 
     final List<Float> meanTempTimeSeries = new ArrayList<>();
     final List<Float> minTempTimeSeries = new ArrayList<>();
     final List<Float> maxTempTimeSeries = new ArrayList<>();
     final List<Float> humidityTimeSeries = new ArrayList<>();
+    final List<Integer> precipitationTimeSeries = new ArrayList<>();
 
     @Wire
     TimeStep timestep;
 
-    public Weather(String path) throws IOException, CsvException {
+    public Weather(String path, Boolean withPrecipitation) throws IOException, CsvException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(path))
                 .withSkipLines(1)
                 .build();
@@ -42,6 +44,10 @@ public class Weather extends IteratingSystem {
             minTempTimeSeries.add(Float.parseFloat(nextLine[1]));
             maxTempTimeSeries.add(Float.parseFloat(nextLine[2]));
             humidityTimeSeries.add(Float.parseFloat(nextLine[3]));
+
+            if (withPrecipitation) {
+                precipitationTimeSeries.add(Integer.parseInt(nextLine[4]));
+            }
         }
     }
 
@@ -49,6 +55,7 @@ public class Weather extends IteratingSystem {
     protected void process(int entityId) {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
+        var precipitation = precipitationMapper.get(entityId);
         var habitat = habitatMapper.get(entityId);
 
         var currentTimeStep = timestep.getCurrent();
@@ -73,7 +80,7 @@ public class Weather extends IteratingSystem {
         temperature.setMeanTemperature(meanTempTimeSeries.get(currentTimeStep) + adjustedMeanTemperature);
         temperature.setMinTemperature(minTempTimeSeries.get(currentTimeStep) + adjustedMinTemperature);
         temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
-
         humidity.setRelativeHumidity(humidityTimeSeries.get(currentTimeStep));
+        precipitation.setRainfall(precipitationTimeSeries.get(currentTimeStep));
     }
 }
