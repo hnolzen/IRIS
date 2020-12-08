@@ -16,6 +16,7 @@ get_fructification_index <- function(y) {
   }
 }
 
+
 get_initial_larvae <- function(year, number_larvae) {
   
   index <- get_fructification_index(year - 2)
@@ -35,3 +36,23 @@ get_initial_larvae <- function(year, number_larvae) {
   return(initial_number_larvae)
 }
 
+
+get_weather_directory <- function(climate_simulations, 
+                                  iris_main_directory, 
+                                  climate_model, 
+                                  dwd_data,
+                                  slope_one) {
+  
+  if (climate_simulations) {
+    if (slope_one) {
+      weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                  climate_model, "/monthly_mean_ds_slope1")
+    } else {
+      weather_directory <- paste0(iris_main_directory,"/input/climate/", 
+                                  climate_model, "/monthly_mean_ds")
+    }
+  } else {
+    weather_directory <- paste0(iris_main_directory, "/input/weather/dwd_", 
+                                dwd_data, "/")   
+  }
+}

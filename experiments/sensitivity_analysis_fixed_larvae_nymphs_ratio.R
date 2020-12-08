@@ -22,15 +22,10 @@ climate_model <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
 # Set random seed
 random_seed <- 42
 
-# Set variation options of larvae
-from_larvae <- 5
-to_larvae <- 500
-by_larvae <- 5
-
-# Set variation options of nymphs
-from_nymphs <- 5
-to_nymphs <- 10
-by_nymphs <- 5
+# Set variation options of larvae and nymphs
+from_ticks <- 5
+to_ticks <- 500
+by_ticks <- 5
 
 # Set variation options of activation rate
 from_rate <- 0.02
@@ -50,20 +45,17 @@ weather_directory <- get_weather_directory(climate_simulations,
 # Perform sensitivity analysis with selected parameters 
 for (year in year_start : year_end) {
   
-  for(initial_larvae in seq(from = from_larvae, to = to_larvae, by = by_larvae)) {
+  for(initial_ticks in seq(from = from_ticks, to = to_ticks, by = by_ticks)) {
     
-    for(initial_nymphs in seq(from = from_nymphs, to = to_nymphs, by = by_nymphs)) {
-
-      for (activation_rate in seq(from = from_rate, to = to_rate, by = by_rate)) {
-        
-        iris(year, 
-             random_seed,
-             initial_larvae,
-             initial_nymphs,
-             initial_adults,
-             activation_rate,
-             weather_directory) 
-      }
+    for (activation_rate in seq(from = from_rate, to = to_rate, by = by_rate)) {
+      
+      iris(year, 
+           random_seed,
+           initial_ticks,
+           initial_ticks,
+           initial_adults,
+           activation_rate,
+           weather_directory) 
     }
   }
 }

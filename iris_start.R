@@ -5,6 +5,7 @@ iris <- function(year,
                  initial_larvae,
                  initial_nymphs,
                  initial_adults,
+                 activation_rate,
                  weather_directory
                  ) {
   
@@ -33,12 +34,15 @@ iris <- function(year,
   iris_adults <- paste0("-a ", initial_adults)
   iris_larvae <- paste0("-l ", get_initial_larvae(year, initial_larvae))
   iris_nymphs <- paste0("-n ", initial_nymphs)
+  iris_activation_rate <- paste0("-r ", activation_rate)
   iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
   iris_output <- paste0("-o" , 
                         output_folder, "/iris_abundance_", 
                         year, "_", 
                         initial_larvae, "_", 
-                        initial_nymphs, ".csv")
+                        initial_nymphs, "_",
+                        activation_rate,
+                        ".csv")
   
   # Combine sub strings  
   iris_run <- paste(iris_exe, 
@@ -49,6 +53,7 @@ iris <- function(year,
                     iris_larvae,
                     iris_nymphs,
                     iris_adults,
+                    iris_activation_rate,
                     sep = " ")
   
   # Run IRIS
