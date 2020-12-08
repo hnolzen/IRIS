@@ -2,12 +2,14 @@ package eu.ecoepi.iris.experiments;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorCompletionService;
 
 import eu.ecoepi.iris.Model;
 
 public class SensitivityAnalysis {
     public static void main(String[] args) throws Exception {
-        Map<Integer, Integer> fructificationIndex = Map.of(
+        var fructificationIndex = Map.of(
             2007, 2,
             2008, 1,
             2009, 4,
@@ -19,8 +21,11 @@ public class SensitivityAnalysis {
             2015, 1,
             2016, 4
         );
-                
-        var allOptions = new ArrayList<Model.Options>();
+        
+        var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        var tasks = new ExecutorCompletionService(executor);
+        var todo = 0;
+        var done = 0;
         
         for (int year = 2009; year <= 2018; year++) {
             float abundanceReduction;
@@ -45,8 +50,10 @@ public class SensitivityAnalysis {
                 for (float activationRate = 0.02f; activationRate <= 0.10f; activationRate += 0.02f) {
                     var options = new Model.Options();
                     
+                    var name = String.format("%d_%d_%d", year, ticks, (int)(100.0f * activationRate));
+
                     options.weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
-                    options.output = String.format("./output/sensitivity_analysis_%d_%d_%d.csv", year, ticks, (int)(100.0f * activationRate));
+                    options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
                     
                     options.initialLarvae = (int)(abundanceReduction * ticks);
                     options.initialNymphs = ticks;
@@ -54,13 +61,27 @@ public class SensitivityAnalysis {
                     
                     options.activationRate = activationRate;
                     
-                    allOptions.add(options);
+                    tasks.submit(() -> {
+                        System.err.printf("Starting task %s...\n", name);
+
+                        try {
+                            Model.run(options);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }, null);
+                    todo++;
                 }
             }
         }
         
-        for (var options : allOptions) {
-            Model.run(options);
+        while (done < todo) {
+            tasks.take().get();
+            done++;
+
+            System.err.printf("%d out of %d tasks finished.\n", done, todo);
         }
+
+        executor.shutdown();
     }
 }
