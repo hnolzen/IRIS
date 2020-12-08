@@ -67,7 +67,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>eu.ecoepi.iris.App</mainClass>
+                            <mainClass>eu.ecoepi.iris.experiments.AdHoc</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
