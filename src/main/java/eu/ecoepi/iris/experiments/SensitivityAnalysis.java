@@ -1,6 +1,5 @@
 package eu.ecoepi.iris.experiments;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorCompletionService;
@@ -48,29 +47,33 @@ public class SensitivityAnalysis {
                     
             for (int ticks = 5; ticks <= 500; ticks += 5) {
                 for (float activationRate = 0.02f; activationRate <= 0.10f; activationRate += 0.02f) {
-                    var options = new Model.Options();
-                    
-                    var name = String.format("%d_%d_%d", year, ticks, (int)(100.0f * activationRate));
+                    for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
+                        var options = new Model.Options();
 
-                    options.weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
-                    options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
-                    
-                    options.initialLarvae = (int)(abundanceReduction * ticks);
-                    options.initialNymphs = ticks;
-                    options.initialAdults = ticks;
-                    
-                    options.activationRate = activationRate;
-                    
-                    tasks.submit(() -> {
-                        System.err.printf("Starting task %s...\n", name);
+                        var name = String.format("%d_%d_%d", year, ticks, (int)(100.0f * activationRate));
 
-                        try {
-                            Model.run(options);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }, null);
-                    todo++;
+                        options.weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
+                        options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
+
+                        options.initialLarvae = (int)(abundanceReduction * ticks);
+                        options.initialNymphs = ticks;
+                        options.initialAdults = ticks;
+
+                        options.activationRate = activationRate;
+
+                        options.startLarvaeQuesting = startLarvaeQuesting;
+
+                        tasks.submit(() -> {
+                            System.err.printf("Starting task %s...\n", name);
+
+                            try {
+                                Model.run(options);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }, null);
+                        todo++;
+                    }
                 }
             }
         }

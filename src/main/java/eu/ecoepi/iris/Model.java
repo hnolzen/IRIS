@@ -22,6 +22,7 @@ public class Model {
         public int initialNymphs = 150;
         public int initialAdults = 150;
         public float activationRate = 0.05f;
+        public int startLarvaeQuesting = 105;
     }
 
     public static void run(Options options) throws Exception {
@@ -32,7 +33,7 @@ public class Model {
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter(options.output))
                 .with(new Weather(options.weather))
-                .with(new Activity(options.activationRate))
+                .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
