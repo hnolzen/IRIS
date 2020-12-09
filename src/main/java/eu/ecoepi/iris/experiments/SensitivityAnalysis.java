@@ -50,7 +50,8 @@ public class SensitivityAnalysis {
                     for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
                         var options = new Model.Options();
 
-                        var name = String.format("%d_%d_%d", year, ticks, (int)(100.0f * activationRate));
+                        var name = String.format("%d_%d_%d_%d", year, ticks,
+                                startLarvaeQuesting, (int)(100.0f * activationRate));
 
                         options.weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
                         options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
