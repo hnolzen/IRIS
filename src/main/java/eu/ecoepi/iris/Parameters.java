@@ -86,4 +86,17 @@ public class Parameters {
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
 
+    public static final Map<Integer, Integer> FRUCTIFICATION_INDEX = Map.of(
+            2007, 2,
+            2008, 1,
+            2009, 4,
+            2010, 1,
+            2011, 4,
+            2012, 1,
+            2013, 2,
+            2014, 2,
+            2015, 1,
+            2016, 4
+    );
+
 }
