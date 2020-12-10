@@ -15,6 +15,7 @@ import eu.ecoepi.iris.components.TickAbundance;
 public class Activity extends IteratingSystem {
 
     private final float activationRate;
+    private final int startLarvaeQuesting;
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
@@ -25,8 +26,9 @@ public class Activity extends IteratingSystem {
     @Wire
     TimeStep timestep;
 
-    public Activity(float activationRate) {
+    public Activity(float activationRate, int startLarvaeQuesting) {
         this.activationRate = activationRate;
+        this.startLarvaeQuesting = startLarvaeQuesting;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Activity extends IteratingSystem {
         }
 
         var newActiveLarvae = 0;
-        if (timestep.getCurrent() > 105) {
+        if (timestep.getCurrent() > startLarvaeQuesting) {
             newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
         }
         var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);

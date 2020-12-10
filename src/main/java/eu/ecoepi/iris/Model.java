@@ -22,6 +22,28 @@ public class Model {
         public int initialNymphs = 150;
         public int initialAdults = 150;
         public float activationRate = 0.05f;
+        public int startLarvaeQuesting = 105;
+    }
+
+    public static float abundanceReductionDueToFructificationIndex(int year) {
+        float abundanceReduction;
+        switch (Parameters.FRUCTIFICATION_INDEX.get(year - 2)) {
+            case 1:
+                abundanceReduction = 0.25f;
+                break;
+            case 2:
+                abundanceReduction = 0.5f;
+                break;
+            case 3:
+                abundanceReduction = 0.75f;
+                break;
+            case 4:
+                abundanceReduction = 1.0f;
+                break;
+            default:
+                throw new RuntimeException("Invalid fructification index");
+        }
+        return abundanceReduction;
     }
 
     public static void run(Options options) throws Exception {
@@ -32,7 +54,7 @@ public class Model {
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter(options.output))
                 .with(new Weather(options.weather))
-                .with(new Activity(options.activationRate))
+                .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
