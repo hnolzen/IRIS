@@ -47,7 +47,7 @@ public class SensitivityAnalysisLN {
 
             for (int larvae = 5; larvae <= 500; larvae += 5) {
                 for (int nymphs = 5; nymphs <= 500; nymphs += 5) {
-                    for (float activationRate = 0.02f; activationRate <= 0.10f; activationRate += 0.02f) {
+                    for (int activationRate = 2; activationRate <= 8; activationRate += 1) {
                         for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
                             var options = new Model.Options();
 
@@ -61,7 +61,7 @@ public class SensitivityAnalysisLN {
                             options.initialNymphs = nymphs;
                             options.initialAdults = 150;
 
-                            options.activationRate = activationRate;
+                            options.activationRate = (activationRate / 100.0f);
 
                             options.startLarvaeQuesting = startLarvaeQuesting;
 
