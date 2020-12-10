@@ -45,6 +45,8 @@ public class SensitivityAnalysisLN {
                     throw new RuntimeException("Invalid fructification index");
             }
 
+            var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
+
             for (int larvae = 5; larvae <= 500; larvae += 5) {
                 for (int nymphs = 5; nymphs <= 500; nymphs += 5) {
                     for (int activationRate = 2; activationRate <= 8; activationRate += 1) {
@@ -54,7 +56,7 @@ public class SensitivityAnalysisLN {
                             var name = String.format("%d_%d_%d_%d_%d", year, larvae, nymphs,
                                     startLarvaeQuesting, (int) (100.0f * activationRate));
 
-                            options.weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
+                            options.weather = weather;
                             options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
 
                             options.initialLarvae = (int) (abundanceReduction * larvae);
