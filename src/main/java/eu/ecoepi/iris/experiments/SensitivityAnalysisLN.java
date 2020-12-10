@@ -32,7 +32,7 @@ public class SensitivityAnalysisLN {
                             options.initialNymphs = nymphs;
                             options.initialAdults = 150;
 
-                            options.activationRate = (activationRate / 100.0f);
+                            options.activationRate = activationRate / 100.0f;
 
                             options.startLarvaeQuesting = startLarvaeQuesting;
 
