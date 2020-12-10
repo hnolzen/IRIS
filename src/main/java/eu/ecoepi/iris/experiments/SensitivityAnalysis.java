@@ -22,7 +22,7 @@ public class SensitivityAnalysis {
                         var options = new Model.Options();
 
                         var name = String.format("%d_%d_%d_%d", year, ticks,
-                                startLarvaeQuesting, (int)(100.0f * activationRate));
+                                startLarvaeQuesting, activationRate);
 
                         options.weather = weather;
                         options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
