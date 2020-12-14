@@ -37,8 +37,7 @@ data_rmse = pd.read_csv('rsme_exp_1.csv', header = 0)
 max_round_rmse = int(math.ceil(data_rmse['rsme'].max() / 10.0)) * 10
 
 # Create empty data frame for rsme summary statistics
-min_rmse = pd.DataFrame(index = np.arange(0, 0), 
-                        columns = ('year', 'ticks', 'activation_rate', 'start_larvae_questing', 'rsme'))
+min_rmse = pd.DataFrame(columns = ('year', 'ticks', 'activation_rate', 'start_larvae_questing', 'rsme'))
 
 for year in range(2009, 2018 + 1):
     data_rmse_year = data_rmse[data_rmse['year'] == year]
