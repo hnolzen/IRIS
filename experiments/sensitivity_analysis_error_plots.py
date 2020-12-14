@@ -44,7 +44,7 @@ for year in range(2009, 2018 + 1):
     
     for start_lq in range(0, 150 + 1, 50):
         data_rmse_start_lq = data_rmse_year[data_rmse_year['start_larvae_questing'] == start_lq]
-        min_rmse_start_lq = data_rmse_start_lq[data_rmse_start_lq['rsme'] == data_rmse_start_lq['rsme'].min()]
+        min_rmse_start_lq = data_rmse_start_lq[data_rmse_start_lq['rsme'] == data_rmse_start_lq['rsme'].argmin()]
         min_rmse = min_rmse.append(min_rmse_start_lq, ignore_index = True) 
         plot_rmse(year, data_rmse_start_lq, max_round_rmse, start_lq)
 
