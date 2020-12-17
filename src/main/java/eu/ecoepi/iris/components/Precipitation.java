@@ -5,13 +5,13 @@ import com.artemis.Component;
 import java.util.Objects;
 
 public class Precipitation extends Component {
-    double rainfall;
+    float rainfall;
 
     public Precipitation() {
 
     }
 
-    public Precipitation(int rainfall) {
+    public Precipitation(float rainfall) {
         this.rainfall = rainfall;
     }
 
@@ -19,7 +19,7 @@ public class Precipitation extends Component {
         return rainfall;
     }
 
-    public void setRainfall(int rainfall) {
+    public void setRainfall(float rainfall) {
         this.rainfall = rainfall;
     }
 
@@ -28,7 +28,7 @@ public class Precipitation extends Component {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Precipitation that = (Precipitation) o;
-        return Double.compare(that.rainfall, rainfall) == 0;
+        return Float.compare(that.rainfall, rainfall) == 0;
     }
 
     @Override

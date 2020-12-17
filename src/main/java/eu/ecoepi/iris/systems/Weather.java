@@ -28,7 +28,7 @@ public class Weather extends IteratingSystem {
     final List<Float> minTempTimeSeries = new ArrayList<>();
     final List<Float> maxTempTimeSeries = new ArrayList<>();
     final List<Float> humidityTimeSeries = new ArrayList<>();
-    final List<Integer> precipitationTimeSeries = new ArrayList<>();
+    final List<Float> precipitationTimeSeries = new ArrayList<>();
 
     @Wire
     TimeStep timestep;
@@ -46,7 +46,7 @@ public class Weather extends IteratingSystem {
             humidityTimeSeries.add(Float.parseFloat(nextLine[3]));
 
             if (withPrecipitation) {
-                precipitationTimeSeries.add(Integer.parseInt(nextLine[4]));
+                precipitationTimeSeries.add(Float.parseFloat(nextLine[4]));
             }
         }
     }
