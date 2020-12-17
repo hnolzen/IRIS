@@ -23,6 +23,7 @@ public class Model {
         public int initialAdults = 150;
         public float activationRate = 0.05f;
         public int startLarvaeQuesting = 105;
+        public boolean withPrecipitation = false;
     }
 
     public static float abundanceReductionDueToFructificationIndex(int year) {
@@ -53,7 +54,7 @@ public class Model {
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
                 .with(new CsvTimeSeriesWriter(options.output))
-                .with(new Weather(options.weather))
+                .with(new Weather(options.weather, options.withPrecipitation))
                 .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
@@ -119,6 +120,10 @@ public class Model {
 
                 var humidity = new Humidity();
                 editor.add(humidity);
+
+                var precipitation = new Precipitation();
+                editor.add(precipitation);
+
             }
         }
 
