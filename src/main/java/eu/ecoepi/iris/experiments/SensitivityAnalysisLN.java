@@ -35,6 +35,8 @@ public class SensitivityAnalysisLN {
                             options.activationRate = activationRate / 100.0f;
 
                             options.startLarvaeQuesting = startLarvaeQuesting;
+                            
+                            options.summary = true;
 
                             tasks.submit(() -> {
                                 System.err.printf("Starting task %s...\n", name);

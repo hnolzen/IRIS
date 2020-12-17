@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class SpatialIndex {
 
-    final Map<Position, Integer> map = new HashMap();
+    final Map<Position, Integer> map = new HashMap<>();
 
     public void insert(Position position, int entityId) {
         map.put(position, entityId);
