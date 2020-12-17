@@ -15,7 +15,7 @@ public class Precipitation extends Component {
         this.rainfall = rainfall;
     }
 
-    public double getRainfall() {
+    public float getRainfall() {
         return rainfall;
     }
 
