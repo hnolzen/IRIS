@@ -9,6 +9,7 @@ import eu.ecoepi.iris.components.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
 
 @All({TickAbundance.class, Position.class})
 public class CsvTimeSeriesWriter extends IteratingSystem {
@@ -19,7 +20,7 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
 
-    private FileWriter csvWriter;
+    private BufferedWriter csvWriter;
 
     @Wire
     TimeStep timeStep;
@@ -27,7 +28,7 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
     public CsvTimeSeriesWriter(String path) {
         {
             try {
-                csvWriter = new FileWriter(path);
+                csvWriter = new BufferedWriter(new FileWriter(path));
                 csvWriter.write("tick,x,y,habitat," +
                         "questing_larvae,questing_nymphs,questing_adults," +
                         "inactive_larvae,inactive_nymphs,inactive_adults," +

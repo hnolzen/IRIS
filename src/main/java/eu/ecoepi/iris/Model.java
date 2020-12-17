@@ -8,60 +8,53 @@ import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.systems.TickLifeCycle;
 import eu.ecoepi.iris.systems.Weather;
-import org.apache.commons.cli.*;
 import org.apache.commons.math3.random.MersenneTwister;
 
 /**
  * IRIS
  */
-public class App {
-    public static void main(String[] args) throws Exception {
+public class Model {
+    public static class Options {
+        public long seed = 42;
+        public String weather;
+        public String output;
+        public int initialLarvae = 150;
+        public int initialNymphs = 150;
+        public int initialAdults = 150;
+        public float activationRate = 0.05f;
+        public int startLarvaeQuesting = 105;
+    }
 
-        Options options = new Options();
+    public static float abundanceReductionDueToFructificationIndex(int year) {
+        float abundanceReduction;
+        switch (Parameters.FRUCTIFICATION_INDEX.get(year - 2)) {
+            case 1:
+                abundanceReduction = 0.25f;
+                break;
+            case 2:
+                abundanceReduction = 0.5f;
+                break;
+            case 3:
+                abundanceReduction = 0.75f;
+                break;
+            case 4:
+                abundanceReduction = 1.0f;
+                break;
+            default:
+                throw new RuntimeException("Invalid fructification index");
+        }
+        return abundanceReduction;
+    }
 
-        options.addOption(Option.builder("s")
-                .hasArg()
-                .longOpt("seed")
-                .build());
-
-        options.addOption(Option.builder("w")
-                .hasArg()
-                .longOpt("weather").required()
-                .build());
-
-        options.addOption(Option.builder("o")
-                .hasArg()
-                .longOpt("output").required()
-                .build());
-
-        options.addOption(Option.builder("l")
-                .hasArg()
-                .longOpt("larvae")
-                .build());
-
-        options.addOption(Option.builder("n")
-                .hasArg()
-                .longOpt("nymphs")
-                .build());
-
-        options.addOption(Option.builder("a")
-                .hasArg()
-                .longOpt("nymphs")
-                .build());
-
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
-
-        var seed = Long.parseLong(cmd.getOptionValue("s", "42"));
-
-        var rng = new MersenneTwister(seed);
+    public static void run(Options options) throws Exception {
+        var rng = new MersenneTwister(options.seed);
 
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
-                .with(new CsvTimeSeriesWriter(cmd.getOptionValue("o")))
-                .with(new Weather(cmd.getOptionValue("w")))
-                .with(new Activity())
+                .with(new CsvTimeSeriesWriter(options.output))
+                .with(new Weather(options.weather))
+                .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
@@ -101,17 +94,13 @@ public class App {
                 editor.add(position);
                 index.insert(position, entityId);
 
-                var initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l"));
-                var initialInactiveNymphs = Integer.parseInt(cmd.getOptionValue("n"));
-                var initialInactiveAdults = Integer.parseInt(cmd.getOptionValue("a"));
-
                 var abundance = new TickAbundance(
                         Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        initialInactiveLarvae,
-                        initialInactiveNymphs,
-                        initialInactiveAdults,
+                        options.initialLarvae,
+                        options.initialNymphs,
+                        options.initialAdults,
                         Parameters.INITIAL_FED_LARVAE,
                         Parameters.INITIAL_FED_NYMPHS,
                         Parameters.INITIAL_FED_ADULTS,
@@ -137,9 +126,6 @@ public class App {
 
         for (var timeStep = world.getRegistered(TimeStep.class); timeStep.getCurrent() < Parameters.TIME_STEPS; timeStep.increment()) {
             world.process();
-
-            //Thread.sleep(70);
-
         }
     }
 }
