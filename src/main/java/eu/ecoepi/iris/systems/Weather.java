@@ -81,6 +81,8 @@ public class Weather extends IteratingSystem {
         temperature.setMinTemperature(minTempTimeSeries.get(currentTimeStep) + adjustedMinTemperature);
         temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
         humidity.setRelativeHumidity(humidityTimeSeries.get(currentTimeStep));
-        precipitation.setRainfall(precipitationTimeSeries.get(currentTimeStep));
+        var precipitationValue = precipitationTimeSeries.get(currentTimeStep);
+        precipitation.setRainfall(precipitationValue != null ? precipitationValue : Float.NaN);
+
     }
 }
