@@ -29,7 +29,7 @@ iris <- function(year,
   
   # Set substrings to start IRIS from R
   iris_exe <- "java.exe"
-  iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar")
+  iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar eu.ecoepi.iris.experiments.AdHoc")
   iris_seed <- paste0("-s ", random_seed)
   iris_adults <- paste0("-a ", initial_adults)
   iris_larvae <- paste0("-l ", get_initial_larvae(year, initial_larvae))
