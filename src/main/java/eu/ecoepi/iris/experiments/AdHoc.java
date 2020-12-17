@@ -61,7 +61,7 @@ public class AdHoc {
         options.output = cmd.getOptionValue("o");
 
         options.weather = cmd.getOptionValue("w");
-        options.withPrecipitation = Boolean.parseBoolean(cmd.getOptionValue("p"));
+        options.withPrecipitation = cmd.hasOption("p");
 
         options.initialLarvae = Integer.parseInt(cmd.getOptionValue("l", "150"));
         options.initialNymphs = Integer.parseInt(cmd.getOptionValue("n", "150"));
