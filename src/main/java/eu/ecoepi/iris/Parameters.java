@@ -25,8 +25,6 @@ public class Parameters {
     public static final int INITIAL_INFECTED_NYMPHS = 0;
     public static final int INITIAL_INFECTED_ADULTS = 0;
 
-    public static final float ACTIVATION_RATE = 0.05f;
-
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
     public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October
@@ -87,5 +85,18 @@ public class Parameters {
     );
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
+
+    public static final Map<Integer, Integer> FRUCTIFICATION_INDEX = Map.of(
+            2007, 2,
+            2008, 1,
+            2009, 4,
+            2010, 1,
+            2011, 4,
+            2012, 1,
+            2013, 2,
+            2014, 2,
+            2015, 1,
+            2016, 4
+    );
 
 }

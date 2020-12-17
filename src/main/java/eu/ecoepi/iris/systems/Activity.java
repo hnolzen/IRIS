@@ -6,6 +6,7 @@ import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.Parameters;
 import eu.ecoepi.iris.Randomness;
+import eu.ecoepi.iris.TimeStep;
 import eu.ecoepi.iris.components.Humidity;
 import eu.ecoepi.iris.components.Temperature;
 import eu.ecoepi.iris.components.TickAbundance;
@@ -13,12 +14,22 @@ import eu.ecoepi.iris.components.TickAbundance;
 @All({TickAbundance.class, Temperature.class, Humidity.class})
 public class Activity extends IteratingSystem {
 
+    private final float activationRate;
+    private final int startLarvaeQuesting;
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
 
     @Wire
     Randomness randomness;
+
+    @Wire
+    TimeStep timestep;
+
+    public Activity(float activationRate, int startLarvaeQuesting) {
+        this.activationRate = activationRate;
+        this.startLarvaeQuesting = startLarvaeQuesting;
+    }
 
     @Override
     protected void process(int entityId) {
@@ -45,12 +56,15 @@ public class Activity extends IteratingSystem {
             }
         }
 
-        var newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
-        var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
-        var newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * Parameters.ACTIVATION_RATE * shareOfActivationRate);
-        var newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
-        var newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
-        var newInactiveAdults = randomness.roundRandom(abundance.getAdults() * Parameters.ACTIVATION_RATE * (1 - shareOfActivationRate));
+        var newActiveLarvae = 0;
+        if (timestep.getCurrent() > startLarvaeQuesting) {
+            newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+        }
+        var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
+        var newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
+        var newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * activationRate * (1 - shareOfActivationRate));
+        var newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * activationRate * (1 - shareOfActivationRate));
+        var newInactiveAdults = randomness.roundRandom(abundance.getAdults() * activationRate * (1 - shareOfActivationRate));
 
         abundance.addLarvae(newActiveLarvae - newInactiveLarvae);
         abundance.addNymphs(newActiveNymphs - newInactiveNymphs);
