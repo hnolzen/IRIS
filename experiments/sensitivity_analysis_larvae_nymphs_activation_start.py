@@ -5,7 +5,7 @@ import itertools
 import multiprocessing
 import functools
 
-def compute_rmse(data_haselmühl, params):
+def compute_errors_indices(data_haselmühl, params):
 
     year, larvae, nymphs, activation_rate, start_larvae_questing = params
     
@@ -22,6 +22,9 @@ def compute_rmse(data_haselmühl, params):
 
     # Calculate Root Mean Square Error (RMSE)
     rmse = math.sqrt(((data_haselmühl_year - time_series_questing_nymphs_monthly)**2).mean())
+
+    # Calculate Mean Absolute Error (MAE)
+    mae = math.abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
   
     # Add to dictionary
     return {'year':year, 
@@ -29,7 +32,8 @@ def compute_rmse(data_haselmühl, params):
             'nymphs':nymphs,
             'activation_rate':activation_rate, 
             'start_larvae_questing':start_larvae_questing, 
-            'rmse':rmse}
+            'rmse':rmse,
+            'mae':mae}
         
 if __name__ == '__main__':
 
@@ -44,12 +48,12 @@ if __name__ == '__main__':
         #Read in Haselmühl data
         data_haselmühl = pd.read_excel('input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
         
-        # Create Data Frame to store the RMSE for each parameter combination
-        rmse_all_years = pd.DataFrame(columns = ['year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse'])
+        # Create Data Frame to store RMSE and MAE for each parameter combination
+        errors_indices_all_years = pd.DataFrame(columns = ['year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse', 'mae'])
         
-        for row in pool.imap_unordered(functools.partial(compute_rmse, data_haselmühl), params):
+        for row in pool.imap_unordered(functools.partial(compute_errors_indices, data_haselmühl), params):
             print(row)
-            rmse_all_years = rmse_all_years.append(row, ignore_index = True)
+            errors_indices_all_years = errors_indices_all_years.append(row, ignore_index = True)
 
         # Save results in csv file
-        rmse_all_years.to_csv('rmse.csv', index = False)
+        errors_indices_all_years.to_csv('rmse.csv', index = False)
