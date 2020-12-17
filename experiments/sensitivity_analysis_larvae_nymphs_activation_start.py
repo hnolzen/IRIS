@@ -5,7 +5,7 @@ import itertools
 import multiprocessing
 import functools
 
-def compute_rsme(data_haselmühl, params):   
+def compute_rmse(data_haselmühl, params):
 
     year, larvae, nymphs, activation_rate, start_larvae_questing = params
     
@@ -21,7 +21,7 @@ def compute_rsme(data_haselmühl, params):
     time_series_questing_nymphs_monthly = time_series_questing_nymphs.groupby(lambda tick: (datetime.datetime(year, 1, 1) + datetime.timedelta(tick - 1)).month - 1).mean()
 
     # Calculate Root Mean Square Error (RMSE)
-    rsme = math.sqrt(((data_haselmühl_year - time_series_questing_nymphs_monthly)**2).mean())
+    rmse = math.sqrt(((data_haselmühl_year - time_series_questing_nymphs_monthly)**2).mean())
   
     # Add to dictionary
     return {'year':year, 
@@ -29,7 +29,7 @@ def compute_rsme(data_haselmühl, params):
             'nymphs':nymphs,
             'activation_rate':activation_rate, 
             'start_larvae_questing':start_larvae_questing, 
-            'rsme':rsme}
+            'rmse':rmse}
         
 if __name__ == '__main__':
 
@@ -45,11 +45,11 @@ if __name__ == '__main__':
         data_haselmühl = pd.read_excel('input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
         
         # Create Data Frame to store the RMSE for each parameter combination
-        rsme_all_years = pd.DataFrame(columns = ['year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rsme'])
+        rmse_all_years = pd.DataFrame(columns = ['year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse'])
         
-        for row in pool.imap_unordered(functools.partial(compute_rsme, data_haselmühl), params):
+        for row in pool.imap_unordered(functools.partial(compute_rmse, data_haselmühl), params):
             print(row)
-            rsme_all_years = rsme_all_years.append(row, ignore_index = True)
+            rmse_all_years = rmse_all_years.append(row, ignore_index = True)
 
         # Save results in csv file
-        rsme_all_years.to_csv('rsme.csv', index = False) 
+        rmse_all_years.to_csv('rmse.csv', index = False)

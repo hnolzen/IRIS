@@ -8,7 +8,7 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, ar):
     fig = plt.figure(figsize = (12,12), dpi = 200)
     ax = plt.axes(projection = '3d')
     
-    z_points = data_rmse_ar['rsme']
+    z_points = data_rmse_ar['rmse']
     y_points = data_rmse_ar['nymphs']
     x_points = data_rmse_ar['larvae']
     ax.scatter3D(x_points, y_points, z_points, c = z_points, cmap = 'hsv');
@@ -30,23 +30,23 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, ar):
     
 
 # Get iris output data
-data_rmse = pd.read_csv('rsme_exp_3.csv', header = 0)
+data_rmse = pd.read_csv('rmse_exp_3.csv', header = 0)
 
 # Get max RSME and round up to nearest ten for consistent z-axis limit for all years
-max_round_rmse = int(math.ceil(data_rmse['rsme'].max() / 10.0)) * 10
+max_round_rmse = int(math.ceil(data_rmse['rmse'].max() / 10.0)) * 10
 
-# Create empty data frame for rsme summary statistics
-min_rmse = pd.DataFrame(columns = ('year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rsme'))
+# Create empty data frame for rmse summary statistics
+min_rmse = pd.DataFrame(columns = ('year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse'))
 
 for year in range(2009, 2018 + 1):
     data_rmse_year = data_rmse[data_rmse['year'] == year]
     
     for ar in range(2, 6 + 1):
         data_rmse_ar = data_rmse_year[data_rmse_year['activation_rate'] == ar]
-        min_rmse_ar = data_rmse_ar.iloc[data_rmse_ar['rsme'].argmin()]
+        min_rmse_ar = data_rmse_ar.iloc[data_rmse_ar['rmse'].argmin()]
         min_rmse = min_rmse.append(min_rmse_ar, ignore_index = True) 
         plot_rmse(year, data_rmse_ar, max_round_rmse, ar)
 
 
 # Save results in csv file
-min_rmse.to_csv('min_rsme_exp_3.csv', index = False)
+min_rmse.to_csv('min_rmse_exp_3.csv', index = False)
