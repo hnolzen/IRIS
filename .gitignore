@@ -2,3 +2,14 @@
 IRIS.iml
 target/
 input/climate/
+target
+archive
+plots/archive
+
+.RData
+.Rhistory
+
+.out
+.toc
+.aux
+.synctex.gz
