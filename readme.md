@@ -23,6 +23,7 @@ Command line arguments for model parameterisation:
 | file / folder                                          | description                                                                                                         |
 |--------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | [ODD.pdf](documents/odd/iris_odd.pdf)                  | Model description (ODD protocol)                                                          |
+| iris_start.R                                           | Script to run IRIS from R                                                                 |
 | `documents`                                            | Model documentation files                                                                 |
 | `experiments`                                          | Location of files to run various predefined experiments (e.g. sensitivity analyses)       |
 | `input`                                                | Location of input files (weather data, fructification data)                               |
