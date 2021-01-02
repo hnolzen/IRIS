@@ -2,7 +2,7 @@
 
 IRIS is a population model for local dynamics of Ixodes ricinis ticks under changing climate parameters. It is designed as a spatially-explicit compartmental model that operates on a local scale. We plan to add a transmission model for borrelian dynamics in the near future.
 
-This model is being developed developed as part of the [HICAM project][HICAM].
+This model is being developed as part of the [HICAM project][HICAM].
 
 ## Run
 
