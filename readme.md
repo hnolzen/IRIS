@@ -21,12 +21,14 @@ Command line arguments for model parameterisation:
 ## Documents and folders
 
 | file / folder                                          | description                                                                                                         |
-|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| [ODD.pdf](documents/odd/iris_odd.pdf)                  | Model description (ODD protocol)                                                                                    |
-| `documents`                                            | Model documentation files                                                                                           |
-| `input`                                                | Location of input files (weather data, fructification data)                                                         |
-| `output`                                               | Location of output files                                                                                            |
-| `src`                                                  | Java source files                                                                                                   |
+|--------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| [ODD.pdf](documents/odd/iris_odd.pdf)                  | Model description (ODD protocol)                                                          |
+| `documents`                                            | Model documentation files                                                                 |
+| `experiments`                                          | Location of files to run various predefined experiments (e.g. sensitivity analyses)       |
+| `input`                                                | Location of input files (weather data, fructification data)                               |
+| `output`                                               | Location of output files                                                                  |
+| `plots`                                                | Location of scripts to visualise model outputs                                            |
+| `src`                                                  | Java source files                                                                         |
 
 
 [HICAM]: https://www.ufz.de/index.php?en=47573
