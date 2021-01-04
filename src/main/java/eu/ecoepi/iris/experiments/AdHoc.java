@@ -46,7 +46,6 @@ public class AdHoc {
                 .build());
 
         cmdOptions.addOption(Option.builder("p")
-                .hasArg()
                 .longOpt("precipitation")
                 .build());
 
