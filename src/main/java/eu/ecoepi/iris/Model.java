@@ -121,6 +121,10 @@ public class Model {
 
                 var humidity = new Humidity();
                 editor.add(humidity);
+
+                var precipitation = new Precipitation();
+                editor.add(precipitation);
+
             }
         }
 

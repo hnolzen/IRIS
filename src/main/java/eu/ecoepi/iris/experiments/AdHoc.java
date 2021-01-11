@@ -49,6 +49,11 @@ public class AdHoc {
                 .longOpt("summary")
                 .build());
 
+        cmdOptions.addOption(Option.builder("p")
+                .longOpt("precipitation")
+                .build());
+
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(cmdOptions, args);
 
@@ -56,8 +61,10 @@ public class AdHoc {
 
         options.seed = Long.parseLong(cmd.getOptionValue("s", "42"));
 
-        options.weather = cmd.getOptionValue("w");
         options.output = cmd.getOptionValue("o");
+
+        options.weather = cmd.getOptionValue("w");
+        options.withPrecipitation = cmd.hasOption("p");
 
         options.initialLarvae = Integer.parseInt(cmd.getOptionValue("l", "150"));
         options.initialNymphs = Integer.parseInt(cmd.getOptionValue("n", "150"));
