@@ -44,6 +44,10 @@ public class AdHoc {
                 .hasArg()
                 .longOpt("activation")
                 .build());
+                
+        cmdOptions.addOption(Option.builder("u")
+                .longOpt("summary")
+                .build());
 
         cmdOptions.addOption(Option.builder("p")
                 .longOpt("precipitation")
@@ -67,6 +71,8 @@ public class AdHoc {
         options.initialAdults = Integer.parseInt(cmd.getOptionValue("a", "150"));
         
         options.activationRate = Float.parseFloat(cmd.getOptionValue("r", "0.05"));
+        
+        options.summary = cmd.hasOption("u");
                     
         Model.run(options);
     }

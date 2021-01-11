@@ -4,6 +4,7 @@ import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
+import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriter;
 import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.systems.TickLifeCycle;
@@ -23,7 +24,7 @@ public class Model {
         public int initialAdults = 150;
         public float activationRate = 0.05f;
         public int startLarvaeQuesting = 105;
-        public boolean withPrecipitation = false;
+        public boolean summary = false;
     }
 
     public static float abundanceReductionDueToFructificationIndex(int year) {
@@ -53,8 +54,8 @@ public class Model {
         var config = new WorldConfigurationBuilder()
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
-                .with(new CsvTimeSeriesWriter(options.output))
-                .with(new Weather(options.weather, options.withPrecipitation))
+                .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
+                .with(new Weather(options.weather))
                 .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
@@ -132,5 +133,7 @@ public class Model {
         for (var timeStep = world.getRegistered(TimeStep.class); timeStep.getCurrent() < Parameters.TIME_STEPS; timeStep.increment()) {
             world.process();
         }
+        
+        world.dispose();
     }
 }

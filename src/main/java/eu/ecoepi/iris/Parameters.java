@@ -46,7 +46,7 @@ public class Parameters {
     public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
 
     public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
-    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 70.0f;    // Ostfeld and Brunner 2015
+    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 80.0f;    // Hauser et al. 2018, Medlock et al. 2013, Gray et al. 2016
     public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
 
     public static final int BEGIN_SPRING = 60;
@@ -64,6 +64,12 @@ public class Parameters {
             Habitat.Type.PASTURE, 0f,
             Habitat.Type.ECOTONE, -2f,
             Habitat.Type.WOOD, -4.0f
+    );
+
+    public static final Map<Habitat.Type, Float> SET_LOCAL_HUMIDITY = Map.of(
+            Habitat.Type.PASTURE, 1.12f,    // estimation
+            Habitat.Type.ECOTONE, 1.18f,    // estimation
+            Habitat.Type.WOOD, 1.24f        // Boehnke 2017
     );
 
     public static final Map<Habitat.Type, Float> DESICCATION_RATE = Map.of(

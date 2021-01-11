@@ -7,9 +7,8 @@ import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.TimeStep;
 import eu.ecoepi.iris.components.*;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedWriter;
+import java.io.PrintWriter;
 
 @All({TickAbundance.class, Position.class})
 public class CsvTimeSeriesWriter extends IteratingSystem {
@@ -20,29 +19,21 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
 
-    private BufferedWriter csvWriter;
+    private final PrintWriter csvWriter;
 
     @Wire
     TimeStep timeStep;
 
-    public CsvTimeSeriesWriter(String path) {
-        {
-            try {
-                csvWriter = new BufferedWriter(new FileWriter(path));
-                csvWriter.write("tick,x,y,habitat," +
-                        "questing_larvae,questing_nymphs,questing_adults," +
-                        "inactive_larvae,inactive_nymphs,inactive_adults," +
-                        "fed_larvae,fed_nymphs,fed_adults," +
-                        "late_fed_larvae,late_fed_nymphs," +
-                        "t_mean,t_min,t_max,humidity," +
-                        "feeding_events_larvae," + "feeding_events_nymphs," +
-                        "feeding_events_adults" +
-                        "\n");
-                csvWriter.flush();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public CsvTimeSeriesWriter(String path) throws IOException {
+        csvWriter = new PrintWriter(path);
+        csvWriter.print("tick,x,y,habitat," +
+                "questing_larvae,questing_nymphs,questing_adults," +
+                "inactive_larvae,inactive_nymphs,inactive_adults," +
+                "fed_larvae,fed_nymphs,fed_adults," +
+                "late_fed_larvae,late_fed_nymphs," +
+                "t_mean,t_min,t_max,humidity," +
+                "feeding_events_larvae,feeding_events_nymphs,feeding_events_adults" +
+                "\n");
     }
 
     @Override
@@ -53,56 +44,33 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        try {
-            csvWriter.write(Integer.toString(timeStep.getCurrent()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(position.getX()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(position.getY()));
-            csvWriter.write(",");
-            csvWriter.write(String.valueOf(habitat.getType()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getLarvae()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getNymphs()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getAdults()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getInactiveLarvae()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getInactiveNymphs()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getInactiveAdults()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFedLarvae()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFedNymphs()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFedAdults()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getLateFedLarvae()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getLateFedNymphs()));
-            csvWriter.write(",");
-            csvWriter.write(Double.toString(temperature.getMeanTemperature()));
-            csvWriter.write(",");
-            csvWriter.write(Double.toString(temperature.getMinTemperature()));
-            csvWriter.write(",");
-            csvWriter.write(Double.toString(temperature.getMaxTemperature()));
-            csvWriter.write(",");
-            csvWriter.write(Double.toString(humidity.getRelativeHumidity()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFeedingEventsLarvae()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFeedingEventsNymphs()));
-            csvWriter.write(",");
-            csvWriter.write(Integer.toString(abundance.getFeedingEventsAdults()));
-            csvWriter.write("\n");
-            csvWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        csvWriter.format("%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%f,%d,%d,%d\n",
+            timeStep.getCurrent(),
+            position.getX(),
+            position.getY(),
+            habitat.getType(),
+            abundance.getLarvae(),
+            abundance.getNymphs(),
+            abundance.getAdults(),
+            abundance.getInactiveLarvae(),
+            abundance.getInactiveNymphs(),
+            abundance.getInactiveAdults(),
+            abundance.getFedLarvae(),
+            abundance.getFedNymphs(),
+            abundance.getFedAdults(),
+            abundance.getLateFedLarvae(),
+            abundance.getLateFedNymphs(),
+            temperature.getMeanTemperature(),
+            temperature.getMinTemperature(),
+            temperature.getMaxTemperature(),
+            humidity.getRelativeHumidity(),
+            abundance.getFeedingEventsLarvae(),
+            abundance.getFeedingEventsNymphs(),
+            abundance.getFeedingEventsAdults());
     }
 
+    @Override
+    protected void dispose() {
+        csvWriter.flush();
+    }
 }
