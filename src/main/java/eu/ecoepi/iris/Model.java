@@ -25,6 +25,7 @@ public class Model {
         public float activationRate = 0.05f;
         public int startLarvaeQuesting = 105;
         public boolean summary = false;
+        public boolean withPrecipitation = false;
     }
 
     public static float abundanceReductionDueToFructificationIndex(int year) {
@@ -55,7 +56,7 @@ public class Model {
                 .with(new TickLifeCycle())
                 .with(new Feeding(rng))
                 .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
-                .with(new Weather(options.weather))
+                .with(new Weather(options.weather, options.withPrecipitation))
                 .with(new Activity(options.activationRate, options.startLarvaeQuesting))
                 .build()
                 .register(new SpatialIndex())
