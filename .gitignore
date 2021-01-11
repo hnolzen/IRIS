@@ -2,8 +2,7 @@
 IRIS.iml
 target/
 input/climate/
-target
-archive
+archive/
 plots/archive
 
 .RData
