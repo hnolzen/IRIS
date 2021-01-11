@@ -74,6 +74,10 @@ public class Weather extends IteratingSystem {
         temperature.setMinTemperature(minTempTimeSeries.get(currentTimeStep) + adjustedMinTemperature);
         temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
 
-        humidity.setRelativeHumidity(humidityTimeSeries.get(currentTimeStep));
+        var adjustedRelativeHumidity = humidityTimeSeries.get(currentTimeStep) * Parameters.SET_LOCAL_HUMIDITY.get(habitat.getType());
+        if (adjustedRelativeHumidity > 100) {
+            adjustedRelativeHumidity = 100;
+        }
+        humidity.setRelativeHumidity(adjustedRelativeHumidity);
     }
 }
