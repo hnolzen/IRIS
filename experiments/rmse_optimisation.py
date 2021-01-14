@@ -5,8 +5,10 @@ all_rmse = {}
 
 iris_output = pd.read_csv('rmse.csv')
 
-for r in iris_output.iterrows():
-    row = r[1]
+step_size_activation_rate = 1
+step_size_initial_ticks = 10
+
+for (_, row) in iris_output.iterrows():
     all_rmse[(row['activation_rate'], row['year'], row['ticks'])] = row['rsme']
     
 min_min_initial_ticks = None
@@ -20,15 +22,15 @@ range_max_year = int(max(iris_output.year))
 range_min_initial_ticks = int(min(iris_output.ticks))
 range_max_initial_ticks = int(max(iris_output.ticks))
 
-for activation_rate in range(range_min_activation_rate, range_max_activation_rate):
+for activation_rate in range(range_min_activation_rate, range_max_activation_rate + step_size_activation_rate):
     min_initial_ticks = {}
     min_rmse = {}
  
-    for year in range(range_min_year, range_max_year):
+    for year in range(range_min_year, range_max_year + 1):
         min_initial_ticks[year] = 0
         min_rmse[year] = math.inf
         
-        for initial_ticks in range(range_min_initial_ticks, range_max_initial_ticks, 10):
+        for initial_ticks in range(range_min_initial_ticks, range_max_initial_ticks + step_size_initial_ticks, 10):
             rmse = all_rmse[(activation_rate, year, initial_ticks)]
 
             if min_rmse[year] > rmse:
@@ -49,4 +51,4 @@ for activation_rate in range(range_min_activation_rate, range_max_activation_rat
 print(min_min_initial_ticks)
 print(min_activation_rate)
 print(min_sum_min_rmse)
-             
+         
