@@ -1,5 +1,7 @@
 import pandas as pd
 import math
+import os
+import shutil
 
 all_rmse = {}
 
@@ -41,8 +43,19 @@ for activation_rate in activation_rate_range:
        min_activation_rate = activation_rate
        min_sum_min_rmse = sum_min_rmse
 
+out_folder = '../output/'
+opt_folder = '../output/sensitivity_analysis_global_optimisation_ticks_years'
+
+if not os.path.exists(opt_folder):
+    os.mkdir(opt_folder)
+
+    for key in min_min_initial_ticks:   
+        y = int(key)
+        t = int(min_min_initial_ticks[key])
+        a = int(min_activation_rate)
+        opt_filename = f'sensitivity_analysis_{y}_{t}_105_{a}.csv'
+        shutil.copy(out_folder + opt_filename, opt_folder)
 
 print(min_min_initial_ticks)
 print(min_activation_rate)
 print(min_sum_min_rmse)
-         
