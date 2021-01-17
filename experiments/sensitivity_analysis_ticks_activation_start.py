@@ -24,7 +24,7 @@ def compute_errors_indices(data_haselmühl, params):
     rmse = math.sqrt(((data_haselmühl_year - time_series_questing_nymphs_monthly)**2).mean())
 
     # Calculate Mean Absolute Error (MAE)
-    mae = math.abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
+    mae = abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
 
     # Add to dictionary
     return {'year':year, 
