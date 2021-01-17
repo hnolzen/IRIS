@@ -8,7 +8,7 @@ all_rmse = {}
 iris_output = pd.read_csv('rmse.csv')
 
 for (_, row) in iris_output.iterrows():
-    all_rmse[(row['activation_rate'], row['year'], row['ticks'])] = row['rsme']
+    all_rmse[(row['activation_rate'], row['year'], row['ticks'])] = row['rmse']
     
 min_min_initial_ticks = None
 min_activation_rate = 0

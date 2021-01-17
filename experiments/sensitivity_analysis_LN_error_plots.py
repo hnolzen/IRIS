@@ -32,7 +32,7 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, ar):
 # Get iris output data
 data_rmse = pd.read_csv('rmse_exp_3.csv', header = 0)
 
-# Get max RSME and round up to nearest ten for consistent z-axis limit for all years
+# Get max RMSE and round up to nearest ten for consistent z-axis limit for all years
 max_round_rmse = int(math.ceil(data_rmse['rmse'].max() / 10.0)) * 10
 
 # Create empty data frame for rmse summary statistics
