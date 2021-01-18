@@ -56,10 +56,10 @@ opt_folder = '../output/sensitivity_analysis_global_optimisation_larvae_nymphs_y
 if not os.path.exists(opt_folder):
     os.mkdir(opt_folder)
 
-    for key in min_min_initial_ticks:   
-        y = int(key)
-        l = int(min_min_initial_larvae[key])
-        n = int(min_min_initial_nymphs[key])
+    for year in year_range:
+        y = int(year)
+        l = int(min_min_initial_larvae[year])
+        n = int(min_min_initial_nymphs[year])
         a = int(min_activation_rate)
         opt_filename = f'sensitivity_analysis_{y}_{l}_{n}_105_{a}.csv'
         shutil.copy(out_folder + opt_filename, opt_folder)
