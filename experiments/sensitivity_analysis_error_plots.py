@@ -27,15 +27,9 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, start_lq):
     
     plt.show()
     fig.savefig(f'summary_exp_1_{year}_{start_lq}')
-    
 
-# Get iris output data
 data_rmse = pd.read_csv('rmse.csv', header = 0)
-
-# Get max rmse and round up to nearest ten for consistent z-axis limit for all years
 max_round_rmse = int(math.ceil(data_rmse['rmse'].max() / 10.0)) * 10
-
-# Create empty data frame for rmse summary statistics
 min_rmse = pd.DataFrame(columns = ('year', 'ticks', 'activation_rate', 'start_larvae_questing', 'rmse'))
 
 for year in range(2009, 2018 + 1):
@@ -47,6 +41,4 @@ for year in range(2009, 2018 + 1):
         min_rmse = min_rmse.append(min_rmse_start_lq, ignore_index = True) 
         plot_rmse(year, data_rmse_start_lq, max_round_rmse, start_lq)
 
-
-# Save results in csv file
 min_rmse.to_csv('min_rmse_exp_1.csv', index = False)

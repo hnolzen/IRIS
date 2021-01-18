@@ -6,24 +6,15 @@ import multiprocessing
 import functools
 
 def compute_errors_indices(data_haselmühl, params):
-
     year, larvae, nymphs, activation_rate, start_larvae_questing = params
-    
-    # Get Haselmühl data of year
+
     data_haselmühl_year = data_haselmühl[data_haselmühl.apply(lambda row: row['date'].startswith(str(year)) , axis = 1)]['nymphs.1'].reset_index(drop = True)
 
-    # Get iris output data
     iris_output = pd.read_csv(f'output/sensitivity_analysis_{year}_{larvae}_{nymphs}_{start_larvae_questing}_{activation_rate}.csv', header = 0)
-    
-    # Aggregate the data by time steps (= 'tick')
-    time_series_questing_nymphs = iris_output.groupby(['tick'])['questing_nymphs'].mean()  
-    
+    time_series_questing_nymphs = iris_output.groupby(['tick'])['questing_nymphs'].mean()
     time_series_questing_nymphs_monthly = time_series_questing_nymphs.groupby(lambda tick: (datetime.datetime(year, 1, 1) + datetime.timedelta(tick - 1)).month - 1).mean()
 
-    # Calculate Root Mean Square Error (RMSE)
     rmse = math.sqrt(((data_haselmühl_year - time_series_questing_nymphs_monthly)**2).mean())
-
-    # Calculate Mean Absolute Error (MAE)
     mae = abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
 
     return (year, larvae, nymphs, activation_rate, start_larvae_questing, rmse)
@@ -37,8 +28,7 @@ if __name__ == '__main__':
                                    range(5, 1000 + 1, 5), 
                                    range(1, 30 + 1, 1), 
                                    range(105, 105 + 1, 50))
-        
-        #Read in Haselmühl data
+
         data_haselmühl = pd.read_excel('input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
 
         year = []
@@ -57,8 +47,5 @@ if __name__ == '__main__':
             start_larvae_questing.append(row[4])
             rmse.append(row[5])
 
-        # Create Data Frame to store RMSE and MAE for each parameter combination
         errors_indices_all_years = pd.DataFrame({'year':year, 'larvae':larvae, 'nymphs':nymphs, 'activation_rate':activation_rate, 'start_larvae_questing':start_larvae_questing, 'rmse':rmse})
-
-        # Save results in csv file
         errors_indices_all_years.to_csv('rmse.csv', index = False)
