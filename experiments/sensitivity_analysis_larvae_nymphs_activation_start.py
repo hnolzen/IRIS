@@ -25,15 +25,8 @@ def compute_errors_indices(data_haselmühl, params):
 
     # Calculate Mean Absolute Error (MAE)
     mae = abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
-  
-    # Add to dictionary
-    return {'year':year, 
-            'larvae':larvae,
-            'nymphs':nymphs,
-            'activation_rate':activation_rate, 
-            'start_larvae_questing':start_larvae_questing, 
-            'rmse':rmse,
-            'mae':mae}
+
+    return (year, larvae, nymphs, activation_rate, start_larvae_questing, rmse)
         
 if __name__ == '__main__':
 
@@ -47,13 +40,25 @@ if __name__ == '__main__':
         
         #Read in Haselmühl data
         data_haselmühl = pd.read_excel('input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
-        
-        # Create Data Frame to store RMSE and MAE for each parameter combination
-        errors_indices_all_years = pd.DataFrame(columns = ['year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse', 'mae'])
-        
+
+        year = []
+        larvae = []
+        nymphs = []
+        activation_rate = []
+        start_larvae_questing = []
+        rmse = []
+
         for row in pool.imap_unordered(functools.partial(compute_errors_indices, data_haselmühl), params):
             print(row)
-            errors_indices_all_years = errors_indices_all_years.append(row, ignore_index = True)
+            year.append(row[0])
+            larvae.append(row[1])
+            nymphs.append(row[2])
+            activation_rate.append(row[3])
+            start_larvae_questing.append(row[4])
+            rmse.append(row[5])
+
+        # Create Data Frame to store RMSE and MAE for each parameter combination
+        errors_indices_all_years = pd.DataFrame({'year':year, 'larvae':larvae, 'nymphs':nymphs, 'activation_rate':activation_rate, 'start_larvae_questing':start_larvae_questing, 'rmse':rmse})
 
         # Save results in csv file
         errors_indices_all_years.to_csv('rmse.csv', index = False)

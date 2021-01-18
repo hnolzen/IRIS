@@ -26,32 +26,36 @@ def compute_errors_indices(data_haselmühl, params):
     # Calculate Mean Absolute Error (MAE)
     mae = abs(data_haselmühl_year - time_series_questing_nymphs_monthly).mean()
 
-    # Add to dictionary
-    return {'year':year, 
-            'ticks':ticks, 
-            'activation_rate':activation_rate, 
-            'start_larvae_questing':start_larvae_questing, 
-            'rmse':rmse,
-            'mae':mae}
+    return (year, ticks, activation_rate, start_larvae_questing, rmse)
         
 if __name__ == '__main__':
 
     with multiprocessing.Pool(50) as pool:
     
         params = itertools.product(range(2009, 2018 + 1), 
-                                   range(3, 600 + 1, 3), 
+                                   range(5, 600 + 1, 3),
                                    range(2, 8 + 1, 1), 
                                    range(0, 150 + 1, 50))
         
         #Read in Haselmühl data
         data_haselmühl = pd.read_excel('input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
-        
-        # Create Data Frame to store RMSE and MAE for each parameter combination
-        errors_indices_all_years = pd.DataFrame(columns = ['year', 'ticks', 'activation_rate', 'start_larvae_questing', 'rmse', 'mae'])
-        
+
+        year = []
+        ticks = []
+        activation_rate = []
+        start_larvae_questing = []
+        rmse = []
+
         for row in pool.imap_unordered(functools.partial(compute_errors_indices, data_haselmühl), params):
             print(row)
-            errors_indices_all_years = errors_indices_all_years.append(row, ignore_index = True)
+            year.append(row[0])
+            ticks.append(row[1])
+            activation_rate.append(row[2])
+            start_larvae_questing.append(row[3])
+            rmse.append(row[4])
+
+        # Create Data Frame to store RMSE and MAE for each parameter combination
+        errors_indices_all_years = pd.DataFrame({'year':year, 'ticks':ticks, 'activation_rate':activation_rate, 'start_larvae_questing':start_larvae_questing, 'rmse':rmse})
 
         # Save results in csv file
         errors_indices_all_years.to_csv('rmse.csv', index = False)
