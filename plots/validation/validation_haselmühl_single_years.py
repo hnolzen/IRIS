@@ -5,7 +5,8 @@ import calendar
 import math
 import os
 
-iris_main_dir = os.path.abspath('../../')
+file_dir = os.path.dirname(os.path.abspath('__file__'))
+iris_main_dir = os.path.abspath(os.path.join(file_dir, "..", ".."))
 iris_output_sensitivity_dir = os.path.abspath(iris_main_dir + '/output/sensitivity_analysis_global_optimisation_ticks_years')
 
 haselmühl_data = pd.read_excel(iris_main_dir + '/input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
