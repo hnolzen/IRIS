@@ -25,8 +25,7 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, start_lq):
     ax.yaxis.set_tick_params(labelsize = 22)
     ax.zaxis.set_tick_params(labelsize = 22)
     
-    plt.show()
-    fig.savefig(f'summary_exp_1_{year}_{start_lq}')
+    fig.savefig(f'sensitivity_analysis_rmse_activation_ticks_{year}_{start_lq}')
 
 data_rmse = pd.read_csv('rmse.csv', header = 0)
 max_round_rmse = int(math.ceil(data_rmse['rmse'].max() / 10.0)) * 10
@@ -35,10 +34,10 @@ min_rmse = pd.DataFrame(columns = ('year', 'ticks', 'activation_rate', 'start_la
 for year in range(2009, 2018 + 1):
     data_rmse_year = data_rmse[data_rmse['year'] == year]
     
-    for start_lq in range(0, 150 + 1, 50):
+    for start_lq in range(105, 105 + 1, 50):
         data_rmse_start_lq = data_rmse_year[data_rmse_year['start_larvae_questing'] == start_lq]
         min_rmse_start_lq = data_rmse_start_lq.iloc[data_rmse_start_lq['rmse'].argmin()]
         min_rmse = min_rmse.append(min_rmse_start_lq, ignore_index = True) 
         plot_rmse(year, data_rmse_start_lq, max_round_rmse, start_lq)
 
-min_rmse.to_csv('min_rmse_exp_1.csv', index = False)
+min_rmse.to_csv('min_rmse.csv', index = False)
