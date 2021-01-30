@@ -12,6 +12,8 @@
 	urlcolor   = blue
 }
 
+\usepackage{acronym}
+
 \usepackage{csquotes}
 \usepackage[backend = biber, style = apa]{biblatex}
 \addbibresource{../iris_literature.bib}
@@ -21,13 +23,24 @@
 \author{}
 \date{\today}
 
-\begin{document}	
+\begin{document}
 
 \maketitle
 \tableofcontents
 
+\newpage
+\listoffigures
+\listoftables
+
+\section*{List of Acronyms}
+\begin{acronym}
+	\acro{ODD}{Overview, Design Concepts and Details}
+\end{acronym}
+
+
+\clearpage
 \section{Overview}
-IRIS is a population model for local dynamics of \textit{Ixodes ricinis} ticks under changing climate parameters.
+IRIS is a population model for local dynamics of \textit{Ixodes ricinus} ticks under changing climate parameters.
 We plan to add a transmission model for borrelian dynamics in the near future.
 
 
