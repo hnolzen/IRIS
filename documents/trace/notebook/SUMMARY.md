@@ -20,12 +20,14 @@ The work log of this modelling notebook includes (since creation) daily entries 
 corresponding entry. 
 
 ### 2021
-* [2021-02-01](entries/2021-02-01.md) - tba
-* [2021-01-31](entries/2021-01-29.md) - Written documentation of current status (ODD, TRACE) 
-* [2021-01-30](entries/2021-01-29.md) - Written documentation of current status (ODD, TRACE) 
+* [2021-02-01](entries/2021-02-01.md) - 
+* [2021-01-31](entries/2021-01-31.md) - Written documentation of current status (ODD, TRACE) 
+* [2021-01-30](entries/2021-01-30.md) - Written documentation of current status (ODD, TRACE) 
 * [2021-01-29](entries/2021-01-29.md) - Written documentation of current status (ODD, TRACE) 
 * [2021-01-28](entries/2021-01-28.md) - Written documentation of current status (ODD, TRACE) 
 * [2021-01-27](entries/2021-01-27.md) - Written documentation of current status (ODD, TRACE)
+* [2021-01-26](entries/2021-01-26.md) - Written documentation of current status (ODD, TRACE) 
+* [2021-01-25](entries/2021-01-25.md) - EcoEpi-Meeting
 * [2021-01-24](entries/2021-01-24.md) - Validation of model output (Sensitivity Analyses & Parameter optimisation)
 * [2021-01-19](entries/2021-01-19.md) - Validation of model output (Sensitivity Analyses & Parameter optimisation)
 * [2021-01-xx](entries/2021-01-xx.md) - Validation of model output (Sensitivity Analyses)
@@ -42,7 +44,7 @@ corresponding entry.
 * [2020-09-xx](entries/2020-09-xx.md) - Development of descriptors (expected peak risk)
 * [2020-08-xx](entries/2020-08-xx.md) - Calibration of weather data
 * [2020-07-xx](entries/2020-07-xx.md) - Model design decisions and start of implementation
-* [2020-06-01](entries/2021-06-xx.md) - Begin of project - Literature research
+* [2020-06-01](entries/2020-06-xx.md) - Begin of project - Literature research
 
 
 ## Master catalogue
