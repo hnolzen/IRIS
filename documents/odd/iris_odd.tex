@@ -13,11 +13,15 @@
 }
 
 \usepackage{acronym}
+\usepackage{enumerate}
+\usepackage{tabularx}
+\usepackage{booktabs}
 
 \usepackage{csquotes}
 \usepackage[backend = biber, style = apa]{biblatex}
 \addbibresource{../iris_literature.bib}
 
+\setlength{\parskip}{1em}
 
 \title{IRIS - ODD Protocol}
 \author{}
@@ -34,86 +38,103 @@
 
 \section*{List of Acronyms}
 \begin{acronym}
-	\acro{ODD}{Overview, Design Concepts and Details}
+\acro{ODD}{Overview, Design Concepts and Details}
 \end{acronym}
 
 
-\clearpage
 \section{Overview}
-IRIS is a population model for local dynamics of \textit{Ixodes ricinus} ticks under changing climate parameters.
-We plan to add a transmission model for borrelian dynamics in the near future.
+This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically
+describe models in a comprehensive and transparent way aiming to allow for model replication ~\parencite{Grimm.2010, Grimm.2020}.
+
+IRIS is a cohort-based and spatially-explicit population model to simulate local dynamics of \textit{Ixodes ricinus} ticks under
+changing climate parameters. It simulates the spatial and temporal development and questing activity of ticks of different life stages
+over a year. The population dynamic is driven by climate predictors such as temperature and humidity and by ecological predictors such
+as habitat suitability. The IRIS model is to be expanded in the future to include a Lyme disease dynamic.
+
+This model has been developed within project `Infectious diseases and allergies` of the HI-CAM initiative
+~\footnote{\url{https://www.helmholtz-klima.de/en/adaptation/project-infectious-diseases-and-allergies}}.
 
 
 \subsection{Purpose}
-The purpose of the model is to understand the impact of changing climate parameters on local tick and borrelian dynamics. 
+The overall purpose of the IRIS model is to understand the impact of changing climate parameters on local tick and borrelian dynamics. As
+ticks are highly relevant vectors of Lyme disease, it is important to gain a better understanding of their future climate-dependent
+dynamics.
 
 
 \subsection{Entities, state variables, and scales}
+The model is composed of the following entities: (a) sub populations of \textit{Ixodes ricinus} ticks belonging to a cohort and (b) grid
+cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick
+life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states  are possible: (1) questing,
+(2) inactive, (3) fed and (4) late fed. Hence, in total there are 12 tick  cohorts present in the model. Grid cells serve as habitat for
+tick sub populations. Three different idealised habitat types exist in the model: (1) forest, (2) ecotone and (3) meadow.
 
-\subsubsection{Entities}
-Idealised model landscape consisting of grid cells 
-habitats (forest, ecotone, pasture)
-Tick population consisting of cohorts of life cycle stages (larvae, nymphs, adults)
+The spatial scale of the model corresponds to a local region of approximately 1.44 $km^{2}$ in reality. The model idealised landscape
+consists of 12 \times 12 $=$ 144 grid cells. A grid cell corresponds to an area of 10 $m$ \times 10 $m$ $=$ 100 $m^{2}$. This grid size was
+chosen because tick densities are usually expressed in numbers per 100 $m^{2}$
+(See, e.g. \ ~\cite{Boehnke.2015, Brugger.2016, Brugger.2018}).
 
+The IRIS model runs with daily time steps. One model run simulates one year, from January 1 to December 31, in reality.
+On a coarser time scale, we would not be able to capture the local population dynamics of ticks very well. Furthermore, required input
+data such as temperature and humidity is available on a daily basis ~\parencite(DWD.2020, GERICS.2020).
 
-\subsubsection{State variables}
-
-list of state variables (tba.)
-
-
-\subsubsection{Scales}
-1 simulation run = 1 year 
-daily time steps
-
-landscape 144 (12 x 12) grid cells
-1 grid cell = 100 sqm 
+% Insert figure with graphical summary with entities and state variables here
 
 
 \subsection{Process overview and scheduling}
+The IRIS model is executed in daily discrete time steps. Since the model always simulates one year, 365 days are usually simulated, unless
+a year is a leap year. In a leap year 366 days are simulated including 29 February. In each time step, the the following model processes
+are executed and state-variables are updated:
 
-\section{Design concepts}
+\begin{enumerate}
+	\item Development to the next life cycle stage
+	\item Freezing
+	\item Desiccation
+	\item Feeding: Attaching of ticks to host animals and translocation
+	\item Weather
+	\item Activity
+\end{enumerate}
+
+
+\section{Design}
+
 
 \subsection{Basic principles}
 Spatially explicit stochastic cohort-based population model
 Entity-Component-System
 
-
 \subsection{Stochasticity}
-seedable random number generator: 
-Mersenne Twister implementation 
-provided by Apache Commons Math library
-
-roundRandom
+To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library
+(version 3.6.1.). In addition we implemented a method roundRandom() to allow processes that statistically affect less than
+a single tick to still happen.
+% tbc. needs further explanation.
+% insert source code of roundRandom() here
 
 
 \section{Details}
 
 \subsection{Globals}
 
-
 \subsection{Initialisation}
-initial number of ticks for all life cycle and activity stages 
-initial seed number
-initial fructification index (if available)
-
-list of variables and parameters for initialisation
-
 
 \subsection{Input data}
 
-\subsubsection{Weather data}
-weather data from DWD (*.csv file)
-climate data from GERICS (NetCDF file --> *.csv file) 
 
-daily mean temperature
-daily max temperature
-daily min temperature
-daily humidity
-
-
-\subsubsection{Fructification data}
-Fructification index of the European beech (Fagus sylvatica)
-to estimate rodent density
+\begin{table}[h!]
+\caption{Input parameters}
+\label{input_parameters}
+\begin{tabularx}{\textwidth}{llll}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Type}     & \textbf{Description}       \\
+\midrule
+meanTemperature    & $t_{mean}$      & double            & Daily mean temperature     \\
+minTemperature     & $t_{min}$       & double            & Daily max temperature      \\
+maxTemperature     & $t_{max}$       & double            & Daily min temperature      \\
+humidity           & $h$             & double            & Daily humidity             \\
+\midrule
+fructificationIndex & $f$            & int               & Fructification index       \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 
 \subsection{Submodels}
@@ -127,7 +148,6 @@ to estimate rodent density
 \subsubsection{Activity}
 
 \subsubsection{Feeding}
-
 
 
 \newpage
