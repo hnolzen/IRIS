@@ -95,6 +95,10 @@ are executed and state-variables are updated:
 	\item Activity
 \end{enumerate}
 
+Since a single simulation run always covers exactly one year, the multi-year life cycle of the modelled ticks is captured indirectly.
+This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in
+the model through its respective cohort.
+
 
 \section{Design}
 
