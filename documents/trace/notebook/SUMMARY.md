@@ -47,30 +47,6 @@ corresponding entry.
 * [2020-06-01](entries/2020-06-xx.md) - Begin of project - Literature research
 
 
-## Master catalogue
-
-This master catalouge contains a list of the locations of files most relevant to the IRIS modelling project, with a short description of the file and folder
-taxonomy as proposed by [Ayllón et al (2020)](https://doi.org/10.1016/j.envsoft.2020.104932).
-
-| file / folder                                      | description                                                                                   |
-|----------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| [ODD.pdf](documents/odd/iris_odd.pdf)              | Model description (ODD protocol)                                                              |
-| [TRACE.pdf](documents/trace/iris_trace.pdf)        | TRACE documentation                                                                           |
-| `iris_start.R`                                     | Script to run IRIS from R                                                                     |
-| `documents`                                        | Location of model documentation files (ODD protocol, TRACE documentation, Modelling notebook) |
-| `experiments`                                      | Location of script files to run various predefined experiments (e.g. sensitivity analyses)    |
-| `input`                                            | Location of input files (weather data, fructification data)                                   |
-| `output`                                           | Location of model output files                                                                |
-| `plots`                                            | Location of script files to visualise model outputs                                           |
-| `src`                                              | Java source files                                                                             |
-
-
-### PDF Download
-
-You can download this Modelling Notebook also as a PDF file here: 
-* [IRIS_Modelling_Notebook.pdf](documents/trace/iris_modelling_notebook.pdf) 
-
-
 ### Contact
 
 If you have questions regarding the research of the IRIS modelling project, please [create an issue](https://git.ufz.de/ecoepi/iris/-/issues) 
