@@ -16,6 +16,7 @@
 \usepackage{enumerate}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{multirow}
 
 \usepackage{csquotes}
 \usepackage[backend = biber, style = apa]{biblatex}
@@ -225,6 +226,32 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsubsection{Activity}
 
 \subsubsection{Feeding}
+
+
+\subsubsection{Micro climate}
+
+\begin{table}[h!]
+\caption{Adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
+\label{tab:micro_climate_adjustments}
+\begin{tabular}{@{}lllrll@{}}
+\toprule
+\textbf{Parameter}					& \textbf{Season} 					& \textbf{Habitat Type}  & \textbf{Value}  	& \textbf{Unit} & \textbf{Reference}  	\\
+\midrule
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Autumn \& Spring} & Pasture 				 &   0.0   			&   ${}^\circ$C	&            		    \\
+									&									& Ecotone 				 &   -1.0 	  		&   ${}^\circ$C &	    				\\
+									&					 				& Wood    				 &   -2.0   		&   ${}^\circ$C &	    				\\
+\midrule
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 				 &   0.0    		&	${}^\circ$C	&          				\\
+									&				 	 				& Ecotone 				 &  -2.0    		&  	${}^\circ$C	& ~\cite{Geiger.1995}  	\\
+									&				 	 				& Wood	   				 &  -4.0    		&  	${}^\circ$C	& ~\cite{Bonan.2016}   	\\
+\midrule
+\multirow{3}{*}{Relative Humidity}  & \multirow{3}{*}{All seasons}      & Pasture 				 &   12   			&  	\%			&            		    \\
+									&				 					& Ecotone 				 &   18    			&   \%    		&					    \\
+									&				 					& Wood    				 &   24    			&  	\%			& ~\cite{Boehnke.2017} 	\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 
 \newpage
