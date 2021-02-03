@@ -41,7 +41,7 @@
 \begin{acronym}
 \acro{GCM}{Global Change Model}
 \acro{GERICS}{The Climate Service Center Germany}
-\acro{IRIS}{Ixodes RIcinus Simulation}
+\acro{IRIS}{Ixodes RIcinus Simulator}
 \acro{ODD}{Overview, Design Concepts and Details}
 \acro{RCM}{Regional Change Model}
 \end{acronym}
@@ -74,7 +74,7 @@ life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermo
 tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
 
 The spatial scale of the model corresponds to a local region of approximately 14400 $m^{2}$ ($=$ 0.0144 $km^{2}$) in reality. The model
-idealised landscape consists of 12 \times 12 $=$ 144 grid cells. A grid cell corresponds to an area of 10 $m$ \times 10 $m$ $=$ 100
+idealised landscape consists of 12 $\times$ 12 $=$ 144 grid cells. A grid cell corresponds to an area of 10 m $\times$ 10 m $=$ 100
 $m^{2}$. This grid size was chosen because tick densities are usually expressed in numbers per 100 $m^{2}$
 ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is
 typically done over a sampling area of 100 $m^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
@@ -89,8 +89,8 @@ basis ~\parencite(DWD.2020, GERICS.2020). Furthermore, daily time steps are also
 
 \subsection{Process overview and scheduling}
 The IRIS model is executed in daily discrete time steps. Since the model always simulates one year, 365 days are usually simulated, unless
-a year is a leap year. In a leap year 366 days are simulated including 29 February. In each time step, the the following model processes
-are executed and state-variables are updated:
+a year is a leap year. In a leap year 366 days are simulated including 29 February. At each time step, the the following model processes
+are executed and the state-variables are updated:
 
 \begin{enumerate}
 	\item Development to the next life cycle stage
