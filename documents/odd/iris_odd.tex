@@ -38,7 +38,10 @@
 
 \section*{List of Acronyms}
 \begin{acronym}
+\acro{GCM}{Global Change Model}
+\acro{GERICS}{The Climate Service Center Germany}
 \acro{ODD}{Overview, Design Concepts and Details}
+\acro{RCM}{Regional Change Model}
 \end{acronym}
 
 
@@ -123,7 +126,74 @@ a single tick to still happen.
 \subsection{Initialisation}
 
 \subsection{Input data}
+IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data.
+In detail, the model requires the following input data on a daily basis:
+\begin{itemize}
+\item Daily mean near-surface air temperature [${}^\circ$C]
+\item Daily Maximum Near-Surface Air Temperature [${}^\circ$C]
+\item Daily Maximum Near-Surface Air Temperature [${}^\circ$C]
+\item Daily near surface relative humidity [\%]
+\end{itemize}
 
+\subsubsection{Observed weather data}
+Weather data from DWD (*.csv file)
+%tbc.
+
+\subsubsection{Climate simulation data}
+Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models
+(GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e. \ the scenario that exceeds 4K global warming
+(see Table ~\ref{tab:climate_models} for an overview).
+
+Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
+\begin{itemize}
+\item Bias Adjusted Near-Surface Air Temperature (tas, [K])
+\item Bias Adjusted Daily Maximum Near-Surface Air Temperature (tasmax, [K])
+\item Bias Adjusted Daily Minimum Near-Surface Air Temperature (tasmin, [K])
+\end{itemize}
+
+Homogenised EURO-CORDEX simulations were provided for the following parameter:
+\begin{itemize}
+\item Near-Surface Relative Humidity (hurs, [\%])
+\end{itemize}
+% noch etwas mehr erläutern (EURO-CORDEX, bias-adjusted, homogenised, etc., Warum so viele Modelle)
+
+
+\begin{table}[h!]
+\caption{GCM-RCM combinations for the RCP8.5 scenario}
+\label{tab:climate_models}
+\begin{tabularx}{\textwidth}{@{}ll@{}}
+\toprule
+\textbf{Driving GCM and realisation}  & \textbf{Downscaling RCM} 	\\
+\midrule
+CanESM2; r1i1p1 				 	  & CCLM4-8-17; v1  		 	\\
+CanESM2; r1i1p1 				 	  & REMO2015; v1 				\\
+HadGEM2-ES; r1i1p1 					  & Aladin63; v1 				\\
+HadGEM2-ES; r1i1p1 					  & HadREM3; v1 				\\
+HadGEM2-ES; r1i1p1 					  & HIRHAM5; v2 				\\
+HadGEM2-ES; r1i1p1 					  & RACMO22E; v2 				\\
+HadGEM2-ES; r1i1p1 					  & RCA4; v1 					\\
+HadGEM2-ES; r1i1p1 					  & RegCM4-6; v1 				\\
+HadGEM2-ES; r1i1p1 					  & REMO2015; v1 				\\
+HadGEM2-ES; r1i1p1 					  & WRF381P; v1 				\\
+IPSL-CM5A-MR; r1i1p1 				  & RACMO22E; v1 				\\
+IPSL-CM5A-MR; r1i1p1 				  & RCA4; v1 					\\
+IPSL-CM5A-MR; r1i1p1 				  & WRF381P; v1 				\\
+MPI-ESM-LR; r3i1p1 					  & RCA4; v1 					\\
+MPI-ESM-LR; r3i1p1 					  & REMO2015; v1 				\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% (Tests und Validierung hauptsächlich mit MPI-ESM-LR; r3i1p1, REMO2015; v1)
+% erklären: als NetCDF file für Ausschnitt ca. Deutschland bekommen --> *.csv file (Rausziehen der Wetterzeitreihe mittels Skript)
+% Umrechnung von K in Celsius
+
+\subsubsection{Beech mast data}
+To estimate rodent density there is an option to feed the model with data on the beech mast of the European beech \textit{Fagus sylvatica}.
+The intensity of the beech mast is indicated by a so-called fructification index. For the validation of the model we have taken the
+fructification data from ~\parencite{Brugger.2018}.
+
+An overview over the input parameters can be found in Table ~\ref{input_parameters}.
 
 \begin{table}[h!]
 \caption{Input parameters}
@@ -133,8 +203,8 @@ a single tick to still happen.
 \textbf{Parameter} & \textbf{Symbol} & \textbf{Type}     & \textbf{Description}       \\
 \midrule
 meanTemperature    & $t_{mean}$      & double            & Daily mean temperature     \\
-minTemperature     & $t_{min}$       & double            & Daily max temperature      \\
-maxTemperature     & $t_{max}$       & double            & Daily min temperature      \\
+minTemperature     & $t_{\min}$       & double            & Daily max temperature      \\
+maxTemperature     & $t_{\max}$       & double            & Daily min temperature      \\
 humidity           & $h$             & double            & Daily humidity             \\
 \midrule
 fructificationIndex & $f$            & int               & Fructification index       \\
