@@ -218,6 +218,36 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsection{Submodels}
 
 \subsubsection{Development}
+This sub model is implemented in method \textit{development()} in the class \textit{TickLifeCycle.java}. The development from one life cycle stage to the next takes place over
+specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage. Since only fed
+ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state 'fed' and added to the cohort of  the next life
+cycle stage with behavioural state 'inactive'. It is assumed that the number of ticks developing to the next life cycle stage at each time step is calculated in
+the following way so that all ticks will have developed at the end of the development period:
+
+\begin{equation}
+n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{fed}(t)}{t_{\text{end} - t_{\text{current}}}})
+\end{equation}
+
+The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the
+development parameters.
+
+\begin{table}[h!]
+\caption{Time period of development to next life cycle stage}
+\label{tab:development_parameters}
+\begin{tabularx}{\textwidth}{lllll}
+\toprule
+\textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
+\midrule
+Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & ~\cite{tba}   		\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & ~\cite{tba}      	\\
+Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & ~\cite{tba}     	\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & ~\cite{tba}        \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The oviposition of adult ticks is not explicitly modelled. It is assumed that adult ticks become new larvae.
+% tba. needs further explanation.
 
 \subsubsection{Desiccation}
 
