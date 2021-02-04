@@ -218,11 +218,12 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsection{Submodels}
 
 \subsubsection{Development}
-This sub model is implemented in method \textit{development()} in the class \textit{TickLifeCycle.java}. The development from one life cycle stage to the next takes place over
-specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage. Since only fed
-ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state 'fed' and added to the cohort of  the next life
-cycle stage with behavioural state 'inactive'. It is assumed that the number of ticks developing to the next life cycle stage at each time step is calculated in
-the following way so that all ticks will have developed at the end of the development period:
+This sub model is implemented in the method \textit{development()} in the class \textit{TickLifeCycle.java}.
+
+The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early
+or mid-October, depending on the life cycle stage. Since only fed ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with
+behavioural state 'fed' and added to the cohort of the next life  cycle stage with behavioural state 'inactive'. It is assumed that the number of ticks developing to the next
+life cycle stage at each time step is calculated in the following way so that all ticks will have developed at the end of the development period:
 
 \begin{equation}
 n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{fed}(t)}{t_{\text{end} - t_{\text{current}}}})
@@ -234,7 +235,7 @@ development parameters.
 \begin{table}[h!]
 \caption{Time period of development to next life cycle stage}
 \label{tab:development_parameters}
-\begin{tabularx}{\textwidth}{lllll}
+\begin{tabularx}{\textwidth}{lclcl}
 \toprule
 \textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
 \midrule
@@ -249,7 +250,35 @@ Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVA
 The oviposition of adult ticks is not explicitly modelled. It is assumed that adult ticks become new larvae.
 % tba. needs further explanation.
 
+
 \subsubsection{Desiccation}
+This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle.java}.
+
+In general ticks need at least 80 \% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls
+below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also
+requires lower temperatures ~\parencite{Ostfeld.2015}.
+
+In each time step the model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
+all questing ticks that are in such a grid cell will desiccate. The exact desiccation rate depends on the habitat type of the grid cell. With this, we assume that more
+ticks dry out in a meadow than in the forest. The number of desiccated ticks is subtracted from their respective cohort. Table ~\ref{tab:desiccation_parameters} gives an
+overview over the habitat dependent desiccation rates and threshold values.
+
+\begin{table}[h!]
+\caption{Habitat dependent desiccation rates and threshold values}
+\label{tab:desiccation_parameters}
+\begin{tabular}{@{}llcl@{}}
+\toprule
+\textbf{Parameter}											& \textbf{Habitat Type}  & \textbf{Value}	& \textbf{Reference}  	\\
+\midrule
+\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0    		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
+\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0    		&  ~\cite{Ostfeld.2015}						\\
+\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  					& Forest       			 &   0.02   		&            		    \\
+				 											& Ecotone 				 &   0.05    		&					    \\
+				 											& Meadow    			 &   0.10    		&  						\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 \subsubsection{Freezing}
 
