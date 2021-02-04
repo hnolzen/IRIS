@@ -258,7 +258,7 @@ In general ticks need at least 80 \% relative humidity in their local environmen
 below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also
 requires lower temperatures ~\parencite{Ostfeld.2015}.
 
-In each time step the model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
+In each time step the sub model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
 all questing ticks that are in such a grid cell will desiccate. The exact desiccation rate depends on the habitat type of the grid cell. With this, we assume that more
 ticks dry out in a meadow than in the forest. The number of desiccated ticks is subtracted from their respective cohort. Table ~\ref{tab:desiccation_parameters} gives an
 overview over the habitat dependent desiccation rates and threshold values.
@@ -281,6 +281,29 @@ overview over the habitat dependent desiccation rates and threshold values.
 
 
 \subsubsection{Freezing}
+The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \textit{freezing()} in the class
+\textit{TickLifeCycle}.
+
+Ixodes ricinus ticks are quite cold resistant when exposed to low temperatures ~\parencite{Gray.2009}. However, it can become critical for ticks when exposed to extreme cold with
+temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these
+conditions ~\parencite{Jore.2014}.
+
+In each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the
+ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
+
+\begin{table}[h!]
+\caption{Parameters of the freezing sub model}
+\label{tab:freezing_parameters}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+\textbf{Parameter}											  	& \textbf{Value}	& \textbf{Reference}  		\\
+\midrule
+\tiny{FREEZING\_RATE}		    			 		 			&   0.03    		&  							\\
+\tiny{DEATH\_THRESHOLD\_FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    		&  ~\cite{Gray.2009}		\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 \subsubsection{Activity}
 
