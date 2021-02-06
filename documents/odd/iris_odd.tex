@@ -130,15 +130,49 @@ a single tick to still happen.
 
 \subsection{Initialisation}
 
+
+\subsubsection{Adjusting the initial number of larvae using beech mast fructification data}\label{initial_larvae_with_beech_mast}
+If data is available the model is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica} to adjust the initial number of larvae at the beginning
+of a simulation run. This reason for this adjustment can be explained as follows: Small rodents serve as host animals especially for \textit{Ixodes ricinus} larvae~\parencite{Cayol
+.2017}. A higher density of small rodents in a given year causes an increase in the population of larvae and nymphs in the following year~\parencite{Brugger.2018}. Data on
+beech mast can be used to estimate rodent populations, because a year with high mast production leads to an increase in the rodent population in the following year due to
+higher food supply~\parencite{Clement.2009}. Hence, we assume that the initial number of larvae at the beginning of a simulation run of a given year is influenced by the beech
+mast two years before.
+
+The type of beech mast is divided into four classes and given as an index. Based on this fructification index, the model adjusts the initial number of larvae at the beginning of
+a simulation run. The default number of initial larvae is reduced if when the second year before the simulated year is not a mast year with full fructification. The strength of
+the reduction depends on the type of beech mast, i.e.\ the fructification index. Table~\ref{tab:fructification_adjustment} gives an overview over the adjustment values.
+Information on the beech mast input data can be found in Section~\ref{beech_mast_data}.
+
+\begin{table}[h!]
+\caption{Adjustment of initial number of larvae based on the fructification index}
+\label{tab:fructification_adjustment}
+\begin{tabularx}{\textwidth}{@{}lll@{}}
+\toprule
+\textbf{Fructification index} & \textbf{Description}    & \textbf{Adjustment Value}  	\\
+\midrule
+1				 	  		  & absent fructification 	& 	0.25	 			\\
+2 				 	  		  & scarce fructification	&	0.5					\\
+3 					  		  & common fructification	& 	0.75				\\
+4					 		  & full fructification 	& 	1.0					\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+
 \subsection{Input data}
-IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data.
-In detail, the model requires the following input data on a daily basis:
+IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis:
 \begin{itemize}
 \item Daily mean near-surface air temperature [Degree Celsius]
 \item Daily Maximum Near-Surface Air Temperature [Degree Celsius]
 \item Daily Maximum Near-Surface Air Temperature [Degree Celsius]
 \item Daily near surface relative humidity [\%]
 \end{itemize}
+
+An overview over the input parameters can be found in Table ~\ref{input_parameters}.
+
 
 \subsubsection{Observed weather data}
 Weather data from DWD (*.csv file)
@@ -193,12 +227,11 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1 				\\
 % erklären: als NetCDF file für Ausschnitt ca. Deutschland bekommen --> *.csv file (Rausziehen der Wetterzeitreihe mittels Skript)
 % Umrechnung von K in Celsius
 
-\subsubsection{Beech mast data}
-To estimate rodent density there is an option to feed the model with data on the beech mast of the European beech \textit{Fagus sylvatica}.
-The intensity of the beech mast is indicated by a so-called fructification index. For the validation of the model we have taken the
-fructification data from ~\parencite{Brugger.2018}.
+\subsubsection{Beech mast fructification data}\label{beech_mast_data}
+IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae
+(for details see Section~\ref{initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values
+from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
 
-An overview over the input parameters can be found in Table ~\ref{input_parameters}.
 
 \begin{table}[h!]
 \caption{Input parameters}
@@ -208,8 +241,8 @@ An overview over the input parameters can be found in Table ~\ref{input_paramete
 \textbf{Parameter} & \textbf{Symbol} & \textbf{Type}     & \textbf{Description}       \\
 \midrule
 meanTemperature    & $t_{mean}$      & double            & Daily mean temperature     \\
-minTemperature     & $t_{\min}$       & double            & Daily max temperature      \\
-maxTemperature     & $t_{\max}$       & double            & Daily min temperature      \\
+minTemperature     & $t_{\min}$      & double            & Daily max temperature      \\
+maxTemperature     & $t_{\max}$      & double            & Daily min temperature      \\
 humidity           & $h$             & double            & Daily humidity             \\
 \midrule
 fructificationIndex & $f$            & int               & Fructification index       \\
