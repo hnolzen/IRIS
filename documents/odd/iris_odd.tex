@@ -295,7 +295,7 @@ In general ticks need at least 80 \% relative humidity in their local environmen
 below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also
 requires lower temperatures ~\parencite{Ostfeld.2015}.
 
-In each time step the sub model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
+At each time step the sub model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
 all questing ticks that are in such a grid cell will desiccate. The exact desiccation rate depends on the habitat type of the grid cell. With this, we assume that more
 ticks dry out in a meadow than in the forest. The number of desiccated ticks is subtracted from their respective cohort. Table ~\ref{tab:desiccation_parameters} gives an
 overview over the habitat dependent desiccation rates and threshold values.
@@ -325,7 +325,7 @@ Ixodes ricinus ticks are quite cold resistant when exposed to low temperatures ~
 temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these
 conditions ~\parencite{Jore.2014}.
 
-In each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the
+At each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the
 ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
 
 \begin{table}[h!]
@@ -343,6 +343,42 @@ ticks are considered dead and are hence removed from the modelled population. Ta
 
 
 \subsubsection{Activity}
+The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the method \textit{process()} in the class
+\textit{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one
+activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to
+quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground,
+where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
+
+At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for
+questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific
+activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this
+case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the
+ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Table ~\ref{tab:activation_parameters} contains an overview over the activation
+parameters values belonging to the activity sub model.
+
+\begin{table}[h!]
+\caption{Parameters of the activity sub model}
+\label{tab:activation_parameters}
+\begin{tabular}{@{}lcll@{}}
+\toprule
+\textbf{Parameter}	& \textbf{Value}	& \textbf{Type}	& \textbf{Reference} \\
+\midrule
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & float	& ~\cite{Gray.2016, MacLeod.1935} \\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & float	& ~\cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& float	& ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & float	& ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& float	& ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & float	& ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & float & ~\cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& float	& ~\cite{Kubiak.2006}		\\
+\midrule
+\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & float	&  		\\
+\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& float	&  		\\
+activationRate	   											&  0.02 & float	& determined by optimisation  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 \subsubsection{Feeding}
 
