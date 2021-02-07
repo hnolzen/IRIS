@@ -1,6 +1,7 @@
 # IRIS - Ixodes RIcinus Simulator 
 
-IRIS is a population model for local dynamics of Ixodes ricinus ticks under changing climate parameters. It is designed as a spatially-explicit compartmental model that operates on a local scale. We plan to add a transmission model for borrelian dynamics in the near future.
+IRIS (Ixodes RIcinus Simulator) is a population model for local dynamics of Ixodes ricinus ticks under changing climate. It is designed as a
+ spatially-explicit compartmental model that operates on a local scale. We plan to add a transmission model for borrelian dynamics in the near future.
 
 This model is being developed as part of the [HICAM project][HICAM].
 
@@ -10,26 +11,43 @@ This model is being developed as part of the [HICAM project][HICAM].
 
 Command line arguments for model parameterisation:
 
-| parameter    | default     | description                                                                                                                          |
-|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| -s           | 42          | random seed. Integer values >= 0 are valid                                                                                           |
-| -l           | -           | initial number of inactive larvae. Integer values >= 0 are valid                                                                     |
-| -w           | -           | path to weather input file                                                                                                           |
-| -o           | -           | path to set directory of output file                                                                                                 |
-
+| parameter    | default     | description                            | notes                              |
+|--------------|-------------|----------------------------------------|------------------------------------|
+| -s           | 42          | random seed.                           | Integer values >= 0 are valid      |
+| -w           | -           | path to weather input file.            | Explicit specification is required |
+| -o           | -           | path to set directory of output files. | Explicit specification is required |
+| -l           | 150         | initial number of inactive larvae.     | Integer values >= 0 are valid      |
+| -n           | 150         | initial number of inactive nymphs.     | Integer values >= 0 are valid      |
+| -a           | 150         | initial number of inactive adults.     | Integer values >= 0 are valid      |
+| -r           | 0.02        | activation rate                        | Float values >= 0.0 are valid      |
+| -u           | false       | write only summary outputs             |                                    | 
 
 ## Documents and folders
+| document                      | description                                                              |
+|-------------------------------|--------------------------------------------------------------------------|
+| [ODD.pdf][ODD]                | Model description (ODD protocol)                                         |
+| [TRACE.pdf][TRACE]            | TRACE documentation                                                      |
 
-| file / folder                                          | description                                                                                                         |
-|--------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| [ODD.pdf](documents/odd/iris_odd.pdf)                  | Model description (ODD protocol)                                                          |
-| iris_start.R                                           | Script to run IRIS from R                                                                 |
-| `documents`                                            | Model documentation files                                                                 |
-| `experiments`                                          | Location of files to run various predefined experiments (e.g. sensitivity analyses)       |
-| `input`                                                | Location of input files (weather data, fructification data)                               |
-| `output`                                               | Location of output files                                                                  |
-| `plots`                                                | Location of scripts to visualise model outputs                                            |
-| `src`                                                  | Java source files                                                                         |
+
+## Model files and folders
+
+| file / folder        | description                                                                       |
+|----------------------|-----------------------------------------------------------------------------------|
+| `iris_start.R`       | Script to run IRIS from R                                                         |
+| `documents`          | Location of model documentation files (ODD protocol, TRACE documentation)         |
+| `experiments`        | Location of script files to run various experiments (e.g. sensitivity analyses)   |
+| `input`              | Location of input files (weather data, fructification data)                       |
+| `output`             | Location of model output files                                                    |
+| `plots`              | Location of script files to visualise model outputs                               |
+| `src`                | Location of Java source files                                                     |
+
+
+### Contact
+
+If you have questions regarding the research of the IRIS modelling project, please [create an issue][ISSUE] or contact us via email.
 
 
 [HICAM]: https://www.ufz.de/index.php?en=47573
+[ODD]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/iris_odd.pdf?job=build
+[TRACE]: documents/trace/iris_trace.pdf
+[ISSUE]: https://git.ufz.de/ecoepi/iris/-/issues
