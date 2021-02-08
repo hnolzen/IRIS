@@ -39,6 +39,7 @@
 
 \section*{List of Acronyms}
 \begin{acronym}
+\acro{ECS}{Entity Component System}
 \acro{GCM}{Global Change Model}
 \acro{GERICS}{The Climate Service Center Germany}
 \acro{IRIS}{Ixodes RIcinus Simulator}
@@ -115,7 +116,7 @@ the model through its respective cohort.
 IRIS is a Spatially explicit stochastic cohort-based tick population model. It was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System framework
 \footnote{\url{https://github.com/junkdog/artemis-odb}}.
 
-\subsection{Stochasticity}
+\subsection{Stochasticity}\label{subsec:stochasticity}
 To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library
 (version 3.6.1.). In addition we implemented a method roundRandom() to allow processes that statistically affect less than
 a single tick to still happen.
@@ -129,6 +130,39 @@ a single tick to still happen.
 \subsection{Globals}
 
 \subsection{Initialisation}
+The initialisation of the model involves the following steps. First, IRIS is started by calling the main method of one of the classes in the project folder `experiments`.
+The class \textit{AdHoc} can be called to simulate a single year. It is also possible to pass individual simulation parameters to the \textit{AdHoc} class. The other two
+classes (\textit{SensitivityAnalysis}, \textit{SensitivityAnalysisLN}) in the `experiments' folder are used to carry out sensitivity analyses. The simulation parameters are
+already defined there within these classes.
+
+When calling the main method of the class \textit{AdHoc} individual command line parameters, if available, are first passed to the model (see
+Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \textit{run()} in the class \textit{Model}. These include, among other items, the initial
+number of larvae, nymphs and adults.
+
+\begin{table}[h!]
+\caption{Input parameters}
+\label{tab:initialisation_parameters}
+\begin{tabularx}{\textwidth}{lllll}
+\toprule
+\textbf{Parameter} 	& \textbf{Symbol} & \textbf{Default value} & \textbf{Type} & \textbf{Description} \\
+\midrule
+seed    			&   & 42    & int     & random seed \\
+weather     		& - & -     & String  & path to weather input file \\
+output     			& - & -     & String  & path to set directory of output files \\
+initialLarvae       &   & 150   & int     & initial number of inactive larvae \\
+initialNymphs       &   & 150   & int     & initial number of inactive nymphs \\
+initialAdults       &   & 150   & int     & initial number of inactive adults \\
+activationRate      &   & 0.02  & float   & activation rate  \\
+summary       		&   & false & boolean & write only summary outputs \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Afterwards, the random number generator is initialised with a random seed and the world configuration of the Entity Component System is assembled. This includes the
+registration of the ECS Systems (Activity, Feeding, TickLifeCycle, Weather) and Resources (Parameters, Randomness, SpatialIndex and TimeStep). This is followed by the
+initialisation of the model landscape, i.e.\ each grid cell is assigned a position $(x, y)$ and a habitat type (forest, ecotone, meadow). In addition, the ECS components
+(Habitat, Humidity, Position, Precipitation, Temperature, TickAbundance) are added to the grid cells (i.e.\ the ECS entities).
+
 
 
 \subsubsection{Adjusting the initial number of larvae using beech mast fructification data}\label{subsubsec:initial_larvae_with_beech_mast}
