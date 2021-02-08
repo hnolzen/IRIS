@@ -381,6 +381,55 @@ activationRate	   											&  0.02 & float	& determined by optimisation  \\
 
 
 \subsubsection{Feeding}
+The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape.
+It is implemented in the class \textit{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and
+drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The individual steps of this process as well as host animals are not explicitly
+modelled.
+
+At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see
+Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see
+Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly.
+Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020,
+personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table
+~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found
+in Table ~\ref{tab:distance_probabilities}.
+
+
+\begin{table}[h!]
+\caption{Parameters of the feeding sub model}
+\label{tab:feeding_parameters}
+\begin{tabular}{@{}llcll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Life Cycle Stage} & \textbf{Value} & \textbf{Type}	& \textbf{Reference} \\
+\midrule
+\multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& float	 & 		\\
+									  & Nymph	& 0.03	& float	 &		\\
+									  & Adult	& 0.05	& float	 &		\\
+
+\tiny{LATE\_FEEDING\_TIME}			  &  $t = 232$  &	& int	 & ~\cite{tba}  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\caption{Distance probabilities of the translocation process}
+\label{tab:distance_probabilities}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Distance (Number of grid cells)}	& \textbf{Probability}	\\
+\midrule
+1 	& 0.25 \\
+2	& 0.25 \\
+3	& 0.20 \\
+4	& 0.15 \\
+5	& 0.05 \\
+6	& 0.04 \\
+7	& 0.03 \\
+8	& 0.02 \\
+9	& 0.01 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 \subsubsection{Micro climate}
