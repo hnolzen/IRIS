@@ -417,8 +417,8 @@ activationRate	   										    &  0.02 & 1/day & float	& determined by optimisa
 \subsubsection{Feeding}
 The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape.
 It is implemented in the class \textit{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and
-drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The individual steps of this process as well as host animals are not explicitly
-modelled.
+drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of
+this process nor the host animals are explicitly modelled.
 
 At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see
 Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see
