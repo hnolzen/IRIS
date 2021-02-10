@@ -323,16 +323,15 @@ The oviposition of adult ticks is not explicitly modelled. It is assumed that ad
 
 
 \subsubsection{Desiccation}
-This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle}.
+This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle}. In general ticks need at least 80
+\% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls below this level off-host ticks
+start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also requires lower temperatures
+~\parencite{Ostfeld.2015}. Due to the favourable microclimatic conditions, ticks prefer woodland habitats and have a higher abundance there than for example in meadows
+~\parencite{Lindstrom.2003, Boehnke.2015}.
 
-In general ticks need at least 80 \% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls
-below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also
-requires lower temperatures ~\parencite{Ostfeld.2015}.
-
-At each time step the sub model checks whether the relative humidity in a grid cell is below 80 \% on days with a mean temperature $t_{mean} \geq 15$. In this case, a proportion of
-all questing ticks that are in such a grid cell will desiccate. The exact desiccation rate depends on the habitat type of the grid cell. With this, we assume that more
-ticks dry out in a meadow than in the forest. The number of desiccated ticks is subtracted from their respective cohort. Table ~\ref{tab:desiccation_parameters} gives an
-overview over the habitat dependent desiccation rates and threshold values.
+At each time step this sub model checks the relative humidity and temperature. If these exceed certain thresholds a proportion of all questing ticks that are in such a grid
+cell will desiccate (see Table ~\ref{tab:desiccation_parameters}). The exact desiccation rate depends on the habitat type of the grid cell. Thereby we capture the favourable
+effect of the more humid microclimate within a forest compared to a meadow on tick survival. Desiccated ticks are removed from the modelled population.
 
 \begin{table}[h!]
 \caption{Habitat dependent desiccation rates and threshold values}
