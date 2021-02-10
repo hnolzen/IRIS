@@ -386,8 +386,9 @@ At each time step, the activity sub model checks the prevailing conditions in te
 questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific
 activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this
 case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the
-ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Table ~\ref{tab:activation_parameters} contains an overview over the activation
-parameters values belonging to the activity sub model.
+ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a
+given time step is a result of the balance of "activation" (towards the questing state) and "deactivation" (towards the inactive stage) over the previous time steps. Table
+~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
 
 \begin{table}[h!]
 \caption{Parameters of the activity sub model}
