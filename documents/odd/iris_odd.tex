@@ -337,15 +337,15 @@ overview over the habitat dependent desiccation rates and threshold values.
 \begin{table}[h!]
 \caption{Habitat dependent desiccation rates and threshold values}
 \label{tab:desiccation_parameters}
-\begin{tabular}{@{}llcl@{}}
+\begin{tabular}{@{}llccl@{}}
 \toprule
-\textbf{Parameter}											& \textbf{Habitat Type}  & \textbf{Value}	& \textbf{Reference}  	\\
+\textbf{Parameter}											& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  	\\
 \midrule
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0    		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0    		&  ~\cite{Ostfeld.2015}						\\
-\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  					& Forest       			 &   0.02   		&            		    \\
-				 											& Ecotone 				 &   0.05    		&					    \\
-				 											& Meadow    			 &   0.10    		&  						\\
+\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
+\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0  & Degree Celsius  		&  ~\cite{Ostfeld.2015}						\\
+\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  					& Forest       			 &   0.02  & 1/day 		&            		    \\
+				 											& Ecotone 				 &   0.05  & 1/day  		&					    \\
+				 											& Meadow    			 &   0.10  & 1/day  		&  						\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -365,12 +365,12 @@ ticks are considered dead and are hence removed from the modelled population. Ta
 \begin{table}[h!]
 \caption{Parameters of the freezing sub model}
 \label{tab:freezing_parameters}
-\begin{tabular}{@{}lcl@{}}
+\begin{tabular}{@{}lccl@{}}
 \toprule
-\textbf{Parameter}											  	& \textbf{Value}	& \textbf{Reference}  		\\
+\textbf{Parameter}											& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
-\tiny{FREEZING\_RATE}		    			 		 			&   0.03    		&  							\\
-\tiny{DEATH\_THRESHOLD\_FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    		&  ~\cite{Gray.2009}		\\
+\tiny{FREEZING\_RATE}		    			 		 		&   0.03    	& 1/day &  							\\
+\tiny{DEATH\_THRESHOLD\_FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -393,22 +393,22 @@ parameters values belonging to the activity sub model.
 \begin{table}[h!]
 \caption{Parameters of the activity sub model}
 \label{tab:activation_parameters}
-\begin{tabular}{@{}lcll@{}}
+\begin{tabular}{@{}lccll@{}}
 \toprule
-\textbf{Parameter}	& \textbf{Value}	& \textbf{Type}	& \textbf{Reference} \\
+\textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & float	& ~\cite{Gray.2016, MacLeod.1935} \\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & float	& ~\cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& float	& ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & float	& ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& float	& ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & float	& ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & float & ~\cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& float	& ~\cite{Kubiak.2006}		\\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
 \midrule
-\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & float	&  		\\
-\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& float	&  		\\
-activationRate	   											&  0.02 & float	& determined by optimisation  \\
+\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & 1/day & float	&  		\\
+\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& 1/day & float	&  		\\
+activationRate	   										    &  0.02 & 1/day & float	& determined by optimisation  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -432,15 +432,15 @@ in Table ~\ref{tab:distance_probabilities}.
 \begin{table}[h!]
 \caption{Parameters of the feeding sub model}
 \label{tab:feeding_parameters}
-\begin{tabular}{@{}llcll@{}}
+\begin{tabular}{@{}llccll@{}}
 \toprule
-\textbf{Parameter} & \textbf{Life Cycle Stage} & \textbf{Value} & \textbf{Type}	& \textbf{Reference} \\
+\textbf{Parameter} & \textbf{Life Cycle Stage} & \textbf{Value} & \textbf{Unit} & \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& float	 & 		\\
-									  & Nymph	& 0.03	& float	 &		\\
-									  & Adult	& 0.05	& float	 &		\\
+\multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & 		\\
+									  & Nymph	& 0.03	& 1/day & float	 &		\\
+									  & Adult	& 0.05	& 1/day & float	 &		\\
 
-\tiny{LATE\_FEEDING\_TIME}			  &  $t = 232$  &	& int	 & ~\cite{tba}  \\
+\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & ~\cite{tba}  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -471,11 +471,11 @@ in Table ~\ref{tab:distance_probabilities}.
 \begin{table}[h!]
 \caption{Adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
 \label{tab:micro_climate_adjustments}
-\begin{tabular}{@{}lllrll@{}}
+\begin{tabular}{@{}lllccl@{}}
 \toprule
 \textbf{Parameter}					& \textbf{Season} 					& \textbf{Habitat Type}  & \textbf{Value}  	& \textbf{Unit} & \textbf{Reference}  	\\
 \midrule
-\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Autumn \& Spring} & Pasture 				 &   0.0   			&   Degree Celsius	&            		    \\
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Spring / Autumn}  & Pasture 				 &   0.0   			&   Degree Celsius	&            		    \\
 									&									& Ecotone 				 &   -1.0 	  		&   Degree Celsius &	    				\\
 									&					 				& Wood    				 &   -2.0   		&   Degree Celsius &	    				\\
 \midrule
