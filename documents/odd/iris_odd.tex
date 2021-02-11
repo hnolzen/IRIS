@@ -289,12 +289,14 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsection{Submodels}
 
 \subsubsection{Development}
-This sub model is implemented in the method \textit{development()} in the class \textit{TickLifeCycle}.
+This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \textit{development()} in the class
+\textit{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each
+further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
 
 The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early
-or mid-October, depending on the life cycle stage. Since only fed ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with
-behavioural state 'fed' and added to the cohort of the next life  cycle stage with behavioural state 'inactive'. It is assumed that the number of ticks developing to the next
-life cycle stage at each time step is calculated in the following way so that all ticks will have developed at the end of the development period:
+or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the
+respective cohort with behavioural state 'fed' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have
+developed at the end of the development period:
 
 \begin{equation}
 n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{fed}(t)}{t_{\text{end} - t_{\text{current}}}})
@@ -302,6 +304,9 @@ n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{fed}(t)}{t_{\text{end} - 
 
 The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the
 development parameters.
+
+The oviposition of adult ticks is not modelled explicitly. Hence, we assume that adult ticks become new larvae.
+% need further explanation
 
 \begin{table}[h!]
 \caption{Time period of development to next life cycle stage}
@@ -317,9 +322,6 @@ Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVA
 \bottomrule
 \end{tabularx}
 \end{table}
-
-The oviposition of adult ticks is not explicitly modelled. It is assumed that adult ticks become new larvae.
-% tba. needs further explanation.
 
 
 \subsubsection{Desiccation}
