@@ -42,8 +42,6 @@ public class Parameters {
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
 
-    public static final float INITIAL_SHARE_OF_ACTIVATION_RATE = 0.0f;
-    public static final float OPTIMAL_SHARE_OF_ACTIVATION_RATE = 1.0f;
     public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
 
     public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
