@@ -37,16 +37,16 @@ public class Activity extends IteratingSystem {
 
         var shareOfActivationRate = 0.0f;
 
-        if (temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP &&
-                temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP &&
-                temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP &&
-                humidity.getRelativeHumidity() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY
+        if (temperature.getMaxTemperature() < Parameters.ACTIVATION_NECESSARY_MAXIMAL_MAX_TEMP &&
+                temperature.getMaxTemperature() > Parameters.ACTIVATION_NECESSARY_MINIMAL_MAX_TEMP &&
+                temperature.getMeanTemperature() > Parameters.ACTIVATION_NECESSARY_MINIMAL_MEAN_TEMP &&
+                humidity.getRelativeHumidity() > Parameters.ACTIVATION_NECESSARY_MINIMAL_HUMIDITY
         ) {
 
-            if (temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP &&
-                    temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP &&
-                    temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP &&
-                    temperature.getMeanTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP
+            if (temperature.getMaxTemperature() > Parameters.ACTIVATION_OPTIMAL_MINIMAL_MAX_TEMP &&
+                    temperature.getMaxTemperature() < Parameters.ACTIVATION_OPTIMAL_MAXIMAL_MAX_TEMP &&
+                    temperature.getMeanTemperature() > Parameters.ACTIVATION_OPTIMAL_MINIMAL_MEAN_TEMP &&
+                    temperature.getMeanTemperature() < Parameters.ACTIVATION_OPTIMAL_MAXIMAL_MEAN_TEMP
             ) {
                 shareOfActivationRate = 1.0f;
             } else {
