@@ -1,5 +1,6 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
+import eu.ecoepi.iris.LifeCycleStage;
 import eu.ecoepi.iris.components.Habitat;
 
 import java.util.Map;

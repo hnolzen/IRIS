@@ -1,7 +1,7 @@
 package eu.ecoepi.iris.components;
 
 import com.artemis.Component;
-import eu.ecoepi.iris.Parameters;
+import eu.ecoepi.iris.resources.Parameters;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;

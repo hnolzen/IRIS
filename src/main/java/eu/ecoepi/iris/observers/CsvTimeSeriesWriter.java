@@ -4,7 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
-import eu.ecoepi.iris.TimeStep;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
 import java.io.IOException;

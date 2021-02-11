@@ -5,9 +5,9 @@ import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.LifeCycleStage;
-import eu.ecoepi.iris.Parameters;
-import eu.ecoepi.iris.Randomness;
-import eu.ecoepi.iris.TimeStep;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
 @All({TickAbundance.class, Habitat.class, Temperature.class, Humidity.class})

@@ -1,4 +1,4 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
 public class TimeStep {
     private int current;

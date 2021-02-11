@@ -1,4 +1,4 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
 import org.apache.commons.math3.random.RandomGenerator;
 
