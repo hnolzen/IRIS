@@ -3,7 +3,7 @@ package eu.ecoepi.iris.experiments;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorCompletionService;
 
-import eu.ecoepi.iris.resources.Model;
+import eu.ecoepi.iris.Model;
 
 public class SensitivityAnalysis {
     public static void main(String[] args) throws Exception {

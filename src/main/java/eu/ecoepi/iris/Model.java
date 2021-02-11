@@ -1,10 +1,14 @@
-package eu.ecoepi.iris.resources;
+package eu.ecoepi.iris;
 
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriter;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.SpatialIndex;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.systems.TickLifeCycle;

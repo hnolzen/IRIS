@@ -2,7 +2,7 @@ package eu.ecoepi.iris.experiments;
 
 import org.apache.commons.cli.*;
 
-import eu.ecoepi.iris.resources.Model;
+import eu.ecoepi.iris.Model;
 
 public class AdHoc {
     public static void main(String[] args) throws Exception {
