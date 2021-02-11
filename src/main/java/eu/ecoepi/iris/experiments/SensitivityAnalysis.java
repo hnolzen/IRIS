@@ -16,8 +16,8 @@ public class SensitivityAnalysis {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
             var abundanceReduction = Model.abundanceReductionDueToFructificationIndex(year);
 
-            for (int ticks = 5; ticks <= 500; ticks += 5) {
-                for (int activationRate = 2; activationRate <= 8; activationRate += 1) {
+            for (int ticks = 5; ticks <= 1000; ticks += 5) {
+                for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
                     for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
                         var options = new Model.Options();
 
@@ -31,7 +31,7 @@ public class SensitivityAnalysis {
                         options.initialNymphs = ticks;
                         options.initialAdults = ticks;
 
-                        options.activationRate = activationRate / 100.0f;
+                        options.activationRate = activationRate / 1000.0f;
 
                         options.startLarvaeQuesting = startLarvaeQuesting;
                         
