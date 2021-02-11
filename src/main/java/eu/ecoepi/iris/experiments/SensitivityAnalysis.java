@@ -18,36 +18,31 @@ public class SensitivityAnalysis {
 
             for (int ticks = 5; ticks <= 1000; ticks += 5) {
                 for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
-                    for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
-                        var options = new Model.Options();
+                    var options = new Model.Options();
 
-                        var name = String.format("%d_%d_%d_%d", year, ticks,
-                                startLarvaeQuesting, activationRate);
+                    var name = String.format("%d_%d_%d", year, ticks, activationRate);
 
-                        options.weather = weather;
-                        options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
+                    options.weather = weather;
+                    options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
 
-                        options.initialLarvae = (int)(abundanceReduction * ticks);
-                        options.initialNymphs = ticks;
-                        options.initialAdults = ticks;
+                    options.initialLarvae = (int)(abundanceReduction * ticks);
+                    options.initialNymphs = ticks;
+                    options.initialAdults = ticks;
 
-                        options.activationRate = activationRate / 1000.0f;
+                    options.activationRate = activationRate / 1000.0f;
 
-                        options.startLarvaeQuesting = startLarvaeQuesting;
-                        
-                        options.summary = true;
+                    options.summary = true;
 
-                        tasks.submit(() -> {
-                            System.err.printf("Starting task %s...\n", name);
+                    tasks.submit(() -> {
+                        System.err.printf("Starting task %s...\n", name);
 
-                            try {
-                                Model.run(options);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }, null);
-                        todo++;
-                    }
+                        try {
+                            Model.run(options);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }, null);
+                    todo++;
                 }
             }
         }

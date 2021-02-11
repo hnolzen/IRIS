@@ -29,7 +29,9 @@ public class Parameters {
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
     public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October
-    public static final int END_OF_DEVELOPMENT_ADULTS_TO_LARVAE = 289;         // Mid-October
+    public static final int END_OF_DEVELOPMENT_ADULTS_TO_LARVAE = 289;      // Mid-October
+
+    public static final int START_LARVAE_QUESTING = 105; // Mid-April
 
     public static final int LATE_FEEDING_TIME = 232;                        // Mid-September
 

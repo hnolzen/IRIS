@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 
-def plot_rmse(year, data_rmse_start_lq, max_round_rmse, ar):
+def plot_rmse(year, data_rmse_ar, max_round_rmse, ar):
     
     fig = plt.figure(figsize = (12,12), dpi = 200)
     ax = plt.axes(projection = '3d')
@@ -28,7 +28,7 @@ def plot_rmse(year, data_rmse_start_lq, max_round_rmse, ar):
 
 data_rmse = pd.read_csv('rmse.csv', header = 0)
 max_round_rmse = int(math.ceil(data_rmse['rmse'].max() / 10.0)) * 10
-min_rmse = pd.DataFrame(columns = ('year', 'larvae', 'nymphs', 'activation_rate', 'start_larvae_questing', 'rmse'))
+min_rmse = pd.DataFrame(columns = ('year', 'larvae', 'nymphs', 'activation_rate', 'rmse'))
 
 for year in range(2009, 2018 + 1):
     data_rmse_year = data_rmse[data_rmse['year'] == year]

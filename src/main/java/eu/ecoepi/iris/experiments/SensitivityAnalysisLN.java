@@ -19,36 +19,31 @@ public class SensitivityAnalysisLN {
             for (int larvae = 0; larvae <= 1000; larvae += 20) {
                 for (int nymphs = 0; nymphs <= 1000; nymphs += 20) {
                     for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
-                        for (int startLarvaeQuesting = 0; startLarvaeQuesting <= 150; startLarvaeQuesting += 50) {
-                            var options = new Model.Options();
+                        var options = new Model.Options();
 
-                            var name = String.format("%d_%d_%d_%d_%d", year, larvae, nymphs,
-                                    startLarvaeQuesting, activationRate);
+                        var name = String.format("%d_%d_%d_%d", year, larvae, nymphs, activationRate);
 
-                            options.weather = weather;
-                            options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
+                        options.weather = weather;
+                        options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
 
-                            options.initialLarvae = (int) (abundanceReduction * larvae);
-                            options.initialNymphs = nymphs;
-                            options.initialAdults = 150;
+                        options.initialLarvae = (int) (abundanceReduction * larvae);
+                        options.initialNymphs = nymphs;
+                        options.initialAdults = 150;
 
-                            options.activationRate = activationRate / 1000.0f;
+                        options.activationRate = activationRate / 1000.0f;
 
-                            options.startLarvaeQuesting = startLarvaeQuesting;
-                            
-                            options.summary = true;
+                        options.summary = true;
 
-                            tasks.submit(() -> {
-                                System.err.printf("Starting task %s...\n", name);
+                        tasks.submit(() -> {
+                            System.err.printf("Starting task %s...\n", name);
 
-                                try {
-                                    Model.run(options);
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }, null);
-                            todo++;
-                        }
+                            try {
+                                Model.run(options);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }, null);
+                        todo++;
                     }
                 }
             }
