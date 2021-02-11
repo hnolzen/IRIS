@@ -15,12 +15,12 @@ public class Parameters {
     public static final int INITIAL_NYMPHS = 0;
     public static final int INITIAL_ADULTS = 0;
 
-    public static final int INITIAL_FED_LARVAE = 0;
-    public static final int INITIAL_FED_NYMPHS = 0;
-    public static final int INITIAL_FED_ADULTS = 0;
+    public static final int INITIAL_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_ENGORGED_NYMPHS = 0;
+    public static final int INITIAL_ENGORGED_ADULTS = 0;
 
-    public static final int INITIAL_LATE_FED_LARVAE = 0;
-    public static final int INITIAL_LATE_FED_NYMPHS = 0;
+    public static final int INITIAL_LATE_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_LATE_ENGORGED_NYMPHS = 0;
 
     public static final int INITIAL_INFECTED_LARVAE = 0;
     public static final int INITIAL_INFECTED_NYMPHS = 0;
