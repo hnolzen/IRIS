@@ -2,8 +2,6 @@ package eu.ecoepi.iris;
 
 import org.apache.commons.math3.random.RandomGenerator;
 
-import java.util.Random;
-
 public class Randomness {
 
     final RandomGenerator rng;
