@@ -72,7 +72,7 @@ dynamics.
 The model is composed of the following entities: (a) sub populations of \textit{Ixodes ricinus} ticks belonging to a cohort and (b) grid
 cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick
 life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing,
-(ii) inactive, (iii) fed and (iv) late fed. Hence, in total there are 12 tick cohorts present in the model. Grid cells serve as habitat for
+(ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Grid cells serve as habitat for
 tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
 
 The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$) in reality. The model
@@ -295,11 +295,11 @@ further life cycle stage requires a bloodmeal to develop to the next life cycle 
 
 The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early
 or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the
-respective cohort with behavioural state 'fed' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have
+respective cohort with behavioural state 'engorged' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have
 developed at the end of the development period:
 
 \begin{equation}
-n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{fed}(t)}{t_{\text{end} - t_{\text{current}}}})
+n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{engorged}(t)}{t_{\text{end} - t_{\text{current}}}})
 \end{equation}
 
 The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the

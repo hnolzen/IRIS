@@ -21,8 +21,8 @@ public class TickAbundance extends Component {
 
     public TickAbundance(int larvae, int nymphs, int adults,
                          int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
-                         int fedLarvae, int fedNymphs, int fedAdults,
-                         int lateFedLarvae, int lateFedNymphs,
+                         int engorgedLarvae, int engorgedNymphs, int engorgedAdults,
+                         int lateEngorgedLarvae, int lateEngorgedNymphs,
                          int infectedLarvae, int infectedNymphs, int infectedAdults) {
         abundance.put(LifeCycleStage.LARVAE, larvae);
         abundance.put(LifeCycleStage.NYMPH, nymphs);
@@ -30,11 +30,11 @@ public class TickAbundance extends Component {
         abundance.put(LifeCycleStage.LARVAE_INACTIVE, inactiveLarvae);
         abundance.put(LifeCycleStage.NYMPH_INACTIVE, inactiveNymphs);
         abundance.put(LifeCycleStage.ADULT_INACTIVE, inactiveAdults);
-        abundance.put(LifeCycleStage.LARVAE_FED, fedLarvae);
-        abundance.put(LifeCycleStage.NYMPH_FED, fedNymphs);
-        abundance.put(LifeCycleStage.ADULT_FED, fedAdults);
-        abundance.put(LifeCycleStage.LARVAE_LATE_FED, lateFedLarvae);
-        abundance.put(LifeCycleStage.NYMPHS_LATE_FED, lateFedNymphs);
+        abundance.put(LifeCycleStage.LARVAE_ENGORGED, engorgedLarvae);
+        abundance.put(LifeCycleStage.NYMPH_ENGORGED, engorgedNymphs);
+        abundance.put(LifeCycleStage.ADULT_ENGORGED, engorgedAdults);
+        abundance.put(LifeCycleStage.LARVAE_LATE_ENGORGED, lateEngorgedLarvae);
+        abundance.put(LifeCycleStage.NYMPHS_LATE_ENGORGED, lateEngorgedNymphs);
         infected.put(LifeCycleStage.LARVAE, infectedLarvae);
         infected.put(LifeCycleStage.NYMPH, infectedNymphs);
         infected.put(LifeCycleStage.ADULT, infectedAdults);
@@ -106,24 +106,24 @@ public class TickAbundance extends Component {
         return abundance.get(LifeCycleStage.ADULT_INACTIVE);
     }
 
-    public int getFedLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_FED);
+    public int getEngorgedLarvae() {
+        return abundance.get(LifeCycleStage.LARVAE_ENGORGED);
     }
 
-    public int getFedNymphs() {
-        return abundance.get(LifeCycleStage.NYMPH_FED);
+    public int getEngorgedNymphs() {
+        return abundance.get(LifeCycleStage.NYMPH_ENGORGED);
     }
 
-    public int getFedAdults() {
-        return abundance.get(LifeCycleStage.ADULT_FED);
+    public int getEngorgedAdults() {
+        return abundance.get(LifeCycleStage.ADULT_ENGORGED);
     }
 
-    public int getLateFedLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_LATE_FED);
+    public int getLateEngorgedLarvae() {
+        return abundance.get(LifeCycleStage.LARVAE_LATE_ENGORGED);
     }
 
-    public int getLateFedNymphs() {
-        return abundance.get(LifeCycleStage.NYMPHS_LATE_FED);
+    public int getLateEngorgedNymphs() {
+        return abundance.get(LifeCycleStage.NYMPHS_LATE_ENGORGED);
     }
 
     public int getInfectedLarvae() {
@@ -166,24 +166,24 @@ public class TickAbundance extends Component {
         abundance.compute(LifeCycleStage.ADULT_INACTIVE, (stage, count) -> count + adults);
     }
 
-    public void addFedLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_FED, (stage, count) -> count + larvae);
+    public void addEngorgedLarvae(int larvae) {
+        abundance.compute(LifeCycleStage.LARVAE_ENGORGED, (stage, count) -> count + larvae);
     }
 
-    public void addFedNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPH_FED, (stage, count) -> count + nymphs);
+    public void addEngorgedNymphs(int nymphs) {
+        abundance.compute(LifeCycleStage.NYMPH_ENGORGED, (stage, count) -> count + nymphs);
     }
 
-    public void addFedAdults(int adults) {
-        abundance.compute(LifeCycleStage.ADULT_FED, (stage, count) -> count + adults);
+    public void addEngorgedAdults(int adults) {
+        abundance.compute(LifeCycleStage.ADULT_ENGORGED, (stage, count) -> count + adults);
     }
 
-    public void addLateFedLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_LATE_FED, (stage, count) -> count + larvae);
+    public void addLateEngorgedLarvae(int larvae) {
+        abundance.compute(LifeCycleStage.LARVAE_LATE_ENGORGED, (stage, count) -> count + larvae);
     }
 
-    public void addLateFedNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPHS_LATE_FED, (stage, count) -> count + nymphs);
+    public void addLateEngorgedNymphs(int nymphs) {
+        abundance.compute(LifeCycleStage.NYMPHS_LATE_ENGORGED, (stage, count) -> count + nymphs);
     }
 
     public void addInfectedLarvae(int larvae) {
