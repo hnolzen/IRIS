@@ -7,9 +7,9 @@ import com.artemis.systems.IteratingSystem;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import eu.ecoepi.iris.Parameters;
+import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.components.*;
-import eu.ecoepi.iris.TimeStep;
+import eu.ecoepi.iris.resources.TimeStep;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -5,9 +5,9 @@ import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.LifeCycleStage;
-import eu.ecoepi.iris.Parameters;
-import eu.ecoepi.iris.Randomness;
-import eu.ecoepi.iris.TimeStep;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
 @All({TickAbundance.class, Habitat.class, Temperature.class, Humidity.class})
@@ -44,23 +44,23 @@ public class TickLifeCycle extends IteratingSystem {
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS - currentTimeStep;
-                var nextStageNymphs = randomness.roundRandom((float) abundance.getFedLarvae() / (float) remainingDays);
+                var nextStageNymphs = randomness.roundRandom((float) abundance.getEngorgedLarvae() / (float) remainingDays);
                 abundance.addInactiveNymphs(nextStageNymphs);
-                abundance.addFedLarvae(-nextStageNymphs);
+                abundance.addEngorgedLarvae(-nextStageNymphs);
             }
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS - currentTimeStep;
-                var nextStageAdults = randomness.roundRandom((float) abundance.getFedNymphs() / (float) remainingDays);
+                var nextStageAdults = randomness.roundRandom((float) abundance.getEngorgedNymphs() / (float) remainingDays);
                 abundance.addInactiveAdults(nextStageAdults);
-                abundance.addFedNymphs(-nextStageAdults);
+                abundance.addEngorgedNymphs(-nextStageAdults);
             }
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE - currentTimeStep;
-                var nextStageLarvae = randomness.roundRandom((float) abundance.getFedAdults() / (float) remainingDays);
+                var nextStageLarvae = randomness.roundRandom((float) abundance.getEngorgedAdults() / (float) remainingDays);
                 abundance.addInactiveLarvae(nextStageLarvae);
-                abundance.addFedAdults(-nextStageLarvae);
+                abundance.addEngorgedAdults(-nextStageLarvae);
             }
         }
     }

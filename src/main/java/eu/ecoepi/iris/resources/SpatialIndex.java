@@ -1,4 +1,4 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
 import eu.ecoepi.iris.components.Position;
 

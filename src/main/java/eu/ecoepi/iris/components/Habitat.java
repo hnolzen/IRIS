@@ -6,17 +6,13 @@ import java.util.Objects;
 
 public class Habitat extends Component {
 
-    public Habitat() {
-
-    }
-
     public Habitat(Type type) {
         this.type = type;
     }
 
     public enum Type {
 
-        WOOD, ECOTONE, PASTURE
+        WOOD, ECOTONE, MEADOW
 
     }
 

@@ -4,9 +4,9 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
-import eu.ecoepi.iris.Parameters;
-import eu.ecoepi.iris.Randomness;
-import eu.ecoepi.iris.TimeStep;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.Humidity;
 import eu.ecoepi.iris.components.Temperature;
 import eu.ecoepi.iris.components.TickAbundance;
@@ -37,7 +37,7 @@ public class Activity extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        var shareOfActivationRate = Parameters.INITIAL_SHARE_OF_ACTIVATION_RATE;
+        var shareOfActivationRate = 0.0f;
 
         if (temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP &&
                 temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP &&
@@ -50,7 +50,7 @@ public class Activity extends IteratingSystem {
                     temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP &&
                     temperature.getMeanTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP
             ) {
-                shareOfActivationRate = Parameters.OPTIMAL_SHARE_OF_ACTIVATION_RATE;
+                shareOfActivationRate = 1.0f;
             } else {
                 shareOfActivationRate = Parameters.SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE;
             }

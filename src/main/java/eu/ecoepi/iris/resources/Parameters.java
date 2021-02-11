@@ -1,5 +1,6 @@
-package eu.ecoepi.iris;
+package eu.ecoepi.iris.resources;
 
+import eu.ecoepi.iris.LifeCycleStage;
 import eu.ecoepi.iris.components.Habitat;
 
 import java.util.Map;
@@ -14,12 +15,12 @@ public class Parameters {
     public static final int INITIAL_NYMPHS = 0;
     public static final int INITIAL_ADULTS = 0;
 
-    public static final int INITIAL_FED_LARVAE = 0;
-    public static final int INITIAL_FED_NYMPHS = 0;
-    public static final int INITIAL_FED_ADULTS = 0;
+    public static final int INITIAL_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_ENGORGED_NYMPHS = 0;
+    public static final int INITIAL_ENGORGED_ADULTS = 0;
 
-    public static final int INITIAL_LATE_FED_LARVAE = 0;
-    public static final int INITIAL_LATE_FED_NYMPHS = 0;
+    public static final int INITIAL_LATE_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_LATE_ENGORGED_NYMPHS = 0;
 
     public static final int INITIAL_INFECTED_LARVAE = 0;
     public static final int INITIAL_INFECTED_NYMPHS = 0;
@@ -41,8 +42,6 @@ public class Parameters {
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
     public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
 
-    public static final float INITIAL_SHARE_OF_ACTIVATION_RATE = 0.0f;
-    public static final float OPTIMAL_SHARE_OF_ACTIVATION_RATE = 1.0f;
     public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
 
     public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
@@ -55,25 +54,25 @@ public class Parameters {
     public static final int BEGIN_WINTER = 330;
 
     public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SPRING_AUTUMN = Map.of(
-            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.MEADOW, 0f,
             Habitat.Type.ECOTONE, -1f,
             Habitat.Type.WOOD, -2f
     );
 
     public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SUMMER = Map.of(    // Bonan 2016, Geiger et al. 1995
-            Habitat.Type.PASTURE, 0f,
+            Habitat.Type.MEADOW, 0f,
             Habitat.Type.ECOTONE, -2f,
             Habitat.Type.WOOD, -4.0f
     );
 
     public static final Map<Habitat.Type, Float> SET_LOCAL_HUMIDITY = Map.of(
-            Habitat.Type.PASTURE, 1.12f,    // estimation
+            Habitat.Type.MEADOW, 1.12f,    // estimation
             Habitat.Type.ECOTONE, 1.18f,    // estimation
             Habitat.Type.WOOD, 1.24f        // Boehnke 2017
     );
 
     public static final Map<Habitat.Type, Float> DESICCATION_RATE = Map.of(
-            Habitat.Type.PASTURE, 0.10f,
+            Habitat.Type.MEADOW, 0.10f,
             Habitat.Type.ECOTONE, 0.05f,
             Habitat.Type.WOOD, 0.02f
     );

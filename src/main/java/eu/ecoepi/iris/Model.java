@@ -5,6 +5,10 @@ import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriter;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.SpatialIndex;
+import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.systems.Activity;
 import eu.ecoepi.iris.systems.Feeding;
 import eu.ecoepi.iris.systems.TickLifeCycle;
@@ -72,7 +76,7 @@ public class Model {
 
             if (x < Parameters.GRID_WIDTH / 2) {
                 if (x < Parameters.GRID_WIDTH / 6) {
-                    habitatType = Habitat.Type.PASTURE;
+                    habitatType = Habitat.Type.MEADOW;
                 } else if (x < Parameters.GRID_WIDTH / 3) {
                     habitatType = Habitat.Type.ECOTONE;
                 } else {
@@ -81,7 +85,7 @@ public class Model {
 
             } else {
                 if (x >= Parameters.GRID_WIDTH / 6 * 5) {
-                    habitatType = Habitat.Type.PASTURE;
+                    habitatType = Habitat.Type.MEADOW;
                 } else if (x >= Parameters.GRID_WIDTH / 3 * 2) {
                     habitatType = Habitat.Type.ECOTONE;
                 } else {
@@ -104,11 +108,11 @@ public class Model {
                         options.initialLarvae,
                         options.initialNymphs,
                         options.initialAdults,
-                        Parameters.INITIAL_FED_LARVAE,
-                        Parameters.INITIAL_FED_NYMPHS,
-                        Parameters.INITIAL_FED_ADULTS,
-                        Parameters.INITIAL_LATE_FED_LARVAE,
-                        Parameters.INITIAL_LATE_FED_NYMPHS,
+                        Parameters.INITIAL_ENGORGED_LARVAE,
+                        Parameters.INITIAL_ENGORGED_NYMPHS,
+                        Parameters.INITIAL_ENGORGED_ADULTS,
+                        Parameters.INITIAL_LATE_ENGORGED_LARVAE,
+                        Parameters.INITIAL_LATE_ENGORGED_NYMPHS,
                         Parameters.INITIAL_INFECTED_LARVAE,
                         Parameters.INITIAL_INFECTED_NYMPHS,
                         Parameters.INITIAL_INFECTED_ADULTS);

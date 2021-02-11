@@ -7,6 +7,10 @@ import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.*;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
+import eu.ecoepi.iris.resources.Parameters;
+import eu.ecoepi.iris.resources.Randomness;
+import eu.ecoepi.iris.resources.SpatialIndex;
+import eu.ecoepi.iris.resources.TimeStep;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.Pair;
@@ -61,9 +65,9 @@ public class Feeding extends IteratingSystem {
             var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE));
             abundance.addLarvae(-feedingLarvae);
             if (lateFeeding) {
-                abundanceToRandom.addLateFedLarvae(feedingLarvae);
+                abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
             } else {
-                abundanceToRandom.addFedLarvae(feedingLarvae);
+                abundanceToRandom.addEngorgedLarvae(feedingLarvae);
             }
             abundance.addFeedingEventLarvae(feedingLarvae);
         }
@@ -76,9 +80,9 @@ public class Feeding extends IteratingSystem {
             var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH));
             abundance.addNymphs(-feedingNymphs);
             if (lateFeeding) {
-                abundanceToRandom.addLateFedNymphs(feedingNymphs);
+                abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
             } else {
-                abundanceToRandom.addFedNymphs(feedingNymphs);
+                abundanceToRandom.addEngorgedNymphs(feedingNymphs);
             }
             abundance.addFeedingEventNymphs(feedingNymphs);
         }
@@ -90,7 +94,7 @@ public class Feeding extends IteratingSystem {
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT));
             abundance.addAdults(-feedingAdults);
-            abundanceToRandom.addFedAdults(feedingAdults);
+            abundanceToRandom.addEngorgedAdults(feedingAdults);
             abundance.addFeedingEventAdults(feedingAdults);
         }
     }

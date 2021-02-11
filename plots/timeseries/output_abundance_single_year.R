@@ -44,34 +44,34 @@ colnames(sum_inactive_nymphs) <- c("tick", "inactive_nymphs")
 sum_inactive_adults <- aggregate(df$inactive_adults, by = list(tick = df$tick), FUN = sum)
 colnames(sum_inactive_adults) <- c("tick", "inactive_adults")
 
-sum_fed_larvae <- aggregate(df$fed_larvae, by = list(tick = df$tick), FUN = sum)
-colnames(sum_fed_larvae) <- c("tick", "fed_larvae")
+sum_engorged_larvae <- aggregate(df$engorged_larvae, by = list(tick = df$tick), FUN = sum)
+colnames(sum_engorged_larvae) <- c("tick", "engorged_larvae")
 
-sum_fed_nymphs <- aggregate(df$fed_nymphs, by = list(tick = df$tick), FUN = sum)
-colnames(sum_fed_nymphs) <- c("tick", "fed_nymphs")
+sum_engorged_nymphs <- aggregate(df$engorged_nymphs, by = list(tick = df$tick), FUN = sum)
+colnames(sum_engorged_nymphs) <- c("tick", "engorged_nymphs")
 
-sum_fed_adults <- aggregate(df$fed_adults, by = list(tick = df$tick), FUN = sum)
-colnames(sum_fed_adults) <- c("tick", "fed_adults")
+sum_engorged_adults <- aggregate(df$engorged_adults, by = list(tick = df$tick), FUN = sum)
+colnames(sum_engorged_adults) <- c("tick", "engorged_adults")
 
-sum_late_fed_larvae <- aggregate(df$late_fed_larvae, by = list(tick = df$tick), FUN = sum)
-colnames(sum_late_fed_larvae) <- c("tick", "late_fed_larvae")
+sum_late_engorged_larvae <- aggregate(df$late_engorged_larvae, by = list(tick = df$tick), FUN = sum)
+colnames(sum_late_engorged_larvae) <- c("tick", "late_engorged_larvae")
 
-sum_late_fed_nymphs <- aggregate(df$late_fed_nymphs, by = list(tick = df$tick), FUN = sum)
-colnames(sum_late_fed_nymphs) <- c("tick", "late_fed_nymphs")
+sum_late_engorged_nymphs <- aggregate(df$late_engorged_nymphs, by = list(tick = df$tick), FUN = sum)
+colnames(sum_late_engorged_nymphs) <- c("tick", "late_engorged_nymphs")
 
 abundance <- cbind(sum_questing_larvae, sum_questing_nymphs$nymphs, sum_questing_adults$adults,
                    sum_inactive_larvae$inactive_larvae, sum_inactive_nymphs$inactive_nymphs, sum_inactive_adults$inactive_adults,
-                   sum_fed_larvae$fed_larvae, sum_fed_nymphs$fed_nymphs, sum_fed_adults$fed_adults,
-                   sum_late_fed_larvae$late_fed_larvae, sum_late_fed_nymphs$late_fed_nymphs,
-                   sum_inactive_larvae$inactive_larvae + sum_fed_larvae$fed_larvae + sum_late_fed_larvae$late_fed_larvae,
-                   sum_inactive_nymphs$inactive_nymphs + sum_fed_nymphs$fed_nymphs + sum_late_fed_nymphs$late_fed_nymphs,
-                   sum_inactive_adults$inactive_adults + sum_fed_adults$fed_adults)
+                   sum_engorged_larvae$engorged_larvae, sum_engorged_nymphs$engorged_nymphs, sum_engorged_adults$engorged_adults,
+                   sum_late_engorged_larvae$late_engorged_larvae, sum_late_engorged_nymphs$late_engorged_nymphs,
+                   sum_inactive_larvae$inactive_larvae + sum_engorged_larvae$engorged_larvae + sum_late_engorged_larvae$late_engorged_larvae,
+                   sum_inactive_nymphs$inactive_nymphs + sum_engorged_nymphs$engorged_nymphs + sum_late_engorged_nymphs$late_engorged_nymphs,
+                   sum_inactive_adults$inactive_adults + sum_engorged_adults$engorged_adults)
 
 colnames(abundance) <- c("tick",
                          "questing_larvae", "questing_nymphs", "questing_adults",
                          "inactive_larvae", "inactive_nymphs", "inactive_adults",
-                         "fed_larvae", "fed_nymphs", "fed_adults",
-                         "late_fed_larvae", "late_fed_nymphs",
+                         "engorged_larvae", "engorged_nymphs", "engorged_adults",
+                         "late_engorged_larvae", "late_engorged_nymphs",
                          "not_questing_larvae", "not_questing_nymphs", "not_questing_adults")
 
 # Calculate moving average
@@ -217,8 +217,8 @@ ggsave(filename = "abundance_inactive_ticks.pdf", device = "pdf", path = plot_di
 abundance_plot_inactive
 dev.off()
 
-# Create plot of fed ticks (all life cycle stages)
-abundance_plot_fed <- ggplot(data = abundance) +
+# Create plot of engorged ticks (all life cycle stages)
+abundance_plot_engorged <- ggplot(data = abundance) +
   geom_vline(xintercept = 31,  linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 59,  linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 90,  linetype = "solid", size = 0.1, colour = "lightgray") +
@@ -231,15 +231,15 @@ abundance_plot_fed <- ggplot(data = abundance) +
   geom_vline(xintercept = 304, linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 334, linetype = "solid", size = 0.1, colour = "lightgray") +
   
-  geom_line(size = 1, colour = "#bae4b3", linetype = "dotted", aes(x = tick, y = fed_larvae)) +
-  geom_line(size = 1, colour = "#74c476", linetype = "solid", aes(x = tick, y = fed_nymphs)) +
-  geom_line(size = 1, colour = "#31a354", linetype = "dashed", aes(x = tick, y = fed_adults)) +
-  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_fed_larvae)) +
-  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_fed_nymphs)) +
+  geom_line(size = 1, colour = "#bae4b3", linetype = "dotted", aes(x = tick, y = engorged_larvae)) +
+  geom_line(size = 1, colour = "#74c476", linetype = "solid", aes(x = tick, y = engorged_nymphs)) +
+  geom_line(size = 1, colour = "#31a354", linetype = "dashed", aes(x = tick, y = engorged_adults)) +
+  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_engorged_larvae)) +
+  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_engorged_nymphs)) +
   
   ggtitle("Fed ticks") +
   labs(x = "Time (days)",
-       y = "Number of fed ticks",
+       y = "Number of engorged ticks",
        color = "Stage",
        linetype = "") +
   theme_classic() +
@@ -260,13 +260,13 @@ abundance_plot_fed <- ggplot(data = abundance) +
         panel.grid.major.y = element_line(colour = "#e4e4e4", size = 0.1),
         panel.border = element_rect(fill = NA, size = 0.5)) 
 
-ggsave(filename = "abundance_fed_ticks.pdf", device = "pdf", path = plot_directory,
+ggsave(filename = "abundance_engorged_ticks.pdf", device = "pdf", path = plot_directory,
        width = 35, height = 15, units = "cm")
-abundance_plot_fed
+abundance_plot_engorged
 dev.off()
 
-# Create plot of late fed ticks (larvae and nymphs)
-abundance_plot_late_fed <- ggplot(data = abundance) +
+# Create plot of late engorged ticks (larvae and nymphs)
+abundance_plot_late_engorged <- ggplot(data = abundance) +
   geom_vline(xintercept = 31,  linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 59,  linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 90,  linetype = "solid", size = 0.1, colour = "lightgray") +
@@ -279,12 +279,12 @@ abundance_plot_late_fed <- ggplot(data = abundance) +
   geom_vline(xintercept = 304, linetype = "solid", size = 0.1, colour = "lightgray") +
   geom_vline(xintercept = 334, linetype = "solid", size = 0.1, colour = "lightgray") +
   
-  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_fed_larvae)) +
-  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_fed_nymphs)) +
+  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_engorged_larvae)) +
+  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_engorged_nymphs)) +
   
-  ggtitle("Late fed ticks") +
+  ggtitle("Late engorged ticks") +
   labs(x = "Time (days)",
-       y = "Number of late fed ticks",
+       y = "Number of late engorged ticks",
        color = "Stage",
        linetype = "") +
   theme_classic() +
@@ -305,9 +305,9 @@ abundance_plot_late_fed <- ggplot(data = abundance) +
         panel.grid.major.y = element_line(colour = "#e4e4e4", size = 0.1),
         panel.border = element_rect(fill = NA, size = 0.5)) 
 
-ggsave(filename = "abundance_late_fed_ticks.pdf", device = "pdf", path = plot_directory,
+ggsave(filename = "abundance_late_engorged_ticks.pdf", device = "pdf", path = plot_directory,
        width = 35, height = 15, units = "cm")
-abundance_plot_late_fed
+abundance_plot_late_engorged
 dev.off()
 
 # Create plot of not questing ticks (all life cycle stages)
@@ -328,7 +328,7 @@ abundance_plot_not_questing <- ggplot(data = abundance) +
   geom_line(size = 1, colour = "#df65b0", linetype = "solid", aes(x = tick, y = not_questing_nymphs)) +
   geom_line(size = 1, colour = "#dd1c77", linetype = "dashed", aes(x = tick, y = not_questing_adults)) +
   
-  ggtitle("Not questing ticks, i.e. inactive + fed (+ late fed)") +
+  ggtitle("Not questing ticks, i.e. inactive + engorged (+ late engorged)") +
   labs(x = "Time (days)",
        y = "Number of not questing ticks",
        color = "Stage",
@@ -376,11 +376,11 @@ abundance_plot_all <- ggplot(data = abundance) +
   geom_line(size = 1, colour = "#fecc5c", linetype = "dotted", aes(x = tick, y = inactive_larvae)) +
   geom_line(size = 1, colour = "#fd8d3c", linetype = "solid", aes(x = tick, y = inactive_nymphs)) +
   geom_line(size = 1, colour = "#f03b20", linetype = "dashed", aes(x = tick, y = inactive_adults)) +
-  geom_line(size = 1, colour = "#bae4b3", linetype = "dotted", aes(x = tick, y = fed_larvae)) +
-  geom_line(size = 1, colour = "#74c476", linetype = "solid", aes(x = tick, y = fed_nymphs)) +
-  geom_line(size = 1, colour = "#31a354", linetype = "dashed", aes(x = tick, y = fed_adults)) +
-  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_fed_larvae)) +
-  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_fed_nymphs)) +
+  geom_line(size = 1, colour = "#bae4b3", linetype = "dotted", aes(x = tick, y = engorged_larvae)) +
+  geom_line(size = 1, colour = "#74c476", linetype = "solid", aes(x = tick, y = engorged_nymphs)) +
+  geom_line(size = 1, colour = "#31a354", linetype = "dashed", aes(x = tick, y = engorged_adults)) +
+  geom_line(size = 1, colour = "#9e9ac8", linetype = "dotted", aes(x = tick, y = late_engorged_larvae)) +
+  geom_line(size = 1, colour = "#756bb1", linetype = "solid", aes(x = tick, y = late_engorged_nymphs)) +
   
   ggtitle("Mixed life cycle stages") +
   labs(x = "Time (days)",

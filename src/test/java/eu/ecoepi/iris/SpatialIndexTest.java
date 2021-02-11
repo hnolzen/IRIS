@@ -1,6 +1,7 @@
 package eu.ecoepi.iris;
 
 import eu.ecoepi.iris.components.Position;
+import eu.ecoepi.iris.resources.SpatialIndex;
 import org.junit.Test;
 
 import java.util.Optional;
