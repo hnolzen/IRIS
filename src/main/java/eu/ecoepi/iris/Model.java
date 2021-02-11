@@ -72,7 +72,7 @@ public class Model {
 
             if (x < Parameters.GRID_WIDTH / 2) {
                 if (x < Parameters.GRID_WIDTH / 6) {
-                    habitatType = Habitat.Type.PASTURE;
+                    habitatType = Habitat.Type.MEADOW;
                 } else if (x < Parameters.GRID_WIDTH / 3) {
                     habitatType = Habitat.Type.ECOTONE;
                 } else {
@@ -81,7 +81,7 @@ public class Model {
 
             } else {
                 if (x >= Parameters.GRID_WIDTH / 6 * 5) {
-                    habitatType = Habitat.Type.PASTURE;
+                    habitatType = Habitat.Type.MEADOW;
                 } else if (x >= Parameters.GRID_WIDTH / 3 * 2) {
                     habitatType = Habitat.Type.ECOTONE;
                 } else {

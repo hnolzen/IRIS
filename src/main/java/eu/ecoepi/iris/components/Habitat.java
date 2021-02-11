@@ -16,7 +16,7 @@ public class Habitat extends Component {
 
     public enum Type {
 
-        WOOD, ECOTONE, PASTURE
+        WOOD, ECOTONE, MEADOW
 
     }
 
