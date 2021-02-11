@@ -23,9 +23,9 @@ public class Model {
         public long seed = 42;
         public String weather;
         public String output;
-        public int initialLarvae = 150;
-        public int initialNymphs = 150;
-        public int initialAdults = 150;
+        public int initialInactiveLarvae = 150;
+        public int initialInactiveNymphs = 150;
+        public int initialInactiveAdults = 150;
         public float activationRate = 0.05f;
         public boolean summary = false;
         public boolean withPrecipitation = false;
@@ -104,9 +104,9 @@ public class Model {
                         Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        options.initialLarvae,
-                        options.initialNymphs,
-                        options.initialAdults,
+                        options.initialInactiveLarvae,
+                        options.initialInactiveNymphs,
+                        options.initialInactiveAdults,
                         Parameters.INITIAL_ENGORGED_LARVAE,
                         Parameters.INITIAL_ENGORGED_NYMPHS,
                         Parameters.INITIAL_ENGORGED_ADULTS,

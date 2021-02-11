@@ -25,9 +25,9 @@ public class SensitivityAnalysis {
                     options.weather = weather;
                     options.output = String.format("./output/sensitivity_analysis_%s.csv", name);
 
-                    options.initialLarvae = (int)(abundanceReduction * ticks);
-                    options.initialNymphs = ticks;
-                    options.initialAdults = ticks;
+                    options.initialInactiveLarvae = (int)(abundanceReduction * ticks);
+                    options.initialInactiveNymphs = ticks;
+                    options.initialInactiveAdults = ticks;
 
                     options.activationRate = activationRate / 1000.0f;
 
