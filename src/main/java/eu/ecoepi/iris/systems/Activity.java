@@ -15,7 +15,6 @@ import eu.ecoepi.iris.components.TickAbundance;
 public class Activity extends IteratingSystem {
 
     private final float activationRate;
-    private final int startLarvaeQuesting;
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
@@ -26,9 +25,8 @@ public class Activity extends IteratingSystem {
     @Wire
     TimeStep timestep;
 
-    public Activity(float activationRate, int startLarvaeQuesting) {
+    public Activity(float activationRate) {
         this.activationRate = activationRate;
-        this.startLarvaeQuesting = startLarvaeQuesting;
     }
 
     @Override
@@ -39,16 +37,16 @@ public class Activity extends IteratingSystem {
 
         var shareOfActivationRate = 0.0f;
 
-        if (temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP &&
-                temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP &&
-                temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP &&
-                humidity.getRelativeHumidity() > Parameters.ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY
+        if (temperature.getMaxTemperature() < Parameters.ACTIVATION_NECESSARY_MAXIMAL_MAX_TEMP &&
+                temperature.getMaxTemperature() > Parameters.ACTIVATION_NECESSARY_MINIMAL_MAX_TEMP &&
+                temperature.getMeanTemperature() > Parameters.ACTIVATION_NECESSARY_MINIMAL_MEAN_TEMP &&
+                humidity.getRelativeHumidity() > Parameters.ACTIVATION_NECESSARY_MINIMAL_HUMIDITY
         ) {
 
-            if (temperature.getMaxTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP &&
-                    temperature.getMaxTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP &&
-                    temperature.getMeanTemperature() > Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP &&
-                    temperature.getMeanTemperature() < Parameters.ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP
+            if (temperature.getMaxTemperature() > Parameters.ACTIVATION_OPTIMAL_MINIMAL_MAX_TEMP &&
+                    temperature.getMaxTemperature() < Parameters.ACTIVATION_OPTIMAL_MAXIMAL_MAX_TEMP &&
+                    temperature.getMeanTemperature() > Parameters.ACTIVATION_OPTIMAL_MINIMAL_MEAN_TEMP &&
+                    temperature.getMeanTemperature() < Parameters.ACTIVATION_OPTIMAL_MAXIMAL_MEAN_TEMP
             ) {
                 shareOfActivationRate = 1.0f;
             } else {
@@ -57,7 +55,7 @@ public class Activity extends IteratingSystem {
         }
 
         var newActiveLarvae = 0;
-        if (timestep.getCurrent() > startLarvaeQuesting) {
+        if (timestep.getCurrent() > Parameters.START_LARVAE_QUESTING) {
             newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
         }
         var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);

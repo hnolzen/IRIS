@@ -66,12 +66,12 @@ public class Weather extends IteratingSystem {
         if ((currentTimeStep > Parameters.BEGIN_SPRING && currentTimeStep <= Parameters.BEGIN_SUMMER) ||
                 (currentTimeStep > Parameters.BEGIN_AUTUMN && currentTimeStep < Parameters.BEGIN_WINTER)) { // Spring or autumn
 
-            var microTempSpringAutumn = Parameters.SET_LOCAL_CLIMATE_SPRING_AUTUMN.get(habitat.getType());
+            var microTempSpringAutumn = Parameters.LOCAL_CLIMATE_SPRING_AUTUMN.get(habitat.getType());
             adjustedMeanTemperature = microTempSpringAutumn;
             adjustedMaxTemperature = microTempSpringAutumn;
 
         } else if (currentTimeStep > Parameters.BEGIN_SUMMER && currentTimeStep <= Parameters.BEGIN_AUTUMN) { // Summer
-            var microTempSummer = Parameters.SET_LOCAL_CLIMATE_SUMMER.get(habitat.getType());
+            var microTempSummer = Parameters.LOCAL_CLIMATE_SUMMER.get(habitat.getType());
             adjustedMeanTemperature = microTempSummer;
             adjustedMaxTemperature = microTempSummer;
 
@@ -81,7 +81,7 @@ public class Weather extends IteratingSystem {
         temperature.setMinTemperature(minTempTimeSeries.get(currentTimeStep) + adjustedMinTemperature);
         temperature.setMaxTemperature(maxTempTimeSeries.get(currentTimeStep) + adjustedMaxTemperature);
 
-        var adjustedRelativeHumidity = humidityTimeSeries.get(currentTimeStep) * Parameters.SET_LOCAL_HUMIDITY.get(habitat.getType());
+        var adjustedRelativeHumidity = humidityTimeSeries.get(currentTimeStep) * Parameters.LOCAL_HUMIDITY.get(habitat.getType());
         if (adjustedRelativeHumidity > 100) {
             adjustedRelativeHumidity = 100;
         }

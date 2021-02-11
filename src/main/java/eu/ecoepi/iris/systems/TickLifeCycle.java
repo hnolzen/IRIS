@@ -66,7 +66,7 @@ public class TickLifeCycle extends IteratingSystem {
     }
 
     private void freezing(TickAbundance abundance, Temperature temperature) {
-        if (temperature.getMinTemperature() < Parameters.DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW) {
+        if (temperature.getMinTemperature() < Parameters.FREEZING_MIN_TEMP_WITHOUT_SNOW) {
 
             var frozenLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.FREEZING_RATE.get(LifeCycleStage.LARVAE));
             var frozenNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.FREEZING_RATE.get(LifeCycleStage.NYMPH));
@@ -79,8 +79,8 @@ public class TickLifeCycle extends IteratingSystem {
     }
 
     private void desiccation(TickAbundance abundance, Habitat habitat, Temperature temperature, Humidity humidity) {
-        if (humidity.getRelativeHumidity() < Parameters.DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY &&
-                temperature.getMeanTemperature() > Parameters.DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP) {
+        if (humidity.getRelativeHumidity() < Parameters.DESICCATION_MINIMAL_HUMIDITY &&
+                temperature.getMeanTemperature() > Parameters.DESICCATION_MINIMAL_MEAN_TEMP) {
 
             var desiccatedLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
             var desiccatedNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));

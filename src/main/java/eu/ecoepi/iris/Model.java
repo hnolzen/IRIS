@@ -23,11 +23,10 @@ public class Model {
         public long seed = 42;
         public String weather;
         public String output;
-        public int initialLarvae = 150;
-        public int initialNymphs = 150;
-        public int initialAdults = 150;
+        public int initialInactiveLarvae = 150;
+        public int initialInactiveNymphs = 150;
+        public int initialInactiveAdults = 150;
         public float activationRate = 0.05f;
-        public int startLarvaeQuesting = 105;
         public boolean summary = false;
         public boolean withPrecipitation = false;
     }
@@ -61,7 +60,7 @@ public class Model {
                 .with(new Feeding(rng))
                 .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
                 .with(new Weather(options.weather, options.withPrecipitation))
-                .with(new Activity(options.activationRate, options.startLarvaeQuesting))
+                .with(new Activity(options.activationRate))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
@@ -105,9 +104,9 @@ public class Model {
                         Parameters.INITIAL_LARVAE,
                         Parameters.INITIAL_NYMPHS,
                         Parameters.INITIAL_ADULTS,
-                        options.initialLarvae,
-                        options.initialNymphs,
-                        options.initialAdults,
+                        options.initialInactiveLarvae,
+                        options.initialInactiveNymphs,
+                        options.initialInactiveAdults,
                         Parameters.INITIAL_ENGORGED_LARVAE,
                         Parameters.INITIAL_ENGORGED_NYMPHS,
                         Parameters.INITIAL_ENGORGED_ADULTS,

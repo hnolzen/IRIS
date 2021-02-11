@@ -29,43 +29,45 @@ public class Parameters {
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
     public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October
-    public static final int END_OF_DEVELOPMENT_ADULTS_TO_LARVAE = 289;         // Mid-October
+    public static final int END_OF_DEVELOPMENT_ADULTS_TO_LARVAE = 289;      // Mid-October
+
+    public static final int START_LARVAE_QUESTING = 105; // Mid-April
 
     public static final int LATE_FEEDING_TIME = 232;                        // Mid-September
 
-    public static final float ACTIVATION_THRESHOLD_NECESSARY_MAXIMAL_MAX_TEMP = 35f;   // Gray et al. 2016, McLeod 1935
-    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MAX_TEMP = 1.9f;  // Perret et al. 2000
-    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_MEAN_TEMP = 1.2f; // Perret et al. 2000, Schulz et al. 2014
-    public static final float ACTIVATION_THRESHOLD_NECESSARY_MINIMAL_HUMIDITY = 45.0f; // Greenfield 2011
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MAX_TEMP = 10.5f;   // Perret et al. 2000
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MAX_TEMP = 26.0f;   // Greenfield 2011, Schulz et al. 2014 (25.9)
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
-    public static final float ACTIVATION_THRESHOLD_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
+    public static final float ACTIVATION_NECESSARY_MAXIMAL_MAX_TEMP = 35f;   // Gray et al. 2016, McLeod 1935
+    public static final float ACTIVATION_NECESSARY_MINIMAL_MAX_TEMP = 1.9f;  // Perret et al. 2000
+    public static final float ACTIVATION_NECESSARY_MINIMAL_MEAN_TEMP = 1.2f; // Perret et al. 2000, Schulz et al. 2014
+    public static final float ACTIVATION_NECESSARY_MINIMAL_HUMIDITY = 45.0f; // Greenfield 2011
+    public static final float ACTIVATION_OPTIMAL_MINIMAL_MAX_TEMP = 10.5f;   // Perret et al. 2000
+    public static final float ACTIVATION_OPTIMAL_MAXIMAL_MAX_TEMP = 26.0f;   // Greenfield 2011, Schulz et al. 2014 (25.9)
+    public static final float ACTIVATION_OPTIMAL_MINIMAL_MEAN_TEMP = 6.0f;   // Gilbert et al. 2014
+    public static final float ACTIVATION_OPTIMAL_MAXIMAL_MEAN_TEMP = 20.0f;  // Kubiak and Dziekońska−Rynko 2006
 
     public static final float SUBOPTIMAL_SHARE_OF_ACTIVATION_RATE = 0.05f; // In suboptimal conditions, only few ticks become active
 
-    public static final float DEATH_THRESHOLD_FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
-    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_HUMIDITY = 80.0f;    // Hauser et al. 2018, Medlock et al. 2013, Gray et al. 2016
-    public static final float DEATH_THRESHOLD_DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
+    public static final float FREEZING_MIN_TEMP_WITHOUT_SNOW = -18.9f; // Gray et al. 2009
+    public static final float DESICCATION_MINIMAL_HUMIDITY = 80.0f;    // Hauser et al. 2018, Medlock et al. 2013, Gray et al. 2016
+    public static final float DESICCATION_MINIMAL_MEAN_TEMP = 15.0f;   // Ostfeld and Brunner 2015
 
     public static final int BEGIN_SPRING = 60;
     public static final int BEGIN_SUMMER = 150;
     public static final int BEGIN_AUTUMN = 240;
     public static final int BEGIN_WINTER = 330;
 
-    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SPRING_AUTUMN = Map.of(
+    public static final Map<Habitat.Type, Float> LOCAL_CLIMATE_SPRING_AUTUMN = Map.of(
             Habitat.Type.MEADOW, 0f,
             Habitat.Type.ECOTONE, -1f,
             Habitat.Type.WOOD, -2f
     );
 
-    public static final Map<Habitat.Type, Float> SET_LOCAL_CLIMATE_SUMMER = Map.of(    // Bonan 2016, Geiger et al. 1995
+    public static final Map<Habitat.Type, Float> LOCAL_CLIMATE_SUMMER = Map.of(    // Bonan 2016, Geiger et al. 1995
             Habitat.Type.MEADOW, 0f,
             Habitat.Type.ECOTONE, -2f,
             Habitat.Type.WOOD, -4.0f
     );
 
-    public static final Map<Habitat.Type, Float> SET_LOCAL_HUMIDITY = Map.of(
+    public static final Map<Habitat.Type, Float> LOCAL_HUMIDITY = Map.of(
             Habitat.Type.MEADOW, 1.12f,    // estimation
             Habitat.Type.ECOTONE, 1.18f,    // estimation
             Habitat.Type.WOOD, 1.24f        // Boehnke 2017
