@@ -342,8 +342,8 @@ effect of the more humid microclimate within a forest compared to a meadow on ti
 \toprule
 \textbf{Parameter}											& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  	\\
 \midrule
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0  & Degree Celsius  		&  ~\cite{Ostfeld.2015}						\\
+\tiny{DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0  & Degree Celsius  		&  ~\cite{Ostfeld.2015}						\\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  					& Forest       			 &   0.02  & 1/day 		&            		    \\
 				 											& Ecotone 				 &   0.05  & 1/day  		&					    \\
 				 											& Meadow    			 &   0.10  & 1/day  		&  						\\
@@ -371,7 +371,7 @@ ticks are considered dead and are hence removed from the modelled population. Ta
 \textbf{Parameter}											& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
 \tiny{FREEZING\_RATE}		    			 		 		&   0.03    	& 1/day &  							\\
-\tiny{DEATH\_THRESHOLD\_FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
+\tiny{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -399,14 +399,14 @@ given time step is a result of the balance of "activation" (towards the questing
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
+\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
 \midrule
 \tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & 1/day & float	&  		\\
 \tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& 1/day & float	&  		\\
