@@ -22,9 +22,10 @@
 
 \begin{document}
 \maketitle
-%\tableofcontents
+\tableofcontents
 
 
+\newpage
 \section{Motivation}
 The IRIS model was validated with observation data from a sampling site near Regensburg. The aim of the model validation was to check how well the simulated model results match
 with observed data. This includes the analysis of the influence of parameters for which we either found no clear values in the literature (e.g.\ for the activation rate) or
@@ -66,29 +67,35 @@ model.
 
 The initial number of larvae and nymphs at the beginning of a simulation run has an influence on the number of active nymphs throughout the year including the height of the
 abundance peaks. Since we were interested in how the initial number of ticks controls the abundance peaks and since we didn't know the real initial values at the beginning of a
-simulation, we were interested in the influence of these parameters. In this context, we also wanted to find out the influence of the beech mast process of our model. In
-particular we wanted to find out whether the beech mast improves the matching of the model output with the real data.  Since it affects the initial number of larvae, it
+simulation, we were interested in the influence of these parameters. In this context, we also wanted analyse the influence of the beech mast process of our model. In
+particular we wanted to find out whether the beech mast improves the matching of the model output with the real data. Since it affects the initial number of larvae, it
 is also possible that this process can be neglected because the initial number of larvae can also be initialised directly\footnote{For details regarding the beech mast
-see the ODD protocol of the IRIS model.}.
+see the ODD protocol of the IRIS model.}. Therefore, the sensitivity analyses were carried out with both the beech mast activated and deactivated.
 
 The activation rate is an important model parameter. It is responsible for controlling the number of questing and inactive ticks in each time step. When microclimatic
 conditions are suitable for questing, the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly (and vice
-versa)\footnote{For details regarding the activity sub model see Section ``Activity'' in the ODD protocol of the IRIS model.}. Since we did not find a value for the activation
+versa)\footnote{For details regarding the activity sub model see the ODD protocol of the IRIS model.}. Since we did not find a value for the activation
 rate in the literature, we estimated it through systematic variation within the presented sensitivity analyses.
 
-The sensitivity analyses were carried out with both the beech mast activated and deactivated.
+We have carried out five sensitivity analyses:
 
 \begin{enumerate}
-\item S1: Initial Ticks (with beech mast activated)
-\item S2: Initial Ticks (without beech mast deactivated)
-\item S3: Larvae and nymphs individual variation (with beech mast activated)
-\item S4: Larvae and nymphs individual variation (without beech mast deactivated)
-\item S5: Higher share of initial number of Larvae (with beech mast activated)
+\item[] \textbf{S1:} Equal number of larvae and nymphs, with beech mast activated
+\item[] \textbf{S2:} Equal number of larvae and nymphs, without beech mast deactivated
+\item[] \textbf{S3:} Larvae and nymphs individual variation, with beech mast activated
+\item[] \textbf{S4:} Larvae and nymphs individual variation, without beech mast deactivated
+\item[] \textbf{S5:} Higher share of initial number of Larvae, with beech mast activated
 \end{enumerate}
+
+In the first two sensitivity analyses (S1, S2), the initial number of larvae and nymphs was kept equal when varying these parameters within the sensitivity analysis (i.e.\ in
+the for-loop). If, however, the beech mast model process was activated, the initial number of larvae was adjusted at the beginning of the simulation run, resulting in the actual
+starting values being different. In the subsequent analyses (S3, S4), the number of larvae and nymphs was varied individually. At the beginning of a simulation run, the initial
+numbers of larvae and nymphs could therefore differ considerably. An additional analysis (S5) was carried out to test the effect of the initial number of larvae being
+significantly greater than the initial number of nymphs. The results are presented in the following sections.
 
 
 \newpage
-\subsection{S1: Initial Ticks (with beech mast)}
+\subsection{S1: Equal number of larvae and nymphs, with beech mast activated}
 In this sensitivity analysis, the following parameters were varied:
 
 
@@ -117,7 +124,7 @@ The $RMSE_{total} = 147.85$
 activation rate = 2.0 \%
 
 \newpage
-\subsection{S2: Initial Ticks (without beech mast)}
+\subsection{S2: Equal number of larvae and nymphs, without beech mast deactivated}
 RMSE = 154.89
 activation rate = 2.1 \%
 
@@ -138,7 +145,7 @@ activation rate = 2.1 \%
 
 
 \newpage
-\subsection{S3: Larvae and nymphs individual variation (with beech mast)}
+\subsection{S3: Larvae and nymphs individual variation, with beech mast activated}
 
 
 \begin{table}[h!]
@@ -174,7 +181,7 @@ Summe RMSE = 137.13
 activation rate = 2.0 \%
 
 \newpage
-\subsection{S4: Larvae and nymphs individual variation (without beech mast)}
+\subsection{S4: Larvae and nymphs individual variation, without beech mast deactivated}
 
 
 \begin{figure}[h!]
@@ -195,7 +202,7 @@ Summe RMSE = 137.17
 activation rate = 2.0 \%
 
 
-\subsection{Higher share of initial number of Larvae}
+\subsection{S5: Higher share of initial number of Larvae, with beech mast activated}
 4 x initial Nymphs (with beech mast)
 RMSE = 192.13
 activation rate = 1.9 \%
