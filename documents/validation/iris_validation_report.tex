@@ -16,7 +16,6 @@
 \usepackage[backend = biber, style = apa]{biblatex}
 \addbibresource{../iris_literature.bib}
 
-
 \title{IRIS model validation: Lessons learned}
 \author{}
 \date{\today}
@@ -114,7 +113,7 @@ The total $RMSE_{total} = 147.85$. The optimal activation rate = 2.0 \%
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_with_beech_error}
+\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S1 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -123,7 +122,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_with_beech}
+\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S1. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -146,7 +145,7 @@ activation rate = 2.1 \%
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_without_beech_error}
+\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S2 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -155,7 +154,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_without_beech}
+\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S2. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -178,7 +177,7 @@ activation rate = 2.0 \%
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_with_beech_error}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S3 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -187,7 +186,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_with_beech}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S3. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -211,7 +210,7 @@ activation rate = 2.0 \%
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_without_beech_error}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S4 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -220,7 +219,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_without_beech}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S4. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -247,6 +246,19 @@ Total RMSE with optimal parameter combination higher than in the other sensitivi
 \newpage
 \section{Lessons Learned}
 
+In summary we have learned that
+
+\begin{enumerate}
+\item the validation results show a good overall correspondence of our simulation output with the observed data~\parencite{Brugger.2017}.
+\item the matching of simulated in terms of RMSE was (very) good in some years (RMSE < 10).
+\item some years were difficult to capture by our model: 2011, 2015, 2016, 2018 (with RMSE > 20).
+\item the best fit with observed data was achieved when activation rate was 0.02 (1x 0.019,  3x 0.02,  1x 0.021).
+\item the initial number of larva had a very minor influence when the initial number of larvae and nymphs were varied independently.
+\item with individual variation of initial larvae and nymphs, the influence of the beech mast had little effect.
+\item the variation with the same number of initial larvae and nymphs was improved by the beech mast.
+\item a strong increase of initial larvae led to an increase of the second abundance peak, however the overall matching got worse.
+\end{enumerate}
+
 
 \begin{table}[h!]
 \caption{Summary of sensitivity analysis}
@@ -266,20 +278,6 @@ S5 & 192.13 & 1.9 \% \\
 
 
 
-In summary we have learned that
-
-\begin{enumerate}
-\item the validation results show a good overall correspondence of our simulation output with the observed data~\parencite{Brugger.2017}.
-\item the matching of simulated in terms of RMSE was (very) good in some years (RMSE < 10).
-\item some years were difficult to capture by our model: 2011, 2015, 2016, 2018 (with RMSE > 20).
-\item the best fit with observed data was achieved when activation rate was 0.02 (1x 0.019,  3x 0.02,  1x 0.021).
-\item the initial number of larva had a very minor influence when the initial number of larvae and nymphs were varied independently.
-\item with individual variation of initial larvae and nymphs, the influence of the beech mast had little effect.
-\item the variation with the same number of initial larvae and nymphs was improved by the beech mast.
-\item a strong increase of initial larvae led to an increase of the second abundance peak, however the overall matching got worse.
-\end{enumerate}
-
-
 \printbibliography[heading = bibintoc, title = {Bibliography}]
 
 
@@ -287,7 +285,7 @@ In summary we have learned that
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_with_beech_error}
+\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S1 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -296,7 +294,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_with_beech}
+\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S1. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -305,7 +303,7 @@ the total RMSE.}
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_without_beech_error}
+\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S2 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -314,7 +312,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/initial_ticks_without_beech}
+\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S2. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -323,7 +321,7 @@ the total RMSE.}
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_with_beech_error}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S3 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -332,7 +330,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_with_beech}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S3. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}
@@ -341,7 +339,7 @@ the total RMSE.}
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_without_beech_error}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of sensitivity analysis S4 for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{Initial Ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is for the
 combination of \textit{initial ticks} and \textit{activation rate}. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
@@ -350,7 +348,7 @@ combination of \textit{initial ticks} and \textit{activation rate}. Shades of re
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=1.0\textwidth]{figures/independent_initial_ticks_without_beech}
+\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech.png}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of sensitivity analysis S4. The grey bars
 represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of 2.1 \% minimises
 the total RMSE.}

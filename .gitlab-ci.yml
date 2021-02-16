@@ -3,6 +3,8 @@ image: texlive/texlive:latest
 build:
   script:
     - latexmk -pdflatex=lualatex -pdf -cd ./documents/odd/iris_odd.tex
+    - latexmk -pdflatex=lualatex -pdf -cd ./documents/validation/iris_validation_report.tex
   artifacts:
     paths:
       - ./documents/odd/iris_odd.pdf
+      - ./documents/validation/iris_validation_report.pdf
