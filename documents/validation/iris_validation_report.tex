@@ -24,7 +24,7 @@
 \maketitle
 \tableofcontents
 
-
+\newpage
 \section{Motivation}
 The IRIS model was validated with observation data from a sampling site near Regensburg. The aim of the model validation was to check how well the simulated model results match
 with observed data. This includes the analysis of the influence of parameters for which we either found no clear values in the literature (e.g.\ for the activation rate) or
@@ -74,9 +74,7 @@ The activation rate $r$ is an important model parameter. It is responsible for c
 conditions are suitable for questing, the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly (and vice
 versa)\footnote{For details regarding the activity sub model see the ODD protocol of the IRIS model.}. We estimated the activation rate through systematic variation within the
 presented sensitivity analyses. There is no value for this parameter available in the literature because it is an artefact of our cohort-based approach and
-therefore from a biological point of view an unreasonable parameter for which no measurements exists.
-
-We have carried out five sensitivity analyses:
+therefore from a biological point of view an unreasonable parameter for which no measurements exists. We have carried out five sensitivity analyses:
 
 \begin{enumerate}
 \item[] \textbf{S1:} Equal number of larvae and nymphs, with beech mast activated
@@ -156,7 +154,36 @@ The sum of the RMSE values of the 10-year period is $RMSE_{total} = 147.85$.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2009}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2010}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2011}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2012}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2013}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2014}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2015}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2016}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2017}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s1/s1_2018}
+\end{minipage}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S1}. The grey
 bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate $r_{opt} = 0.02$
 minimises the total RMSE.}
@@ -164,6 +191,7 @@ minimises the total RMSE.}
 \end{figure}
 
 
+\newpage
 \subsection{S2: Equal number of larvae and nymphs with beech mast deactivated}
 In this sensitivity analysis we use the same parameter variation as in the previous analysis. The only difference is that we have deactivated the beech mast in the model. The
 initial values for larvae are therefore not adjusted in dependence of the beech mast fructification index at the beginning of the simulation run.
@@ -194,11 +222,39 @@ second peak seems slightly stronger in some years (2009, 2010, 2012, 2014, 2015,
 and 2016 the RMSE is higher compared to the sensitivity analysis with activated beech mast. In 2017 the RMSE has not changed. The overall qualitative patterns remains
 the same. The sum of the RMSE values of the 10-year period is $RMSE_{total} = 154.89$. This value is higher than in S1 and indicates that the deactivation of the beech mast
 worsens the matching with the observed data.
-\clearpage
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2009}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2010}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2011}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2012}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2013}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2014}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2015}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2016}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2017}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s2/s2_2018}
+\end{minipage}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S2}. The
 grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of
 $r_{opt}= 0.021$ minimises the total RMSE.}
@@ -206,6 +262,7 @@ $r_{opt}= 0.021$ minimises the total RMSE.}
 \end{figure}
 
 
+\newpage
 \subsection{S3: Larvae and nymphs individual variation, with beech mast activated}
 In this sensitivity analysis we independently varied the initial number of larvae and nymphs and the activation rate $r$ in the following way:
 
@@ -225,8 +282,6 @@ When comparing the simulated with the observed data (see Figure\ref{fig:independ
 nymphs leads to a clear improvement of the overall RMSE with a value of $RMSE_{total} = 137.13$ (S1: 147.85, S2: 154.89). Although still not perfect, compared to the sensitivity
 analyses S1 and S2, the second peak is clearly better captured. In particular, a second peak is no longer simulated by the model if no peak actually exists.
 
-\clearpage
-
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech_error}
@@ -238,7 +293,36 @@ the RMSE value is. Shades of red represent low RMSE values and shades of yellow,
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2009}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2010}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2011}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2012}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2013}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2014}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2015}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2016}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2017}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s3/s3_2018}
+\end{minipage}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S3}. The grey
 bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of
 $r_{opt}= 0.02$ minimises the total RMSE.}
@@ -246,6 +330,7 @@ $r_{opt}= 0.02$ minimises the total RMSE.}
 \end{figure}
 
 
+\newpage
 \subsection{S4: Larvae and nymphs individual variation, with beech mast deactivated}
 In this sensitivity analysis we independently varied the initial number of larvae and nymphs and the activation rate $r$ in the following way:
 
@@ -270,20 +355,48 @@ the RMSE value is. Shades of red represent low RMSE values and shades of yellow,
 \end{figure}
 
 However, there are hardly any visible effects when comparing simulation and observation data (see Figure\ref{fig:independent_initial_ticks_without_beech}). Both the qualitaitve
-pattern as well as the overall RMSE with $RMSE_{total} = 137.17$ are almost identical compared to sensitivity analyses S3. This suggests that if larvae and nymphs are
+pattern and the overall RMSE with $RMSE_{total} = 137.17$ are almost identical compared to sensitivity analyses S3. This suggests that if larvae and nymphs are
 initialised independently, the model can just as well work without the beech mast module.
-
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2009}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2010}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2011}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2012}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2013}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2014}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2015}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2016}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2017}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s4/s4_2018}
+\end{minipage}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S4}. The
 grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate
 $r_{opt}= 0.02$ minimises the total RMSE.}
 \label{fig:independent_initial_ticks_without_beech}
 \end{figure}
 
-
+\newpage
 \subsection{S5: Higher share of initial number of Larvae, with beech mast activated}
 In this sensitivity analysis, we wanted to illustrate the effect of a significantly higher number of initial larvae compared to initial nymphs on the second abundance peak.
 Therefore, the following parameters were varied:
@@ -300,7 +413,36 @@ simulates a relatively strong second peak. Not surprising, this goes hand in han
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/1nymphs_4larvae_with_beech}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2009}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2010}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2011}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2012}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2013}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2014}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2015}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2016}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2017}
+\end{minipage}
+\begin{minipage}[c]{0.40\linewidth}
+\includegraphics[width=\linewidth]{figures/s5/s5_2018}
+\end{minipage}
 \caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S5}. The
 grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate
 $r_{opt}= 0.019$ minimises the total RMSE.}
@@ -370,29 +512,11 @@ red represent low RMSE values and shades of yellow, green and purple represent h
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/initial_ticks_with_beech.png}
-\caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S1}. The grey
-bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate $r_{opt} = 0.02$
-minimises the total RMSE.}
-\label{fig:initial_ticks_with_beech_rotated}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}[h!]
-\centering
 \includegraphics[width=\linewidth]{figures/initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of \textbf{sensitivity analysis S2} for all 10 validation years (2009 - 2018). Each of the plots is contrasting the initial number of larvae and nymphs
 (labeled as \textit{ticks}) on the x-axis, the activation rate on the y-axis and the RMSE on the z-axis. The colour indicates how large the RMSE value is. Shades of red
 represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
 \label{fig:initial_ticks_without_beech_error_rotated}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}[h!]
-\centering
-\includegraphics[width=\linewidth]{figures/initial_ticks_without_beech.png}
-\caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S2}. The
-grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of
-$r_{opt}= 0.021$ minimises the total RMSE.}
-\label{fig:initial_ticks_without_beech_rotated}
 \end{sidewaysfigure}
 
 \begin{sidewaysfigure}[h!]
@@ -406,38 +530,11 @@ the RMSE value is. Shades of red represent low RMSE values and shades of yellow,
 
 \begin{sidewaysfigure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/independent_initial_ticks_with_beech.png}
-\caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S3}. The grey
-bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate of
-$r_{opt}= 0.02$ minimises the total RMSE.}
-\label{fig:independent_initial_ticks_with_beech_rotated}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}[h!]
-\centering
 \includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech_error.png}
 \caption{3D scatterplots of \textbf{sensitivity analysis S4} for all 10 validation years (2009 - 2018). Each of the ten plots is contrasting the initial number of larvae on the
 x-axis and the initial number of nymphs the y-axis with the corresponding RMSE value on the z-axis for the optimal activation rate $r_{opt} = 0.02$. The colour indicates how large
 the RMSE value is. Shades of red represent low RMSE values and shades of yellow, green and purple represent higher RMSE values.}
 \label{fig:independent_initial_ticks_without_beech_error_rotated}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}[h!]
-\centering
-\includegraphics[width=\linewidth]{figures/independent_initial_ticks_without_beech.png}
-\caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S4}. The
-grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate
-$r_{opt}= 0.02$ minimises the total RMSE.}
-\label{fig:independent_initial_ticks_without_beech_rotated}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}[h!]
-\centering
-\includegraphics[width=\linewidth]{figures/1nymphs_4larvae_with_beech}
-\caption{Simulated and observed monthly nymphal densities (y-axis) for all 10 validation years (2009 - 2018) with minimal total RMSE of \textbf{sensitivity analysis S5}. The
-grey bars represent the observed tick densities while the black line represents the simulated tick densities for each month of a year (x-axis). The activations rate
-$r_{opt}= 0.019$ minimises the total RMSE.}
-\label{fig:1nymphs_4larvae_rotated}
 \end{sidewaysfigure}
 
 \end{document}
