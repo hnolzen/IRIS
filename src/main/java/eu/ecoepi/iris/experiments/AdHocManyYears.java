@@ -2,16 +2,8 @@ package eu.ecoepi.iris.experiments;
 
 import eu.ecoepi.iris.Model;
 
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.Executors;
-
 public class AdHocManyYears {
     public static void main(String[] args) throws Exception {
-        var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        var tasks = new ExecutorCompletionService(executor);
-        var todo = 0;
-        var done = 0;
-        
         for (int year = 2009; year <= 2018; year++) {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
 
@@ -28,25 +20,9 @@ public class AdHocManyYears {
 
                 options.summary = true;
 
-                tasks.submit(() -> {
-                    System.err.printf("Starting task %s...\n", name);
-
-                    try {
-                        Model.run(options);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }, null);
-                todo++;
+                Model.run(options);
             }
         }
-        while (done < todo) {
-            tasks.take().get();
-            done++;
-
-            System.err.printf("%d out of %d tasks finished.\n", done, todo);
-        }
-
-        executor.shutdown();
+        System.out.println("Simulation run finished.");
     }
 }
