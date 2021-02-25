@@ -26,7 +26,7 @@ public class Model {
         public int initialInactiveLarvae = 150;
         public int initialInactiveNymphs = 150;
         public int initialInactiveAdults = 150;
-        public float activationRate = 0.05f;
+        public float activationRate = 0.02f;
         public boolean summary = false;
         public boolean withPrecipitation = false;
     }

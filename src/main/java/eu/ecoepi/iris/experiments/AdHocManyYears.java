@@ -26,8 +26,6 @@ public class AdHocManyYears {
                 options.initialInactiveNymphs = ticks;
                 options.initialInactiveAdults = ticks;
 
-                options.activationRate = 0.02f;
-
                 options.summary = true;
 
                 tasks.submit(() -> {
