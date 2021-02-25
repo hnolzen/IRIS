@@ -16,6 +16,9 @@ public class TickAbundance extends Component {
     int feedingEventsNymphs = 0;
     int feedingEventsAdults = 0;
 
+    public TickAbundance() {
+    }
+
     public TickAbundance(int larvae, int nymphs, int adults,
                          int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
                          int engorgedLarvae, int engorgedNymphs, int engorgedAdults,
