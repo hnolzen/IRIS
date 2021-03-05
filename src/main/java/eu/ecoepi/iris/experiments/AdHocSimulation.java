@@ -3,9 +3,12 @@ package eu.ecoepi.iris.experiments;
 import org.apache.commons.cli.*;
 
 import eu.ecoepi.iris.Model;
+import java.util.Locale;
 
 public class AdHocSimulation {
     public static void main(String[] args) throws Exception {
+        Locale.setDefault(Locale.ROOT);
+
         Options cmdOptions = new Options();
 
         cmdOptions.addOption(Option.builder("s")
