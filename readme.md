@@ -20,7 +20,7 @@ Command line arguments for model parameterisation:
 | -n           | 150         | initial number of inactive nymphs.     | Integer values >= 0 are valid      |
 | -a           | 150         | initial number of inactive adults.     | Integer values >= 0 are valid      |
 | -r           | 0.02        | activation rate                        | Float values >= 0.0 are valid      |
-| -u           | false       | write only summary outputs             |                                    | 
+| -u           | true       | write only summary outputs             |                                    | 
 
 ## Documents and folders
 | document                      | description                                                              |
