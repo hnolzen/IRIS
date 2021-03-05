@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorCompletionService;
 
 import eu.ecoepi.iris.Model;
 
-public class SensitivityAnalysisIndividualLN {
+public class S3_LN_individual_beech {
     public static void main(String[] args) throws Exception {
                 var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         var tasks = new ExecutorCompletionService(executor);
