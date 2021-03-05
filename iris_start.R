@@ -10,15 +10,10 @@ iris <- function(year,
   
   iris_jar_directory <- paste0(iris_main_directory, "/target/")
   iris_input_directory <- paste0(iris_main_directory, "/input/")
+  output_directory <- paste0(iris_main_directory, "/output/")
   
   input_functions <- paste0(iris_input_directory, "input_functions.r")
   source(input_functions)
-  
-  output_directory <- paste0(iris_main_directory, "/output/")
-  
-  current_date <- as.character(Sys.Date())
-  output_folder <- paste(output_directory, current_date, sep = "")
-  dir.create(output_folder)
   
   iris_exe <- "java.exe"
   iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar eu.ecoepi.iris.experiments.AdHoc")
@@ -29,7 +24,7 @@ iris <- function(year,
   iris_activation_rate <- paste0("-r ", activation_rate)
   iris_weather <- paste0("-w ", weather_directory, "weather_", year, ".csv")
   iris_output <- paste0("-o" , 
-                        output_folder, "/iris_abundance_", 
+                        output_directory, "/iris_abundance_", 
                         year, "_", 
                         initial_larvae, "_", 
                         initial_nymphs, "_",
