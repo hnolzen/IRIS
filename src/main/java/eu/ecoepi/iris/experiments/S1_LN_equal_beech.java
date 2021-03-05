@@ -16,8 +16,8 @@ public class S1_LN_equal_beech {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
             var abundanceReduction = Model.abundanceReductionDueToFructificationIndex(year);
 
-            for (int ticks = 5; ticks <= 1000; ticks += 5) {
-                for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
+            for (int ticks = 2; ticks <= 1000; ticks += 2) {
+                for (int activationRate = 10; activationRate <= 30; activationRate += 1) {
                     var options = new Model.Options();
 
                     var name = String.format("%d_%d_%d", year, ticks, activationRate);

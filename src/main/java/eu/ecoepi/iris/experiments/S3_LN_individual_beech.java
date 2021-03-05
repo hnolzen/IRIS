@@ -17,8 +17,8 @@ public class S3_LN_individual_beech {
             var abundanceReduction = Model.abundanceReductionDueToFructificationIndex(year);
 
             for (int larvae = 0; larvae <= 1000; larvae += 20) {
-                for (int nymphs = 0; nymphs <= 1000; nymphs += 20) {
-                    for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
+                for (int nymphs = 10; nymphs <= 1000; nymphs += 10) {
+                    for (int activationRate = 10; activationRate <= 30; activationRate += 1) {
                         var options = new Model.Options();
 
                         var name = String.format("%d_%d_%d_%d", year, larvae, nymphs, activationRate);
