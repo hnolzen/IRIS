@@ -6,7 +6,8 @@ iris <- function(year,
                  initial_nymphs,
                  initial_adults,
                  activation_rate,
-                 weather_directory
+                 weather_directory,
+                 output_summary
                  ) {
   
   # Set directory of FatJar to run the model
@@ -43,6 +44,7 @@ iris <- function(year,
                         initial_nymphs, "_",
                         activation_rate,
                         ".csv")
+  iris_output_summary <- paste0("-u ", output_summary)
   
   # Combine sub strings  
   iris_run <- paste(iris_exe, 
@@ -54,6 +56,7 @@ iris <- function(year,
                     iris_nymphs,
                     iris_adults,
                     iris_activation_rate,
+                    iris_output_summary,
                     sep = " ")
   
   # Run IRIS
