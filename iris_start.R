@@ -1,5 +1,3 @@
-# R-Script to start IRIS with input parameters
-
 iris <- function(year, 
                  random_seed,
                  initial_larvae,
@@ -10,25 +8,18 @@ iris <- function(year,
                  output_summary
                  ) {
   
-  # Set directory of FatJar to run the model
   iris_jar_directory <- paste0(iris_main_directory, "/target/")
-  
-  # Set model input directory
   iris_input_directory <- paste0(iris_main_directory, "/input/")
   
-  # Get functions from input source file
   input_functions <- paste0(iris_input_directory, "input_functions.r")
   source(input_functions)
   
-  # Set model output directory
   output_directory <- paste0(iris_main_directory, "/output/")
   
-  # Create output folder for current simulation run
   current_date <- as.character(Sys.Date())
   output_folder <- paste(output_directory, current_date, sep = "")
   dir.create(output_folder)
   
-  # Set substrings to start IRIS from R
   iris_exe <- "java.exe"
   iris_jar <- paste0("-jar ", iris_jar_directory, "IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar eu.ecoepi.iris.experiments.AdHoc")
   iris_seed <- paste0("-s ", random_seed)
@@ -46,7 +37,6 @@ iris <- function(year,
                         ".csv")
   iris_output_summary <- paste0("-u ", output_summary)
   
-  # Combine sub strings  
   iris_run <- paste(iris_exe, 
                     iris_jar, 
                     iris_weather, 
@@ -59,6 +49,5 @@ iris <- function(year,
                     iris_output_summary,
                     sep = " ")
   
-  # Run IRIS
   system(iris_run)
 }
