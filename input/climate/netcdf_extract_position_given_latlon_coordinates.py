@@ -3,14 +3,18 @@ import os
 import math
 
 file_dir = os.path.dirname(os.path.abspath('__file__'))
-climate_model = "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
-input_file = "tasAdjust_MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1-GERICS-ISIMIP3BASD-UFZ-1km-1971-2000.nc"
+
+climate_model = 'MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1'
+climate_variable = 'tasAdjust'
+
+input_file = 'climate_variable' + '_' + climate_model + '-GERICS-ISIMIP3BASD-UFZ-1km-1971-2000.nc'
 
 data = Dataset(climate_model + '/' + input_file)
-
 print(data.variables.keys())
+
 lat = data.variables['lat']
 lon = data.variables['lon']
+
 lat_bnds = data.variables['lat_bnds']
 lon_bnds = data.variables['lon_bnds']
 
