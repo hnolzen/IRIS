@@ -7,13 +7,19 @@ file_dir = os.path.dirname(os.path.abspath('__file__'))
 climate_model = 'MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1'
 climate_variable = 'tasAdjust'
 
-input_file = 'climate_variable' + '_' + climate_model + '-GERICS-ISIMIP3BASD-UFZ-1km-1971-2000.nc'
+input_file = climate_variable + '_' + climate_model + '-GERICS-ISIMIP3BASD-UFZ-1km-1971-2000.nc'
 
 data = Dataset(climate_model + '/' + input_file)
 print(data.variables.keys())
 
 lat = data.variables['lat']
 lon = data.variables['lon']
+
+if lat.shape != lon.shape:
+  raise Exception("Latitude and longitude grids have inconsistent dimensions")
+
+x_dim = lat.shape[0]
+y_dim = lat.shape[1]
 
 lat_bnds = data.variables['lat_bnds']
 lon_bnds = data.variables['lon_bnds']
@@ -24,8 +30,8 @@ lon_location = 11.8819   #(Lon. Haselmühl)
 min_dist = math.inf
 min_i = None
 min_j = None
-for i in range(412):
-    for j in range(424):
+for i in range(x_dim):
+    for j in range(y_dim):
         dist = (lat[i][j] - lat_location)**2 + (lon[i][j] - lon_location)**2
         if dist < min_dist:
             min_dist = dist
