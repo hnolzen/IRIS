@@ -7,10 +7,7 @@ import eu.ecoepi.iris.Model;
 
 public class S3_LN_individual_beech {
     public static void main(String[] args) throws Exception {
-                var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        var tasks = new ExecutorCompletionService(executor);
-        var todo = 0;
-        var done = 0;
+        var large = new Large();
 
         for (int year = 2009; year <= 2018; year++) {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
@@ -34,28 +31,12 @@ public class S3_LN_individual_beech {
 
                         options.summary = true;
 
-                        tasks.submit(() -> {
-                            System.err.printf("Starting task %s...\n", name);
-
-                            try {
-                                Model.run(options);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }, null);
-                        todo++;
+                        large.addTask(name, options);
                     }
                 }
             }
         }
 
-        while (done < todo) {
-            tasks.take().get();
-            done++;
-
-            System.err.printf("%d out of %d tasks finished.\n", done, todo);
-        }
-
-        executor.shutdown();
+        large.waitForCompletion();
     }
 }
