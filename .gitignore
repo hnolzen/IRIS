@@ -1,9 +1,10 @@
 .idea/
 IRIS.iml
 target/
-input/climate/
 archive/
 plots/archive
+
+.nc
 
 .RData
 .Rhistory
