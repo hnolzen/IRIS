@@ -5,19 +5,16 @@ import java.util.concurrent.ExecutorCompletionService;
 
 import eu.ecoepi.iris.Model;
 
-public class SensitivityAnalysisFixedLN {
+public class S1_LN_equal_beech {
     public static void main(String[] args) throws Exception {
-        var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        var tasks = new ExecutorCompletionService(executor);
-        var todo = 0;
-        var done = 0;
+        var large = new Large();
         
         for (int year = 2009; year <= 2018; year++) {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
             var abundanceReduction = Model.abundanceReductionDueToFructificationIndex(year);
 
-            for (int ticks = 5; ticks <= 1000; ticks += 5) {
-                for (int activationRate = 1; activationRate <= 25; activationRate += 1) {
+            for (int ticks = 2; ticks <= 1000; ticks += 2) {
+                for (int activationRate = 10; activationRate <= 30; activationRate += 1) {
                     var options = new Model.Options();
 
                     var name = String.format("%d_%d_%d", year, ticks, activationRate);
@@ -33,27 +30,11 @@ public class SensitivityAnalysisFixedLN {
 
                     options.summary = true;
 
-                    tasks.submit(() -> {
-                        System.err.printf("Starting task %s...\n", name);
-
-                        try {
-                            Model.run(options);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }, null);
-                    todo++;
+                    large.addTask(name, options);
                 }
             }
         }
-        
-        while (done < todo) {
-            tasks.take().get();
-            done++;
 
-            System.err.printf("%d out of %d tasks finished.\n", done, todo);
-        }
-
-        executor.shutdown();
+        large.waitForCompletion();
     }
 }
