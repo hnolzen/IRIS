@@ -53,6 +53,7 @@ output_summary <- "true"
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 
 if (climate_simulation) {
+  model_name <- "All_models_daily_mean"
   #model_name <- "CCCma-CanESM2_rcp85_r1i1p1_CLMcom-CCLM4-8-17_v1"
   #model_name <- "CCCma-CanESM2_rcp85_r1i1p1_GERICS-REMO2015_v1"
   #model_name <- "IPSL-IPSL-CM5A-MR_rcp85_r1i1p1_IPSL-WRF381P_v1"
