@@ -6,7 +6,7 @@ import os
 
 file_dir = os.path.dirname(os.path.abspath('__file__'))
 iris_main_dir = os.path.abspath(file_dir + '/..' + '/..')
-iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models/')
+iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models_median_temperature/')
 
 models = []
 for filename in os.listdir(iris_output_dir):   
