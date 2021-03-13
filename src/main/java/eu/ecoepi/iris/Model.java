@@ -31,27 +31,6 @@ public class Model {
         public boolean withPrecipitation = false;
     }
 
-    public static float abundanceReductionDueToFructificationIndex(int year) {
-        float abundanceReduction;
-        switch (Parameters.FRUCTIFICATION_INDEX.get(year - 2)) {
-            case 1:
-                abundanceReduction = 0.25f;
-                break;
-            case 2:
-                abundanceReduction = 0.5f;
-                break;
-            case 3:
-                abundanceReduction = 0.75f;
-                break;
-            case 4:
-                abundanceReduction = 1.0f;
-                break;
-            default:
-                throw new RuntimeException("Invalid fructification index");
-        }
-        return abundanceReduction;
-    }
-
     public static void run(Options options) throws Exception {
         var rng = new MersenneTwister(options.seed);
 
