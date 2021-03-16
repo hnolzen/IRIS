@@ -188,8 +188,18 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 An overview over the input parameters can be found in Table ~\ref{tab:input_parameters}.
 
 \subsubsection{Observed weather data}
-Weather data from DWD (*.csv file)
-%tbc.
+Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
+
+\begin{itemize}
+	\item Daily mean of temperature (TMK, [°C])
+	\item Daily minimum of air temperature at 2 m height (TNK, [°C])
+	\item Daily maximum Of air temperature at 2 m height (TXK, [°C])
+	\item Daily mean of relative humidity (UPM, [\%])
+\end{itemize}
+
+Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$.
+
+This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
 \subsubsection{Climate simulation data}
 Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table ~\ref{tab:climate_models} for an overview).
