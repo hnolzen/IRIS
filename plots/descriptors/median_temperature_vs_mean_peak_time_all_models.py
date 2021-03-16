@@ -5,7 +5,7 @@ import os
 
 file_dir = os.path.dirname(os.path.abspath('__file__'))
 iris_main_dir = os.path.abspath(file_dir + '/..' + '/..')
-iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models/')
+iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models_median_temperature/')
 
 models = []
 for filename in os.listdir(iris_output_dir):   
@@ -15,21 +15,16 @@ df_all = pd.concat(models).drop_duplicates()
 df_all = df_all.rename(columns = {'time_max':'peak', 'type_weather_data': 'type'})
 
 df_dwd = df_all[df_all['type'] == 'dwd']
-df_gerics = df_all[df_all['type'] == 'gerics']
-df_gerics_diff = df_all[df_all['type'] == 'gerics_diff']
+df_gerics = df_all[df_all['type'] != 'dwd']
 
 bins = np.arange(5.0, 16.25, 0.25)
-df_median_all = df_all.groupby(pd.cut(df_all['median_tmp'], bins = bins)).mean().dropna()
 df_median_dwd = df_dwd.groupby(pd.cut(df_dwd['median_tmp'], bins = bins)).mean().dropna()
 df_median_gerics = df_gerics.groupby(pd.cut(df_gerics['median_tmp'], bins = bins)).mean().dropna()
-df_median_gerics_diff = df_gerics_diff.groupby(pd.cut(df_gerics_diff['median_tmp'], bins = bins)).mean().dropna()
 
 
 fig, ax = plt.subplots()
 ax.scatter(df_median_dwd['median_tmp'], df_median_dwd['peak'], marker = '.', s = 50, facecolors = 'none', color = '#31a354', label = 'DWD')
-ax.scatter(df_median_gerics_diff['median_tmp'], df_median_gerics_diff['peak'], marker = '.', s = 50, facecolors = 'none', color = '#de2d26', label = 'GERICS (past)')
 ax.scatter(df_median_gerics['median_tmp'], df_median_gerics['peak'], marker = '.', s = 50, facecolors = 'none', color = '#fe9929', label = 'GERICS (future)')
-ax.scatter(df_median_all['median_tmp'], df_median_all['peak'], marker = '.', s = 10, color = '#2b8cbe', label = 'All')
 
 y_old = [1, 16, 31, 46, 60, 75, 90, 105, 120, 135, 150, 165, 180]
 y_text = ['Jan. 01', '15', 'Feb. 01', '15', 'Mar. 01', '15', 'Apr. 01', '15','May. 01', '15', 'Jun. 01', '15', 'Jul. 01'] 

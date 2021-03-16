@@ -6,7 +6,7 @@ import os
 
 file_dir = os.path.dirname(os.path.abspath('__file__'))
 iris_main_dir = os.path.abspath(file_dir + '/..' + '/..')
-iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models_median_temperature/')
+iris_output_dir = os.path.abspath(iris_main_dir + '/output/summary_climate_models_median_temperature_jan_to_june/')
 
 models = []
 for filename in os.listdir(iris_output_dir):   
@@ -44,13 +44,13 @@ ax.scatter(df_dwd['median_tmp'],
             label = 'DWD (1949 - 2020)',
             marker = '.', s = 35, facecolors = 'none', color = '#31a354')
 
-fit_length = np.arange(5, 17)
+fit_length = np.arange(0, 17)
 ax.plot(fit_length, n_gerics + m_gerics * fit_length, color = '#fe9929', linewidth = 0.75)
 ax.plot(fit_length, n_gerics_past + m_gerics_past * fit_length, color = '#de2d26', linewidth = 0.75)
 ax.plot(fit_length, n_dwd + m_dwd * fit_length, color = '#31a354', linewidth = 0.75)
 
 ax.set_ylim(0, 180)
-ax.set_xlim(5, 16)
+ax.set_xlim(1, 14)
 
 y_old = [1, 16, 31, 46, 60, 75, 90, 105, 120, 135, 150, 165, 180]
 y_text = ['Jan. 01', '15', 'Feb. 01', '15', 'Mar. 01', '15', 'Apr. 01', '15','May. 01', '15', 'Jun. 01', '15', 'Jul. 01'] 
@@ -58,11 +58,11 @@ y_text = ['Jan. 01', '15', 'Feb. 01', '15', 'Mar. 01', '15', 'Apr. 01', '15','Ma
 ax.set_yticks(y_old)
 ax.set_yticklabels(y_text, minor = False, fontsize = 8)
 
-ax.set_xlabel('Median Temperature (°C)', fontsize = 14, fontweight = 'bold')
+ax.set_xlabel('Median Temperature between January and June (°C)', fontsize = 12, fontweight = 'bold')
 ax.set_ylabel('Day of max peak (-)', fontsize = 14, fontweight = 'bold')
 
 plt.legend(fontsize = 7)
 plt.title(f'Pearson (DWD: {corr_dwd}, Simulations (2021 - 2099): {corr_gerics} Simulations (1971 - 2020): {corr_gerics_past}', fontsize = 7, fontweight = 'bold')
 plt.tight_layout()
-plt.savefig('median_temperature_vs_peak_time_all_models.png', dpi = 400, format = "png")
-plt.savefig('median_temperature_vs_peak_time_all_models.pdf', dpi = 400, format = "pdf")
+plt.savefig('median_temperature_jan_to_june_vs_peak_time_all_models.png', dpi = 400, format = "png")
+plt.savefig('median_temperature_jan_to_june_vs_peak_time_all_models.pdf', dpi = 400, format = "pdf")
