@@ -18,6 +18,9 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 
+\usepackage{sourcecodepro}
+\usepackage{listings}[language = Java]
+
 \usepackage{csquotes}
 \usepackage[backend = biber, style = apa]{biblatex}
 \addbibresource{../iris_literature.bib}
@@ -49,50 +52,29 @@
 
 
 \newpage
+
+
 \section{Overview}
-This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically
-describe models in a comprehensive and transparent way aiming to allow for model replication ~\parencite{Grimm.2010, Grimm.2020}.
+This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically describe models in a comprehensive and transparent way aiming to allow for model replication ~\parencite{Grimm.2010, Grimm.2020}.
 
-IRIS (Ixodes RIcinus Simulator) is a cohort-based and spatially-explicit population model to simulate local dynamics of \textit{Ixodes
-ricinus} ticks under changing climate parameters. It simulates the spatial and temporal development and questing activity of ticks of
-different life stages over a year. The population dynamic is driven by climate predictors such as temperature and humidity and by
-ecological predictors such as habitat suitability. The IRIS model is to be expanded in the future to include a Lyme disease dynamic.
+IRIS (Ixodes RIcinus Simulator) is a cohort-based and spatially-explicit population model to simulate local dynamics of \textit{Ixodes ricinus} ticks under changing climate parameters. It simulates the spatial and temporal development and questing activity of ticks of different life stages over a year. The population dynamic is driven by climate predictors such as temperature and humidity and by ecological predictors such as habitat suitability. The IRIS model is to be expanded in the future to include a Lyme disease dynamic.
 
-This model has been developed within project `Infectious diseases and allergies` of the HI-CAM initiative
-~\footnote{\url{https://www.helmholtz-klima.de/en/adaptation/project-infectious-diseases-and-allergies}}.
-
+This model has been developed within project `Infectious diseases and allergies` of the HI-CAM initiative ~\footnote{\url{https://www.helmholtz-klima.de/en/adaptation/project-infectious-diseases-and-allergies}}.
 
 \subsection{Purpose}
-The overall purpose of the IRIS model is to understand the impact of changing climate on local tick and borrelian dynamics. As
-ticks are highly relevant vectors of Lyme disease, it is important to gain a better understanding of their future climate-dependent
-dynamics.
-
+The overall purpose of the IRIS model is to understand the impact of changing climate on local tick and borrelian dynamics. As ticks are highly relevant vectors of Lyme disease, it is important to gain a better understanding of their future climate-dependent dynamics.
 
 \subsection{Entities, state variables, and scales}
-The model is composed of the following entities: (a) sub populations of \textit{Ixodes ricinus} ticks belonging to a cohort and (b) grid
-cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick
-life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing,
-(ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Grid cells serve as habitat for
-tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
+The model is composed of the following entities: (a) sub populations of \textit{Ixodes ricinus} ticks belonging to a cohort and (b) grid cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing, (ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Grid cells serve as habitat for tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
 
-The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$) in reality. The model
-idealised landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100
-\mathrm{m}^{2}$. This grid size was chosen because tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$
-~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is
-typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
+The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$) in reality. The model idealised landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. This grid size was chosen because tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
 
-The IRIS model runs with daily time steps. One model run simulates one year, from January 1 to December 31, in reality. On this time
-scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged
-behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is  available on a daily
-basis ~\parencite(DWD.2020, GERICS.2020). Furthermore, daily time steps are also computationally feasible.
+The IRIS model runs with daily time steps. One model run simulates one year, from January 1 to December 31, in reality. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis ~\parencite(DWD.2020, GERICS.2020). Furthermore, daily time steps are also computationally feasible.
 
 % Insert figure with graphical summary with entities and state variables here
 
-
 \subsection{Process overview and scheduling}
-The IRIS model is executed in daily discrete time steps. Since the model always simulates one year, 365 days are usually simulated, unless
-a year is a leap year. In a leap year 366 days are simulated including 29 February. At each time step, the the following model processes
-are executed and the state-variables are updated:
+The IRIS model is executed in daily discrete time steps. Since the model always simulates one year, 365 days are usually simulated, unless a year is a leap year. In a leap year 366 days are simulated including 29 February. At each time step, the the following model processes are executed and the state-variables are updated:
 
 \begin{enumerate}
 	\item Development to the next life cycle stage
@@ -103,41 +85,55 @@ are executed and the state-variables are updated:
 	\item Activity
 \end{enumerate}
 
-Since a single simulation run always covers exactly one year, the multi-year life cycle of the modelled ticks is captured indirectly.
-This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in
-the model through its respective cohort.
+Since a single simulation run always covers exactly one year, the multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort.
 
 
 \newpage
-\section{Design}
 
 
-\subsection{Basic principles}
-IRIS is a Spatially explicit stochastic cohort-based tick population model. It was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System framework
-\footnote{\url{https://github.com/junkdog/artemis-odb}}.
+\section{Design Concepts}
 
-\subsection{Stochasticity}\label{subsec:stochasticity}
-To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library
-(version 3.6.1.). In addition we implemented a method roundRandom() to allow processes that statistically affect less than
-a single tick to still happen.
-% tbc. needs further explanation.
-% insert source code of roundRandom() here
+\begin{itemize}
+
+\item \emph{Basic principles:}
+IRIS is a Spatially explicit stochastic cohort-based tick population model. It was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System framework \footnote{\url{https://github.com/junkdog/artemis-odb}}.
+
+\item \emph{Emergence:}
+
+\item \emph{Adaptation:}
+
+\item \emph{Objectives:}
+
+\item \emph{Learning:}
+
+\item \emph{Prediction:}
+
+\item \emph{Sensing:}
+
+\item \emph{Interaction:}
+
+\item \emph{Stochasticity:}
+To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method roundRandom() to allow processes that statistically affect less than a single tick to still happen.
+% tbc. needs further explanation. % insert source code of roundRandom() here
+
+\item \emph{Collectives:}
+
+\item \emph{Observation:}
+
+\end{itemize}
 
 
 \newpage
+
+
 \section{Details}
 
 \subsection{Globals}
 
 \subsection{Initialisation}
-The initialisation of the model involves the following steps. First, IRIS is started by calling the main method of one of the classes in the project folder `experiments`.
-The class \textit{AdHoc} can be called to simulate a single year. It is also possible to pass individual simulation parameters to the \textit{AdHoc} class. The other two
-classes (\textit{SensitivityAnalysis}, \textit{SensitivityAnalysisLN}) in the `experiments' folder are used to carry out sensitivity analyses. The simulation parameters are
-already defined there within these classes.
+The initialisation of the model involves the following steps. First, IRIS is started by calling the main method of one of the classes in the project folder `experiments`. The class \textit{AdHoc} can be called to simulate a single year. It is also possible to pass individual simulation parameters to the \textit{AdHoc} class. The other two classes (\textit{SensitivityAnalysis}, \textit{SensitivityAnalysisLN}) in the `experiments' folder are used to carry out sensitivity analyses. The simulation parameters are already defined there within these classes.
 
-When calling the main method of the class \textit{AdHoc} individual command line parameters, if available, are first passed to the model (see
-Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \textit{run()} in the class \textit{Model}. These include, among other items, the initial
-number of larvae, nymphs and adults.
+When calling the main method of the class \textit{AdHoc} individual command line parameters, if available, are first passed to the model (see Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \textit{run()} in the class \textit{Model}. These include, among other items, the initial number of larvae, nymphs and adults.
 
 \begin{table}[h!]
 \caption{Input parameters}
@@ -153,30 +149,17 @@ initialLarvae       &   & 150   & int     & initial number of inactive larvae \\
 initialNymphs       &   & 150   & int     & initial number of inactive nymphs \\
 initialAdults       &   & 150   & int     & initial number of inactive adults \\
 activationRate      &   & 0.02  & float   & activation rate  \\
-summary       		&   & false & boolean & write only summary outputs \\
+summary       		&   & true & boolean & write only summary outputs \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Afterwards, the random number generator is initialised with a random seed and the world configuration of the Entity Component System is assembled. This includes the
-registration of the ECS Systems (Activity, Feeding, TickLifeCycle, Weather) and Resources (Parameters, Randomness, SpatialIndex and TimeStep). This is followed by the
-initialisation of the model landscape, i.e.\ each grid cell is assigned a position $(x, y)$ and a habitat type (forest, ecotone, meadow). In addition, the ECS components
-(Habitat, Humidity, Position, Precipitation, Temperature, TickAbundance) are added to the grid cells (i.e.\ the ECS entities).
-
-
+Afterwards, the random number generator is initialised with a random seed and the world configuration of the Entity Component System is assembled. This includes the registration of the ECS Systems (Activity, Feeding, TickLifeCycle, Weather) and Resources (Parameters, Randomness, SpatialIndex and TimeStep). This is followed by the initialisation of the model landscape, i.e.\ each grid cell is assigned a position $(x, y)$ and a habitat type (forest, ecotone, meadow). In addition, the ECS components (Habitat, Humidity, Position, Precipitation, Temperature, TickAbundance) are added to the grid cells (i.e.\ the ECS entities).
 
 \subsubsection{Adjusting the initial number of larvae using beech mast fructification data}\label{subsubsec:initial_larvae_with_beech_mast}
-If data is available the model is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica} to adjust the initial number of larvae at the
-beginning of a simulation run. This reason for this adjustment can be explained as follows: Small rodents serve as host animals especially for \textit{Ixodes ricinus}
-larvae~\parencite{Cayol.2017}. A higher density of small rodents in a given year causes an increase in the population of larvae and nymphs in the following
-year~\parencite{Brugger.2018}. Data on beech mast can be used to estimate rodent populations, because a year with high mast production leads to an increase in the rodent
-population in the following year due to higher food supply~\parencite{Clement.2009}. Hence, we assume that the initial number of larvae at the beginning of a simulation run of
-a given year is influenced by the beech mast two years before.
+If data is available the model is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica} to adjust the initial number of larvae at the beginning of a simulation run. This reason for this adjustment can be explained as follows: Small rodents serve as host animals especially for \textit{Ixodes ricinus} larvae~\parencite{Cayol.2017}. A higher density of small rodents in a given year causes an increase in the population of larvae and nymphs in the following year~\parencite{Brugger.2018}. Data on beech mast can be used to estimate rodent populations, because a year with high mast production leads to an increase in the rodent population in the following year due to higher food supply~\parencite{Clement.2009}. Hence, we assume that the initial number of larvae at the beginning of a simulation run of a given year is influenced by the beech mast two years before.
 
-The type of beech mast is divided into four classes and given as an index. Based on this fructification index, the model adjusts the initial number of larvae at the beginning of
-a simulation run. The default number of initial larvae is reduced if when the second year before the simulated year is not a mast year with full fructification. The strength of
-the reduction depends on the type of beech mast, i.e.\ the fructification index. Table~\ref{tab:fructification_adjustment} gives an overview over the adjustment values.
-Information on the beech mast input data can be found in Section~\ref{subsubsec:beech_mast_data}.
+The type of beech mast is divided into four classes and given as an index. Based on this fructification index, the model adjusts the initial number of larvae at the beginning of a simulation run. The default number of initial larvae is reduced if when the second year before the simulated year is not a mast year with full fructification. The strength of the reduction depends on the type of beech mast, i.e.\ the fructification index. Table~\ref{tab:fructification_adjustment} gives an overview over the adjustment values. Information on the beech mast input data can be found in Section~\ref{subsubsec:beech_mast_data}.
 
 \begin{table}[h!]
 \caption{Adjustment of initial number of larvae based on the fructification index}
@@ -193,9 +176,6 @@ Information on the beech mast input data can be found in Section~\ref{subsubsec:
 \end{tabularx}
 \end{table}
 
-
-
-
 \subsection{Input data}
 IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis:
 \begin{itemize}
@@ -207,15 +187,12 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 
 An overview over the input parameters can be found in Table ~\ref{tab:input_parameters}.
 
-
 \subsubsection{Observed weather data}
 Weather data from DWD (*.csv file)
 %tbc.
 
 \subsubsection{Climate simulation data}
-Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models
-(GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming
-(see Table ~\ref{tab:climate_models} for an overview).
+Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table ~\ref{tab:climate_models} for an overview).
 
 Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
 \begin{itemize}
@@ -262,9 +239,7 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1 				\\
 % Umrechnung von K in Celsius
 
 \subsubsection{Beech mast fructification data}\label{subsubsec:beech_mast_data}
-IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae
-(for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have
-used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
+IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
 
 
 \begin{table}[h!]
@@ -289,21 +264,15 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsection{Submodels}
 
 \subsubsection{Development}
-This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \textit{development()} in the class
-\textit{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each
-further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
+This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \textit{development()} in the class \textit{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
 
-The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early
-or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the
-respective cohort with behavioural state 'engorged' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have
-developed at the end of the development period:
+The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state 'engorged' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have developed at the end of the development period:
 
 \begin{equation}
 n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{engorged}(t)}{t_{\text{end} - t_{\text{current}}}})
 \end{equation}
 
-The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the
-development parameters.
+The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the development parameters.
 
 The oviposition of adult ticks is not modelled explicitly. Hence, we assume that adult ticks become new larvae.
 % need further explanation
@@ -323,74 +292,51 @@ Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVA
 \end{tabularx}
 \end{table}
 
-
 \subsubsection{Desiccation}
-This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle}. In general ticks need at least 80
-\% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls below this level off-host ticks
-start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also requires lower temperatures
-~\parencite{Ostfeld.2015}. Due to the favourable microclimatic conditions, ticks prefer woodland habitats and have a higher abundance there than for example in meadows
-~\parencite{Lindstrom.2003, Boehnke.2015}.
+This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle}. In general ticks need at least 80 \% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also requires lower temperatures ~\parencite{Ostfeld.2015}. Due to the favourable microclimatic conditions, ticks prefer woodland habitats and have a higher abundance there than for example in meadows ~\parencite{Lindstrom.2003, Boehnke.2015}.
 
-At each time step this sub model checks the relative humidity and temperature. If these exceed certain thresholds a proportion of all questing ticks that are in such a grid
-cell will desiccate (see Table ~\ref{tab:desiccation_parameters}). The exact desiccation rate depends on the habitat type of the grid cell. Thereby we capture the favourable
-effect of the more humid microclimate within a forest compared to a meadow on tick survival. Desiccated ticks are removed from the modelled population.
+At each time step this sub model checks the relative humidity and temperature. If these exceed certain thresholds a proportion of all questing ticks that are in such a grid cell will desiccate (see Table ~\ref{tab:desiccation_parameters}). The exact desiccation rate depends on the habitat type of the grid cell. Thereby we capture the favourable effect of the more humid microclimate within a forest compared to a meadow on tick survival. Desiccated ticks are removed from the modelled population.
 
 \begin{table}[h!]
 \caption{Habitat dependent desiccation rates and threshold values}
 \label{tab:desiccation_parameters}
 \begin{tabular}{@{}llccl@{}}
 \toprule
-\textbf{Parameter}											& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  	\\
+\textbf{Parameter}							& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference} \\
 \midrule
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  		&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
-\tiny{DEATH\_THRESHOLD\_DESICCATION\_MINIMAL\_MEAN\_TEMP}	& -    			 		 &   15.0  & Degree Celsius  		&  ~\cite{Ostfeld.2015}						\\
-\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  					& Forest       			 &   0.02  & 1/day 		&            		    \\
-				 											& Ecotone 				 &   0.05  & 1/day  		&					    \\
-				 											& Meadow    			 &   0.10  & 1/day  		&  						\\
+\tiny{DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  	&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & Degree Celsius  &  ~\cite{Ostfeld.2015} \\
+\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	&            		    \\
+				 							& Ecotone 				 &   0.05  & 1/day  &					    \\
+				 							& Meadow    			 &   0.10  & 1/day  &  						\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-
 \subsubsection{Freezing}
-The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \textit{freezing()} in the class
-\textit{TickLifeCycle}.
+The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \textit{freezing()} in the class \textit{TickLifeCycle}.
 
-Ixodes ricinus ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with
-temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these
-conditions ~\parencite{Jore.2014}.
+Ixodes ricinus ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
 
-At each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the
-ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
+At each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
 
 \begin{table}[h!]
 \caption{Parameters of the freezing sub model}
 \label{tab:freezing_parameters}
 \begin{tabular}{@{}lccl@{}}
 \toprule
-\textbf{Parameter}											& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
+\textbf{Parameter}								& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
-\tiny{FREEZING\_RATE}		    			 		 		&   0.03    	& 1/day &  							\\
-\tiny{DEATH\_THRESHOLD\_FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
+\tiny{FREEZING\_RATE}		    			 	&   0.03    	& 1/day &  							\\
+\tiny{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-
 \subsubsection{Activity}
-The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the class
-\textit{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one
-activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to
-quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground,
-where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
+The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the class \textit{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground, where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
 
-At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for
-questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific
-activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this
-case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the
-ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a
-given time step is a result of the balance of "activation" (towards the questing state) and "deactivation" (towards the inactive stage) over the previous time steps. Table
-~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
+At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a given time step is a result of the balance of "activation" (towards the questing state) and "deactivation" (towards the inactive stage) over the previous time steps. Table ~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
 
 \begin{table}[h!]
 \caption{Parameters of the activity sub model}
@@ -399,14 +345,14 @@ given time step is a result of the balance of "activation" (towards the questing
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_THRESHOLD\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
+\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
 \midrule
 \tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & 1/day & float	&  		\\
 \tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& 1/day & float	&  		\\
@@ -415,20 +361,10 @@ activationRate	   										    &  0.02 & 1/day & float	& determined by optimisa
 \end{tabular}
 \end{table}
 
-
 \subsubsection{Feeding}
-The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape.
-It is implemented in the class \textit{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and
-drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of
-this process nor the host animals are explicitly modelled.
+The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \textit{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
 
-At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see
-Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see
-Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly.
-Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020,
-personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table
-~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found
-in Table ~\ref{tab:distance_probabilities}.
+At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly. Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020, personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table ~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found in Table ~\ref{tab:distance_probabilities}.
 
 
 \begin{table}[h!]
@@ -467,8 +403,9 @@ in Table ~\ref{tab:distance_probabilities}.
 \end{tabular}
 \end{table}
 
-
-\subsubsection{Micro climate}
+\subsubsection{Weather}
+% read weather data from csv (constructor)
+% adjustment of temperature and humidity to local conditions depending on season of year and habitat type
 
 \begin{table}[h!]
 \caption{Adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
