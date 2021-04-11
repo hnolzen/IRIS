@@ -4,6 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorCompletionService;
 
 import eu.ecoepi.iris.Model;
+import eu.ecoepi.iris.resources.Parameters;
 
 public class S3_LN_individual_beech {
     public static void main(String[] args) throws Exception {
@@ -11,7 +12,7 @@ public class S3_LN_individual_beech {
 
         for (int year = 2009; year <= 2018; year++) {
             var weather = String.format("./input/weather/dwd_regensburg/weather_%d.csv", year);
-            var abundanceReduction = Model.abundanceReductionDueToFructificationIndex(year);
+            var abundanceReduction = Parameters.abundanceReductionDueToFructificationIndex(year);
 
             for (int larvae = 0; larvae <= 1000; larvae += 20) {
                 for (int nymphs = 10; nymphs <= 1000; nymphs += 10) {
