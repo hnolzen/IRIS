@@ -62,12 +62,12 @@ This model description follows the Overview, Design concepts and Details (ODD) p
 \subsection{Purpose}
 The overall purpose of the IRIS model is to understand the impact of climate change on local tick and borrelian dynamics. As ticks are highly relevant vectors of Lyme disease, it is important to gain a better understanding of their future climate-dependent dynamics.
 
-\subsection{Entities, state variables, and scales}
-The model is composed of the following entities: (a) sub populations of \textit{Ixodes ricinus} ticks belonging to a cohort and (b) grid cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing, (ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Grid cells serve as habitat for tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
+\subsection{Entities, state variables and scales}
+The model is composed of the following entities: (a) sub populations of \textit{I. ricinus} ticks belonging to a cohort and (b) grid cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing, (ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Technically, the cohorts exist in every cell of the model landscape, e.g. the active nymphs in grid cell $(0,0)$ are a different cohort than the active nymphs in grid cell $(3,5)$. This is because of the Entity Component System design of the IRIS model (see Section \ref{design_concepts} for details). For model evaluations the cohorts are considered in total. Grid cells serve as habitat for tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow.
 
-The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$) in reality. The model idealised landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. This grid size was chosen because tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
+The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$). The model landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. The reason for this is that tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
 
-The IRIS model runs with daily time steps. One model run simulates one year, from January 1 to December 31, in reality. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis ~\parencite(DWD.2020, GERICS.2020). Furthermore, daily time steps are also computationally feasible.
+A single simulation run of IRIS covers a period of one year with daily time steps from January 1 to December 31. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis from German weather stations and climate simulation models (see Section ~\ref{input_data} for details). Furthermore, daily time steps are also computationally feasible.
 
 % Insert figure with graphical summary with entities and state variables here
 
@@ -89,7 +89,7 @@ Since a single simulation run always covers exactly one year, the multi-year lif
 \newpage
 
 
-\section{Design Concepts}
+\section{Design Concepts}\label{design_concepts}
 
 \begin{itemize}
 
@@ -174,7 +174,7 @@ The type of beech mast is divided into four classes and given as an index. Based
 \end{tabularx}
 \end{table}
 
-\subsection{Input data}
+\subsection{Input data}\label{input_data}
 IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis:
 \begin{itemize}
 \item Daily mean near-surface air temperature [Degree Celsius]
