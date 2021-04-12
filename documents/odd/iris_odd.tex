@@ -88,7 +88,14 @@ The IRIS model is executed in daily discrete time steps. It simulates one year f
 	\item Feeding
 \end{enumerate}
 
-The process \emph{Development} involves the transition from one life cycle stage to the next. The processes \emph{Freezing} and \emph{Desiccation} are control tick mortality in case of unfavourable environmental conditions. The process \emph{Activity} involves the active search for a host - also known as \textit{questing} - or putting ticks into a state of inactivity. The process \emph{Feeding} controls the feeding success of ticks, i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which the ticks are moved to another location on the model landscape, i.e.\ moved to a cohort in another grid cell. All processes were implemented as sub-models and described in detail in section ~\ref{submodels}.
+The process \emph{Development} involves the transition from one life cycle stage to the next. The processes \emph{Freezing} and \emph{Desiccation} are control tick mortality in case of unfavourable environmental conditions. The process \emph{Activity} involves the active search for a host - also known as \textit{questing} - or putting ticks into a state of inactivity. The process \emph{Feeding} controls the feeding success of ticks, i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which the ticks are moved to another location on the model landscape, i.e.\ moved to a cohort in another grid cell. All processes were implemented as sub-models and described in detail in section ~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure ~\ref{fig:iris_scheduling}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/IRIS_scheduling}
+	\caption{Overview over the scheduling of model processes}
+	\label{fig:iris_scheduling}
+\end{figure}
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
