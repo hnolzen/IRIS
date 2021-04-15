@@ -52,15 +52,15 @@
 
 
 \newpage
-
-
 \section{Overview}
 In this document, we describe the model IRIS (Ixodes RIcinus Simulator). It is a cohort-based and spatially-explicit population model to simulate local dynamics of \textit{Ixodes ricinus} ticks under climate change. It consists of behavioural rules of \textit{I. ricinus} ticks and takes weather and climate data as input to simulate the seasonal spatio-temporal abundance and questing activity of ticks of different life stages over a year with daily time steps. Thereby, the emphasis is put on nymphal ticks, as they pose the greatest risk to humans. The model dynamic is driven by the population's response to prevailing temperatures and relative humidity as well as habitat conditions in each time step.
 
 This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically describe models in a comprehensive and transparent way aiming to allow for model replication ~\parencite{Grimm.2010, Grimm.2020}.
 
+
 \subsection{Purpose}
-The overall purpose of the IRIS model is to understand the impact of climate change on local tick and borrelian dynamics. As ticks are highly relevant vectors of Lyme disease, it is important to gain a better understanding of their future climate-dependent dynamics.
+The overall purpose of the IRIS model is to understand the impact of climate change on the spatial and temporal abundance of \textit{I. ricinus} ticks on the local scale. As nymphal ticks are highly relevant vectors of Lyme borreliosis, it is important to gain a better understanding of their future climate-dependent dynamics to assess the exposure risk for humans. 
+
 
 \subsection{Entities, state variables and scales}
 The model is composed of the following entities: (a) sub populations of \textit{I. ricinus} ticks belonging to a cohort and (b) grid cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing, (ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Technically, the cohorts exist in every cell of the model landscape, e.g. the active nymphs in grid cell $(0,0)$ are a different cohort than the active nymphs in grid cell $(3,5)$. This is because of the Entity Component System design of the IRIS model (see Section \ref{design_concepts} for details). For model evaluations the cohorts are considered in total. Grid cells serve as habitat for tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow. A visualisation of the model landscape with habitat types and tick cohorts graphical summary with entities and state variables is displayed in Figure ~\ref{fig:iris_landscape}.
