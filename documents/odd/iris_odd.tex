@@ -17,6 +17,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{float}
 
 \usepackage{sourcecodepro}
 \usepackage{listings}[language = Java]
@@ -63,18 +64,54 @@ The overall purpose of the IRIS model is to understand the impact of climate cha
 
 
 \subsection{Entities, state variables and scales}
-The model is composed of the following entities: (a) sub populations of \textit{I. ricinus} ticks belonging to a cohort and (b) grid cells forming an idealised model landscape. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) larvae, (2) nymphs and (3) adults. Furthermore, four behavioural states are possible: (i) questing, (ii) inactive, (iii) engorged and (iv) late engorged. Hence, in total there are 12 tick cohorts present in the model. Technically, the cohorts exist in every cell of the model landscape, e.g. the active nymphs in grid cell $(0,0)$ are a different cohort than the active nymphs in grid cell $(3,5)$. This is because of the Entity Component System design of the IRIS model (see Section \ref{design_concepts} for details). For model evaluations the cohorts are considered in total. Grid cells serve as habitat for tick sub populations. Three different idealised habitat types exist in the model: (a) forest, (b) ecotone and (c) meadow. A visualisation of the model landscape with habitat types and tick cohorts graphical summary with entities and state variables is displayed in Figure ~\ref{fig:iris_landscape}.
 
+\subsubsection{Entities}
+The model is composed of grid cell entities.
+
+\subsubsection{State variables}
+By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called \textit{components}, which are attached to the grid cell entities. Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
+
+\begin{table}[H]
+	\caption{State variables of the IRIS model.}
+	\label{tab:state_variables}
+	\begin{tabularx}{\textwidth}{lllll}
+		\toprule
+		\textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+		\midrule
+		\multirow{2}{*}{Position} 	 & x  				& int  		& null & x coordinate \\
+									 & y    			& int  		& null & y coordinate \\
+		Habitat 				  	 & type 			& enum Type & null & Habitat type \\
+		TickAbundance 			  	 & stage 			& enum LifeCycleStage  & null & Tick cohort \\
+		\multirow{3}{*}{Temperature} & meanTemperature  & double  	& null & Mean temperature \\
+									 & minTemperature   & double  	& null & Minimum temperature \\
+									 & maxTemperature   & double  	& null & Maximum temperature \\
+		Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+The state variables \emph{type} and \emph{stage} of the components \emph{Habitat} and \emph{TickAbundance} are specified by enumerations. The enumeration \emph{Type} specifies the habitat type. It can take the following values: 
+\begin{small}
+\begin{itemize}
+	\item FOREST, ECOTONE, MEADOW
+\end{itemize}
+\end{small}
+
+The enumeration \emph{LifeCycleStage} specifies the tick cohort. It can take the following values:
+\begin{small}
+\begin{itemize}
+	\item LARVAE, NYMPH, ADULT,  
+	\item LARVAE\_INACTIVE, NYMPH\_INACTIVE, ADULT\_INACTIVE
+	\item LARVAE\_ENGORGED, NYMPH\_ENGORGED, ADULT\_ENGORGED
+	\item LARVAE\_LATE\_ENGORGED, NYMPHS\_LATE\_ENGORGED
+\end{itemize}
+\end{small}
+
+
+\subsubsection{Scales}
 The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$). The model landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. The reason for this is that tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
 
 A single simulation run of IRIS covers a period of one year with daily time steps. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis from German weather stations and climate simulation models (see Section ~\ref{input_data} for details). Furthermore, daily time steps are also computationally feasible.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/IRIS_landscape.PNG}
-	\caption{The IRIS model landscape consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains 12 tick cohorts consisting of one of 3 life cycle stages (larva, nymph, adult) together with one of 4 behavioural states (questing, inactive, engorged and late engorged).}
-	\label{fig:iris_landscape}
-\end{figure}
 
 
 \subsection{Process overview and scheduling}
