@@ -5,6 +5,7 @@
 \usepackage{fontspec}
 \usepackage[english]{babel}
 \usepackage{hyperref}
+\usepackage{environ}
 \hypersetup{
 	colorlinks = true,
 	linkcolor  = black,
@@ -21,6 +22,12 @@
 
 \usepackage{sourcecodepro}
 \usepackage{listings}[language = Java]
+\usepackage{xcolor}
+
+\lstnewenvironment{code}{\lstset{language=Java, basicstyle=\small\ttfamily, backgroundcolor=\colorbox[gray]{0.95}}}{}
+\newcommand{\inlinecode}[1]{\texttt{\small #1}}
+\NewEnviron{hiddencode}{}
+
 
 \usepackage{csquotes}
 \usepackage[backend = biber, style = apa]{biblatex}
@@ -90,7 +97,7 @@ By implementing IRIS using an Entity Component System (ECS) framework, the state
 	\end{tabularx}
 \end{table}
 
-The state variables \emph{type} and \emph{stage} of the components \emph{Habitat} and \emph{TickAbundance} are specified by enumerations. The enumeration \emph{Type} specifies the habitat type. It can take the following values: 
+The state variables \emph{type} and \emph{stage} of the components \emph{Habitat} and \emph{TickAbundance} are specified by enumerations. The enumeration \emph{Type} specifies the habitat type. It can take the following values:
 \begin{small}
 \begin{itemize}
 	\item FOREST, ECOTONE, MEADOW
