@@ -97,14 +97,14 @@ By implementing IRIS using an Entity Component System (ECS) framework, the state
 	\end{tabularx}
 \end{table}
 
-The state variables \emph{type} and \emph{stage} of the components \emph{Habitat} and \emph{TickAbundance} are specified by enumerations. The enumeration \emph{Type} specifies the habitat type. It can take the following values:
+The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
 \begin{small}
 \begin{itemize}
 	\item FOREST, ECOTONE, MEADOW
 \end{itemize}
 \end{small}
 
-The enumeration \emph{LifeCycleStage} specifies the tick cohort. It can take the following values:
+The enumeration \inlinecode{LifeCycleStage} specifies the tick cohort. It can take the following values:
 \begin{small}
 \begin{itemize}
 	\item LARVAE, NYMPH, ADULT,  
@@ -133,7 +133,7 @@ The IRIS model simulates one year from January 1 to December 31 and is executed 
 	\item Desiccation
 \end{enumerate}
 
-The process \emph{Weather} is responsible for setting the daily temperature and relative humidity and updates the state variables \emph{meanTemperature}, \emph{minTemperature}, \emph{maxTemperature} and \emph{relativeHumidity}.The process \emph{Activity} involves the active search for a host (also known as \textit{questing}) or putting ticks into a state of inactivity. The process \emph{Feeding} controls the feeding success of ticks, ~i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which ticks are moved to other locations on the model landscape, ~i.e.\ moved to a cohort in another grid cell. The process \emph{Development} involves the transition from one life cycle stage to the next. The processes \emph{Freezing} and \emph{Desiccation} control tick mortality in case of unfavourable environmental conditions. All processes (except for \emph{Weather}) update the state variable \textit{stage} of each grid cell. Each process is described in more detail in Section ~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure ~\ref{fig:iris_scheduling}.
+The process \inlinecode{Weather} is responsible for setting the daily temperature and relative humidity and updates the state variables \inlinecode{meanTemperature}, \inlinecode{minTemperature}, \inlinecode{maxTemperature} and \inlinecode{relativeHumidity}. The process \inlinecode{Activity} involves the active search for a host (also known as \textit{questing}) or putting ticks into a state of inactivity. The process \inlinecode{Feeding} controls the feeding success of ticks, ~i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which ticks are moved to other locations on the model landscape, ~i.e.\ moved to a cohort in another grid cell. The process \inlinecode{Development} involves the transition from one life cycle stage to the next. The processes \inlinecode{Freezing} and \inlinecode{Desiccation} control tick mortality in case of unfavourable environmental conditions. All processes (except for \inlinecode{Weather}) update the state variable \inlinecode{stage} of each grid cell. Each process is described in more detail in Section ~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure ~\ref{fig:iris_scheduling}.
 
 The multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort.
 
@@ -168,7 +168,7 @@ IRIS is a Spatially explicit stochastic cohort-based tick population model. It w
 \item \emph{Interaction:}
 
 \item \emph{Stochasticity:}
-To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method roundRandom() to allow processes that statistically affect less than a single tick to still happen.
+To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 % tbc. needs further explanation. % insert source code of roundRandom() here
 
 \item \emph{Collectives:}
@@ -186,9 +186,9 @@ To determine random numbers we use the seedable random number generator ``Mersen
 \subsection{Globals}
 
 \subsection{Initialisation}\label{initialisation}
-The initialisation of the model involves the following steps. First, IRIS is started by calling the main method of one of the classes in the project folder `experiments`. The class \textit{AdHoc} can be called to simulate a single year. It is also possible to pass individual simulation parameters to the \textit{AdHoc} class. The other two classes (\textit{SensitivityAnalysis}, \textit{SensitivityAnalysisLN}) in the `experiments' folder are used to carry out sensitivity analyses. The simulation parameters are already defined there within these classes.
+The initialisation of the model involves the following steps. First, IRIS is started by calling the main method of one of the classes in the project folder `experiments`. The class \inlinecode{AdHoc} can be called to simulate a single year. It is also possible to pass individual simulation parameters to the \inlinecode{AdHoc} class. The other two classes (\inlinecode{SensitivityAnalysis}, \inlinecode{SensitivityAnalysisLN}) in the `experiments' folder are used to carry out sensitivity analyses. The simulation parameters are already defined there within these classes.
 
-When calling the main method of the class \textit{AdHoc} individual command line parameters, if available, are first passed to the model (see Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \textit{run()} in the class \textit{Model}. These include, among other items, the initial number of larvae, nymphs and adults.
+When calling the main method of the class \inlinecode{AdHoc} individual command line parameters, if available, are first passed to the model (see Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \inlinecode{run()} in the class \inlinecode{Model}. These include, among other items, the initial number of larvae, nymphs and adults.
 
 \begin{table}[h!]
 \caption{Input parameters}
@@ -327,7 +327,7 @@ fructificationIndex & $f$            & int               & Fructification index 
 \subsection{Submodels}\label{submodels}
 
 \subsubsection{Development}
-This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \textit{development()} in the class \textit{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
+This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \inlinecode{development()} in the class \inlinecode{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
 
 The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state 'engorged' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have developed at the end of the development period:
 
@@ -356,7 +356,7 @@ Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVA
 \end{table}
 
 \subsubsection{Desiccation}
-This sub model controls the desiccation of ticks. It is implemented in the method \textit{desiccation()} in the class \textit{TickLifeCycle}. In general ticks need at least 80 \% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also requires lower temperatures ~\parencite{Ostfeld.2015}. Due to the favourable microclimatic conditions, ticks prefer woodland habitats and have a higher abundance there than for example in meadows ~\parencite{Lindstrom.2003, Boehnke.2015}.
+This sub model controls the desiccation of ticks. It is implemented in the method \inlinecode{desiccation()} in the class \inlinecode{TickLifeCycle}. In general ticks need at least 80 \% relative humidity in their local environment to survive ~\parencite{Medlock.2013, Gray.2016, Hauser.2018}. When the relative humidity falls below this level off-host ticks start to dry out and will eventually die unless the relative humidity rises again. Survival at lower relative humidity is possible but also requires lower temperatures ~\parencite{Ostfeld.2015}. Due to the favourable microclimatic conditions, ticks prefer woodland habitats and have a higher abundance there than for example in meadows ~\parencite{Lindstrom.2003, Boehnke.2015}.
 
 At each time step this sub model checks the relative humidity and temperature. If these exceed certain thresholds a proportion of all questing ticks that are in such a grid cell will desiccate (see Table ~\ref{tab:desiccation_parameters}). The exact desiccation rate depends on the habitat type of the grid cell. Thereby we capture the favourable effect of the more humid microclimate within a forest compared to a meadow on tick survival. Desiccated ticks are removed from the modelled population.
 
@@ -377,7 +377,7 @@ At each time step this sub model checks the relative humidity and temperature. I
 \end{table}
 
 \subsubsection{Freezing}
-The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \textit{freezing()} in the class \textit{TickLifeCycle}.
+The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \inlinecode{freezing()} in the class \inlinecode{TickLifeCycle}.
 
 Ixodes ricinus ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
 
@@ -397,7 +397,7 @@ At each time step the sub model checks whether the minimum temperature $t_{\min}
 \end{table}
 
 \subsubsection{Activity}
-The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the class \textit{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground, where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
+The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the class \inlinecode{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground, where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
 
 At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a given time step is a result of the balance of "activation" (towards the questing state) and "deactivation" (towards the inactive stage) over the previous time steps. Table ~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
 
@@ -425,7 +425,7 @@ activationRate	   										    &  0.02 & 1/day & float	& determined by optimisa
 \end{table}
 
 \subsubsection{Feeding}
-The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \textit{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
+The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \inlinecode{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
 
 At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly. Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020, personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table ~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found in Table ~\ref{tab:distance_probabilities}.
 
@@ -467,7 +467,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 \end{table}
 
 \subsubsection{Weather}
-The sub model \emph{weather} controls the processing of weather data, ~i.e. daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \emph{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings ~\cite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations ~\cite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
+The sub model \inlinecode{weather} controls the processing of weather data, ~i.e. daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \inlinecode{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings ~\cite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations ~\cite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
 
 
 \begin{table}[h!]
