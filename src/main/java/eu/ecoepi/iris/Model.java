@@ -35,11 +35,11 @@ public class Model {
         var rng = new MersenneTwister(options.seed);
 
         var config = new WorldConfigurationBuilder()
-                .with(new TickLifeCycle())
-                .with(new Feeding(rng))
-                .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
                 .with(new Weather(options.weather, options.withPrecipitation))
                 .with(new Activity(options.activationRate))
+                .with(new Feeding(rng))
+                .with(new TickLifeCycle())
+                .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())
