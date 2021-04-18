@@ -122,17 +122,20 @@ A single simulation run of IRIS covers a period of one year with daily time step
 
 
 \subsection{Process overview and scheduling}
-The IRIS model is executed in daily discrete time steps. It simulates one year from January 1 to December 31. A leap year also includes 29 February. The multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort. At each time step, the following model processes are executed and the state-variables are updated:
+The IRIS model simulates one year from January 1 to December 31 and is executed in daily discrete time steps. A leap year also includes 29 February. In each time step, the following model processes are executed for every grid cell and the state-variables are updated in the following order:
 
 \begin{enumerate}
+	\item Weather
+	\item Activity
+	\item Feeding
 	\item Development
 	\item Freezing
 	\item Desiccation
-	\item Activity
-	\item Feeding
 \end{enumerate}
 
-The process \emph{Development} involves the transition from one life cycle stage to the next. The processes \emph{Freezing} and \emph{Desiccation} are control tick mortality in case of unfavourable environmental conditions. The process \emph{Activity} involves the active search for a host - also known as \textit{questing} - or putting ticks into a state of inactivity. The process \emph{Feeding} controls the feeding success of ticks, i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which the ticks are moved to another location on the model landscape, i.e.\ moved to a cohort in another grid cell. All processes were implemented as sub-models and described in detail in section ~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure ~\ref{fig:iris_scheduling}.
+The process \emph{Weather} is responsible for setting the daily temperature and relative humidity and updates the state variables \emph{meanTemperature}, \emph{minTemperature}, \emph{maxTemperature} and \emph{relativeHumidity}.The process \emph{Activity} involves the active search for a host (also known as \textit{questing}) or putting ticks into a state of inactivity. The process \emph{Feeding} controls the feeding success of ticks, ~i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which ticks are moved to other locations on the model landscape, ~i.e.\ moved to a cohort in another grid cell. The process \emph{Development} involves the transition from one life cycle stage to the next. The processes \emph{Freezing} and \emph{Desiccation} control tick mortality in case of unfavourable environmental conditions. All processes (except for \emph{Weather}) update the state variable \textit{stage} of each grid cell. Each process is described in more detail in Section ~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure ~\ref{fig:iris_scheduling}.
+
+The multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort.
 
 \begin{figure}[h!]
 	\centering
@@ -140,6 +143,7 @@ The process \emph{Development} involves the transition from one life cycle stage
 	\caption{Overview over the scheduling of model processes}
 	\label{fig:iris_scheduling}
 \end{figure}
+
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
