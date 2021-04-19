@@ -153,27 +153,42 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 \item \emph{Basic principles:}
 IRIS is a Spatially explicit stochastic cohort-based tick population model. It was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System framework \footnote{\url{https://github.com/junkdog/artemis-odb}}.
 
-\item \emph{Emergence:}
+\emph{Emergence:}
 
-\item \emph{Adaptation:}
+\emph{Adaptation:}
 
-\item \emph{Objectives:}
+\emph{Objectives:}
 
-\item \emph{Learning:}
+\emph{Learning:}
 
-\item \emph{Prediction:}
+\emph{Prediction:}
 
-\item \emph{Sensing:}
+\emph{Sensing:}
 
-\item \emph{Interaction:}
+\emph{Interaction:}
 
-\item \emph{Stochasticity:}
-To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
-% tbc. needs further explanation. % insert source code of roundRandom() here
+\emph{Stochasticity:} To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 
-\item \emph{Collectives:}
+\begin{singlespace}
+\begin{lstlisting}[language = Java, caption = Overview of roundRandom() method]
+public int roundRandom(float value) {
+	int base = (int) value;
+	float remainder = value - base;
+	
+	if (remainder == 0) {
+		return base;
+	}
+	if (random() < remainder) {
+		return base + 1;
+	}
+	return base;
+}
+\end{lstlisting}
+\end{singlespace}
 
-\item \emph{Observation:}
+\emph{Collectives:}
+
+\emph{Observation:}
 
 \end{itemize}
 
