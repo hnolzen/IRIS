@@ -193,8 +193,7 @@ IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Compo
 
 \textbf{Stochasticity:} To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 
-\begin{singlespace}
-\begin{lstlisting}[language = Java, caption = Overview of roundRandom() method]
+\begin{lstlisting}[language = Java, caption = {Overview of roundRandom() method}]
 public int roundRandom(float value) {
 	int base = (int) value;
 	float remainder = value - base;
@@ -208,7 +207,7 @@ public int roundRandom(float value) {
 	return base;
 }
 \end{lstlisting}
-\end{singlespace}
+
 
 \textbf{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details)
 
