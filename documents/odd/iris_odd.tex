@@ -163,20 +163,26 @@ The process \inlinecode{Weather} is responsible for setting the daily temperatur
 The multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort.
 
 \begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.3\linewidth]{figures/IRIS_scheduling.PNG}
-	\caption{Overview over the scheduling of model processes}
-	\label{fig:iris_scheduling}
+\centering
+\includegraphics[width=0.3\linewidth]{figures/IRIS_scheduling.PNG}
+\caption{Overview over the scheduling of model processes}
+\label{fig:iris_scheduling}
 \end{figure}
 
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
+\emph{Basic principles:} IRIS is a spatially explicit stochastic cohort-based tick population model. It is composed of grid cells with sub populations of \textit{I. ricinus} ticks belonging to a cohort. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1)  \emph{larvae}, (2)  \emph{nymphs} and (3)  \emph{adults}. Furthermore, each life cycle stage can adopt one of four behavioural states: (i)  \emph{questing}, (ii)  \emph{inactive}, (iii)  \emph{engorged} and (iv)  \emph{late engorged}. The latter is a special case of the behavioural state \emph{engorged} which applies only to larvae and nymphs (see section \ref{feeding} for details). Hence, in total there are 11 tick cohorts present in the model. Technically, these cohorts exist in every cell of the model landscape, e.g. active nymphs in grid cell $(0,0)$ belong to a different cohort than active nymphs in grid cell $(3,5)$. However, for model evaluations the cohorts are considered in total. The grid cells form a model landscape that serves as habitat for \emph{I. ricinus} sub populations. Three different idealised habitat types exist in the model: (a) \emph{forest}, (b) \emph{ecotone} and (c) \emph{meadow}. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks. A visualisation of the model landscape with habitat types and tick cohorts is displayed in Figure~\ref{fig:iris_landscape}.
 
-\begin{itemize}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/IRIS_landscape.PNG}
+\caption{The IRIS model landscape consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of 3 life cycle stages (larva, nymph, adult) together with one of 4 behavioural states (questing, inactive, engorged and late engorged).}
+\label{fig:iris_landscape}
+\end{figure}
 
-\item \emph{Basic principles:}
-IRIS is a Spatially explicit stochastic cohort-based tick population model. It was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System framework \footnote{\url{https://github.com/junkdog/artemis-odb}}.
+IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System (ECS) framework\footnote{\url{https://github.com/junkdog/artemis-odb}}.
+
 
 \emph{Emergence:}
 
@@ -215,7 +221,6 @@ public int roundRandom(float value) {
 
 \emph{Observation:}
 
-\end{itemize}
 
 
 \newpage
@@ -464,7 +469,7 @@ activationRate	   										    &  0.02 & 1/day & float	& determined by optimisa
 \end{tabular}
 \end{table}
 
-\subsubsection{Feeding}
+\subsubsection{Feeding}\label{feeding}
 The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \inlinecode{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
 
 At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly. Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020, personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table ~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found in Table ~\ref{tab:distance_probabilities}.
