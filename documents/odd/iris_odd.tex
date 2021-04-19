@@ -105,22 +105,22 @@ The model is composed of grid cell entities.
 By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called \textit{components}, which are attached to the grid cell entities. Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
 
 \begin{table}[H]
-	\caption{State variables of the IRIS model.}
-	\label{tab:state_variables}
-	\begin{tabularx}{\textwidth}{lllll}
-		\toprule
-		\textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
-		\midrule
-		\multirow{2}{*}{Position} 	 & x  				& int  		& null & x coordinate \\
-									 & y    			& int  		& null & y coordinate \\
-		Habitat 				  	 & type 			& enum Type & null & Habitat type \\
-		TickAbundance 			  	 & stage 			& enum LifeCycleStage  & null & Tick cohort \\
-		\multirow{3}{*}{Temperature} & meanTemperature  & double  	& null & Mean temperature \\
-									 & minTemperature   & double  	& null & Minimum temperature \\
-									 & maxTemperature   & double  	& null & Maximum temperature \\
-		Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
-		\bottomrule
-	\end{tabularx}
+\caption{State variables of the IRIS model.}
+\label{tab:state_variables}
+\begin{tabularx}{\textwidth}{lllll}
+\toprule
+\textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+\midrule
+\multirow{2}{*}{Position} 	 & x  				& int  		& null & x coordinate \\
+							 & y    			& int  		& null & y coordinate \\
+Habitat 				  	 & type 			& enum Type & null & Habitat type \\
+TickAbundance 			  	 & stage 			& enum LifeCycleStage  & null & Tick cohort \\
+\multirow{3}{*}{Temperature} & meanTemperature  & double  	& null & Mean temperature \\
+							 & minTemperature   & double  	& null & Minimum temperature \\
+							 & maxTemperature   & double  	& null & Maximum temperature \\
+Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
 The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
@@ -256,14 +256,14 @@ The type of beech mast is divided into four classes and given as an index. Based
 \begin{table}[h!]
 \caption{Adjustment of initial number of larvae based on the fructification index}
 \label{tab:fructification_adjustment}
-\begin{tabularx}{\textwidth}{@{}clll@{}}
+\begin{tabularx}{\textwidth}{clll}
 \toprule
 \textbf{Fructification index} & \textbf{Description}    & \textbf{Adjustment Value} & \textbf{Reference} \\
 \midrule
 1				 	  		  & absent fructification 	& 	0.25 & own estimation \\
 2 				 	  		  & scarce fructification	&	0.5	& own estimation  \\
 3 					  		  & common fructification	& 	0.75 & own estimation \\
-4					 		  & full fructification 	& 	1.0	& own estimation  \\
+4					 		  & full fructification 	& 	1.0	& own estimation \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -330,7 +330,7 @@ HadGEM2-ES; r1i1p1 					  & REMO2015; v1 				\\
 IPSL-CM5A-MR; r1i1p1 				  & RCA4; v1 					\\
 IPSL-CM5A-MR; r1i1p1 				  & WRF381P; v1 				\\
 MPI-ESM-LR; r3i1p1 					  & RCA4; v1 					\\
-MPI-ESM-LR; r3i1p1 					  & REMO2015; v1 				\\
+MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -355,7 +355,7 @@ minTemperature     & $t_{\min}$      & double            & Daily max temperature
 maxTemperature     & $t_{\max}$      & double            & Daily min temperature      \\
 humidity           & $h$             & double            & Daily humidity             \\
 \midrule
-fructificationIndex & $f$            & int               & Fructification index       \\
+fructificationIndex & $f$            & int               & Fructification index		  \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -388,7 +388,7 @@ The oviposition of adult ticks is not modelled explicitly. Hence, we assume that
 Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{tba}   		\\
 Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{tba}      	\\
 Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{tba}     	\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{tba}        \\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{tba}			\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -431,7 +431,7 @@ At each time step the sub model checks whether the minimum temperature $t_{\min}
 \textbf{Parameter}								& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
 \small{FREEZING\_RATE}		    			 	&   0.03    	& 1/day & own estimation 	\\
-\small{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009}	\\
+\small{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -460,7 +460,7 @@ At each time step, the activity sub model checks the prevailing conditions in te
 \midrule
 \tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}		&  1.0  & 1/day & float	&  		\\
 \tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}	&  0.05	& 1/day & float	&  		\\
-\tiny{activationRate}	   						&  0.02 & 1/day & float	& Determined by optimisation  \\
+\tiny{activationRate}	   						&  0.02 & 1/day & float	& Determined by optimisation \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -481,8 +481,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 \multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & own estimation \\
 									  & Nymph	& 0.03	& 1/day & float	 & own estimation \\
 									  & Adult	& 0.05	& 1/day & float	 & own estimation \\
-
-\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \cite{tba}  \\
+\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \cite{tba} \\
 \bottomrule
 \end{tabularx}
 \end{table}
