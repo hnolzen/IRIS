@@ -273,9 +273,9 @@ The type of beech mast is divided into four classes and given as an index. Based
 IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis:
 
 \begin{itemize}[noitemsep]
-\item Daily mean near-surface air temperature [Degree Celsius]
-\item Daily Maximum Near-Surface Air Temperature [Degree Celsius]
-\item Daily Maximum Near-Surface Air Temperature [Degree Celsius]
+\item Daily mean near-surface air temperature [°C]
+\item Daily Maximum Near-Surface Air Temperature [°C]
+\item Daily Maximum Near-Surface Air Temperature [°C]
 \item Daily near surface relative humidity [\%]
 \end{itemize}
 
@@ -407,7 +407,7 @@ At each time step this sub model checks the relative humidity and temperature. I
 \textbf{Parameter}							& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference} \\
 \midrule
 \tiny{DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  	&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
-\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & Degree Celsius  &  ~\cite{Ostfeld.2015} \\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & °C  &  ~\cite{Ostfeld.2015} \\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	&            		    \\
 				 							& Ecotone 				 &   0.05  & 1/day  &					    \\
 				 							& Meadow    			 &   0.10  & 1/day  &  						\\
@@ -430,7 +430,7 @@ At each time step the sub model checks whether the minimum temperature $t_{\min}
 \textbf{Parameter}								& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
 \tiny{FREEZING\_RATE}		    			 	&   0.03    	& 1/day &  							\\
-\tiny{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& Degree Celsius &  ~\cite{Gray.2009}		\\
+\tiny{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009}		\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -447,14 +447,14 @@ At each time step, the activity sub model checks the prevailing conditions in te
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & Degree Celsius & float & ~\cite{Gray.2016, MacLeod.1935} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & Degree Celsius & float & ~\cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& Degree Celsius & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & Degree Celsius & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & Degree Celsius & float & ~\cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& Degree Celsius & float & ~\cite{Kubiak.2006}		\\
+\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & °C & float & ~\cite{Gray.2016, MacLeod.1935} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & ~\cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & ~\cite{Perret.2000}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & ~\cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & ~\cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & ~\cite{Kubiak.2006}		\\
 \midrule
 \tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & 1/day & float	&  		\\
 \tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& 1/day & float	&  		\\
@@ -516,13 +516,13 @@ The sub model \inlinecode{weather} controls the processing of weather data, ~i.e
 \toprule
 \textbf{Parameter}					& \textbf{Season} 					& \textbf{Habitat Type}  & \textbf{Value}  	& \textbf{Unit} & \textbf{Reference} \\
 \midrule
-\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Spring / Autumn}  & Pasture 				 &   0.0   			& Degree Celsius & own estimation \\
-									&									& Ecotone 				 &   -1.0 	  		& Degree Celsius & own estimation	\\
-									&					 				& Wood    				 &   -2.0   		& Degree Celsius & own estimation	\\
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Spring / Autumn}  & Pasture 				 &   0.0   			& °C & own estimation \\
+									&									& Ecotone 				 &   -1.0 	  		& °C & own estimation	\\
+									&					 				& Wood    				 &   -2.0   		& °C & own estimation	\\
 \midrule
-\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 				 &   0.0    		& Degree Celsius & own estimation \\
-									&				 	 				& Ecotone 				 &  -2.0    		& Degree Celsius & ~\cite{Geiger.1995} \\
-									&				 	 				& Wood	   				 &  -4.0    		& Degree Celsius & ~\cite{Bonan.2016} \\
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 				 &   0.0    		& °C & own estimation \\
+									&				 	 				& Ecotone 				 &  -2.0    		& °C & ~\cite{Geiger.1995} \\
+									&				 	 				& Wood	   				 &  -4.0    		& °C & ~\cite{Bonan.2016} \\
 \midrule
 \multirow{3}{*}{Relative Humidity}  & \multirow{3}{*}{All seasons}      & Pasture 				 &   12   			& \%			& own estimation \\
 									&				 					& Ecotone 				 &   18    			& \%    		& own estimation \\
