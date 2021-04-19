@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \usepackage{acronym}
 \usepackage{enumerate}
+\usepackage{enumitem}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -124,14 +125,14 @@ By implementing IRIS using an Entity Component System (ECS) framework, the state
 
 The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
 \begin{small}
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item FOREST, ECOTONE, MEADOW
 \end{itemize}
 \end{small}
 
 The enumeration \inlinecode{LifeCycleStage} specifies the tick cohort. It can take the following values:
 \begin{small}
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item LARVAE, NYMPH, ADULT,  
 	\item LARVAE\_INACTIVE, NYMPH\_INACTIVE, ADULT\_INACTIVE
 	\item LARVAE\_ENGORGED, NYMPH\_ENGORGED, ADULT\_ENGORGED
@@ -149,7 +150,7 @@ A single simulation run of IRIS covers a period of one year with daily time step
 \subsection{Process overview and scheduling}
 The IRIS model simulates one year from January 1 to December 31 and is executed in daily discrete time steps. A leap year also includes 29 February. In each time step, the following model processes are executed for every grid cell and the state-variables are updated in the following order:
 
-\begin{enumerate}
+\begin{enumerate}[noitemsep]
 	\item Weather
 	\item Activity
 	\item Feeding
@@ -290,7 +291,7 @@ An overview over the input parameters can be found in Table ~\ref{tab:input_para
 \subsubsection{Observed weather data}
 Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Daily mean of temperature (TMK, [°C])
 	\item Daily minimum of air temperature at 2 m height (TNK, [°C])
 	\item Daily maximum Of air temperature at 2 m height (TXK, [°C])
@@ -305,7 +306,7 @@ This adjustment must always be made individually for each location for which sim
 Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table ~\ref{tab:climate_models} for an overview).
 
 Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item Bias Adjusted Near-Surface Air Temperature (tas, [K])
 \item Bias Adjusted Daily Maximum Near-Surface Air Temperature (tasmax, [K])
 \item Bias Adjusted Daily Minimum Near-Surface Air Temperature (tasmin, [K])
