@@ -173,7 +173,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
-\emph{Basic principles:} IRIS is a spatially explicit stochastic cohort-based tick population model. It is composed of grid cells with sub populations of \textit{I. ricinus} ticks belonging to a cohort. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) \emph{larvae}, (2) \emph{nymphs} and (3) \emph{adults}. Furthermore, each life cycle stage can adopt one of four behavioural states: (i) \emph{questing}, (ii) \emph{inactive}, (iii)  \emph{engorged} and (iv) \emph{late engorged}. The latter is a special case of the behavioural state \emph{engorged} which applies only to larvae and nymphs (see section \ref{feeding} for details). Hence, in total there are 11 tick cohorts present in the model. Technically, these cohorts exist in every cell of the model landscape, e.g. active nymphs in grid cell $(0,0)$ belong to a different cohort than active nymphs in grid cell $(3,5)$. However, for model evaluations the cohorts are considered in total. The grid cells form a model landscape that serves as habitat for \emph{I. ricinus} sub populations. Three different idealised habitat types exist in the model: (a) \emph{forest}, (b) \emph{ecotone} and (c) \emph{meadow}. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks. A visualisation of the model landscape with habitat types and tick cohorts is displayed in Figure~\ref{fig:iris_landscape}.
+\textbf{Basic principles:} IRIS is a spatially explicit stochastic cohort-based tick population model. It is composed of grid cells with sub populations of \textit{I. ricinus} ticks belonging to a cohort. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) \emph{larvae}, (2) \emph{nymphs} and (3) \emph{adults}. Furthermore, each life cycle stage can adopt one of four behavioural states: (i) \emph{questing}, (ii) \emph{inactive}, (iii)  \emph{engorged} and (iv) \emph{late engorged}. The latter is a special case of the behavioural state \emph{engorged} which applies only to larvae and nymphs (see section \ref{feeding} for details). Hence, in total there are 11 tick cohorts present in the model. Technically, these cohorts exist in every cell of the model landscape, e.g. active nymphs in grid cell $(0,0)$ belong to a different cohort than active nymphs in grid cell $(3,5)$. However, for model evaluations the cohorts are considered in total. The grid cells form a model landscape that serves as habitat for \emph{I. ricinus} sub populations. Three different idealised habitat types exist in the model: (a) \emph{forest}, (b) \emph{ecotone} and (c) \emph{meadow}. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks. A visualisation of the model landscape with habitat types and tick cohorts is displayed in Figure~\ref{fig:iris_landscape}.
 
 \begin{figure}[h!]
 \centering
@@ -185,13 +185,13 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System (ECS) framework\footnote{\url{https://github.com/junkdog/artemis-odb}}.
 
 
-\emph{Emergence:} The main output of the model are numbers of \emph{I. ricinus} ticks in each of the 11 cohorts, with the cohort of active nymphs being the most important. The numbers in each cohort emerge from the interaction of environmental conditions in each grid cell which is influenced by the weather and behavioural rules of ticks.
+\textbf{Emergence:} The main output of the model are numbers of \emph{I. ricinus} ticks in each of the 11 cohorts, with the cohort of active nymphs being the most important. The numbers in each cohort emerge from the interaction of environmental conditions in each grid cell which is influenced by the weather and behavioural rules of ticks.
 
-\emph{Adaptation:}
+\textbf{Adaptation:}
 
-\emph{Sensing:}
+\textbf{Sensing:}
 
-\emph{Stochasticity:} To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
+\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 
 \begin{singlespace}
 \begin{lstlisting}[language = Java, caption = Overview of roundRandom() method]
@@ -210,9 +210,9 @@ public int roundRandom(float value) {
 \end{lstlisting}
 \end{singlespace}
 
-\emph{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details)
+\textbf{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details)
 
-\emph{Observation:}
+\textbf{Observation:}
 
 
 
