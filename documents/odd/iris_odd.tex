@@ -257,14 +257,14 @@ The type of beech mast is divided into four classes and given as an index. Based
 \begin{table}[h!]
 \caption{Adjustment of initial number of larvae based on the fructification index}
 \label{tab:fructification_adjustment}
-\begin{tabularx}{\textwidth}{@{}lll@{}}
+\begin{tabularx}{\textwidth}{@{}clll@{}}
 \toprule
-\textbf{Fructification index} & \textbf{Description}    & \textbf{Adjustment Value}  	\\
+\textbf{Fructification index} & \textbf{Description}    & \textbf{Adjustment Value} & \textbf{Reference} \\
 \midrule
-1				 	  		  & absent fructification 	& 	0.25	 			\\
-2 				 	  		  & scarce fructification	&	0.5					\\
-3 					  		  & common fructification	& 	0.75				\\
-4					 		  & full fructification 	& 	1.0					\\
+1				 	  		  & absent fructification 	& 	0.25 & own estimation \\
+2 				 	  		  & scarce fructification	&	0.5	& own estimation  \\
+3 					  		  & common fructification	& 	0.75 & own estimation \\
+4					 		  & full fructification 	& 	1.0	& own estimation  \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -315,7 +315,7 @@ Homogenised EURO-CORDEX simulations were provided for the following parameter:
 \begin{table}[h!]
 \caption{13 GCM-RCM combinations for the RCP8.5 scenario}
 \label{tab:climate_models}
-\begin{tabularx}{\textwidth}{@{}ll@{}}
+\begin{tabularx}{\textwidth}{ll}
 \toprule
 \textbf{Driving GCM and realisation}  & \textbf{Downscaling RCM} 	\\
 \midrule
@@ -386,10 +386,10 @@ The oviposition of adult ticks is not modelled explicitly. Hence, we assume that
 \toprule
 \textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
 \midrule
-Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & ~\cite{tba}   		\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & ~\cite{tba}      	\\
-Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & ~\cite{tba}     	\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & ~\cite{tba}        \\
+Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{tba}   		\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{tba}      	\\
+Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{tba}     	\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{tba}        \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -402,17 +402,19 @@ At each time step this sub model checks the relative humidity and temperature. I
 \begin{table}[h!]
 \caption{Habitat dependent desiccation rates and threshold values}
 \label{tab:desiccation_parameters}
-\begin{tabular}{@{}llccl@{}}
+\begin{tabularx}{\textwidth}{llccl}
 \toprule
-\textbf{Parameter}							& \textbf{Habitat Type}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference} \\
+\textbf{Parameter}							& \textbf{Habitat}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference} \\
 \midrule
-\tiny{DESICCATION\_MINIMAL\_HUMIDITY}		& -    			 		 &   80.0  & \%  	&  ~\cite{Medlock.2013, Gray.2016, Hauser.2018}	\\
-\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & °C  &  ~\cite{Ostfeld.2015} \\
-\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	&            		    \\
-				 							& Ecotone 				 &   0.05  & 1/day  &					    \\
-				 							& Meadow    			 &   0.10  & 1/day  &  						\\
+\multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \cite{Medlock.2013} \\
+													   	& 					 & 						 &					   &  \cite{Gray.2016}	\\
+														& 					 & 						 &					   &  \cite{Hauser.2018} \\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & °C  &  \cite{Ostfeld.2015} \\
+\multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	& own estimation \\
+				 							& Ecotone 				 &   0.05  & 1/day  & own estimation \\
+				 							& Meadow    			 &   0.10  & 1/day  & own estimation \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Freezing}
@@ -425,14 +427,14 @@ At each time step the sub model checks whether the minimum temperature $t_{\min}
 \begin{table}[h!]
 \caption{Parameters of the freezing sub model}
 \label{tab:freezing_parameters}
-\begin{tabular}{@{}lccl@{}}
+\begin{tabularx}{\textwidth}{lccl}
 \toprule
 \textbf{Parameter}								& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
-\tiny{FREEZING\_RATE}		    			 	&   0.03    	& 1/day &  							\\
-\tiny{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009}		\\
+\small{FREEZING\_RATE}		    			 	&   0.03    	& 1/day & own estimation 	\\
+\small{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009}	\\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Activity}
@@ -443,24 +445,25 @@ At each time step, the activity sub model checks the prevailing conditions in te
 \begin{table}[h!]
 \caption{Parameters of the activity sub model}
 \label{tab:activation_parameters}
-\begin{tabular}{@{}lccll@{}}
+\begin{tabularx}{\textwidth}{lccll}
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}	& 35.0  & °C & float & ~\cite{Gray.2016, MacLeod.1935} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & ~\cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & ~\cite{Perret.2000}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & ~\cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & ~\cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & ~\cite{Kubiak.2006}		\\
+\multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\cite{Gray.2016} \\
+												    &		&	 &		 & \cite{MacLeod.1935} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \cite{Perret.2000}  		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \cite{Perret.2000}		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & \cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & \cite{Perret.2000}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & \cite{Greenfield.2011}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & \cite{Gilbert.2014}		\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & \tiny{\cite{Kubiak.2006}}		\\
 \midrule
-\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}					&  1.0  & 1/day & float	&  		\\
-\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}				&  0.05	& 1/day & float	&  		\\
-activationRate	   										    &  0.02 & 1/day & float	& determined by optimisation  \\
+\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}		&  1.0  & 1/day & float	&  		\\
+\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}	&  0.05	& 1/day & float	&  		\\
+\tiny{activationRate}	   						&  0.02 & 1/day & float	& Determined by optimisation  \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Feeding}\label{feeding}
@@ -472,23 +475,24 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 \begin{table}[h!]
 \caption{Parameters of the feeding sub model}
 \label{tab:feeding_parameters}
-\begin{tabular}{@{}llccll@{}}
+\begin{tabularx}{\textwidth}{llccll}
 \toprule
 \textbf{Parameter} & \textbf{Life Cycle Stage} & \textbf{Value} & \textbf{Unit} & \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & 		\\
-									  & Nymph	& 0.03	& 1/day & float	 &		\\
-									  & Adult	& 0.05	& 1/day & float	 &		\\
+\multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & own estimation \\
+									  & Nymph	& 0.03	& 1/day & float	 & own estimation \\
+									  & Adult	& 0.05	& 1/day & float	 & own estimation \\
 
-\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & ~\cite{tba}  \\
+\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \cite{tba}  \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \begin{table}[h!]
+\centering
 \caption{Distance probabilities of the translocation process}
 \label{tab:distance_probabilities}
-\begin{tabular}{@{}cc@{}}
+\begin{tabularx}{\textwidth}{cc}
 \toprule
 \textbf{Distance (Number of grid cells)}	& \textbf{Probability}	\\
 \midrule
@@ -502,7 +506,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 8	& 0.02 \\
 9	& 0.01 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Weather}
@@ -512,23 +516,23 @@ The sub model \inlinecode{weather} controls the processing of weather data, ~i.e
 \begin{table}[h!]
 \caption{Adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
 \label{tab:micro_climate_adjustments}
-\begin{tabular}{@{}lllccl@{}}
+\begin{tabularx}{\textwidth}{lllccl}
 \toprule
-\textbf{Parameter}					& \textbf{Season} 					& \textbf{Habitat Type}  & \textbf{Value}  	& \textbf{Unit} & \textbf{Reference} \\
+\textbf{Parameter}					& \textbf{Season} 					& \textbf{Habitat}  & \textbf{Value}  & \textbf{Unit} & \textbf{Reference} \\
 \midrule
-\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Spring / Autumn}  & Pasture 				 &   0.0   			& °C & own estimation \\
-									&									& Ecotone 				 &   -1.0 	  		& °C & own estimation	\\
-									&					 				& Wood    				 &   -2.0   		& °C & own estimation	\\
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Spring / Autumn}  & Pasture 			&   0.0   		& °C & own estimation \\
+									&									& Ecotone 			&   -1.0 	  	& °C & own estimation \\
+									&					 				& Wood    			&   -2.0   		& °C & own estimation \\
 \midrule
-\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 				 &   0.0    		& °C & own estimation \\
-									&				 	 				& Ecotone 				 &  -2.0    		& °C & ~\cite{Geiger.1995} \\
-									&				 	 				& Wood	   				 &  -4.0    		& °C & ~\cite{Bonan.2016} \\
+\multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 			&   0.0    		& °C & own estimation \\
+									&				 	 				& Ecotone 			&  -2.0    		& °C & \cite{Geiger.1995} \\
+									&				 	 				& Wood	   			&  -4.0    		& °C & \cite{Bonan.2016} \\
 \midrule
-\multirow{3}{*}{Relative Humidity}  & \multirow{3}{*}{All seasons}      & Pasture 				 &   12   			& \%			& own estimation \\
-									&				 					& Ecotone 				 &   18    			& \%    		& own estimation \\
-									&				 					& Wood    				 &   24    			& \%			& ~\cite{Boehnke.2017} 	\\
+\multirow{3}{*}{Relative Humidity}  & \multirow{3}{*}{All seasons}      & Pasture 			&   12   		& \% & own estimation \\
+									&				 					& Ecotone 			&   18    		& \% & own estimation \\
+									&				 					& Wood    			&   24    		& \% & \cite{Boehnke.2017} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 
