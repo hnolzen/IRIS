@@ -123,7 +123,7 @@ Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
 \end{tabularx}
 \end{table}
 
-The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
+In addition, each grid cell entity is provided with a unique identification number used for internal processing by the ECS framework. This \inlinecode{entityID} is linked to the component \inlinecode{Position} within the ECS resource {SpatialIndex} using a HashMap. The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
 \begin{small}
 \begin{itemize}[noitemsep]
 	\item FOREST, ECOTONE, MEADOW
