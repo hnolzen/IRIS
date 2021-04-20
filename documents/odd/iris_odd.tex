@@ -105,7 +105,7 @@ The model is composed of grid cell entities.
 By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called \textit{components}, which are attached to the grid cell entities. Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
 
 \begin{table}[H]
-\caption{State variables of the IRIS model.}
+\caption[Overview of state variables of the IRIS model.]{Overview of state variables of the IRIS model.}
 \label{tab:state_variables}
 \begin{tabularx}{\textwidth}{lllll}
 \toprule
@@ -166,7 +166,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.8\linewidth]{scheduling}
-\caption{Overview over the scheduling of model processes}
+\caption[Schematic representation of the scheduling of model processes.]{Schematic representation of the scheduling of model processes.}
 \label{fig:iris_scheduling}
 \end{figure}
 
@@ -178,7 +178,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\linewidth]{landscape}
-\caption{The IRIS model landscape consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of three life cycle stages (larva, nymph, adult) together with one of four behavioural states (questing, inactive, engorged and late engorged).}
+\caption[Schematic representation of the IRIS model landscape.]{Schematic representation of the IRIS model landscape. It consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of three life cycle stages (larva, nymph, adult) together with one of four behavioural states (questing, inactive, engorged and late engorged).}
 \label{fig:iris_landscape}
 \end{figure}
 
@@ -226,7 +226,7 @@ The initialisation of the model involves the following steps. First, IRIS is sta
 When calling the main method of the class \inlinecode{AdHoc} individual command line parameters, if available, are first passed to the model (see Table~\ref{tab:initialisation_parameters}). These parameters are used to call the method \inlinecode{run()} in the class \inlinecode{Model}. These include, among other items, the initial number of larvae, nymphs and adults.
 
 \begin{table}[h!]
-\caption{Input parameters}
+\caption[Overview of model input parameters.]{Overview of model input parameters.}
 \label{tab:initialisation_parameters}
 \begin{tabularx}{\textwidth}{lllll}
 \toprule
@@ -252,7 +252,7 @@ If data is available the model is able to use beech mast fructification data of 
 The type of beech mast is divided into four classes and given as an index. Based on this fructification index, the model adjusts the initial number of larvae at the beginning of a simulation run. The default number of initial larvae is reduced if when the second year before the simulated year is not a mast year with full fructification. The strength of the reduction depends on the type of beech mast, i.e.\ the fructification index. Table~\ref{tab:fructification_adjustment} gives an overview over the adjustment values. Information on the beech mast input data can be found in Section~\ref{subsubsec:beech_mast_data}.
 
 \begin{table}[h!]
-\caption{Adjustment of initial number of larvae based on the fructification index}
+\caption[Overview of beech fructification adjustment values for model initialisation.]{Overview of adjustment values to adjust the initial number of larvae based on the fructification index.}
 \label{tab:fructification_adjustment}
 \begin{tabularx}{\textwidth}{clll}
 \toprule
@@ -308,7 +308,7 @@ Homogenised EURO-CORDEX simulations were provided for the following parameter:
 
 
 \begin{table}[h!]
-\caption{13 GCM-RCM combinations for the RCP8.5 scenario}
+\caption[Overview of EURO-CORDEX simulations used for model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data.}
 \label{tab:climate_models}
 \begin{tabularx}{\textwidth}{ll}
 \toprule
@@ -339,7 +339,7 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
 
 \begin{table}[h!]
-\caption{Input parameters}
+\caption[Overview of model input data.]{Overview of model input data. The table shows the input variables that are processed by the model. These include the daily weather data, which can come from weather stations or climate simulations and the beech fructification index, whose values come from~\cite{Konnert.2016}}
 \label{tab:input_parameters}
 \begin{tabularx}{\textwidth}{llll}
 \toprule
@@ -376,7 +376,7 @@ if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
 \label{lst:adult_to_larvae}
 
 \begin{table}[h!]
-\caption{Time period of development to next life cycle stage}
+\caption[Overview of start and end times of \emph{I. ricinus} developmental phases.]{Overview of start and end times of \emph{I. ricinus} developmental phases. The second column contain the values of the time step at which the development from one life cycle stage to the next starts or ends.}
 \label{tab:development_parameters}
 \begin{tabularx}{\textwidth}{lclcl}
 \toprule
@@ -396,7 +396,7 @@ This sub model controls the desiccation of ticks. It is implemented in the metho
 At each time step this sub model checks the relative humidity and temperature. If these exceed certain thresholds a proportion of all questing ticks that are in such a grid cell will desiccate (see Table ~\ref{tab:desiccation_parameters}). The exact desiccation rate depends on the habitat type of the grid cell. Thereby we capture the favourable effect of the more humid microclimate within a forest compared to a meadow on tick survival. Desiccated ticks are removed from the modelled population.
 
 \begin{table}[h!]
-\caption{Habitat dependent desiccation rates and threshold values}
+\caption[Overview of habitat-dependent desiccation rates and threshold values.]{Overview of habitat dependent desiccation rates and threshold values}
 \label{tab:desiccation_parameters}
 \begin{tabularx}{\textwidth}{llccl}
 \toprule
@@ -421,7 +421,7 @@ The sub model \emph{Freezing} is responsible for modeling the effect of extreme 
 At each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
 
 \begin{table}[h!]
-\caption{Parameters of the freezing sub model}
+\caption[Overview of temperature threshold and freezing rate.]{Overview of temperature threshold and freezing rate in case of extreme cold.}
 \label{tab:freezing_parameters}
 \begin{tabularx}{\textwidth}{lccl}
 \toprule
@@ -439,7 +439,7 @@ The sub model \emph{Activity} is responsible for controlling the activity status
 At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a given time step is a result of the balance of activation (towards the questing state) and deactivation (towards the inactive stage) over the previous time steps. Table ~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
 
 \begin{table}[h!]
-\caption{Parameters of the activity sub model}
+\caption[Overview of questing activation rates and temperature threshold values.]{Overview of questing activation rates and temperature threshold values.}
 \label{tab:activation_parameters}
 \begin{tabularx}{\textwidth}{lccll}
 \toprule
@@ -469,7 +469,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 
 
 \begin{table}[h!]
-\caption{Parameters of the feeding sub model}
+\caption[Overview of feeding rates for each life cycle stage]{Overview of feeding rates for each life cycle stage}
 \label{tab:feeding_parameters}
 \begin{tabularx}{\textwidth}{llccll}
 \toprule
@@ -485,7 +485,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 
 \begin{table}[h!]
 \centering
-\caption{Distance probabilities of the translocation process}
+\caption[Overview of distance-dependent probabilities of the translocation process]{Overview of the distance-dependent probabilities of the translocation process.}
 \label{tab:distance_probabilities}
 \begin{tabularx}{\textwidth}{cc}
 \toprule
@@ -509,7 +509,7 @@ The sub model \emph{weather} controls the processing of weather data, ~i.e.\ dai
 
 
 \begin{table}[h!]
-\caption{Adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
+\caption[Overview of microclimatic adjustment values]{Overview of adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
 \label{tab:micro_climate_adjustments}
 \begin{tabularx}{\textwidth}{lllccl}
 \toprule
