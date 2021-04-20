@@ -62,7 +62,7 @@
 \setlength{\parskip}{1em}
 
 \title{IRIS - ODD Protocol}
-\author{}
+\author{EcoEpi}
 \date{\today}
 
 \begin{document}
@@ -123,7 +123,7 @@ Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
 \end{tabularx}
 \end{table}
 
-In addition, each grid cell entity is provided with a unique identification number used for internal processing by the ECS framework. This \inlinecode{entityID} is linked to the component \inlinecode{Position} within the ECS resource {SpatialIndex} using a HashMap. The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
+In addition, each grid cell entity is provided with a unique identification number used for internal processing by the ECS framework. This \inlinecode{entityID} is linked to the component \inlinecode{Position} within the ECS resource \inlinecode{SpatialIndex}. The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
 \begin{small}
 \begin{itemize}[noitemsep]
 	\item FOREST, ECOTONE, MEADOW
@@ -144,7 +144,7 @@ The enumeration \inlinecode{LifeCycleStage} specifies the tick cohort. Each coho
 \subsubsection{Scales}
 The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$). The model landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. The reason for this is that tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
 
-A single simulation run of IRIS covers a period of one year with daily time steps. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis from German weather stations and climate simulation models (see Section ~\ref{input_data} for details). Furthermore, daily time steps are also computationally feasible.
+A single simulation run of IRIS covers a period of one year with daily time steps. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis from German weather stations and climate simulation models (see Section~\ref{input_data} for details). Furthermore, daily time steps are also computationally feasible.
 
 
 \subsection{Process overview and scheduling}
@@ -178,7 +178,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\linewidth]{landscape}
-\caption{The IRIS model landscape consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of 3 life cycle stages (larva, nymph, adult) together with one of 4 behavioural states (questing, inactive, engorged and late engorged).}
+\caption{The IRIS model landscape consists of 12 x 12 grid cells. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of three life cycle stages (larva, nymph, adult) together with one of four behavioural states (questing, inactive, engorged and late engorged).}
 \label{fig:iris_landscape}
 \end{figure}
 
@@ -191,7 +191,7 @@ IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Compo
 
 \textbf{Sensing:}
 
-\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator ``Mersenne-Twister'' provided by Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
+\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 
 \begin{lstlisting}[language = Java, caption = {Overview of roundRandom() method}]
 public int roundRandom(float value) {
@@ -216,8 +216,6 @@ public int roundRandom(float value) {
 
 
 \newpage
-
-
 \section{Details}
 
 \subsection{Globals}
@@ -246,10 +244,10 @@ summary       		&   & true & boolean & write only summary outputs \\
 \end{tabularx}
 \end{table}
 
-Afterwards, the random number generator is initialised with a random seed and the world configuration of the Entity Component System is assembled. This includes the registration of the ECS Systems (Activity, Feeding, TickLifeCycle, Weather) and Resources (Parameters, Randomness, SpatialIndex and TimeStep). This is followed by the initialisation of the model landscape, i.e.\ each grid cell is assigned a position $(x, y)$ and a habitat type (forest, ecotone, meadow). In addition, the ECS components (Habitat, Humidity, Position, Precipitation, Temperature, TickAbundance) are added to the grid cells (i.e.\ the ECS entities).
+Afterwards, the random number generator is initialised with a random seed and the world configuration of the Entity Component System is assembled. This includes the registration of the ECS Systems \inlinecode{Activity}, \inlinecode{Feeding}, \inlinecode{TickLifeCycle}, \inlinecode{Weather} and the ECS resources \inlinecode{Parameters}, \inlinecode{Randomness}, \inlinecode{SpatialIndex} and \inlinecode{TimeStep}. This is followed by the initialisation of the model landscape, i.e.\ each grid cell is assigned a position $(x, y)$ and a habitat type (forest, ecotone, meadow). In addition, the ECS components \inlinecode{Habitat}, \inlinecode{Humidity}, \inlinecode{Position}, \inlinecode{Temperature} and \inlinecode{TickAbundance} are added to the grid cells (i.e.\ the ECS entities).
 
 \subsubsection{Adjusting the initial number of larvae using beech mast fructification data}\label{subsubsec:initial_larvae_with_beech_mast}
-If data is available the model is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica} to adjust the initial number of larvae at the beginning of a simulation run. This reason for this adjustment can be explained as follows: Small rodents serve as host animals especially for \textit{Ixodes ricinus} larvae~\parencite{Cayol.2017}. A higher density of small rodents in a given year causes an increase in the population of larvae and nymphs in the following year~\parencite{Brugger.2018}. Data on beech mast can be used to estimate rodent populations, because a year with high mast production leads to an increase in the rodent population in the following year due to higher food supply~\parencite{Clement.2009}. Hence, we assume that the initial number of larvae at the beginning of a simulation run of a given year is influenced by the beech mast two years before.
+If data is available the model is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica} to adjust the initial number of larvae at the beginning of a simulation run. This reason for this adjustment can be explained as follows: Small rodents serve as host animals especially for \textit{I. ricinus} larvae~\parencite{Cayol.2017}. A higher density of small rodents in a given year causes an increase in the population of larvae and nymphs in the following year~\parencite{Brugger.2018}. Data on beech mast can be used to estimate rodent populations, because a year with high mast production leads to an increase in the rodent population in the following year due to higher food supply~\parencite{Clement.2009}. Hence, we assume that the initial number of larvae at the beginning of a simulation run of a given year is influenced by the beech mast two years before.
 
 The type of beech mast is divided into four classes and given as an index. Based on this fructification index, the model adjusts the initial number of larvae at the beginning of a simulation run. The default number of initial larvae is reduced if when the second year before the simulated year is not a mast year with full fructification. The strength of the reduction depends on the type of beech mast, i.e.\ the fructification index. Table~\ref{tab:fructification_adjustment} gives an overview over the adjustment values. Information on the beech mast input data can be found in Section~\ref{subsubsec:beech_mast_data}.
 
@@ -278,7 +276,7 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 \item Daily near surface relative humidity [\%]
 \end{itemize}
 
-An overview over the input parameters can be found in Table ~\ref{tab:input_parameters}.
+An overview over the input parameters can be found in Table~\ref{tab:input_parameters}.
 
 \subsubsection{Observed weather data}
 Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
@@ -290,12 +288,10 @@ Observed daily temperature and humidity data from the Deutscher Wetterdienst (DW
 	\item Daily mean of relative humidity (UPM, [\%])
 \end{itemize}
 
-Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$.
-
-This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
+Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
 \subsubsection{Climate simulation data}
-Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table ~\ref{tab:climate_models} for an overview).
+Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview).
 
 Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
 \begin{itemize}[noitemsep]
@@ -341,7 +337,6 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 
 \subsubsection{Beech mast fructification data}\label{subsubsec:beech_mast_data}
 IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
-
 
 \begin{table}[h!]
 \caption{Input parameters}
@@ -410,7 +405,7 @@ At each time step this sub model checks the relative humidity and temperature. I
 \multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \cite{Medlock.2013} \\
 													   	& 					 & 						 &					   &  \cite{Gray.2016}	\\
 														& 					 & 						 &					   &  \cite{Hauser.2018} \\
-\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & °C  &  \cite{Ostfeld.2015} \\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \cite{Ostfeld.2015} \\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	& own estimation \\
 				 							& Ecotone 				 &   0.05  & 1/day  & own estimation \\
 				 							& Meadow    			 &   0.10  & 1/day  & own estimation \\
@@ -419,9 +414,9 @@ At each time step this sub model checks the relative humidity and temperature. I
 \end{table}
 
 \subsubsection{Freezing}
-The sub model `freezing' is responsible for modeling the effect of extreme cold on ticks. It is implemented in the method \inlinecode{freezing()} in the class \inlinecode{TickLifeCycle}.
+The sub model \emph{Freezing} is responsible for modeling the effect of extreme cold on ticks. It part of the ECS component \inlinecode{Freezing} and implemented in the method \inlinecode{freezing()}.
 
-Ixodes ricinus ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
+\emph{I. ricinus} ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
 
 At each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, some of the ticks are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
 
@@ -439,9 +434,9 @@ At each time step the sub model checks whether the minimum temperature $t_{\min}
 \end{table}
 
 \subsubsection{Activity}
-The sub model `activity' is responsible for controlling the activity status of the modeled tick population. It is implemented in the class \inlinecode{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground, where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
+The sub model \emph{Activity} is responsible for controlling the activity status of the modeled tick population. It is implemented in the class \inlinecode{Activity}. Activity in context of this model means that ticks are either questing (also known as host-seeking) or inactive unless they are engorged. The change from one activity state to the other depends on the microclimate to which the tick is exposed. When temperatures and relative humidity are suitable, unfed ticks begin to quest~\parencite{Perret.2000}. They do this by climbing up the vegetation to find a host. To prevent desiccation, ticks must return to the ground, where the relative humidity is greater than the relative humidity at host-seeking height due to the ground moisture~\parencite{Randolph.2004}.
 
-At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a given time step is a result of the balance of "activation" (towards the questing state) and "deactivation" (towards the inactive stage) over the previous time steps. Table ~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
+At each time step, the activity sub model checks the prevailing conditions in terms of temperature and relative humidity. When microclimatic conditions are suitable for questing, i.e.\ when temperature and humidity are within certain ranges (see Table~\ref{tab:activation_parameters}), the number of questing ticks increases with a specific activation rate and the number of inactive ticks is reduced accordingly. Under suboptimal but possible conditions, only a very small proportion of ticks will quest. In this case the number of questing ticks increases at a much lower activation rate. But if the microclimatic conditions are unsuitable for host-seeking, the ticks will retreat to the ground to rehydrate with the default activation rate. The ticks are then classified as inactive. Tick activity is a dynamic process, i.e.\ the total number of ticks questing at a given time step is a result of the balance of activation (towards the questing state) and deactivation (towards the inactive stage) over the previous time steps. Table ~\ref{tab:activation_parameters} contains an overview over the activation parameters values belonging to the activity sub model.
 
 \begin{table}[h!]
 \caption{Parameters of the activity sub model}
@@ -452,23 +447,23 @@ At each time step, the activity sub model checks the prevailing conditions in te
 \midrule
 \multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\cite{Gray.2016} \\
 												    &		&	 &		 & \cite{MacLeod.1935} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \cite{Perret.2000}  		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \cite{Perret.2000}		\\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & \cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & \cite{Perret.2000}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & \cite{Greenfield.2011}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & \cite{Gilbert.2014}		\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & \tiny{\cite{Kubiak.2006}}		\\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \cite{Perret.2000} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \cite{Perret.2000} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & \cite{Greenfield.2011} \\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & \cite{Perret.2000} \\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & \cite{Greenfield.2011} \\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & \cite{Gilbert.2014}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & \tiny{\cite{Kubiak.2006}} \\
 \midrule
-\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}		&  1.0  & 1/day & float	&  		\\
-\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}	&  0.05	& 1/day & float	&  		\\
-\tiny{activationRate}	   						&  0.02 & 1/day & float	& Determined by optimisation \\
+\tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}		&  1.0  & 1/day & float	& - \\
+\tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}	&  0.05	& 1/day & float	& own estimation \\
+\small{activationRate}	   						&  0.02 & 1/day & float	& \small{Determined by optimisation} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsubsection{Feeding}\label{feeding}
-The sub model `feeding' controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \inlinecode{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
+The sub model \emph{Feeding} controls the feeding success of ticks and includes a translocation process by which the ticks are moved to another location on the model landscape. It is implemented in the class \inlinecode{Feeding}. Feeding in the context of this model means that questing ticks find a host, attach themselves to it for their bloodmeal and drop off later at another location due to the movement of the host~\parencite{Medlock.2013}. The feeding process takes place instantaneously. Neither the individual steps of this process nor the host animals are explicitly modelled.
 
 At each time step, ticks feed across all cells of the model landscape at a specific rate that depends on their respective life cycle stage (see Table~\ref{tab:feeding_parameters}). We assume that the probability of a tick moving a certain distance is negatively correlated with the distance length (see Table~\ref{tab:distance_probabilities}). At the end of the feeding process ticks are considered engorged and the numbers in the respective cohorts are adjusted accordingly. Late feeders that find a host in or after late summer, i.e.\ approximately Mid-September do not develop to the next life cycle stage stage until the following year (Kahl 2020, personal communication). To prevent them from developing to the next life cycle stage after Mid-september in an ongoing simulation, they are assigned to a separate cohort. Table ~\ref{tab:feeding_parameters} gives an overview over the feeding parameters of the feeding sub model. The distance probabilities of the translocation process can be found in Table ~\ref{tab:distance_probabilities}.
 
@@ -510,7 +505,7 @@ At each time step, ticks feed across all cells of the model landscape at a speci
 \end{table}
 
 \subsubsection{Weather}
-The sub model \inlinecode{weather} controls the processing of weather data, ~i.e. daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \inlinecode{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings ~\cite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations ~\cite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
+The sub model \emph{weather} controls the processing of weather data, ~i.e.\ daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \inlinecode{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings ~\cite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations ~\cite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
 
 
 \begin{table}[h!]
