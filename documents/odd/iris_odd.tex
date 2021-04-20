@@ -365,18 +365,20 @@ fructificationIndex & $f$            & int               & Fructification index	
 \subsection{Submodels}\label{submodels}
 
 \subsubsection{Development}
-This sub model is responsible for the development from one tick life cycle stage to the next. It is implemented in the method \inlinecode{development()} in the class \inlinecode{TickLifeCycle}. The life cycle of \textit{Ixodes ricinus} ticks consists of four life stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}.
+This sub model is responsible for the development from one tick life cycle stage to the next. It is part of the \inlinecode{TickLifeCycle} component and implemented in the method \inlinecode{development()}. The life cycle of \textit{I. ricinus} ticks consists of four life cycle stages: eggs, larvae, nymphs, adults. Once the eggs have hatched into larvae, each further life cycle stage requires a bloodmeal to develop to the next life cycle stage~\parencite{tba}. IRIS models the life cycle stages larvae, nymphs and adults.
 
-The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state 'engorged' and added to the cohort of the next life cycle stage with behavioural state 'inactive'. We assume that all engorged ticks will have developed at the end of the development period:
+The development from one life cycle stage to the next takes place over specific periods of time. The development period begins at the beginning of July and ends either in early or mid-October, depending on the life cycle stage~\parencite{tba}. Since only engorged ticks can develop to the next life cycle stage, their number is subtracted from the respective cohort with behavioural state \emph{engorged} and added to the cohort of the next life cycle stage with behavioural state \emph{inactive}. We assume that all engorged ticks will have developed at the end of the development period. The values of the start and end times of the development period are implemented as constants (see Table ~\ref{tab:development_parameters}).
 
-\begin{equation}
-n_{\text{developing}}(t) = \text{roundRandom}(\frac{n_{engorged}(t)}{t_{\text{end} - t_{\text{current}}}})
-\end{equation}
+The oviposition of adult ticks is not modelled explicitly. It is assumed that the number of new larvae depends on the number of engorged adult ticks (see Listing \ref{lst:adult_to_larvae}).
 
-The values of the start and end times of the development period are implemented as constants. Table ~\ref{tab:development_parameters} gives an overview over the development parameters.
-
-The oviposition of adult ticks is not modelled explicitly. Hence, we assume that adult ticks become new larvae.
-% need further explanation
+\begin{lstlisting}[language = Java, caption = {Calculation of new larvae based on the number of engorged adults}]
+if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
+	var remainingDays = Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE - currentTimeStep;
+	var nextStageLarvae = randomness.roundRandom((float) abundance.getEngorgedAdults() / (float) remainingDays);
+	abundance.addInactiveLarvae(nextStageLarvae);
+	abundance.addEngorgedAdults(-nextStageLarvae);
+\end{lstlisting}
+\label{lst:adult_to_larvae}
 
 \begin{table}[h!]
 \caption{Time period of development to next life cycle stage}
