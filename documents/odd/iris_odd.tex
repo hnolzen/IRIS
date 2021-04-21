@@ -264,7 +264,7 @@ The type of beech mast is divided into four classes and given as an index. Based
 \end{table}
 
 \subsection{Input data}\label{input_data}
-IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis:
+IRIS uses observed weather and simulated climate data and optionally data on beech mast as input data. In detail, the model requires the following input data on a daily basis (see Table~\ref{tab:input_parameters} for a more detailed overview of the input parameters):
 
 \begin{itemize}[noitemsep]
 \item Daily mean near-surface air temperature [°C]
@@ -273,10 +273,7 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 \item Daily near surface relative humidity [\%]
 \end{itemize}
 
-An overview over the input parameters can be found in Table~\ref{tab:input_parameters}.
-
-\subsubsection{Observed weather data}
-Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
+\textbf{Observed weather data:} Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
 
 \begin{itemize}[noitemsep]
 	\item Daily mean of temperature (TMK, [°C])
@@ -287,22 +284,18 @@ Observed daily temperature and humidity data from the Deutscher Wetterdienst (DW
 
 Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
-\subsubsection{Climate simulation data}
-Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview).
-
-Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
+\textbf{Climate simulation data:} Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
 \begin{itemize}[noitemsep]
 \item Bias Adjusted Near-Surface Air Temperature (tas, [K])
 \item Bias Adjusted Daily Maximum Near-Surface Air Temperature (tasmax, [K])
 \item Bias Adjusted Daily Minimum Near-Surface Air Temperature (tasmin, [K])
 \end{itemize}
 
-Homogenised EURO-CORDEX simulations were provided for the following parameter:
+In addition, homogenised EURO-CORDEX simulations were provided for the following parameter:
 \begin{itemize}
 \item Near-Surface Relative Humidity (hurs, [\%])
 \end{itemize}
 % noch etwas mehr erläutern (EURO-CORDEX, bias-adjusted, homogenised, etc., Warum so viele Modelle)
-
 
 \begin{table}[h!]
 \caption[Overview of EURO-CORDEX simulations used for model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data.}
@@ -332,8 +325,8 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 % erklären: als NetCDF file für Ausschnitt ca. Deutschland bekommen --> *.csv file (Rausziehen der Wetterzeitreihe mittels Skript)
 % Umrechnung von K in Celsius
 
-\subsubsection{Beech mast fructification data}\label{subsubsec:beech_mast_data}
-IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
+\textbf{Beech mast fructification data:} IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
+
 
 \begin{table}[h!]
 \caption[Overview of model input data.]{Overview of model input data. The table shows the input variables that are processed by the model. These include the daily weather data, which can come from weather stations or climate simulations and the beech fructification index, whose values come from~\cite{Konnert.2016}}
