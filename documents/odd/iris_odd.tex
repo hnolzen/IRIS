@@ -191,7 +191,7 @@ IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Compo
 
 \textbf{Sensing:} Ticks are assumed to sense temperature and relative humidity. Due to the cohort-based nature of the model, sensing does not take place at the level of an individual tick but instead at the level of the respective cohorts.
 
-\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
+\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.). In addition, we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen. Otherwise, in some cases the number of ticks in cohorts could never become zero when normal rounding was applied. The random rounding algorithm is presented below.
 
 \begin{lstlisting}[language = Java, caption = {Overview of roundRandom() method}]
 public int roundRandom(float value) {
