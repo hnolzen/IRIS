@@ -89,7 +89,7 @@
 \section{Overview}
 In this document, we describe the model IRIS (Ixodes RIcinus Simulator). It is a cohort-based and spatially-explicit population model to simulate local dynamics of \textit{Ixodes ricinus} ticks under climate change. It consists of behavioural rules of \textit{I. ricinus} ticks and takes weather and climate data as input to simulate the seasonal spatio-temporal abundance and questing activity of ticks of different life stages over a year with daily time steps. Thereby, the emphasis is put on nymphal ticks, as they pose the greatest risk to humans. The model dynamic is driven by the population's response to prevailing temperatures and relative humidity as well as habitat conditions in each time step.
 
-This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically describe models in a comprehensive and transparent way aiming to allow for model replication ~\parencite{Grimm.2010, Grimm.2020}.
+This model description follows the Overview, Design concepts and Details (ODD) protocol. ODD is a standard format to systematically describe models in a comprehensive and transparent way aiming to allow for model replication~\parencite{Grimm.2010, Grimm.2020}.
 
 
 \subsection{Purpose}
@@ -142,7 +142,7 @@ The enumeration \inlinecode{LifeCycleStage} specifies the tick cohort. Each coho
 
 
 \subsubsection{Scales}
-The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$). The model landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. The reason for this is that tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$ ~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$ ~\parencite{Brugger.2016, Schulz.2014}.
+The spatial scale of the model corresponds to a local region of approximately $14400 \mathrm{m}^{2}$ ($= 0.0144 \mathrm{km}^{2}$). The model landscape consists of $12 \times 12 = 144$ grid cells. A grid cell corresponds to an area of $10 \mathrm{m} \times 10 \mathrm{m} = 100 \mathrm{m}^{2}$. The reason for this is that tick densities are usually expressed in numbers per $100 \mathrm{m}^{2}$~\parencite[see e.g.][Table 2]{Boehnke.2015}. This is because the standard method of collecting host-seeking ticks (called flagging) is typically done over a sampling area of $100 \mathrm{m}^{2}$~\parencite{Brugger.2016, Schulz.2014}.
 
 A single simulation run of IRIS covers a period of one year with daily time steps. On this time scale, we are able to capture the local population dynamics of ticks well. Since our model is cohort-based we are looking at averaged behaviour which harmonises well with daily time steps. Required input data such as temperature and humidity is available on a daily basis from German weather stations and climate simulation models (see Section~\ref{input_data} for details). Furthermore, daily time steps are also computationally feasible.
 
@@ -325,11 +325,11 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 % erklären: als NetCDF file für Ausschnitt ca. Deutschland bekommen --> *.csv file (Rausziehen der Wetterzeitreihe mittels Skript)
 % Umrechnung von K in Celsius
 
-\textbf{Beech mast fructification data:} IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\cite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\cite{Konnert.2016}.
+\textbf{Beech mast fructification data:} IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\textcite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\textcite{Konnert.2016}.
 
 
 \begin{table}[h!]
-\caption[Overview of model input data.]{Overview of model input data. The table shows the input variables that are processed by the model. These include the daily weather data, which can come from weather stations or climate simulations and the beech fructification index, whose values come from~\cite{Konnert.2016}}
+\caption[Overview of model input data.]{Overview of model input data. The table shows the input variables that are processed by the model. These include the daily weather data, which can come from weather stations or climate simulations and the beech fructification index, whose values come from~\textcite{Konnert.2016}}
 \label{tab:input_parameters}
 \begin{tabularx}{\textwidth}{llll}
 \toprule
@@ -370,10 +370,10 @@ if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
 \toprule
 \textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
 \midrule
-Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{tba}   		\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{tba}      	\\
-Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{tba}     	\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{tba}			\\
+Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{Kahl}   		\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{Kahl}      	\\
+Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{Kahl}     	\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{Kahl}			\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -390,9 +390,9 @@ In each time step this sub model checks the relative humidity and temperature. I
 \toprule
 \textbf{Parameter}							& \textbf{Habitat}  & \textbf{Value} & \textbf{Unit}	& \textbf{Reference} \\
 \midrule
-\multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \cite{Medlock.2013} \\
-													   	& 					 & 						 &					   &  \cite{Gray.2016}	\\
-														& 					 & 						 &					   &  \cite{Hauser.2018} \\
+\multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \textcite{Medlock.2013} \\
+													   	& 					 & 						 &					   &  \textcite{Gray.2016}	\\
+														& 					 & 						 &					   &  \textcite{Hauser.2018} \\
 \tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \cite{Ostfeld.2015} \\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	& own estimation \\
 				 							& Ecotone 				 &   0.05  & 1/day  & own estimation \\
@@ -414,7 +414,7 @@ In each time step the sub model checks whether the minimum temperature $t_{\min}
 \textbf{Parameter}								& \textbf{Value} & \textbf{Unit}	& \textbf{Reference}  		\\
 \midrule
 \small{FREEZING\_RATE}		    			 	&   0.03    	& 1/day & own estimation 	\\
-\small{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\cite{Gray.2009} \\
+\small{FREEZING\_MIN\_TEMP\_WITHOUT\_SNOW}	   	&   -18.9    	& °C &  ~\textcite{Gray.2009} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -432,14 +432,14 @@ In each time step, the activity sub model checks the prevailing conditions in te
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
 \multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\cite{Gray.2016} \\
-												    &		&	 &		 & \cite{MacLeod.1935} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \cite{Perret.2000} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \cite{Perret.2000} \\
-\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & \cite{Greenfield.2011} \\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & \cite{Perret.2000} \\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & \cite{Greenfield.2011} \\
-\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & \cite{Gilbert.2014}	\\
-\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & \tiny{\cite{Kubiak.2006}} \\
+												    &		&	 &		 & \textcite{MacLeod.1935} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \textcite{Perret.2000} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \textcite{Perret.2000} \\
+\tiny{ACTIVATION\_NECESSARY\_MINIMAL\_HUMIDITY}	& 45.0  & °C & float & \textcite{Greenfield.2011} \\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MAX\_TEMP}	& 10.5 	& °C & float & \textcite{Perret.2000} \\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MAX\_TEMP}	& 26.0  & °C & float & \textcite{Greenfield.2011} \\
+\tiny{ACTIVATION\_OPTIMAL\_MINIMAL\_MEAN\_TEMP}	&  6.0  & °C & float & \textcite{Gilbert.2014}	\\
+\tiny{ACTIVATION\_OPTIMAL\_MAXIMAL\_MEAN\_TEMP}	& 20.0 	& °C & float & \tiny{\textcite{Kubiak.2006}} \\
 \midrule
 \tiny{OPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}		&  1.0  & 1/day & float	& - \\
 \tiny{SUBOPTIMAL\_SHARE\_OF\_ACTIVATION\_RATE}	&  0.05	& 1/day & float	& own estimation \\
@@ -490,7 +490,7 @@ In each time step, ticks feed across all cells of the model landscape at a speci
 \end{table}
 
 \subsubsection{Weather}
-The sub model \emph{weather} controls the processing of weather data, ~i.e.\ daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \inlinecode{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings ~\parencite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations ~\parencite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
+The sub model \emph{weather} controls the processing of weather data, ~i.e.\ daily mean, minimum and maximum temperature and daily relative humidity. This sub model is implemented in the class \inlinecode{Weather}. During model initialisation (see Section \ref{initialisation}), the weather data for temperature and relative humidity are read in from a CSV file from the model input folder and internally stored in array lists. During model execution the corresponding values of a day are then retrieved at each time step. These values must then be adapted to the microclimatic conditions depending on the season of the year and the specific habitat type. The reason for this adjustment is that measured values from a weather station or simulated values from a climate simulation do not represent the actual conditions on the ground to which ticks are exposed. For example, during summer the air temperatures in a forest is cooler than above canopy or in clearings~\parencite{Bonan.2016, Geiger.1995}. Also the actual relative humidity in the litter layer of a forest differs considerably from measured values from nearby weather stations~\parencite{Boehnke.2017}. Therefore, these deviations must be corrected accordingly. The season and habitat dependent adjustment values used by our model can be found in Table ~\ref{tab:micro_climate_adjustments}.
 
 \begin{table}[h!]
 \caption[Overview of microclimatic adjustment values]{Overview of adjustment values to adapt weather and climate data to the real conditions at the ground where ticks live}
@@ -504,12 +504,12 @@ The sub model \emph{weather} controls the processing of weather data, ~i.e.\ dai
 									&					 				& Wood    			&   -2.0   		& °C & own estimation \\
 \midrule
 \multirow{3}{*}{Temperature} 		& \multirow{3}{*}{Summer}        	& Pasture 			&   0.0    		& °C & own estimation \\
-									&				 	 				& Ecotone 			&  -2.0    		& °C & \cite{Geiger.1995} \\
-									&				 	 				& Wood	   			&  -4.0    		& °C & \cite{Bonan.2016} \\
+									&				 	 				& Ecotone 			&  -2.0    		& °C & \textcite{Geiger.1995} \\
+									&				 	 				& Wood	   			&  -4.0    		& °C & \textcite{Bonan.2016} \\
 \midrule
 \multirow{3}{*}{Relative Humidity}  & \multirow{3}{*}{All seasons}      & Pasture 			&   12   		& \% & own estimation \\
 									&				 					& Ecotone 			&   18    		& \% & own estimation \\
-									&				 					& Wood    			&   24    		& \% & \cite{Boehnke.2017} \\
+									&				 					& Wood    			&   24    		& \% & \textcite{Boehnke.2017} \\
 \bottomrule
 \end{tabularx}
 \end{table}
