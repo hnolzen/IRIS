@@ -189,7 +189,7 @@ IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Compo
 
 \textbf{Adaptation:} The adaptive behaviour of ticks consists in their reaction to daily temperature and relative humidity to avoid desiccation or freezing or to seek for a host. When certain temperature and humidity values fall below or exceed certain thresholds in their respective habitats, ticks switch between their behavioural states \emph{questing} and \emph{inactive}. Since the model is cohort-based, adaptive behaviour does not take place at the level of an individual tick, but is aggregated at the level of the respective cohort. A share of the number of ticks in a given cohort is shifted to the other cohort in response to environmental influences. The adaptive behaviour is described in detail in the section \ref{submodels} (submodels).
 
-\textbf{Sensing:}
+\textbf{Sensing:} Ticks are assumed to sense temperature and relative humidity. Due to the cohort-based nature of the model, sensing does not take place at the level of an individual tick but instead at the level of the respective cohorts.
 
 \textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.). In addition we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen.
 
