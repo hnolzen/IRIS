@@ -166,7 +166,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.8\linewidth]{iris_scheduling.png}
-\caption[Schematic representation of the scheduling of model processes.]{Schematic representation of the scheduling of model processes.}
+\caption[Schematic representation of the scheduling of model processes.]{Schematic representation of the scheduling of model processes. The processes Weather, Activity, Feeding, Development, Freezing and Desiccation (indicated by white boxes) are executed in each time step sequentially starting with the weather process. The processes Development, Freezing and Desiccation are part of the ECS component \inlinecode{TickLifeCycle}.}
 \label{fig:iris_scheduling}
 \end{figure}
 
