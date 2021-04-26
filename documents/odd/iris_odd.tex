@@ -404,7 +404,7 @@ In each time step this sub model checks the relative humidity and temperature. I
 \end{table}
 
 \subsubsection{Freezing}
-The sub model \emph{Freezing} is responsible for modelling the effect of extreme cold on ticks. It is part of the ECS component \inlinecode{Freezing} and implemented in the method \inlinecode{freezing()}. \emph{I. ricinus} ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
+The sub model \emph{Freezing} is responsible for modelling the effect of extreme cold on ticks. It is part of the ECS component \inlinecode{TickLifeCycle} and implemented in the method \inlinecode{freezing()}. \emph{I. ricinus} ticks are quite resistant to low temperatures ~\parencite{Gray.2009}. But they can die when exposed to extreme cold with temperatures lower than approximately minus 15 degrees Celsius ~\parencite{Ostfeld.2015}. Especially without protective snow cover ticks can die of freezing under these conditions ~\parencite{Jore.2014}.
 
 In each time step the sub model checks whether the minimum temperature $t_{\min}$ is below a threshold value of minus 18.9 degree Celsius. If that is the case, a certain number of ticks of a cohort (determined by the freezing rate) are considered dead and are hence removed from the modelled population. Table ~\ref{tab:freezing_parameters} contains the parameters that belong to the freezing sub model.
 
