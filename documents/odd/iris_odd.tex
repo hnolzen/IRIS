@@ -100,10 +100,20 @@ The overall purpose of the IRIS model is to understand the impact of climate cha
 \subsection{Entities, state variables and scales}
 
 \subsubsection{Entities}
-The model is composed of grid cell entities.
+The entities of the model are \emph{I. ricinus} ticks that are tracked as cohorts. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) \emph{larvae}, (2) \emph{nymphs} and (3) \emph{adults}. Furthermore, each life cycle stage can adopt one of four behavioural states: (i) \emph{questing}, (ii) \emph{inactive}, (iii)  \emph{engorged} and (iv) \emph{late engorged}. The latter is a special case of the behavioural state \emph{engorged} which applies only to larvae and nymphs (see section \ref{feeding} for details). Hence, in total there are 11 tick cohorts present in the model. These cohorts are present in every grid cell of the model landscape, e.g. active nymphs in grid cell $(0,0)$ belong to a different cohort than active nymphs in grid cell $(3,5)$. For model evaluations the cohorts are considered in total. 
+
+Furthermore, the model is composed of grid cells that form a landscape and serve as habitat. Three idealised habitat types exist in the model: (a) \emph{forest}, (b) \emph{ecotone} and (c) \emph{meadow}. The model landscape is modelled with periodic boundary conditions to prevent a model artefact where ticks are concentrated in the centre. This means that the neighbours of the grid cells at the edge of the two-dimensional landscape projection are the grid cells on the opposite side. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks. A visualisation of the model landscape with habitat types and tick cohorts is displayed in Figure~\ref{fig:iris_landscape}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.75\linewidth]{figures/iris_landscape.png}
+	\caption[Schematic representation of the IRIS model landscape.]{Schematic representation of the IRIS model landscape. It consists of 12 x 12 grid cells with periodic boundary conditions. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of three life cycle stages (larva, nymph, adult) together with one of four behavioural states (questing, inactive, engorged and late engorged).}
+	\label{fig:iris_landscape}
+\end{figure}
+
 
 \subsubsection{State variables}
-By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called ECS \textit{components}, which are attached to the ECS grid cell entities. Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
+By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called ECS \emph{components} (see section~\ref{design_concepts} for details). Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
 
 \begin{table}[H]
 \caption[Overview of state variables of the IRIS model.]{Overview of state variables of the IRIS model.}
@@ -175,16 +185,7 @@ The multi-year life cycle of the modelled ticks is captured indirectly. This is 
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
-\textbf{Basic principles:} IRIS is a spatially explicit stochastic cohort-based tick population model. It is composed of grid cells with sub populations of \textit{I. ricinus} ticks belonging to a cohort. Each cohort represents a tick life cycle stage together with a behavioural state. Three tick life cycle stages are possible: (1) \emph{larvae}, (2) \emph{nymphs} and (3) \emph{adults}. Furthermore, each life cycle stage can adopt one of four behavioural states: (i) \emph{questing}, (ii) \emph{inactive}, (iii)  \emph{engorged} and (iv) \emph{late engorged}. The latter is a special case of the behavioural state \emph{engorged} which applies only to larvae and nymphs (see section \ref{feeding} for details). Hence, in total there are 11 tick cohorts present in the model. Technically, these cohorts exist in every cell of the model landscape, e.g. active nymphs in grid cell $(0,0)$ belong to a different cohort than active nymphs in grid cell $(3,5)$. However, for model evaluations the cohorts are considered in total. The grid cells form a model landscape that serves as habitat for \emph{I. ricinus} sub populations. Three different idealised habitat types exist in the model: (a) \emph{forest}, (b) \emph{ecotone} and (c) \emph{meadow}. The model landscape is modelled with periodic boundary conditions to prevent a model artefact where ticks are concentrated in the centre. This means that the neighbours of the grid cells at the edge of the two-dimensional landscape projection are the grid cells on the opposite side. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks. A visualisation of the model landscape with habitat types and tick cohorts is displayed in Figure~\ref{fig:iris_landscape}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.75\linewidth]{figures/iris_landscape.png}
-\caption[Schematic representation of the IRIS model landscape.]{Schematic representation of the IRIS model landscape. It consists of 12 x 12 grid cells with periodic boundary conditions. The colour of each grid cell indicates the habitat type: forest (dark green), ecotone (light brown) and meadow (light green). Each cell contains tick cohorts consisting of one of three life cycle stages (larva, nymph, adult) together with one of four behavioural states (questing, inactive, engorged and late engorged).}
-\label{fig:iris_landscape}
-\end{figure}
-
-IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System (ECS) framework\footnote{\url{https://github.com/junkdog/artemis-odb}}.
+\textbf{Basic principles:} IRIS was implemented in Java using version 2.3.0 of the Artemis-odb Entity-Component-System (ECS) framework\footnote{\url{https://github.com/junkdog/artemis-odb}}.
 
 
 \textbf{Emergence:} The main output of the model are numbers of \emph{I. ricinus} ticks in each of the 11 cohorts. The numbers in each cohort of each grid cell emerge from the interaction of environmental conditions, i.e.\ the temperature and relative humidity, the habitat type and the behavioural rules of ticks.
