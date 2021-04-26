@@ -2,6 +2,7 @@
 \usepackage[top = 2.5cm, bottom = 2cm, left = 2.5cm, right = 2.5cm]{geometry}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{mathtools}
+\usepackage{amsfonts}
 \usepackage{fontspec}
 \usepackage[english]{babel}
 \usepackage{hyperref}
@@ -109,16 +110,16 @@ By implementing IRIS using an Entity Component System (ECS) framework, the state
 \label{tab:state_variables}
 \begin{tabularx}{\textwidth}{lllll}
 \toprule
-\textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Default} & \textbf{Description} \\
+\textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Possible values} & \textbf{Description} \\
 \midrule
-\multirow{2}{*}{Position} 	 & x  				& int  		& null & x coordinate \\
-							 & y    			& int  		& null & y coordinate \\
-Habitat 				  	 & type 			& enum Type & null & Habitat type \\
-TickAbundance 			  	 & stage 			& enum LifeCycleStage  & null & Tick cohort \\
-\multirow{3}{*}{Temperature} & meanTemperature  & double  	& null & Mean temperature \\
-							 & minTemperature   & double  	& null & Minimum temperature \\
-							 & maxTemperature   & double  	& null & Maximum temperature \\
-Humidity 					 & relativeHumidity & double  	& null & Relative humidity \\
+\multirow{2}{*}{Position} 	 & x  				& int  		& $\in \{1,...,12\}$  & x coordinate \\
+							 & y    			& int  		& $\in \{1,...,12\}$ & y coordinate \\
+Habitat 				  	 & type 			& enum Type & see below & Habitat type \\
+TickAbundance 			  	 & stage 			& enum LifeCycleStage  & see below & Tick cohort \\
+\multirow{3}{*}{Temperature} & meanTemperature  & double  	& $\in \mathbb{R}$ & Mean temperature \\
+							 & minTemperature   & double  	& $\in \mathbb{R}$ & Minimum temperature \\
+							 & maxTemperature   & double  	& $\in \mathbb{R}$ & Maximum temperature \\
+Humidity 					 & relativeHumidity & double  	& $\in \{0.0,...,100.0\}$ & Relative humidity \\
 \bottomrule
 \end{tabularx}
 \end{table}
