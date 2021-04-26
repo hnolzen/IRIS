@@ -105,7 +105,6 @@ The model is composed of grid cell entities.
 \subsubsection{State variables}
 By implementing IRIS using an Entity Component System (ECS) framework, the state variables of the model are organised in so-called ECS \textit{components}, which are attached to the ECS grid cell entities. Table \ref{tab:state_variables} provides an overview of the state variables of the IRIS model.
 
-\begin{small}
 \begin{table}[H]
 \caption[Overview of state variables of the IRIS model.]{Overview of state variables of the IRIS model.}
 \label{tab:state_variables}
@@ -113,37 +112,35 @@ By implementing IRIS using an Entity Component System (ECS) framework, the state
 \toprule
 \textbf{Component} & \textbf{Variable} & \textbf{Type} & \textbf{Possible values} & \textbf{Description} \\
 \midrule
-TimeStep 				  	 & current 			& int & $\in \{1,...,365\}$ & Current time step \\
-Randomness 				  	 & rng 				& RandomGenerator & - & PRNG \\
-\multirow{2}{*}{Position} 	 & x  				& int  		& $\in \{1,...,12\}$  & x coordinate \\
-							 & y    			& int  		& $\in \{1,...,12\}$ & y coordinate \\
-Habitat 				  	 & type 			& enum Type & see below & Habitat type \\
-TickAbundance 			  	 & stage 			& enum LifeCylceStage  & see below & Tick cohort \\
-\multirow{3}{*}{Temperature} & meanTemperature  & double  	& $\in \mathbb{R}$ & Mean temperature \\
-							 & minTemperature   & double  	& $\in \mathbb{R}$ & Minimum temperature \\
-							 & maxTemperature   & double  	& $\in \mathbb{R}$ & Maximum temperature \\
-Humidity 					 & relativeHumidity & double  	& $\in \{0.0,...,100.0\}$ & Relative humidity \\
+\footnotesize{TimeStep} 	& \footnotesize{current} 			& int & $\in \{1,...,365\}$ & \footnotesize{Current time step} \\
+\footnotesize{Randomness} 	& \footnotesize{rng} 				& \footnotesize{RandomGenerator} & - & \footnotesize{Pseudo Random Number Generator} \\
+\multirow{3}{*}{\footnotesize{Position}} & \footnotesize{x}  	& int  & $\in \{1,...,12\}$  & \footnotesize{x coordinate} \\
+							& \footnotesize{y}    				& int  & $\in \{1,...,12\}$ & \footnotesize{y coordinate} \\
+\multirow{3}{*}{\footnotesize{Habitat}} & \footnotesize{FOREST} & Type & - & \footnotesize{Habitat type forest} \\
+							& \footnotesize{ECOTONE} 			& Type & - & \footnotesize{Habitat type ecotone} \\
+							& \footnotesize{MEADOW} 			& Type & - & \footnotesize{Habitat type meadow} \\
+\midrule
+\multirow{11}{*}{\footnotesize{TickAbundance}} & \footnotesize{LARVAE}		& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of questing larvae} \\
+							& \footnotesize{NYMPH}				& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of questing nymphs} \\
+							& \footnotesize{ADULT}				& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of questing adults} \\
+							& \footnotesize{LARVAE\_INACTIVE}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of inactive larvae} \\
+							& \footnotesize{NYMPH\_INACTIVE}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of inactive nymphs} \\
+							& \footnotesize{ADULT\_INACTIVE}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of inactive adults} \\
+							& \footnotesize{LARVAE\_ENGORGED}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of engorged larvae} \\
+							& \footnotesize{NYMPH\_ENGORGED}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of engorged nymphs} \\
+							& \footnotesize{ADULT\_ENGORGED}	& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of engorged adults} \\
+							& \tiny{LARVAE\_LATE\_ENGORGED}		& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of late engorged larvae} \\
+							& \tiny{NYMPHS\_LATE\_ENGORGED}		& \small{LifeCycleStage} & $\in \mathbb{N}$ & \footnotesize{No. of late engorged nymphs} \\
+\midrule
+\multirow{3}{*}{\footnotesize{Temperature}} & \small{meanTemperature}  & double  	& $\in \mathbb{R}$ & \footnotesize{Mean temperature} \\
+							& \footnotesize{minTemperature}   & double  	& $\in \mathbb{R}$ & \footnotesize{Minimum temperature} \\
+							& \footnotesize{maxTemperature}   & double  	& $\in \mathbb{R}$ & \footnotesize{Maximum temperature} \\
+\footnotesize{Humidity} 	& \footnotesize{relativeHumidity} & double  	& $\in \{0,...,100\}$ & \footnotesize{Relative humidity} \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\end{small}
 
-In addition, each grid cell entity is provided with a unique identification number used for internal processing by the ECS framework. This \inlinecode{entityID} is linked to the component \inlinecode{Position} within the ECS resource \inlinecode{SpatialIndex}. The state variables \inlinecode{type} and \inlinecode{stage} of the components \inlinecode{Habitat} and \inlinecode{TickAbundance} are specified by enumerations. The enumeration \inlinecode{Type} specifies the habitat type. It can take the following values:
-\begin{small}
-\begin{itemize}[noitemsep]
-	\item FOREST, ECOTONE, MEADOW
-\end{itemize}
-\end{small}
-
-The enumeration \inlinecode{LifeCycleStage} specifies the tick cohort. Each cohort represents a life cycle stage and a behavioural state of \emph{I. ricinus}. It can take the following values:
-\begin{small}
-\begin{itemize}[noitemsep]
-	\item LARVAE, NYMPH, ADULT,  
-	\item LARVAE\_INACTIVE, NYMPH\_INACTIVE, ADULT\_INACTIVE
-	\item LARVAE\_ENGORGED, NYMPH\_ENGORGED, ADULT\_ENGORGED
-	\item LARVAE\_LATE\_ENGORGED, NYMPHS\_LATE\_ENGORGED
-\end{itemize}
-\end{small}
+In addition, each grid cell is provided with a unique identification number used for internal processing by the ECS framework. This \inlinecode{entityID} is linked to the component \inlinecode{Position} within the ECS resource \inlinecode{SpatialIndex}.
 
 
 \subsubsection{Scales}
