@@ -62,7 +62,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE));
+            var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE_QUESTING));
             abundance.addLarvae(-feedingLarvae);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
@@ -77,7 +77,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH));
+            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH_QUESTING));
             abundance.addNymphs(-feedingNymphs);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
@@ -92,7 +92,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT));
+            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT_QUESTING));
             abundance.addAdults(-feedingAdults);
             abundanceToRandom.addEngorgedAdults(feedingAdults);
             abundance.addFeedingEventAdults(feedingAdults);

@@ -24,9 +24,9 @@ public class TickAbundance extends Component {
                          int engorgedLarvae, int engorgedNymphs, int engorgedAdults,
                          int lateEngorgedLarvae, int lateEngorgedNymphs,
                          int infectedLarvae, int infectedNymphs, int infectedAdults) {
-        abundance.put(LifeCycleStage.LARVAE, larvae);
-        abundance.put(LifeCycleStage.NYMPH, nymphs);
-        abundance.put(LifeCycleStage.ADULT, adults);
+        abundance.put(LifeCycleStage.LARVAE_QUESTING, larvae);
+        abundance.put(LifeCycleStage.NYMPH_QUESTING, nymphs);
+        abundance.put(LifeCycleStage.ADULT_QUESTING, adults);
         abundance.put(LifeCycleStage.LARVAE_INACTIVE, inactiveLarvae);
         abundance.put(LifeCycleStage.NYMPH_INACTIVE, inactiveNymphs);
         abundance.put(LifeCycleStage.ADULT_INACTIVE, inactiveAdults);
@@ -35,9 +35,9 @@ public class TickAbundance extends Component {
         abundance.put(LifeCycleStage.ADULT_ENGORGED, engorgedAdults);
         abundance.put(LifeCycleStage.LARVAE_LATE_ENGORGED, lateEngorgedLarvae);
         abundance.put(LifeCycleStage.NYMPHS_LATE_ENGORGED, lateEngorgedNymphs);
-        infected.put(LifeCycleStage.LARVAE, infectedLarvae);
-        infected.put(LifeCycleStage.NYMPH, infectedNymphs);
-        infected.put(LifeCycleStage.ADULT, infectedAdults);
+        infected.put(LifeCycleStage.LARVAE_QUESTING, infectedLarvae);
+        infected.put(LifeCycleStage.NYMPH_QUESTING, infectedNymphs);
+        infected.put(LifeCycleStage.ADULT_QUESTING, infectedAdults);
     }
 
     @Override
@@ -83,15 +83,15 @@ public class TickAbundance extends Component {
     }
 
     public int getLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE);
+        return abundance.get(LifeCycleStage.LARVAE_QUESTING);
     }
 
     public int getNymphs() {
-        return abundance.get(LifeCycleStage.NYMPH);
+        return abundance.get(LifeCycleStage.NYMPH_QUESTING);
     }
 
     public int getAdults() {
-        return abundance.get(LifeCycleStage.ADULT);
+        return abundance.get(LifeCycleStage.ADULT_QUESTING);
     }
 
     public int getInactiveLarvae() {
@@ -127,15 +127,15 @@ public class TickAbundance extends Component {
     }
 
     public int getInfectedLarvae() {
-        return infected.get(LifeCycleStage.LARVAE);
+        return infected.get(LifeCycleStage.LARVAE_QUESTING);
     }
 
     public int getInfectedNymphs() {
-        return infected.get(LifeCycleStage.NYMPH);
+        return infected.get(LifeCycleStage.NYMPH_QUESTING);
     }
 
     public int getInfectedAdults() {
-        return infected.get(LifeCycleStage.ADULT);
+        return infected.get(LifeCycleStage.ADULT_QUESTING);
     }
 
     public void addStage(LifeCycleStage stage, int num) {
@@ -143,15 +143,15 @@ public class TickAbundance extends Component {
     }
 
     public void addLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
+        abundance.compute(LifeCycleStage.LARVAE_QUESTING, (stage, count) -> count + larvae);
     }
 
     public void addNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
+        abundance.compute(LifeCycleStage.NYMPH_QUESTING, (stage, count) -> count + nymphs);
     }
 
     public void addAdults(int adults) {
-        abundance.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
+        abundance.compute(LifeCycleStage.ADULT_QUESTING, (stage, count) -> count + adults);
     }
 
     public void addInactiveLarvae(int larvae) {
@@ -187,14 +187,14 @@ public class TickAbundance extends Component {
     }
 
     public void addInfectedLarvae(int larvae) {
-        infected.compute(LifeCycleStage.LARVAE, (stage, count) -> count + larvae);
+        infected.compute(LifeCycleStage.LARVAE_QUESTING, (stage, count) -> count + larvae);
     }
 
     public void addInfectedNymphs(int nymphs) {
-        infected.compute(LifeCycleStage.NYMPH, (stage, count) -> count + nymphs);
+        infected.compute(LifeCycleStage.NYMPH_QUESTING, (stage, count) -> count + nymphs);
     }
 
     public void addInfectedAdults(int adults) {
-        infected.compute(LifeCycleStage.ADULT, (stage, count) -> count + adults);
+        infected.compute(LifeCycleStage.ADULT_QUESTING, (stage, count) -> count + adults);
     }
 }
