@@ -77,7 +77,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPH_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPH_QUESTING));
+            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPHS_QUESTING));
             abundance.addNymphs(-feedingNymphs);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
@@ -92,7 +92,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULT_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULT_QUESTING));
+            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULTS_QUESTING));
             abundance.addAdults(-feedingAdults);
             abundanceToRandom.addEngorgedAdults(feedingAdults);
             abundance.addFeedingEventAdults(feedingAdults);
