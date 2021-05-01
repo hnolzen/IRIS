@@ -171,17 +171,16 @@ The IRIS model simulates one year from January 1 to December 31 and is executed 
 	\item Desiccation
 \end{enumerate}
 
-The process \inlinecode{Weather} is responsible for setting the daily temperature and relative humidity and updates the state variables \inlinecode{meanTemperature}, \inlinecode{minTemperature}, \inlinecode{maxTemperature} and \inlinecode{relativeHumidity}. The process \inlinecode{Activity} involves the active search for a host (also known as \textit{questing}) or putting ticks into a state of inactivity. The process \inlinecode{Feeding} controls the feeding success of ticks, ~i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which ticks are moved to other locations on the model landscape, ~i.e.\ moved to a cohort in another grid cell. The process \inlinecode{Development} involves the transition from one life cycle stage to the next. The processes \inlinecode{Freezing} and \inlinecode{Desiccation} control tick mortality in case of unfavourable environmental conditions. All processes (except for \inlinecode{Weather}) update the state variable \inlinecode{stage} of each grid cell. Each process is described in more detail in Section~\ref{submodels}. A visualisation of the scheduling process is displayed in Figure~\ref{fig:iris_scheduling}.
+The process \inlinecode{Weather} is responsible for setting the daily temperature and relative humidity and updates the state variables \inlinecode{meanTemperature}, \inlinecode{minTemperature}, \inlinecode{maxTemperature} and \inlinecode{relativeHumidity}. The process \inlinecode{Activity} involves the active search for a host (also known as \textit{questing}) or putting ticks into a state of inactivity. The process \inlinecode{Feeding} controls the feeding success of ticks,~i.e.\ the successful attachment of a ticks to a hosts. Furthermore, it includes a translocation process by which ticks are moved to other locations on the model landscape,~i.e.\ moved to a cohort in another grid cell. The process \inlinecode{Development} involves the transition from one life cycle stage to the next. The processes \inlinecode{Freezing} and \inlinecode{Desiccation} control tick mortality in case of unfavourable environmental conditions. All processes (except for \inlinecode{Weather}) update the state variable \inlinecode{stage} of each grid cell. Each process is described in more detail in Section~\ref{submodels}. A visualisation of the state transitions of ticks through the model processes is displayed in Figure~\ref{fig:iris_cohort_transitions}.
 
 The multi-year life cycle of the modelled ticks is captured indirectly. This is done by assigning a certain number of ticks at the beginning of a simulation run, so that each life cycle stage is represented in the model through its respective cohort.
 
 \begin{figure}[h!]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/iris_scheduling.png}
-\caption[Schematic representation of the scheduling of model processes.]{Schematic representation of the scheduling of model processes. The processes Weather, Activity, Feeding, Development, Freezing and Desiccation (indicated by white boxes) are executed in each time step sequentially starting with the weather process. The processes Development, Freezing and Desiccation are part of the ECS component \inlinecode{TickLifeCycle}.}
-\label{fig:iris_scheduling}
+	\centering
+	\includegraphics[width=\linewidth]{figures/iris_cohort_transitions.pdf}
+	\caption[State transition diagram of tick cohorts]{State transition diagram of tick cohorts. The 11 cohorts are represented by white boxes and the transitions between the cohorts are modelled by black arrows. The labelling on the arrows indicates which method of a process is responsible for the respective transition. Ticks that desiccate or freeze are transitioned to the end state "death" (indicated by the black dot with black circle) and thus removed from the system. The initial state "Initialisation" (marked by the black dot) indicates the cohorts that are initialised at the beginning of a simulation. All cohorts can be initialised individually. For the sake of clarity, the diagram only shows the default case with inactive larvae, nymphs or adults being initialised.}
+	\label{fig:iris_cohort_transitions}
 \end{figure}
-
 
 \newpage
 \section{Design Concepts}\label{design_concepts}
