@@ -192,7 +192,7 @@ The model landscape is modelled with periodic boundary conditions to prevent a m
 
 \textbf{Sensing:} Ticks are assumed to sense temperature and relative humidity. Due to the cohort-based nature of the model, sensing does not take place at the level of an individual tick but instead at the level of the respective cohorts.
 
-\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.). In addition, we implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen. Otherwise, in some cases the number of ticks in cohorts could never become zero when normal rounding was applied. The random rounding algorithm is presented below.
+\textbf{Stochasticity:} To determine random numbers we use the seedable random number generator \emph{Mersenne-Twister} provided by the Apache Commons Math library (version 3.6.1.) and implemented a method \inlinecode{roundRandom()} to allow processes that statistically affect less than a single tick to still happen. State transitions between tick cohorts are based on rates, but integer numbers of individuals are stored into the cohorts. To break down the probability rates to this individual level, the rounding is therefore stochastic. Otherwise, the number of ticks in cohorts could never become zero in some cases when normal rounding was applied. The random rounding algorithm is presented below.
 
 \begin{lstlisting}[language = Java, caption = {Overview of roundRandom() method}]
 public int roundRandom(float value) {
@@ -209,6 +209,7 @@ public int roundRandom(float value) {
 }
 \end{lstlisting}
 
+Also, the translocation process of the submodel \emph{Feeding} described in section~\ref{feeding} uses stochastisity through distance-dependent probabilities. The translocation to a distant grid cell occurs with a lower probability than the translocation to a nearby grid cell. 
 
 \textbf{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details)
 
