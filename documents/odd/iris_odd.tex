@@ -186,6 +186,14 @@ The process \inlinecode{Weather} is responsible for setting the daily temperatur
 
 The model landscape is modelled with periodic boundary conditions to prevent a model artefact where ticks are concentrated in the centre. This means that the neighbours of the grid cells at the edge of the two-dimensional landscape projection are the grid cells on the opposite side. Daily temperature and relative humidity influence the behaviour of the modelled ticks and thereby drive the model dynamics. With the input of future weather data from climate simulations, the model is able to simulate the expected future abundance of ticks.
 
+The general way to model state transitions between each two tick cohorts is to determine the number of individuals that are subtracted from one cohort and added to another cohort using a probability rate and stochastic rounding (see also part "Stochasticity" below). This is illustrated by the following pseudo code with two fictitious cohorts A and B:
+
+\begin{lstlisting}
+	newTicksCohortB = roundRandom(getNumberTicksCohortA() * probabilityRate);
+	addTicksCohortB(NumberTicksCohortB + newTicksCohortB);
+	addTicksCohortA(NumberTicksCohortA - newTicksCohortB);
+\end{lstlisting}
+
 \textbf{Emergence:} The main output of the model are numbers of \emph{I. ricinus} ticks in each of the 11 cohorts. The numbers in each cohort of each grid cell emerge from the interaction of environmental conditions, i.e.\ the temperature and relative humidity, the habitat type and the behavioural rules of ticks.
 
 \textbf{Adaptation:} The adaptive behaviour of ticks consists in their reaction to daily temperature and relative humidity to avoid desiccation or freezing or to seek for a host. When certain temperature and humidity values fall below or exceed certain thresholds in their respective habitats, ticks switch between their behavioural states \emph{questing} and \emph{inactive}. Since the model is cohort-based, adaptive behaviour does not take place at the level of an individual tick, but is aggregated at the level of the respective cohort. A share of the number of ticks in a given cohort is shifted to the other cohort in response to environmental influences. The adaptive behaviour is described in detail in the section \ref{submodels} (submodels).
