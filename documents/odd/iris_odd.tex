@@ -278,7 +278,7 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 
 Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
-\textbf{Climate simulation data:} Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations~\parencite{Jacob.2014} were provided for the following parameters:
+\textbf{Climate simulation data:} Climate simulation data covering Germany with a resolution of 0.11° x 0.11° (\~12.5 km) was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations~\parencite{Jacob.2014} were provided for the following parameters:
 \begin{itemize}[noitemsep]
 \item Bias Adjusted Near-Surface Air Temperature (tas, [K])
 \item Bias Adjusted Daily Maximum Near-Surface Air Temperature (tasmax, [K])
@@ -317,9 +317,7 @@ MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
 \end{tabularx}
 \end{table}
 
-% (Tests und Validierung hauptsächlich mit MPI-ESM-LR; r3i1p1, REMO2015; v1)
-% erklären: als NetCDF file für Ausschnitt ca. Deutschland bekommen --> *.csv file (Rausziehen der Wetterzeitreihe mittels Skript)
-% Umrechnung von K in Celsius
+The climate data was provided in NetCDF format. The weather time series of a single location were extracted using a script and saved in a *.csv file. During this process, the temperature variables \emph{tas}, \emph{tasmax} and \emph{tasmin} were converted from Kelvin to Celsius (°C = K - 273.15). 
 
 \textbf{Beech mast fructification data:} IRIS is able to use beech mast fructification data of the European beech \textit{Fagus sylvatica}. This data can be used to adjust the initial number of larvae (for details see Section~\ref{subsubsec:initial_larvae_with_beech_mast}). Beech mast fructification data is given as an annual index. For the validation of the model we have used the values from~\textcite{Brugger.2018}. A larger data set with fructification data between 1954 an 2016 is available from~\textcite{Konnert.2016}.
 
