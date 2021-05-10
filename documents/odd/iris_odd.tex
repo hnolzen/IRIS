@@ -278,18 +278,20 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 
 Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
-\textbf{Climate simulation data:} Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations were provided for the following parameters:
+\textbf{Climate simulation data:} Climate simulation data was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations~\parencite{Jacob.2014} were provided for the following parameters:
 \begin{itemize}[noitemsep]
 \item Bias Adjusted Near-Surface Air Temperature (tas, [K])
 \item Bias Adjusted Daily Maximum Near-Surface Air Temperature (tasmax, [K])
 \item Bias Adjusted Daily Minimum Near-Surface Air Temperature (tasmin, [K])
 \end{itemize}
 
-In addition, homogenised EURO-CORDEX simulations were provided for the following parameter:
+Bias adjustment is a post-processing method to identify and adjust for possible biases between observed and simulated climate variables of the RCM output~\parencite{Teutschbein.2012, Maraun.2016}. In addition, homogenised EURO-CORDEX simulations were provided for the following parameter:
+
 \begin{itemize}
 \item Near-Surface Relative Humidity (hurs, [\%])
 \end{itemize}
-% noch etwas mehr erläutern (EURO-CORDEX, bias-adjusted, homogenised, etc., Warum so viele Modelle)
+
+Homogenisation means that non-climatic factors such as relocation of weather stations or changing of measuring instruments are detected and removed from the climate data to improve the overall quality~\parencite{Ribeiro.2016, Costa.2009}.
 
 \begin{table}[h!]
 \caption[Overview of EURO-CORDEX simulations used for model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data.}
