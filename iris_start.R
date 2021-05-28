@@ -7,6 +7,7 @@ iris <- function(year,
                  iris_main_dir,
                  weather_dir,
                  output_summary,
+                 output_summary_habitats,
                  model_name
                  ) {
   
@@ -28,6 +29,7 @@ iris <- function(year,
   iris_weather <- paste0("-w ", weather_dir, "weather_", year, ".csv")
   iris_output <- paste0("-o" , output_dir, "/iris_abundance_", year, ".csv")
   iris_output_summary <- paste0("-u ", output_summary)
+  iris_output_summary_habitats <- paste0("-v ", output_summary_habitats)
   
   iris_run <- paste(iris_exe, 
                     iris_jar, 
@@ -39,6 +41,7 @@ iris <- function(year,
                     iris_adults,
                     iris_activation_rate,
                     iris_output_summary,
+                    iris_output_summary_habitats,
                     sep = " ")
   
   system(iris_run)
@@ -46,15 +49,16 @@ iris <- function(year,
 
 iris_main_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
 location <- "regensburg"
-year_start <- 2021
-year_end <- 2099
-climate_simulation <- TRUE
+year_start <- 1949
+year_end <- 2020
+climate_simulation <- FALSE
 random_seed <- 42
 initial_larvae <- 150
 initial_nymphs <- 150
 initial_adults <- 150
 activation_rate <- 0.022
-output_summary <- "true"
+output_summary <- "false"
+output_summary_habitats <- "true"
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 
 if (climate_simulation) {
@@ -71,7 +75,7 @@ if (climate_simulation) {
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_MOHC-HadREM3-GA7-05_v1"
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_SMHI-RCA4_v1"
   #model_name <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
-  model_name <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_SMHI-RCA4_v1"
+  #model_name <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_SMHI-RCA4_v1"
   
   weather_dir <- paste0(iris_main_dir, "/input/climate/", model_name, "/csv_", location, "/")  
 } else {
@@ -88,5 +92,6 @@ for (year in year_start : year_end) {
        iris_main_dir,
        weather_dir,
        output_summary,
+       output_summary_habitats,
        model_name) 
 }

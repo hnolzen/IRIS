@@ -3,6 +3,7 @@ package eu.ecoepi.iris;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
+import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriterHabitats;
 import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
 import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriter;
 import eu.ecoepi.iris.resources.Parameters;
@@ -28,6 +29,7 @@ public class Model {
         public int initialInactiveAdults = 150;
         public float activationRate = 0.02f;
         public boolean summary = false;
+        public boolean summaryHabitats = false;
         public boolean withPrecipitation = false;
     }
 
@@ -40,6 +42,7 @@ public class Model {
                 .with(new Feeding(rng))
                 .with(new TickLifeCycle())
                 .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
+                .with(options.summaryHabitats ? new CsvSummaryTimeSeriesWriterHabitats(options.output) : new CsvTimeSeriesWriter(options.output))
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())

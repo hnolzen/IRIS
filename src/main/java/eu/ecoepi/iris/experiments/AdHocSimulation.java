@@ -52,6 +52,10 @@ public class AdHocSimulation {
                 .longOpt("summary")
                 .build());
 
+        cmdOptions.addOption(Option.builder("v")
+                .longOpt("summaryHabitats")
+                .build());
+
         cmdOptions.addOption(Option.builder("p")
                 .longOpt("precipitation")
                 .build());
@@ -76,7 +80,8 @@ public class AdHocSimulation {
         options.activationRate = Float.parseFloat(cmd.getOptionValue("r", "0.05"));
         
         options.summary = cmd.hasOption("u");
-                    
+        options.summaryHabitats = cmd.hasOption("v");
+
         Model.run(options);
     }
 }
