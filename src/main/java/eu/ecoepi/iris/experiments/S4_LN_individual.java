@@ -1,8 +1,5 @@
 package eu.ecoepi.iris.experiments;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorCompletionService;
-
 import eu.ecoepi.iris.Model;
 
 public class S4_LN_individual {
