@@ -1,11 +1,10 @@
 package eu.ecoepi.iris;
 
+import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import eu.ecoepi.iris.components.*;
-import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriterHabitats;
-import eu.ecoepi.iris.observers.CsvTimeSeriesWriter;
-import eu.ecoepi.iris.observers.CsvSummaryTimeSeriesWriter;
+import eu.ecoepi.iris.observers.*;
 import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.SpatialIndex;
@@ -28,21 +27,44 @@ public class Model {
         public int initialInactiveNymphs = 150;
         public int initialInactiveAdults = 150;
         public float activationRate = 0.02f;
-        public boolean summary = false;
-        public boolean summaryHabitats = false;
+        public String outputMode = "csv_timeseries_summary";
         public boolean withPrecipitation = false;
     }
 
     public static void run(Options options) throws Exception {
         var rng = new MersenneTwister(options.seed);
 
+        BaseSystem outputWriter = switch(options.outputMode){
+            case "csv_timeseries" ->
+                new CsvTimeSeriesWriter(options.output);
+
+            case "csv_timeseries_summary" ->
+                new CsvSummaryTimeSeriesWriter(options.output);
+
+            case "csv_timeseries_summary_habitats" ->
+                    new CsvSummaryTimeSeriesWriterHabitats(options.output);
+
+            case "csv_timeseries_nymphs" ->
+                    new CsvTimeSeriesWriterNymphs(options.output);
+
+            case "csv_timeseries_nymphs_habitats" ->
+                    new CsvTimeSeriesWriterNymphsHabitats(options.output);
+
+            default -> throw new IllegalStateException("Unexpected value: " + options.outputMode +
+                    ". Possible values are: \n" +
+                    "1) 'csv_timeseries' \n" +
+                    "2) 'csv_timeseries_summary' \n" +
+                    "3) 'csv_timeseries_summary_habitats' \n" +
+                    "4) 'csv_timeseries_nymphs' \n" +
+                    "5) 'csv_timeseries_nymphs_habitats' \n");
+        };
+
         var config = new WorldConfigurationBuilder()
                 .with(new Weather(options.weather, options.withPrecipitation))
                 .with(new Activity(options.activationRate))
                 .with(new Feeding(rng))
                 .with(new TickLifeCycle())
-                .with(options.summary ? new CsvSummaryTimeSeriesWriter(options.output) : new CsvTimeSeriesWriter(options.output))
-                .with(options.summaryHabitats ? new CsvSummaryTimeSeriesWriterHabitats(options.output) : new CsvTimeSeriesWriter(options.output))
+                .with(outputWriter)
                 .build()
                 .register(new SpatialIndex())
                 .register(new TimeStep())

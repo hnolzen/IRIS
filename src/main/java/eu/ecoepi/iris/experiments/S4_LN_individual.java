@@ -28,8 +28,6 @@ public class S4_LN_individual {
 
                         options.activationRate = activationRate / 1000.0f;
 
-                        options.summary = true;
-
                         large.addTask(name, options);
                     }
                 }

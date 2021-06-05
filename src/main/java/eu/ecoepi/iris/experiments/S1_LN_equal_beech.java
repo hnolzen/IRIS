@@ -29,8 +29,6 @@ public class S1_LN_equal_beech {
 
                     options.activationRate = activationRate / 1000.0f;
 
-                    options.summary = true;
-
                     large.addTask(name, options);
                 }
             }

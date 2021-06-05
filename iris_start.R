@@ -6,8 +6,7 @@ iris <- function(year,
                  activation_rate,
                  iris_main_dir,
                  weather_dir,
-                 output_summary,
-                 output_summary_habitats,
+                 output_mode,
                  model_name
                  ) {
   
@@ -27,9 +26,8 @@ iris <- function(year,
   iris_nymphs <- paste0("-n ", initial_nymphs)
   iris_activation_rate <- paste0("-r ", activation_rate)
   iris_weather <- paste0("-w ", weather_dir, "weather_", year, ".csv")
-  iris_output <- paste0("-o" , output_dir, "/iris_abundance_", year, ".csv")
-  iris_output_summary <- paste0("-u ", output_summary)
-  iris_output_summary_habitats <- paste0("-v ", output_summary_habitats)
+  iris_output <- paste0("-o " , output_dir, "/iris_abundance_", year, ".csv")
+  iris_output_mode <- paste0("-m ", output_mode)
   
   iris_run <- paste(iris_exe, 
                     iris_jar, 
@@ -40,12 +38,12 @@ iris <- function(year,
                     iris_nymphs,
                     iris_adults,
                     iris_activation_rate,
-                    iris_output_summary,
-                    iris_output_summary_habitats,
+                    iris_output_mode,
                     sep = " ")
   
   system(iris_run)
 }
+
 
 iris_main_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
 location <- "regensburg"
@@ -57,8 +55,12 @@ initial_larvae <- 150
 initial_nymphs <- 150
 initial_adults <- 150
 activation_rate <- 0.022
-output_summary <- "false"
-output_summary_habitats <- "true"
+#output_mode <- "csv_timeseries"
+#output_mode <- "csv_timeseries_summary"
+#output_mode <- "csv_timeseries_summar_habitats"
+#output_mode <- "csv_timeseries_nymphs"
+output_mode <- "csv_timeseries_nymphs_habitats"
+
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 
 if (climate_simulation) {
@@ -91,7 +93,6 @@ for (year in year_start : year_end) {
        activation_rate,
        iris_main_dir,
        weather_dir,
-       output_summary,
-       output_summary_habitats,
+       output_mode,
        model_name) 
 }

@@ -27,8 +27,6 @@ public class S2_LN_equal {
 
                     options.activationRate = activationRate / 1000.0f;
 
-                    options.summary = true;
-
                     large.addTask(name, options);
                 }
             }
