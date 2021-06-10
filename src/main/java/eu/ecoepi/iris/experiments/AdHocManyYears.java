@@ -18,8 +18,6 @@ public class AdHocManyYears {
                 options.initialInactiveNymphs = ticks;
                 options.initialInactiveAdults = ticks;
 
-                options.summary = true;
-
                 Model.run(options);
             }
         }

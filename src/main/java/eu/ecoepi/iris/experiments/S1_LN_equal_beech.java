@@ -1,8 +1,5 @@
 package eu.ecoepi.iris.experiments;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorCompletionService;
-
 import eu.ecoepi.iris.Model;
 import eu.ecoepi.iris.resources.Parameters;
 
@@ -28,8 +25,6 @@ public class S1_LN_equal_beech {
                     options.initialInactiveAdults = ticks;
 
                     options.activationRate = activationRate / 1000.0f;
-
-                    options.summary = true;
 
                     large.addTask(name, options);
                 }

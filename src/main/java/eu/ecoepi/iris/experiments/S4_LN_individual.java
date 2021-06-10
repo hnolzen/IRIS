@@ -1,8 +1,5 @@
 package eu.ecoepi.iris.experiments;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorCompletionService;
-
 import eu.ecoepi.iris.Model;
 
 public class S4_LN_individual {
@@ -27,8 +24,6 @@ public class S4_LN_individual {
                         options.initialInactiveAdults = 150;
 
                         options.activationRate = activationRate / 1000.0f;
-
-                        options.summary = true;
 
                         large.addTask(name, options);
                     }
