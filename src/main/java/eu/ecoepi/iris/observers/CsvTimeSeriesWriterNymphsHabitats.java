@@ -10,12 +10,13 @@ import eu.ecoepi.iris.components.*;
 import java.io.PrintWriter;
 import java.io.IOException;
 
-@All({TickAbundance.class, Temperature.class})
+@All({TickAbundance.class, Temperature.class, Humidity.class})
 public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Habitat> habitatMapper;
     ComponentMapper<Temperature> temperatureMapper;
+    ComponentMapper<Humidity> humidityMapper;
 
     private final PrintWriter csvWriter;
 
@@ -25,13 +26,15 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
     private int nymphsEcotone;
 
     private double dailyMeanTemperature;
+    private double dailyMaxTemperature;
+    private double dailyHumidity;
 
     @Wire
     TimeStep timeStep;
 
     public CsvTimeSeriesWriterNymphsHabitats(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_nymphs_total,questing_nymphs_forest,questing_nymphs_meadow,questing_nymphs_ecotone,mean_temperature\n");
+        csvWriter.print("tick,questing_nymphs,questing_nymphs_forest,questing_nymphs_meadow,questing_nymphs_ecotone,mean_temperature,max_temperature,humidity\n");
     }
 
     @Override
@@ -39,6 +42,7 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         var abundance = abundanceMapper.get(entityId);
         var habitat = habitatMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
+        var humidity = humidityMapper.get(entityId);
 
         nymphsAllHabitats += abundance.getNymphs();
 
@@ -55,18 +59,22 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         }
 
         dailyMeanTemperature = temperature.getMeanTemperature();
+        dailyMaxTemperature = temperature.getMaxTemperature();
+        dailyHumidity = humidity.getRelativeHumidity();
     }
 
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double)nymphsAllHabitats,
                 (double)nymphsForest,
                 (double)nymphsMeadow,
                 (double)nymphsEcotone,
-                dailyMeanTemperature);
+                dailyMeanTemperature,
+                dailyMaxTemperature,
+                dailyHumidity);
 
         nymphsAllHabitats = 0;
         nymphsForest = 0;
