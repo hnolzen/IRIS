@@ -10,11 +10,12 @@ import eu.ecoepi.iris.components.*;
 import java.io.PrintWriter;
 import java.io.IOException;
 
-@All({TickAbundance.class, Temperature.class})
+@All({TickAbundance.class, Temperature.class, Humidity.class})
 public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
     ComponentMapper<Temperature> temperatureMapper;
+    ComponentMapper<Humidity> humidityMapper;
 
     private final PrintWriter csvWriter;
 
@@ -24,19 +25,22 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
     private int feedingEvents;
 
     private double dailyMeanTemperature;
+    private double dailyMaxTemperature;
+    private double dailyHumidity;
 
     @Wire
     TimeStep timeStep;
 
     public CsvTimeSeriesWriterNymphs(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_nymphs,nymphs_engorged,nymphs_late_engorged,feeding_events,mean_temperature\n");
+        csvWriter.print("tick,questing_nymphs,nymphs_engorged,nymphs_late_engorged,feeding_events,mean_temperature,max_temperature,humidity\n");
     }
 
     @Override
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
+        var humidity = humidityMapper.get(entityId);
 
         nymphs += abundance.getNymphs();
         nymphsEngorged += abundance.getEngorgedNymphs();
@@ -44,18 +48,22 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         feedingEvents += abundance.getFeedingEventsNymphs();
 
         dailyMeanTemperature = temperature.getMeanTemperature();
+        dailyMaxTemperature = temperature.getMaxTemperature();
+        dailyHumidity = humidity.getRelativeHumidity();
     }
 
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double)nymphs,
                 (double)nymphsEngorged,
                 (double)nymphsLateEngorged,
                 (double)feedingEvents,
-                dailyMeanTemperature);
+                dailyMeanTemperature,
+                dailyMaxTemperature,
+                dailyHumidity);
 
         nymphs = 0;
         nymphsEngorged = 0;
