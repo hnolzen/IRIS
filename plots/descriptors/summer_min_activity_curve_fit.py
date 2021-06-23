@@ -5,14 +5,10 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
 file_dir = os.path.dirname(os.path.abspath("__file__"))
-iris_main_dir = os.path.abspath(file_dir + "/.." + "/..")
+main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
-iris_output_dirs = []
-
-iris_output_dir_dwd = os.path.abspath(
-    iris_main_dir + "/output/Output_CsvTimeSeriesWriterNymphs/DWD"
-)
-iris_output_dirs.append(iris_output_dir_dwd)
+out_dir_dwd = os.path.abspath(main_dir + "/output/Output_CsvTimeSeriesWriterNymphs/DWD")
+out_dirs = [out_dir_dwd]
 
 climate_models = [
     "CCCma-CanESM2_rcp85_r1i1p1_CLMcom-CCLM4-8-17_v1",
@@ -31,18 +27,18 @@ climate_models = [
 ]
 
 for model in climate_models:
-    iris_output_dir_climate = os.path.abspath(
-        iris_main_dir + "/output/Output_CsvTimeSeriesWriterNymphs/" + model
+    out_dir_climate = os.path.abspath(
+        main_dir + "/output/Output_CsvTimeSeriesWriterNymphs/" + model
     )
-    iris_output_dirs.append(iris_output_dir_climate)
+    out_dirs.append(out_dir_climate)
 
 
 def get_data(year_start, year_end, summer_start, summer_end):
 
     summary = []
+    source = "DWD"
 
-    m = "DWD"
-    for dirname in iris_output_dirs:
+    for dirname in out_dirs:
 
         for file in os.listdir(dirname):
             filename = os.path.join(dirname, file)
@@ -56,28 +52,24 @@ def get_data(year_start, year_end, summer_start, summer_end):
 
                     min_activity = df_summer.min()
 
-                    values = [year, min_activity, m]
+                    values = [year, min_activity, source]
                     summary.append(values)
 
                 except Exception:
                     print(filename)
-                    print("------------")
+                    print("------")
 
-        m = "Climate"
+        source = "climate model"
 
     summary = pd.DataFrame(
         summary,
-        columns=("year", "min_activity", "model"),
+        columns=("year", "min_activity", "source"),
     )
     return summary
 
 
-def regression_function_1949(x, a, b):
-    return a * np.exp(-b * (x - 1949))
-
-
-def regression_function_2021(x, a, b):
-    return a * np.exp(-b * (x - 2021))
+def reg_function(x0):
+    return lambda x, a, b: a * np.exp(-b * (x - x0))
 
 
 y_start = 1949
@@ -94,95 +86,109 @@ date_dict = {
     273: "01 Oct",
 }
 
-# start_dates = [151, 166, 181]
-# end_dates = [212, 227, 243, 258, 273]
+start_dates = [151, 166, 181]
+end_dates = [212, 227, 243, 258, 273]
 
-start_dates = [181]
-end_dates = [273]
+start_year_climate_data = [1971, 2021]
 
-for s_start in start_dates:
-    for s_end in end_dates:
-        if s_end <= s_start:
-            continue
+for start_year in start_year_climate_data:
+    for s_start in start_dates:
+        for s_end in end_dates:
+            if s_end <= s_start:
+                continue
 
-        data = get_data(y_start, y_end, s_start, s_end)
+            data = get_data(y_start, y_end, s_start, s_end)
 
-        data_all = data[(data["model"] == "DWD") | (data["year"] >= 2021)]
-        data_dwd = data[data["model"] == "DWD"]
-        data_climate = data[data["year"] >= 2021]
+            data_all = data[(data["source"] == "DWD") | (data["year"] >= start_year)]
+            data_dwd = data[data["source"] == "DWD"]
+            data_climate = data[
+                (data["source"] == "climate model") & (data["year"] >= start_year)
+            ]
 
-        popt_all, pcov_all = curve_fit(
-            regression_function_1949, data_all["year"], data_all["min_activity"]
-        )
+            popt_all, pcov_all = curve_fit(
+                reg_function(1949),
+                data_all["year"],
+                data_all["min_activity"],
+            )
 
-        popt_dwd, pcov_dwd = curve_fit(
-            regression_function_1949, data_dwd["year"], data_dwd["min_activity"]
-        )
+            popt_dwd, pcov_dwd = curve_fit(
+                reg_function(1949), data_dwd["year"], data_dwd["min_activity"]
+            )
 
-        popt_climate, pcov_climate = curve_fit(
-            regression_function_2021, data_climate["year"], data_climate["min_activity"]
-        )
+            popt_climate, pcov_climate = curve_fit(
+                reg_function(start_year),
+                data_climate["year"],
+                data_climate["min_activity"],
+            )
 
-        fig, ax = plt.subplots()
-        plt.figure(figsize=(5, 3))
+            fig, ax = plt.subplots()
+            plt.figure(figsize=(5, 3))
 
-        plt.scatter(
-            data_climate["year"], data_climate["min_activity"], s=0.8, color="#feb24c"
-        )
+            plt.scatter(
+                data_climate["year"],
+                data_climate["min_activity"],
+                s=0.8,
+                color="#feb24c",
+            )
 
-        plt.scatter(data_dwd["year"], data_dwd["min_activity"], s=1.0, color="#238b45")
+            plt.scatter(
+                data_dwd["year"], data_dwd["min_activity"], s=1.0, color="#238b45"
+            )
 
-        plt.plot(
-            data_all["year"],
-            regression_function_1949(data_all["year"], *popt_all),
-            "r-",
-            c="red",
-            lw=0.8,
-            ls="--",
-            label="fit_all: a=%5.3f, b=%5.3f" % tuple(popt_all),
-        )
+            plt.plot(
+                data_all["year"].unique(),
+                reg_function(1949)(data_all["year"].unique(), *popt_all),
+                "r-",
+                c="red",
+                lw=0.8,
+                ls="--",
+                label="fit_all: a=%5.3f, b=%5.3f" % tuple(popt_all),
+            )
 
-        plt.plot(
-            data_dwd["year"],
-            regression_function_1949(data_dwd["year"], *popt_dwd),
-            "r-",
-            c="#238b45",
-            lw=0.8,
-            ls="--",
-            label="fit_dwd: a=%5.3f, b=%5.3f" % tuple(popt_dwd),
-        )
+            plt.plot(
+                data_dwd["year"],
+                reg_function(1949)(data_dwd["year"], *popt_dwd),
+                "r-",
+                c="#238b45",
+                lw=0.8,
+                ls="--",
+                label="fit_dwd: a=%5.3f, b=%5.3f" % tuple(popt_dwd),
+            )
 
-        plt.plot(
-            data_climate["year"],
-            regression_function_2021(data_climate["year"], *popt_climate),
-            "r-",
-            c="grey",
-            lw=0.8,
-            ls="--",
-            label="fit_climate: a=%5.3f, b=%5.3f" % tuple(popt_climate),
-        )
+            plt.plot(
+                data_climate["year"].unique(),
+                reg_function(start_year)(data_climate["year"].unique(), *popt_climate),
+                "r-",
+                c="grey",
+                lw=0.8,
+                ls="--",
+                label="fit_climate: a=%5.3f, b=%5.3f" % tuple(popt_climate),
+            )
 
-        plt.axvline(x=2020.5, color="lightgrey", ls="--", lw=0.8)
+            plt.axvline(x=2020.5, color="lightgrey", ls="--", lw=0.8)
 
-        plt.title(
-            f"Minimum questing activity ({date_dict.get(s_start)} - {date_dict.get(s_end)}) ",
-            fontweight="bold",
-            fontsize=10,
-        )
+            plt.tick_params(labelsize=8)
 
-        plt.tick_params(labelsize=8)
+            plt.xlim(1949, 2100)
+            plt.ylim(0, 5000)
 
-        plt.xlim(1949, 2100)
-        plt.ylim(0, 4000)
+            plt.xlabel("Year", fontsize=8, fontweight="bold")
+            plt.ylabel("Number of questing nymphs", fontsize=8, fontweight="bold")
 
-        plt.xlabel("Year", fontsize=8, fontweight="bold")
-        plt.ylabel("Number of questing nymphs", fontsize=8, fontweight="bold")
+            from_date = date_dict.get(s_start)
+            to_date = date_dict.get(s_end)
 
-        plt.legend(fontsize=6)
+            plt.title(
+                f"Minimum questing activity ({from_date} - {to_date}) ",
+                fontweight="bold",
+                fontsize=10,
+            )
 
-        plt.tight_layout()
-        plt.savefig(
-            f"Year_vs_min_summer_activity_{date_dict.get(s_start)}_{date_dict.get(s_end)}_all_models_curve_fit_2.png",
-            dpi=400,
-            format="png",
-        )
+            plt.legend(fontsize=6)
+            plt.tight_layout()
+
+            plt.savefig(
+                f"Year_vs_min_summer_activity_{from_date}_{to_date}_{start_year}_all_models.png",
+                dpi=400,
+                format="png",
+            )
