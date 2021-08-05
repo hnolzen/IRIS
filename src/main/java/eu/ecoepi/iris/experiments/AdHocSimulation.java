@@ -53,11 +53,6 @@ public class AdHocSimulation {
                 .longOpt("output_mode")
                 .build());
 
-        cmdOptions.addOption(Option.builder("p")
-                .longOpt("precipitation")
-                .build());
-
-
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(cmdOptions, args);
 
@@ -68,7 +63,6 @@ public class AdHocSimulation {
         options.output = cmd.getOptionValue("o");
 
         options.weather = cmd.getOptionValue("w");
-        options.withPrecipitation = cmd.hasOption("p");
 
         options.initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", "150"));
         options.initialInactiveNymphs = Integer.parseInt(cmd.getOptionValue("n", "150"));

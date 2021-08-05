@@ -28,7 +28,6 @@ public class Model {
         public int initialInactiveAdults = 150;
         public float activationRate = 0.02f;
         public String outputMode = "csv_timeseries_summary";
-        public boolean withPrecipitation = false;
     }
 
     public static void run(Options options) throws Exception {
@@ -60,7 +59,7 @@ public class Model {
         };
 
         var config = new WorldConfigurationBuilder()
-                .with(new Weather(options.weather, options.withPrecipitation))
+                .with(new Weather(options.weather))
                 .with(new Activity(options.activationRate))
                 .with(new Feeding(rng))
                 .with(new TickLifeCycle())
@@ -129,9 +128,6 @@ public class Model {
 
                 var humidity = new Humidity();
                 editor.add(humidity);
-
-                var precipitation = new Precipitation();
-                editor.add(precipitation);
 
             }
         }
