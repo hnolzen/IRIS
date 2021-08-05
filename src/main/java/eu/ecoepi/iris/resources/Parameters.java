@@ -1,6 +1,6 @@
 package eu.ecoepi.iris.resources;
 
-import eu.ecoepi.iris.LifeCycleStage;
+import eu.ecoepi.iris.CohortState;
 import eu.ecoepi.iris.components.Habitat;
 
 import java.util.Map;
@@ -24,7 +24,15 @@ public class Parameters {
 
     public static final int INITIAL_INFECTED_LARVAE = 0;
     public static final int INITIAL_INFECTED_NYMPHS = 0;
-    public static final int INITIAL_INFECTED_ADULTS = 0;
+
+    public static final int INITIAL_INFECTED_INACTIVE_LARVAE = 0;
+    public static final int INITIAL_INFECTED_INACTIVE_NYMPHS = 0;
+
+    public static final int INITIAL_INFECTED_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_INFECTED_ENGORGED_NYMPHS = 0;
+
+    public static final int INITIAL_INFECTED_LATE_ENGORGED_LARVAE = 0;
+    public static final int INITIAL_INFECTED_LATE_ENGORGED_NYMPHS = 0;
 
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
@@ -79,17 +87,19 @@ public class Parameters {
             Habitat.Type.WOOD, 0.02f
     );
 
-    public static final Map<LifeCycleStage, Float> FREEZING_RATE = Map.of(
-            LifeCycleStage.LARVAE_QUESTING, 0.03f,
-            LifeCycleStage.NYMPHS_QUESTING, 0.03f,
-            LifeCycleStage.ADULTS_QUESTING, 0.03f
+    public static final Map<CohortState, Float> FREEZING_RATE = Map.of(
+            CohortState.LARVAE_QUESTING, 0.03f,
+            CohortState.NYMPHS_QUESTING, 0.03f,
+            CohortState.ADULTS_QUESTING, 0.03f
     );
 
-    public static final Map<LifeCycleStage, Float> FEEDING_RATE = Map.of(
-            LifeCycleStage.LARVAE_QUESTING, 0.01f,
-            LifeCycleStage.NYMPHS_QUESTING, 0.03f,
-            LifeCycleStage.ADULTS_QUESTING, 0.05f
+    public static final Map<CohortState, Float> FEEDING_RATE = Map.of(
+            CohortState.LARVAE_QUESTING, 0.01f,
+            CohortState.NYMPHS_QUESTING, 0.03f,
+            CohortState.ADULTS_QUESTING, 0.05f
     );
+
+    public static final float INFECTION_RATE = 0.01f;
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
 

@@ -26,6 +26,8 @@ public class Model {
         public int initialInactiveLarvae = 150;
         public int initialInactiveNymphs = 150;
         public int initialInactiveAdults = 150;
+        public int initialRodents = 5;
+        public int initialInfectedRodents = 5;
         public float activationRate = 0.02f;
         public String outputMode = "csv_timeseries_summary";
     }
@@ -117,8 +119,20 @@ public class Model {
                         Parameters.INITIAL_LATE_ENGORGED_NYMPHS,
                         Parameters.INITIAL_INFECTED_LARVAE,
                         Parameters.INITIAL_INFECTED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_ADULTS);
+                        Parameters.INITIAL_INFECTED_INACTIVE_LARVAE,
+                        Parameters.INITIAL_INFECTED_INACTIVE_NYMPHS,
+                        Parameters.INITIAL_INFECTED_ENGORGED_LARVAE,
+                        Parameters.INITIAL_INFECTED_ENGORGED_NYMPHS,
+                        Parameters.INITIAL_INFECTED_LATE_ENGORGED_LARVAE,
+                        Parameters.INITIAL_INFECTED_LATE_ENGORGED_NYMPHS
+                );
                 editor.add(abundance);
+
+                var hostAbundance = new HostAbundance(
+                        options.initialRodents,
+                        options.initialInfectedRodents
+                );
+                editor.add(hostAbundance);
 
                 var habitat = new Habitat(habitatType);
                 editor.add(habitat);

@@ -62,7 +62,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingLarvae = randomness.roundRandom(abundance.getStage(LifeCycleStage.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.LARVAE_QUESTING));
+            var feedingLarvae = randomness.roundRandom(abundance.getStage(CohortState.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(CohortState.LARVAE_QUESTING));
             abundance.addLarvae(-feedingLarvae);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
@@ -77,7 +77,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingNymphs = randomness.roundRandom(abundance.getStage(LifeCycleStage.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.NYMPHS_QUESTING));
+            var feedingNymphs = randomness.roundRandom(abundance.getStage(CohortState.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(CohortState.NYMPHS_QUESTING));
             abundance.addNymphs(-feedingNymphs);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
@@ -92,7 +92,7 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingAdults = randomness.roundRandom(abundance.getStage(LifeCycleStage.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(LifeCycleStage.ADULTS_QUESTING));
+            var feedingAdults = randomness.roundRandom(abundance.getStage(CohortState.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(CohortState.ADULTS_QUESTING));
             abundance.addAdults(-feedingAdults);
             abundanceToRandom.addEngorgedAdults(feedingAdults);
             abundance.addFeedingEventAdults(feedingAdults);

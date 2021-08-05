@@ -55,8 +55,10 @@ public class Activity extends IteratingSystem {
         }
 
         var newActiveLarvae = 0;
+        var newInfectedActiveLarvae = 0;
         if (timestep.getCurrent() > Parameters.START_LARVAE_QUESTING) {
             newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+            newInfectedActiveLarvae = randomness.roundRandom(abundance.getInfectedInactiveLarvae() * activationRate * shareOfActivationRate);
         }
         var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
         var newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
@@ -64,11 +66,20 @@ public class Activity extends IteratingSystem {
         var newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * activationRate * (1 - shareOfActivationRate));
         var newInactiveAdults = randomness.roundRandom(abundance.getAdults() * activationRate * (1 - shareOfActivationRate));
 
+        var newInfectedActiveNymphs = randomness.roundRandom(abundance.getInfectedInactiveNymphs() * activationRate * shareOfActivationRate);
+        var newInfectedInactiveLarvae = randomness.roundRandom(abundance.getInfectedLarvae() * activationRate * (1 - shareOfActivationRate));
+        var newInfectedInactiveNymphs = randomness.roundRandom(abundance.getInfectedNymphs() * activationRate * (1 - shareOfActivationRate));
+
         abundance.addLarvae(newActiveLarvae - newInactiveLarvae);
         abundance.addNymphs(newActiveNymphs - newInactiveNymphs);
         abundance.addAdults(newActiveAdults - newInactiveAdults);
         abundance.addInactiveLarvae(newInactiveLarvae - newActiveLarvae);
         abundance.addInactiveNymphs(newInactiveNymphs - newActiveNymphs);
         abundance.addInactiveAdults(newInactiveAdults - newActiveAdults);
+
+        abundance.addInfectedLarvae(newInfectedActiveLarvae - newInfectedInactiveLarvae);
+        abundance.addInfectedNymphs(newInfectedActiveNymphs - newInfectedInactiveNymphs);
+        abundance.addInfectedInactiveLarvae(newInfectedInactiveLarvae - newInfectedActiveLarvae);
+        abundance.addInfectedInactiveNymphs(newInfectedInactiveNymphs - newInfectedActiveNymphs);
     }
 }
