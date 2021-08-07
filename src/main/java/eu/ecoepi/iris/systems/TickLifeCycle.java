@@ -4,7 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
-import eu.ecoepi.iris.CohortState;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.TimeStep;
@@ -72,12 +72,12 @@ public class TickLifeCycle extends IteratingSystem {
     private void freezing(TickAbundance abundance, Temperature temperature) {
         if (temperature.getMinTemperature() < Parameters.FREEZING_MIN_TEMP_WITHOUT_SNOW) {
 
-            var frozenLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.FREEZING_RATE.get(CohortState.LARVAE_QUESTING));
-            var frozenNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.FREEZING_RATE.get(CohortState.NYMPHS_QUESTING));
-            var frozenAdults = randomness.roundRandom(abundance.getAdults() * Parameters.FREEZING_RATE.get(CohortState.ADULTS_QUESTING));
+            var frozenLarvae = randomness.roundRandom(abundance.getLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
+            var frozenNymphs = randomness.roundRandom(abundance.getNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
+            var frozenAdults = randomness.roundRandom(abundance.getAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
 
-            var frozenInfectedLarvae = randomness.roundRandom(abundance.getInfectedLarvae() * Parameters.FREEZING_RATE.get(CohortState.LARVAE_QUESTING_INFECTED));
-            var frozenInfectedNymphs = randomness.roundRandom(abundance.getInfectedNymphs() * Parameters.FREEZING_RATE.get(CohortState.NYMPHS_QUESTING_INFECTED));
+            var frozenInfectedLarvae = randomness.roundRandom(abundance.getInfectedLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
+            var frozenInfectedNymphs = randomness.roundRandom(abundance.getInfectedNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
 
             abundance.addLarvae(-frozenLarvae);
             abundance.addNymphs(-frozenNymphs);

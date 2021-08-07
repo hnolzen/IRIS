@@ -1,6 +1,6 @@
 package eu.ecoepi.iris.resources;
 
-import eu.ecoepi.iris.CohortState;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.components.Habitat;
 
 import java.util.Map;
@@ -87,16 +87,16 @@ public class Parameters {
             Habitat.Type.WOOD, 0.02f
     );
 
-    public static final Map<CohortState, Float> FREEZING_RATE = Map.of(
-            CohortState.LARVAE_QUESTING, 0.03f,
-            CohortState.NYMPHS_QUESTING, 0.03f,
-            CohortState.ADULTS_QUESTING, 0.03f
+    public static final Map<CohortStateTicks, Float> FREEZING_RATE = Map.of(
+            CohortStateTicks.LARVAE_QUESTING, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.ADULTS_QUESTING, 0.03f
     );
 
-    public static final Map<CohortState, Float> FEEDING_RATE = Map.of(
-            CohortState.LARVAE_QUESTING, 0.01f,
-            CohortState.NYMPHS_QUESTING, 0.03f,
-            CohortState.ADULTS_QUESTING, 0.05f
+    public static final Map<CohortStateTicks, Float> FEEDING_RATE = Map.of(
+            CohortStateTicks.LARVAE_QUESTING, 0.01f,
+            CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.ADULTS_QUESTING, 0.05f
     );
 
     public static final float INFECTION_RATE = 0.01f;
