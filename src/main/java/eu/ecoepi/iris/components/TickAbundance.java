@@ -88,23 +88,23 @@ public class TickAbundance extends Component {
         return abundance.get(stage);
     }
 
-    public int getLarvae() {
+    public int getQuestingLarvae() {
         return abundance.get(CohortStateTicks.LARVAE_QUESTING);
     }
 
-    public int getInfectedLarvae() {
+    public int getInfectedQuestingLarvae() {
         return abundance.get(CohortStateTicks.LARVAE_QUESTING_INFECTED);
     }
 
-    public int getNymphs() {
+    public int getQuestingNymphs() {
         return abundance.get(CohortStateTicks.NYMPHS_QUESTING);
     }
 
-    public int getInfectedNymphs() {
+    public int getInfectedQuestingNymphs() {
         return abundance.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
     }
 
-    public int getAdults() {
+    public int getQuestingAdults() {
         return abundance.get(CohortStateTicks.ADULTS_QUESTING);
     }
 
@@ -168,23 +168,23 @@ public class TickAbundance extends Component {
         abundance.compute(stage, (_stage, count) -> count + num);
     }
 
-    public void addLarvae(int larvae) {
+    public void addQuestingLarvae(int larvae) {
         abundance.compute(CohortStateTicks.LARVAE_QUESTING, (stage, count) -> count + larvae);
     }
 
-    public void addInfectedLarvae(int larvae) {
+    public void addInfectedQuestingLarvae(int larvae) {
         abundance.compute(CohortStateTicks.LARVAE_QUESTING_INFECTED, (stage, count) -> count + larvae);
     }
 
-    public void addNymphs(int nymphs) {
+    public void addQuestingNymphs(int nymphs) {
         abundance.compute(CohortStateTicks.NYMPHS_QUESTING, (stage, count) -> count + nymphs);
     }
 
-    public void addInfectedNymphs(int nymphs) {
+    public void addInfectedQuestingNymphs(int nymphs) {
         abundance.compute(CohortStateTicks.NYMPHS_QUESTING_INFECTED, (stage, count) -> count + nymphs);
     }
 
-    public void addAdults(int adults) {
+    public void addQuestingAdults(int adults) {
         abundance.compute(CohortStateTicks.ADULTS_QUESTING, (stage, count) -> count + adults);
     }
 

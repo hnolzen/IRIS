@@ -37,9 +37,9 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
         
         count++;
         
-        larvae += abundance.getLarvae();
-        nymphs += abundance.getNymphs();
-        adults += abundance.getAdults();
+        larvae += abundance.getQuestingLarvae();
+        nymphs += abundance.getQuestingNymphs();
+        adults += abundance.getQuestingAdults();
     }
     
     @Override

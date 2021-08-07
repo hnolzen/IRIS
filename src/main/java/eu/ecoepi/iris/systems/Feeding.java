@@ -63,7 +63,7 @@ public class Feeding extends IteratingSystem {
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            abundance.addLarvae(-feedingLarvae);
+            abundance.addQuestingLarvae(-feedingLarvae);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
             } else {
@@ -78,7 +78,7 @@ public class Feeding extends IteratingSystem {
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            abundance.addNymphs(-feedingNymphs);
+            abundance.addQuestingNymphs(-feedingNymphs);
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
             } else {
@@ -93,7 +93,7 @@ public class Feeding extends IteratingSystem {
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
             var feedingAdults = randomness.roundRandom(abundance.getStage(CohortStateTicks.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
-            abundance.addAdults(-feedingAdults);
+            abundance.addQuestingAdults(-feedingAdults);
             abundanceToRandom.addEngorgedAdults(feedingAdults);
             abundance.addFeedingEventAdults(feedingAdults);
         }

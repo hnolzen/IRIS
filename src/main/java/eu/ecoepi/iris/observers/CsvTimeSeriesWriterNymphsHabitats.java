@@ -44,18 +44,18 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        nymphsAllHabitats += abundance.getNymphs();
+        nymphsAllHabitats += abundance.getQuestingNymphs();
 
         if (habitat.getType() == Habitat.Type.WOOD) {
-            nymphsForest += abundance.getNymphs();
+            nymphsForest += abundance.getQuestingNymphs();
         }
 
         if (habitat.getType() == Habitat.Type.MEADOW) {
-            nymphsMeadow += abundance.getNymphs();
+            nymphsMeadow += abundance.getQuestingNymphs();
         }
 
         if (habitat.getType() == Habitat.Type.ECOTONE) {
-            nymphsEcotone += abundance.getNymphs();
+            nymphsEcotone += abundance.getQuestingNymphs();
         }
 
         dailyMeanTemperature = temperature.getMeanTemperature();

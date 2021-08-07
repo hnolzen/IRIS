@@ -11,9 +11,9 @@ public class Parameters {
     public static final int GRID_WIDTH = 12;
     public static final int GRID_HEIGHT = 12;
 
-    public static final int INITIAL_LARVAE = 0;
-    public static final int INITIAL_NYMPHS = 0;
-    public static final int INITIAL_ADULTS = 0;
+    public static final int INITIAL_QUESTING_LARVAE = 0;
+    public static final int INITIAL_QUESTING_NYMPHS = 0;
+    public static final int INITIAL_QUESTING_ADULTS = 0;
 
     public static final int INITIAL_ENGORGED_LARVAE = 0;
     public static final int INITIAL_ENGORGED_NYMPHS = 0;
@@ -22,8 +22,8 @@ public class Parameters {
     public static final int INITIAL_LATE_ENGORGED_LARVAE = 0;
     public static final int INITIAL_LATE_ENGORGED_NYMPHS = 0;
 
-    public static final int INITIAL_INFECTED_LARVAE = 0;
-    public static final int INITIAL_INFECTED_NYMPHS = 0;
+    public static final int INITIAL_INFECTED_QUESTING_LARVAE = 0;
+    public static final int INITIAL_INFECTED_QUESTING_NYMPHS = 0;
 
     public static final int INITIAL_INFECTED_INACTIVE_LARVAE = 0;
     public static final int INITIAL_INFECTED_INACTIVE_NYMPHS = 0;

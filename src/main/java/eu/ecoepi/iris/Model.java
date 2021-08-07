@@ -106,9 +106,9 @@ public class Model {
                 index.insert(position, entityId);
 
                 var abundance = new TickAbundance(
-                        Parameters.INITIAL_LARVAE,
-                        Parameters.INITIAL_NYMPHS,
-                        Parameters.INITIAL_ADULTS,
+                        Parameters.INITIAL_QUESTING_LARVAE,
+                        Parameters.INITIAL_QUESTING_NYMPHS,
+                        Parameters.INITIAL_QUESTING_ADULTS,
                         options.initialInactiveLarvae,
                         options.initialInactiveNymphs,
                         options.initialInactiveAdults,
@@ -117,8 +117,8 @@ public class Model {
                         Parameters.INITIAL_ENGORGED_ADULTS,
                         Parameters.INITIAL_LATE_ENGORGED_LARVAE,
                         Parameters.INITIAL_LATE_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_LARVAE,
-                        Parameters.INITIAL_INFECTED_NYMPHS,
+                        Parameters.INITIAL_INFECTED_QUESTING_LARVAE,
+                        Parameters.INITIAL_INFECTED_QUESTING_NYMPHS,
                         Parameters.INITIAL_INFECTED_INACTIVE_LARVAE,
                         Parameters.INITIAL_INFECTED_INACTIVE_NYMPHS,
                         Parameters.INITIAL_INFECTED_ENGORGED_LARVAE,

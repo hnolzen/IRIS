@@ -42,7 +42,7 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        nymphs += abundance.getNymphs();
+        nymphs += abundance.getQuestingNymphs();
         nymphsEngorged += abundance.getEngorgedNymphs();
         nymphsLateEngorged += abundance.getLateEngorgedNymphs();
         feedingEvents += abundance.getFeedingEventsNymphs();
