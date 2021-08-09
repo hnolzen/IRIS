@@ -18,33 +18,17 @@ public class TickAbundance extends Component {
     public TickAbundance() {
     }
 
-    public TickAbundance(int larvae, int nymphs, int adults,
-                         int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
-                         int engorgedLarvae, int engorgedNymphs, int engorgedAdults,
-                         int lateEngorgedLarvae, int lateEngorgedNymphs,
-                         int infectedLarvae, int infectedNymphs,
-                         int infectedInactiveLarvae, int infectedInactiveNymphs,
-                         int infectedEngorgedLarvae, int infectedEngorgedNymphs,
-                         int infectedLateEngorgedLarvae, int infectedLateEngorgedNymphs) {
-        abundance.put(CohortStateTicks.LARVAE_QUESTING, larvae);
-        abundance.put(CohortStateTicks.NYMPHS_QUESTING, nymphs);
-        abundance.put(CohortStateTicks.ADULTS_QUESTING, adults);
+    public TickAbundance(int inactiveLarvae,
+                         int inactiveNymphs,
+                         int inactiveAdults,
+                         int infectedInactiveLarvae,
+                         int infectedInactiveNymphs
+                         ) {
         abundance.put(CohortStateTicks.LARVAE_INACTIVE, inactiveLarvae);
         abundance.put(CohortStateTicks.NYMPHS_INACTIVE, inactiveNymphs);
         abundance.put(CohortStateTicks.ADULTS_INACTIVE, inactiveAdults);
-        abundance.put(CohortStateTicks.LARVAE_ENGORGED, engorgedLarvae);
-        abundance.put(CohortStateTicks.NYMPHS_ENGORGED, engorgedNymphs);
-        abundance.put(CohortStateTicks.ADULTS_ENGORGED, engorgedAdults);
-        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED, lateEngorgedLarvae);
-        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED, lateEngorgedNymphs);
-        abundance.put(CohortStateTicks.LARVAE_QUESTING_INFECTED, infectedLarvae);
-        abundance.put(CohortStateTicks.NYMPHS_QUESTING_INFECTED, infectedNymphs);
         abundance.put(CohortStateTicks.LARVAE_INACTIVE_INFECTED, infectedInactiveLarvae);
         abundance.put(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, infectedInactiveNymphs);
-        abundance.put(CohortStateTicks.LARVAE_ENGORGED_INFECTED, infectedEngorgedLarvae);
-        abundance.put(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, infectedEngorgedNymphs);
-        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED, infectedLateEngorgedLarvae);
-        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED, infectedLateEngorgedNymphs);
     }
 
     @Override

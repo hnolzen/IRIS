@@ -11,29 +11,6 @@ public class Parameters {
     public static final int GRID_WIDTH = 12;
     public static final int GRID_HEIGHT = 12;
 
-    public static final int INITIAL_QUESTING_LARVAE = 0;
-    public static final int INITIAL_QUESTING_NYMPHS = 0;
-    public static final int INITIAL_QUESTING_ADULTS = 0;
-
-    public static final int INITIAL_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_ENGORGED_NYMPHS = 0;
-    public static final int INITIAL_ENGORGED_ADULTS = 0;
-
-    public static final int INITIAL_LATE_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_LATE_ENGORGED_NYMPHS = 0;
-
-    public static final int INITIAL_INFECTED_QUESTING_LARVAE = 0;
-    public static final int INITIAL_INFECTED_QUESTING_NYMPHS = 0;
-
-    public static final int INITIAL_INFECTED_INACTIVE_LARVAE = 0;
-    public static final int INITIAL_INFECTED_INACTIVE_NYMPHS = 0;
-
-    public static final int INITIAL_INFECTED_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_INFECTED_ENGORGED_NYMPHS = 0;
-
-    public static final int INITIAL_INFECTED_LATE_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_INFECTED_LATE_ENGORGED_NYMPHS = 0;
-
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
     public static final int END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS = 274;      // Beginning of October

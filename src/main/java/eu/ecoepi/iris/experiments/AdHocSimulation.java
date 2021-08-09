@@ -30,17 +30,27 @@ public class AdHocSimulation {
 
         cmdOptions.addOption(Option.builder("l")
                 .hasArg()
-                .longOpt("larvae")
+                .longOpt("inactiveLarvae")
                 .build());
 
         cmdOptions.addOption(Option.builder("n")
                 .hasArg()
-                .longOpt("nymphs")
+                .longOpt("inactiveNymphs")
                 .build());
 
         cmdOptions.addOption(Option.builder("a")
                 .hasArg()
-                .longOpt("adults")
+                .longOpt("inactiveAdults")
+                .build());
+
+        cmdOptions.addOption(Option.builder("i")
+                .hasArg()
+                .longOpt("infectedInactiveLarvae")
+                .build());
+
+        cmdOptions.addOption(Option.builder("j")
+                .hasArg()
+                .longOpt("infectedInactiveNymphs")
                 .build());
 
         cmdOptions.addOption(Option.builder("r")
@@ -67,7 +77,9 @@ public class AdHocSimulation {
         options.initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", "150"));
         options.initialInactiveNymphs = Integer.parseInt(cmd.getOptionValue("n", "150"));
         options.initialInactiveAdults = Integer.parseInt(cmd.getOptionValue("a", "150"));
-        
+        options.initialInfectedInactiveLarvae = Integer.parseInt(cmd.getOptionValue("i", "0"));
+        options.initialInfectedInactiveNymphs = Integer.parseInt(cmd.getOptionValue("j", "0"));
+
         options.activationRate = Float.parseFloat(cmd.getOptionValue("r", "0.05"));
         
         options.outputMode = cmd.getOptionValue("m");

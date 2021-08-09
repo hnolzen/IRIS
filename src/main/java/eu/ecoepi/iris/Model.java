@@ -26,6 +26,8 @@ public class Model {
         public int initialInactiveLarvae = 150;
         public int initialInactiveNymphs = 150;
         public int initialInactiveAdults = 150;
+        public int initialInfectedInactiveLarvae = 0;
+        public int initialInfectedInactiveNymphs = 0;
         public int initialRodents = 5;
         public int initialInfectedRodents = 5;
         public float activationRate = 0.02f;
@@ -106,25 +108,11 @@ public class Model {
                 index.insert(position, entityId);
 
                 var abundance = new TickAbundance(
-                        Parameters.INITIAL_QUESTING_LARVAE,
-                        Parameters.INITIAL_QUESTING_NYMPHS,
-                        Parameters.INITIAL_QUESTING_ADULTS,
                         options.initialInactiveLarvae,
                         options.initialInactiveNymphs,
                         options.initialInactiveAdults,
-                        Parameters.INITIAL_ENGORGED_LARVAE,
-                        Parameters.INITIAL_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_ENGORGED_ADULTS,
-                        Parameters.INITIAL_LATE_ENGORGED_LARVAE,
-                        Parameters.INITIAL_LATE_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_QUESTING_LARVAE,
-                        Parameters.INITIAL_INFECTED_QUESTING_NYMPHS,
-                        Parameters.INITIAL_INFECTED_INACTIVE_LARVAE,
-                        Parameters.INITIAL_INFECTED_INACTIVE_NYMPHS,
-                        Parameters.INITIAL_INFECTED_ENGORGED_LARVAE,
-                        Parameters.INITIAL_INFECTED_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_LATE_ENGORGED_LARVAE,
-                        Parameters.INITIAL_INFECTED_LATE_ENGORGED_NYMPHS
+                        options.initialInfectedInactiveLarvae,
+                        options.initialInfectedInactiveNymphs
                 );
                 editor.add(abundance);
 
