@@ -5,6 +5,7 @@ import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.*;
+import eu.ecoepi.iris.components.HostAbundance;
 import eu.ecoepi.iris.components.Position;
 import eu.ecoepi.iris.components.TickAbundance;
 import eu.ecoepi.iris.resources.Parameters;
@@ -18,10 +19,11 @@ import org.apache.commons.math3.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-@All({TickAbundance.class, Position.class})
+@All({TickAbundance.class, HostAbundance.class, Position.class})
 public class Feeding extends IteratingSystem {
 
-    ComponentMapper<TickAbundance> abundanceMapper;
+    ComponentMapper<TickAbundance> tickAbundanceMapper;
+    ComponentMapper<HostAbundance> hostAbundanceMapper;
     ComponentMapper<Position> positionMapper;
 
     final EnumeratedDistribution<Integer> distribution;
@@ -52,7 +54,8 @@ public class Feeding extends IteratingSystem {
 
     @Override
     protected void process(int entityId) {
-        var abundance = abundanceMapper.get(entityId);
+        var tickAbundance = tickAbundanceMapper.get(entityId);
+        var hostAbundance = hostAbundanceMapper.get(entityId);
         var position = positionMapper.get(entityId);
 
         var lateFeeding = timestep.getCurrent() >= Parameters.LATE_FEEDING_TIME;
@@ -61,41 +64,68 @@ public class Feeding extends IteratingSystem {
             var x = distribution.sample();
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            abundance.addQuestingLarvae(-feedingLarvae);
+            var abundanceToRandom = tickAbundanceMapper.get(neighbourToRandom.get());
+            var feedingLarvae = randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
+            var feedingInfectedLarvae =
+                    randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
+
+            var newInfectedLarvae = randomness.roundRandom(Parameters.INFECTION_RATE * feedingLarvae * hostAbundance.getInfectedRodents());
+            feedingLarvae = feedingLarvae - newInfectedLarvae;
+            feedingInfectedLarvae = feedingInfectedLarvae + newInfectedLarvae;
+
+            tickAbundance.addQuestingLarvae(-feedingLarvae);
+            tickAbundance.addInfectedQuestingLarvae(-feedingInfectedLarvae);
+
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
+                abundanceToRandom.addInfectedLateEngorgedLarvae(feedingInfectedLarvae);
             } else {
                 abundanceToRandom.addEngorgedLarvae(feedingLarvae);
+                abundanceToRandom.addInfectedEngorgedLarvae(feedingInfectedLarvae);
             }
-            abundance.addFeedingEventLarvae(feedingLarvae);
+            tickAbundance.addFeedingEventLarvae(feedingLarvae + feedingInfectedLarvae);
         }
 
         {
             var x = distribution.sample();
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            abundance.addQuestingNymphs(-feedingNymphs);
+            var abundanceToRandom = tickAbundanceMapper.get(neighbourToRandom.get());
+            var feedingNymphs = randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
+            var feedingInfectedNymphs =
+                    randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
+
+            var newInfectedNymphs = randomness.roundRandom(Parameters.INFECTION_RATE * feedingNymphs * hostAbundance.getInfectedRodents());
+            feedingNymphs = feedingNymphs - newInfectedNymphs;
+            feedingInfectedNymphs = feedingInfectedNymphs + newInfectedNymphs;
+
+            tickAbundance.addQuestingNymphs(-feedingNymphs);
+            tickAbundance.addInfectedQuestingNymphs(-feedingInfectedNymphs);
+
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
+                abundanceToRandom.addInfectedLateEngorgedNymphs(feedingInfectedNymphs);
             } else {
                 abundanceToRandom.addEngorgedNymphs(feedingNymphs);
+                abundanceToRandom.addInfectedEngorgedNymphs(feedingInfectedNymphs);
             }
-            abundance.addFeedingEventNymphs(feedingNymphs);
+            tickAbundance.addFeedingEventNymphs(feedingNymphs + feedingInfectedNymphs);
+
+            var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_RATE * feedingInfectedNymphs * hostAbundance.getRodents());
+            hostAbundance.addRodents(-newInfectedRodents);
+            hostAbundance.addInfectedRodents(newInfectedRodents);
         }
 
         {
             var x = distribution.sample();
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
-            var abundanceToRandom = abundanceMapper.get(neighbourToRandom.get());
-            var feedingAdults = randomness.roundRandom(abundance.getStage(CohortStateTicks.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
-            abundance.addQuestingAdults(-feedingAdults);
+            var abundanceToRandom = tickAbundanceMapper.get(neighbourToRandom.get());
+            var feedingAdults = randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.ADULTS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
+
+            tickAbundance.addQuestingAdults(-feedingAdults);
             abundanceToRandom.addEngorgedAdults(feedingAdults);
-            abundance.addFeedingEventAdults(feedingAdults);
+            tickAbundance.addFeedingEventAdults(feedingAdults);
         }
     }
 }

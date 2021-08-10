@@ -72,10 +72,15 @@ public class Parameters {
 
     public static final Map<CohortStateTicks, Float> FEEDING_RATE = Map.of(
             CohortStateTicks.LARVAE_QUESTING, 0.01f,
+            CohortStateTicks.LARVAE_QUESTING_INFECTED, 0.01f,
             CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0.03f,
             CohortStateTicks.ADULTS_QUESTING, 0.05f
     );
 
+    public static final float MORTALITY_RATE_RODENTS = 0.01f;
+    public static final float MORTALITY_RATE_INFECTED_RODENTS = 0.015f;
+    public static final float BIRTH_RATE_RODENTS = 0.01f;
     public static final float INFECTION_RATE = 0.01f;
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
