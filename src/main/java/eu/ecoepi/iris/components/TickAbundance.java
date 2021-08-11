@@ -29,6 +29,20 @@ public class TickAbundance extends Component {
         abundance.put(CohortStateTicks.ADULTS_INACTIVE, inactiveAdults);
         abundance.put(CohortStateTicks.LARVAE_INACTIVE_INFECTED, infectedInactiveLarvae);
         abundance.put(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, infectedInactiveNymphs);
+        abundance.put(CohortStateTicks.LARVAE_QUESTING, 0);
+        abundance.put(CohortStateTicks.NYMPHS_QUESTING, 0);
+        abundance.put(CohortStateTicks.ADULTS_QUESTING, 0);
+        abundance.put(CohortStateTicks.LARVAE_QUESTING_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0);
+        abundance.put(CohortStateTicks.LARVAE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_ENGORGED, 0);
+        abundance.put(CohortStateTicks.ADULTS_ENGORGED, 0);
+        abundance.put(CohortStateTicks.LARVAE_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED, 0);
     }
 
     @Override
