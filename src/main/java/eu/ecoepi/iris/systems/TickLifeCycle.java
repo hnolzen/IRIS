@@ -72,12 +72,14 @@ public class TickLifeCycle extends IteratingSystem {
     private void freezing(TickAbundance abundance, Temperature temperature) {
         if (temperature.getMinTemperature() < Parameters.FREEZING_MIN_TEMP_WITHOUT_SNOW) {
 
-            var frozenLarvae = randomness.roundRandom(abundance.getQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            var frozenNymphs = randomness.roundRandom(abundance.getQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            var frozenAdults = randomness.roundRandom(abundance.getQuestingAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
+            var frozenLarvae = randomness.roundRandom((float) abundance.getQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
+            var frozenNymphs = randomness.roundRandom((float) abundance.getQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
+            var frozenAdults = randomness.roundRandom((float) abundance.getQuestingAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
 
-            var frozenInfectedLarvae = randomness.roundRandom(abundance.getInfectedQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
-            var frozenInfectedNymphs = randomness.roundRandom(abundance.getInfectedQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
+            var frozenInfectedLarvae =
+                    randomness.roundRandom((float) abundance.getInfectedQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
+            var frozenInfectedNymphs =
+                    randomness.roundRandom((float) abundance.getInfectedQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
 
             abundance.addQuestingLarvae(-frozenLarvae);
             abundance.addQuestingNymphs(-frozenNymphs);
@@ -92,12 +94,12 @@ public class TickLifeCycle extends IteratingSystem {
         if (humidity.getRelativeHumidity() < Parameters.DESICCATION_MINIMAL_HUMIDITY &&
                 temperature.getMeanTemperature() > Parameters.DESICCATION_MINIMAL_MEAN_TEMP) {
 
-            var desiccatedLarvae = randomness.roundRandom(abundance.getQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedNymphs = randomness.roundRandom(abundance.getQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedAdults = randomness.roundRandom(abundance.getQuestingAdults() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedLarvae = randomness.roundRandom((float) abundance.getQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedNymphs = randomness.roundRandom((float) abundance.getQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedAdults = randomness.roundRandom((float) abundance.getQuestingAdults() * Parameters.DESICCATION_RATE.get(habitat.getType()));
 
-            var desiccatedInfectedLarvae = randomness.roundRandom(abundance.getInfectedQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedInfectedNymphs = randomness.roundRandom(abundance.getInfectedQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedInfectedLarvae = randomness.roundRandom((float) abundance.getInfectedQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedInfectedNymphs = randomness.roundRandom((float) abundance.getInfectedQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
 
             abundance.addQuestingLarvae(-desiccatedLarvae);
             abundance.addQuestingNymphs(-desiccatedNymphs);
