@@ -66,7 +66,9 @@ public class Parameters {
 
     public static final Map<CohortStateTicks, Float> FREEZING_RATE = Map.of(
             CohortStateTicks.LARVAE_QUESTING, 0.03f,
+            CohortStateTicks.LARVAE_QUESTING_INFECTED, 0.03f,
             CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0.03f,
             CohortStateTicks.ADULTS_QUESTING, 0.03f
     );
 
