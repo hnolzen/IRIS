@@ -23,12 +23,15 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
     private int nymphs;
     private int adults;
 
+    private int larvaeInfected;
+    private int nymphsInfected;
+
     @Wire
     TimeStep timeStep;
 
     public CsvSummaryTimeSeriesWriter(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_larvae,questing_nymphs,questing_adults\n");
+        csvWriter.print("tick,questing_larvae,questing_nymphs,questing_adults,questing_larvae_infected,questing_nymphs_infected\n");
     }
     
     @Override
@@ -40,21 +43,30 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
         larvae += abundance.getQuestingLarvae();
         nymphs += abundance.getQuestingNymphs();
         adults += abundance.getQuestingAdults();
+
+        larvaeInfected += abundance.getInfectedQuestingLarvae();
+        nymphsInfected += abundance.getInfectedQuestingNymphs();
     }
     
     @Override
     protected void end() {
-        csvWriter.format("%d,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f\n",
             timeStep.getCurrent(),
             (double)larvae / (double)count,
             (double)nymphs / (double)count,
-            (double)adults / (double)count);
+            (double)adults / (double)count,
+            (double)larvaeInfected / (double)count,
+            (double)nymphsInfected / (double)count
+        );
             
         count = 0;
         
         larvae = 0;
         nymphs = 0;
         adults = 0;
+
+        larvaeInfected = 0;
+        nymphsInfected = 0;
     }
 
     @Override
