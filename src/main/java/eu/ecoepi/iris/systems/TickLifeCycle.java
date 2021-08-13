@@ -52,6 +52,10 @@ public class TickLifeCycle extends IteratingSystem {
                 abundance.addInfectedEngorgedLarvae(-nextStageInfectedNymphs);
             }
 
+            /*
+            The infection dynamics is currently not applied to adult ticks as the model only
+            simulates a single year and we are primarily interested in infected nymphs.
+            */
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS - currentTimeStep;
                 var nextStageAdults = randomness.roundRandom(
