@@ -44,8 +44,17 @@ y_1_5K = list(range(2012, 2041 + 1))
 y_3_0K = list(range(2050, 2079 + 1))
 y_4_0K = list(range(2070, 2099 + 1))
 
+model_values = []
+mean_temp_0_0K_values = []
+std_temp_0_0K_values = []
+mean_temp_1_5K_values = []
+std_temp_1_5K_values = []
+mean_temp_3_0K_values = []
+std_temp_3_0K_values = []
+mean_temp_4_0K_values = []
+std_temp_4_0K_values = []
+diff_0_0K_vs_4_0K_values = []
 
-summary = []
 for model in climate_models:
     model_dir = os.path.abspath(file_dir + f"/{model}/csv_regensburg/")
 
@@ -66,35 +75,31 @@ for model in climate_models:
 
     diff_0_0K_vs_4_0K = mean_temp_4_0K - mean_temp_0_0K
 
-    values = [
-        model,
-        mean_temp_0_0K,
-        std_temp_0_0K,
-        mean_temp_1_5K,
-        std_temp_1_5K,
-        mean_temp_3_0K,
-        std_temp_3_0K,
-        mean_temp_4_0K,
-        std_temp_4_0K,
-        diff_0_0K_vs_4_0K,
-    ]
-    summary.append(values)
+    model_values.append(model)
+    mean_temp_0_0K_values.append(mean_temp_0_0K)
+    std_temp_0_0K_values.append(std_temp_0_0K)
+    mean_temp_1_5K_values.append(mean_temp_1_5K)
+    std_temp_1_5K_values.append(std_temp_1_5K)
+    mean_temp_3_0K_values.append(mean_temp_3_0K)
+    std_temp_3_0K_values.append(std_temp_3_0K)
+    mean_temp_4_0K_values.append(mean_temp_4_0K)
+    std_temp_4_0K_values.append(std_temp_4_0K)
+    diff_0_0K_vs_4_0K_values.append(diff_0_0K_vs_4_0K)
 
-summary = pd.DataFrame(
-    summary,
-    columns=(
-        "model",
-        "mean_0_0K",
-        "std_0_0K",
-        "mean_1_5K",
-        "std_1_5K",
-        "mean_3_0K",
-        "std_3_0K",
-        "mean_4_0K",
-        "std_4_0K",
-        "diff_0K_vs_4K",
-    ),
-)
+
+summary = pd.DataFrame({
+    "model": model_values,
+    "mean_temp_0_0K": mean_temp_0_0K_values,
+    "std_temp_0_0K": std_temp_0_0K_values,
+    "mean_temp_1_5K": mean_temp_1_5K_values,
+    "std_temp_1_5K": std_temp_1_5K_values,
+    "mean_temp_3_0K": mean_temp_3_0K_values,
+    "std_temp_3_0K": std_temp_3_0K_values,
+    "mean_temp_4_0K": mean_temp_4_0K_values,
+    "std_temp_4_0K": std_temp_4_0K_values,
+    "diff_0_0K_vs_4_0K": diff_0_0K_vs_4_0K_values,
+})
+
 
 print(summary)
 
