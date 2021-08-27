@@ -74,6 +74,8 @@ if (climate_simulation) {
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_DMI-HIRHAM5_v2"
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_GERICS-REMO2015_v1"
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_ICTP-RegCM4-6_v1"
+  #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_IPSL-WRF381P_v1"
+  #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_KNMI-RACMO22E_v2"
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_MOHC-HadREM3-GA7-05_v1"
   #model_name <- "MOHC-HadGEM2-ES_rcp85_r1i1p1_SMHI-RCA4_v1"
   model_name <- "MPI-M-MPI-ESM-LR_rcp85_r3i1p1_GERICS-REMO2015_v1"
