@@ -7,6 +7,7 @@ import os
 file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
+COLOR_BOUNDARY_LINE = "#969696"
 COLOR_DWD = "#41ab5d"
 COLOR_CLIMATE_FUTURE = "#3182bd"
 COLOR_CLIMATE_PAST = "#8226de"
@@ -242,7 +243,7 @@ if with_fits:
         )
 
 
-plt.axvline(x=2020.5, color="#969696", ls="--", lw=0.8)
+plt.axvline(x=2020.5, color=COLOR_BOUNDARY_LINE, ls="--", lw=0.8)
 
 lower_x_lim = x_axis.get(x_axis_type)[2]
 upper_x_lim = x_axis.get(x_axis_type)[3]
