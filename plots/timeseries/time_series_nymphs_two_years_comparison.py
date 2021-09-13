@@ -9,6 +9,8 @@ main_dir = os.path.abspath(file_dir + "/.." + "/..")
 out_dir = os.path.abspath(main_dir + "/output/")
 
 GRID_CELLS = 144
+MONTHLY_BOUNDARIES = "#d9d9d9"
+
 LINE_COLOR_NYMPHS_YEAR_1 = "#3182bd"
 LINE_COLOR_NYMPHS_INFECTED_YEAR_1 = "#f21f00"
 FILL_COLOR_NYMPHS_YEAR_1 = "#78bee3"
@@ -126,7 +128,7 @@ data_y2 = read_csv(year_2, input_model_2)
 fig, ax = plt.subplots(figsize=(8, 3))
 
 for x_value in list(x_axis.keys())[2:24:2]:
-    plt.axvline(x=x_value, color="#d9d9d9", ls="-", lw=0.5, alpha=0.5)
+    plt.axvline(x=x_value, color=MONTHLY_BOUNDARIES, ls="-", lw=0.5, alpha=0.5)
 
 if with_questing_nymphs:
     plot_line(
