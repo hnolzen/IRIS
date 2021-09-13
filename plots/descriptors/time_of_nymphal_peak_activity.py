@@ -264,6 +264,5 @@ plt.tight_layout()
 plt.savefig(
     f"peak_activity_nymphs_{x_ax_type}.{output_format}",
     dpi=400,
-    format=f"{output_format}",
 )
 plt.close(fig)
