@@ -100,7 +100,7 @@ def read_csv(year, input_model):
 
 def plot_line(df_x, df_y, c_line, c_fill, l_name):
     if with_density:
-        df_y = df_y.div(GRID_CELLS)
+        df_y /= GRID_CELLS
 
     if with_smoothing:
         df_y = signal.savgol_filter(df_y, 53, 3)
