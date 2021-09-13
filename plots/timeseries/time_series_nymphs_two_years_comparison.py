@@ -188,6 +188,5 @@ plt.tight_layout()
 plt.savefig(
     f"time_series_nymphs_comparison_{year_1}_{year_2}.{output_format}",
     dpi=400,
-    format=f"{output_format}",
 )
 plt.close(fig)

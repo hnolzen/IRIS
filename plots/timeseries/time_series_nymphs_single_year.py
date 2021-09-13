@@ -101,7 +101,7 @@ def plot_line(df_x, df_y, c_line, c_fill, l_name):
             plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
 
 
-year = 2017
+year = 2018
 input_model = 0
 observer = 3
 with_questing_nymphs = True
@@ -165,6 +165,5 @@ plt.tight_layout()
 plt.savefig(
     f"timeseries_nymphs_{year}_{models[input_model]}.{output_format}",
     dpi=400,
-    format=f"{output_format}",
 )
 plt.close(fig)
