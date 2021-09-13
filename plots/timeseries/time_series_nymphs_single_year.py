@@ -79,17 +79,8 @@ def read_csv(year, input_model):
         df = pd.read_csv(file_path, header=0)
         return df
 
-    except Exception:
-        print(file_path)
-        if input_model == 0:
-            if year > 2020:
-                print("No observation data for years > 2020 available!")
-        if input_model > 0:
-            if year < 1971:
-                print("No projection data for years < 1971 available!")
-            if year == 2099:
-                print("No projection data for year 2099 available!")
-        print("------")
+    except FileNotFoundError as ex:
+        print("FileNotFoundError: The file ", ex.filename, " was not found.")
 
 
 def plot_line(df_x, df_y, c_line, c_fill, l_name):
@@ -109,7 +100,7 @@ def plot_line(df_x, df_y, c_line, c_fill, l_name):
             plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
 
 
-year = 2018
+year = 2021
 input_model = 0
 observer = 3
 with_questing_nymphs = True
