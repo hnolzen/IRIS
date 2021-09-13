@@ -109,10 +109,10 @@ def get_data(y_start, y_end, obs, x_axis_type):
                     if x_axis_type == 5:
                         median_jan_jun = df_jan_jun["mean_temperature"].median()
                         x_axis_values.append(median_jan_jun)
+                
+                except pd.errors.EmptyDataError as ex_empty_data:
+                    print("EmptyDataError: ", ex_empty_data, filename)
 
-                except Exception:
-                    print(filename)
-                    print("------")
 
     summary = pd.DataFrame(
         {
