@@ -9,6 +9,7 @@ main_dir = os.path.abspath(file_dir + "/.." + "/..")
 out_dir = os.path.abspath(main_dir + "/output/")
 
 GRID_CELLS = 144
+MONTHLY_BOUNDARIES = "#d9d9d9"
 LINE_COLOR_NYMPHS = "#3182bd"
 LINE_COLOR_NYMPHS_INFECTED = "#f21f00"
 FILL_COLOR_NYMPHS = "#9ecae1"
@@ -100,7 +101,7 @@ def plot_line(df_x, df_y, c_line, c_fill, l_name):
             plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
 
 
-year = 2021
+year = 2017
 input_model = 0
 observer = 3
 with_questing_nymphs = True
@@ -117,7 +118,7 @@ data = read_csv(year, input_model)
 fig, ax = plt.subplots(figsize=(8, 3))
 
 for x_value in list(x_axis.keys())[2:24:2]:
-    plt.axvline(x=x_value, color="#d9d9d9", ls="-", lw=0.5, alpha=0.5)
+    plt.axvline(x=x_value, color=MONTHLY_BOUNDARIES, ls="-", lw=0.5, alpha=0.5)
 
 if with_questing_nymphs:
     plot_line(
