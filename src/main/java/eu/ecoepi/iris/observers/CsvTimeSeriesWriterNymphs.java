@@ -20,6 +20,7 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
     private final PrintWriter csvWriter;
 
     private int nymphs;
+    private int nymphsInfected;
     private int nymphsEngorged;
     private int nymphsLateEngorged;
     private int feedingEvents;
@@ -33,7 +34,18 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
 
     public CsvTimeSeriesWriterNymphs(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_nymphs,nymphs_engorged,nymphs_late_engorged,feeding_events,mean_temperature,max_temperature,humidity\n");
+        csvWriter.print(
+                "tick," +
+                "questing_nymphs," +
+                "questing_nymphs_infected," +
+                "nymphs_engorged," +
+                "nymphs_late_engorged," +
+                "feeding_events," +
+                "mean_temperature," +
+                "max_temperature," +
+                "humidity" +
+                "\n"
+        );
     }
 
     @Override
@@ -43,6 +55,7 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         var humidity = humidityMapper.get(entityId);
 
         nymphs += abundance.getQuestingNymphs();
+        nymphsInfected += abundance.getInfectedQuestingNymphs();
         nymphsEngorged += abundance.getEngorgedNymphs();
         nymphsLateEngorged += abundance.getLateEngorgedNymphs();
         feedingEvents += abundance.getFeedingEventsNymphs();
@@ -55,18 +68,21 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double)nymphs,
+                (double)nymphsInfected,
                 (double)nymphsEngorged,
                 (double)nymphsLateEngorged,
                 (double)feedingEvents,
                 dailyMeanTemperature,
                 dailyMaxTemperature,
-                dailyHumidity);
+                dailyHumidity
+        );
 
         nymphs = 0;
         nymphsEngorged = 0;
+        nymphsInfected = 0;
         nymphsLateEngorged = 0;
         feedingEvents = 0;
     }

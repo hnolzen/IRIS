@@ -26,14 +26,39 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
 
     public CsvTimeSeriesWriter(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,x,y,habitat," +
-                "questing_larvae,questing_nymphs,questing_adults," +
-                "inactive_larvae,inactive_nymphs,inactive_adults," +
-                "engorged_larvae,engorged_nymphs,engorged_adults," +
-                "late_engorged_larvae,late_engorged_nymphs," +
-                "t_mean,t_min,t_max,humidity," +
-                "feeding_events_larvae,feeding_events_nymphs,feeding_events_adults" +
-                "\n");
+        csvWriter.print(
+                "tick," +
+                "x," +
+                "y," +
+                "habitat," +
+                "questing_larvae," +
+                "questing_larvae," +
+                "questing_nymphs," +
+                "questing_nymphs," +
+                "questing_adults," +
+                "inactive_larvae," +
+                "inactive_larvae," +
+                "inactive_nymphs," +
+                "inactive_nymphs," +
+                "inactive_adults," +
+                "engorged_larvae," +
+                "engorged_larvae," +
+                "engorged_nymphs," +
+                "engorged_nymphs," +
+                "engorged_adults," +
+                "late_engorged_larvae," +
+                "late_engorged_larvae," +
+                "late_engorged_nymphs," +
+                "late_engorged_nymphs," +
+                "t_mean," +
+                "t_min," +
+                "t_max," +
+                "humidity," +
+                "feeding_events_larvae," +
+                "feeding_events_nymphs," +
+                "feeding_events_adults" +
+                "\n"
+        );
     }
 
     @Override
@@ -44,22 +69,30 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        csvWriter.format("%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%f,%d,%d,%d\n",
+        csvWriter.format("%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%f,%d,%d,%d\n",
             timeStep.getCurrent(),
             position.getX(),
             position.getY(),
             habitat.getType(),
             abundance.getQuestingLarvae(),
+            abundance.getInfectedQuestingLarvae(),
             abundance.getQuestingNymphs(),
+            abundance.getInfectedQuestingNymphs(),
             abundance.getQuestingAdults(),
             abundance.getInactiveLarvae(),
+            abundance.getInfectedInactiveLarvae(),
             abundance.getInactiveNymphs(),
+            abundance.getInfectedInactiveNymphs(),
             abundance.getInactiveAdults(),
             abundance.getEngorgedLarvae(),
+            abundance.getInfectedEngorgedLarvae(),
             abundance.getEngorgedNymphs(),
+            abundance.getInfectedEngorgedNymphs(),
             abundance.getEngorgedAdults(),
             abundance.getLateEngorgedLarvae(),
+            abundance.getInfectedLateEngorgedLarvae(),
             abundance.getLateEngorgedNymphs(),
+            abundance.getInfectedLateEngorgedNymphs(),
             temperature.getMeanTemperature(),
             temperature.getMinTemperature(),
             temperature.getMaxTemperature(),

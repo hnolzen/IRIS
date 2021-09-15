@@ -31,7 +31,15 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
 
     public CsvSummaryTimeSeriesWriter(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_larvae,questing_nymphs,questing_adults,questing_larvae_infected,questing_nymphs_infected\n");
+        csvWriter.print(
+                "tick," +
+                "questing_larvae," +
+                "questing_nymphs," +
+                "questing_adults," +
+                "questing_larvae_infected," +
+                "questing_nymphs_infected" +
+                "\n"
+        );
     }
     
     @Override
