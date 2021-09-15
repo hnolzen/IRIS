@@ -57,17 +57,17 @@ year_start <- 1949
 year_end <- 2020
 climate_simulation <- FALSE
 random_seed <- 42
-initial_larvae <- 150
-initial_nymphs <- 150
+initial_larvae <- 145
+initial_nymphs <- 145
 initial_adults <- 150
-initial_infected_larvae <- 0
-initial_infected_nymphs <- 0
+initial_infected_larvae <- 5
+initial_infected_nymphs <- 5
 activation_rate <- 0.022
 #output_mode <- "csv_timeseries"
 #output_mode <- "csv_timeseries_summary"
 #output_mode <- "csv_timeseries_summary_habitats"
-#output_mode <- "csv_timeseries_nymphs"
-output_mode <- "csv_timeseries_nymphs_habitats"
+output_mode <- "csv_timeseries_nymphs"
+#output_mode <- "csv_timeseries_nymphs_habitats"
 
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 
