@@ -9,10 +9,7 @@ import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.SpatialIndex;
 import eu.ecoepi.iris.resources.TimeStep;
-import eu.ecoepi.iris.systems.Activity;
-import eu.ecoepi.iris.systems.Feeding;
-import eu.ecoepi.iris.systems.TickLifeCycle;
-import eu.ecoepi.iris.systems.Weather;
+import eu.ecoepi.iris.systems.*;
 import org.apache.commons.math3.random.MersenneTwister;
 
 /**
@@ -67,6 +64,7 @@ public class Model {
                 .with(new Activity(options.activationRate))
                 .with(new Feeding(rng))
                 .with(new TickLifeCycle())
+                .with(new HostLifeCycle())
                 .with(outputWriter)
                 .build()
                 .register(new SpatialIndex())
