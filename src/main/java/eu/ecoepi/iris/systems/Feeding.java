@@ -69,7 +69,7 @@ public class Feeding extends IteratingSystem {
             var feedingInfectedLarvae =
                     randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
 
-            var newInfectedLarvae = randomness.roundRandom(Parameters.INFECTION_RATE * feedingLarvae * hostAbundance.getInfectedRodents());
+            var newInfectedLarvae = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingLarvae * hostAbundance.getInfectedRodents());
             feedingLarvae = feedingLarvae - newInfectedLarvae;
             feedingInfectedLarvae = feedingInfectedLarvae + newInfectedLarvae;
 
@@ -95,7 +95,7 @@ public class Feeding extends IteratingSystem {
             var feedingInfectedNymphs =
                     randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
 
-            var newInfectedNymphs = randomness.roundRandom(Parameters.INFECTION_RATE * feedingNymphs * hostAbundance.getInfectedRodents());
+            var newInfectedNymphs = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingNymphs * hostAbundance.getInfectedRodents());
             feedingNymphs = feedingNymphs - newInfectedNymphs;
             feedingInfectedNymphs = feedingInfectedNymphs + newInfectedNymphs;
 
@@ -111,7 +111,7 @@ public class Feeding extends IteratingSystem {
             }
             tickAbundance.addFeedingEventNymphs(feedingNymphs + feedingInfectedNymphs);
 
-            var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_RATE * feedingInfectedNymphs * hostAbundance.getRodents());
+            var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * hostAbundance.getRodents());
             hostAbundance.addRodents(-newInfectedRodents);
             hostAbundance.addInfectedRodents(newInfectedRodents);
         }
