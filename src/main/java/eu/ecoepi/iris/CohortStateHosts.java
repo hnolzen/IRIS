@@ -2,6 +2,6 @@ package eu.ecoepi.iris;
 
 public enum CohortStateHosts {
 
-    RODENTS, RODENTS_INFECTED
+    RODENTS_SUSCEPTIBLE, RODENTS_INFECTED
 
 }

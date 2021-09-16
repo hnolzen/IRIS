@@ -15,7 +15,7 @@ public class HostAbundance extends Component {
     }
 
     public HostAbundance(int rodents, int infectedRodents) {
-        abundance.put(CohortStateHosts.RODENTS, rodents);
+        abundance.put(CohortStateHosts.RODENTS_SUSCEPTIBLE, rodents);
         abundance.put(CohortStateHosts.RODENTS_INFECTED, infectedRodents);
     }
 
@@ -33,7 +33,7 @@ public class HostAbundance extends Component {
     }
 
     public int getRodents() {
-        return abundance.get(CohortStateHosts.RODENTS);
+        return abundance.get(CohortStateHosts.RODENTS_SUSCEPTIBLE);
     }
 
     public int getInfectedRodents() {
@@ -41,7 +41,7 @@ public class HostAbundance extends Component {
     }
 
     public void addRodents(int rodents) {
-        abundance.compute(CohortStateHosts.RODENTS, (stage, count) -> count + rodents);
+        abundance.compute(CohortStateHosts.RODENTS_SUSCEPTIBLE, (stage, count) -> count + rodents);
     }
 
     public void addInfectedRodents(int rodents) {
