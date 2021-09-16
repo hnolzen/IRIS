@@ -58,10 +58,11 @@ public class TickLifeCycle extends IteratingSystem {
             */
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS - currentTimeStep;
-                var nextStageAdults = randomness.roundRandom(
-                        ((float) abundance.getEngorgedNymphs() + (float) abundance.getInfectedEngorgedNymphs()) / (float) remainingDays);
-                abundance.addInactiveAdults(nextStageAdults);
+                var nextStageAdults = randomness.roundRandom((float) abundance.getEngorgedNymphs()  / (float) remainingDays);
+                var nextStageAdultsFromInfectedEngorgedNymphs = randomness.roundRandom((float) abundance.getInfectedEngorgedNymphs() / (float) remainingDays);
+                abundance.addInactiveAdults(nextStageAdults + nextStageAdultsFromInfectedEngorgedNymphs);
                 abundance.addEngorgedNymphs(-nextStageAdults);
+                abundance.addInfectedEngorgedNymphs(-nextStageAdultsFromInfectedEngorgedNymphs);
             }
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
