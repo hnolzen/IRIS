@@ -81,7 +81,7 @@ public class Parameters {
     );
 
     public static final float REPLACEMENT_RATE_RODENTS = 0.012f;  // 1 / (12 weeks x 7 days)
-    public static final float INFECTION_PROBABILITY = 0.01f;
+    public static final float INFECTION_PROBABILITY = 0.9f;
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
 
