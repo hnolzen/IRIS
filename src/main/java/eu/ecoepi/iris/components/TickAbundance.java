@@ -2,6 +2,7 @@ package eu.ecoepi.iris.components;
 
 import com.artemis.Component;
 import eu.ecoepi.iris.CohortStateTicks;
+import eu.ecoepi.iris.resources.Randomness;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +86,19 @@ public class TickAbundance extends Component {
     public int getStage(CohortStateTicks stage) {
         return abundance.get(stage);
     }
+
+    public int removeFromStage(CohortStateTicks stage, float rate, Randomness randomness) {
+        var old = abundance.get(stage);
+        var removed = randomness.roundRandom(old * rate);
+        abundance.put(stage, old - removed);
+
+        return removed;
+    }
+
+    public void addToStage(CohortStateTicks stage, int count){
+        abundance.compute(stage, (stage1, count1) -> count1 + count);
+    }
+
 
     public int getQuestingLarvae() {
         return abundance.get(CohortStateTicks.LARVAE_QUESTING);

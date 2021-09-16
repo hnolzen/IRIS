@@ -65,16 +65,15 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = tickAbundanceMapper.get(neighbourToRandom.get());
-            var feedingLarvae = randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            var feedingInfectedLarvae =
-                    randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
 
-            var newInfectedLarvae = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingLarvae * hostAbundance.getInfectedRodents());
-            feedingLarvae = feedingLarvae - newInfectedLarvae;
-            feedingInfectedLarvae = feedingInfectedLarvae + newInfectedLarvae;
+            var feedingLarvae = tickAbundance.removeFromStage(CohortStateTicks.LARVAE_QUESTING, Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING), randomness);
+            var feedingInfectedLarvae = tickAbundance.removeFromStage(CohortStateTicks.LARVAE_QUESTING_INFECTED, Parameters.FEEDING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED), randomness);
 
-            tickAbundance.addQuestingLarvae(-feedingLarvae);
-            tickAbundance.addInfectedQuestingLarvae(-feedingInfectedLarvae);
+            var rodentPrevalence = hostAbundance.getInfectedRodents() / (hostAbundance.getRodents() + hostAbundance.getInfectedRodents());
+            var newInfectedLarvae = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingLarvae * rodentPrevalence);
+
+            feedingLarvae -= newInfectedLarvae;
+            feedingInfectedLarvae += newInfectedLarvae;
 
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedLarvae(feedingLarvae);
@@ -91,16 +90,15 @@ public class Feeding extends IteratingSystem {
             var y = distribution.sample();
             var neighbourToRandom = index.lookUp(position.moveBy(x, y));
             var abundanceToRandom = tickAbundanceMapper.get(neighbourToRandom.get());
-            var feedingNymphs = randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            var feedingInfectedNymphs =
-                    randomness.roundRandom(tickAbundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
 
-            var newInfectedNymphs = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingNymphs * hostAbundance.getInfectedRodents());
-            feedingNymphs = feedingNymphs - newInfectedNymphs;
-            feedingInfectedNymphs = feedingInfectedNymphs + newInfectedNymphs;
+            var feedingNymphs = tickAbundance.removeFromStage(CohortStateTicks.NYMPHS_QUESTING, Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING), randomness);
+            var feedingInfectedNymphs = tickAbundance.removeFromStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED, Parameters.FEEDING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED), randomness);
 
-            tickAbundance.addQuestingNymphs(-feedingNymphs);
-            tickAbundance.addInfectedQuestingNymphs(-feedingInfectedNymphs);
+            var rodentPrevalence = hostAbundance.getInfectedRodents() / (hostAbundance.getRodents() + hostAbundance.getInfectedRodents());
+            var newInfectedNymphs = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingNymphs * rodentPrevalence);
+
+            feedingNymphs -= newInfectedNymphs;
+            feedingInfectedNymphs += newInfectedNymphs;
 
             if (lateFeeding) {
                 abundanceToRandom.addLateEngorgedNymphs(feedingNymphs);
@@ -111,7 +109,7 @@ public class Feeding extends IteratingSystem {
             }
             tickAbundance.addFeedingEventNymphs(feedingNymphs + feedingInfectedNymphs);
 
-            var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * hostAbundance.getRodents());
+            var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * (1.0f - rodentPrevalence));
             hostAbundance.addRodents(-newInfectedRodents);
             hostAbundance.addInfectedRodents(newInfectedRodents);
         }
