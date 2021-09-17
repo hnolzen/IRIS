@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 public class CsvTimeSeriesWriter extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
+    ComponentMapper<HostAbundance> abundanceMapperRodents;
     ComponentMapper<Position> positionMapper;
     ComponentMapper<Habitat> habitatMapper;
     ComponentMapper<Temperature> temperatureMapper;
@@ -50,6 +51,8 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
                 "late_engorged_larvae," +
                 "late_engorged_nymphs," +
                 "late_engorged_nymphs," +
+                "rodents_susceptible," +
+                "rodents_infected," +
                 "t_mean," +
                 "t_min," +
                 "t_max," +
@@ -64,12 +67,13 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
     @Override
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
+        var rodentAbundance = abundanceMapperRodents.get(entityId);
         var position = positionMapper.get(entityId);
         var habitat = habitatMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        csvWriter.format("%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%f,%d,%d,%d\n",
+        csvWriter.format("%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%f,%d,%d,%d\n",
             timeStep.getCurrent(),
             position.getX(),
             position.getY(),
@@ -93,6 +97,8 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
             abundance.getInfectedLateEngorgedLarvae(),
             abundance.getLateEngorgedNymphs(),
             abundance.getInfectedLateEngorgedNymphs(),
+            rodentAbundance.getRodents(),
+            rodentAbundance.getInfectedRodents(),
             temperature.getMeanTemperature(),
             temperature.getMinTemperature(),
             temperature.getMaxTemperature(),

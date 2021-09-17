@@ -14,6 +14,7 @@ import java.io.IOException;
 public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
+    ComponentMapper<HostAbundance> abundanceMapperRodents;
     ComponentMapper<Habitat> habitatMapper;
     ComponentMapper<Temperature> temperatureMapper;
     ComponentMapper<Humidity> humidityMapper;
@@ -21,13 +22,24 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
     private final PrintWriter csvWriter;
 
     private int nymphsAllHabitats;
-    private int nymphsInfectedAllHabitats;
     private int nymphsForest;
     private int nymphsMeadow;
     private int nymphsEcotone;
+
+    private int nymphsInfectedAllHabitats;
     private int nymphsInfectedForest;
     private int nymphsInfectedMeadow;
     private int nymphsInfectedEcotone;
+
+    private int rodentsSusceptibleAllHabitats;
+    private int rodentsSusceptibleForest;
+    private int rodentsSusceptibleMeadow;
+    private int rodentsSusceptibleEcotone;
+
+    private int rodentsInfectedAllHabitats;
+    private int rodentsInfectedForest;
+    private int rodentsInfectedMeadow;
+    private int rodentsInfectedEcotone;
 
     private double dailyMeanTemperature;
     private double dailyMaxTemperature;
@@ -48,6 +60,14 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
                 "questing_nymphs_meadow_infected," +
                 "questing_nymphs_ecotone," +
                 "questing_nymphs_ecotone_infected," +
+                "rodents_susceptible_all," +
+                "rodents_infected_all," +
+                "rodents_susceptible_forest," +
+                "rodents_forest_infected," +
+                "rodents_susceptible_meadow," +
+                "rodents_meadow_infected," +
+                "rodents_susceptible_ecotone," +
+                "rodents_ecotone_infected," +
                 "mean_temperature," +
                 "max_temperature," +
                 "humidity" +
@@ -58,6 +78,7 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
     @Override
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
+        var rodentAbundance = abundanceMapperRodents.get(entityId);
         var habitat = habitatMapper.get(entityId);
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
@@ -65,19 +86,31 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         nymphsAllHabitats += abundance.getQuestingNymphs();
         nymphsInfectedAllHabitats += abundance.getInfectedQuestingNymphs();
 
+        rodentsSusceptibleAllHabitats += rodentAbundance.getRodents();
+        rodentsInfectedAllHabitats += rodentAbundance.getInfectedRodents();
+
         if (habitat.getType() == Habitat.Type.WOOD) {
             nymphsForest += abundance.getQuestingNymphs();
             nymphsInfectedForest += abundance.getInfectedQuestingNymphs();
+
+            rodentsSusceptibleForest += rodentAbundance.getRodents();
+            rodentsInfectedForest += rodentAbundance.getInfectedRodents();
         }
 
         if (habitat.getType() == Habitat.Type.MEADOW) {
             nymphsMeadow += abundance.getQuestingNymphs();
             nymphsInfectedMeadow += abundance.getInfectedQuestingNymphs();
+
+            rodentsSusceptibleMeadow += rodentAbundance.getRodents();
+            rodentsInfectedMeadow += rodentAbundance.getInfectedRodents();
         }
 
         if (habitat.getType() == Habitat.Type.ECOTONE) {
             nymphsEcotone += abundance.getQuestingNymphs();
             nymphsInfectedEcotone += abundance.getInfectedQuestingNymphs();
+
+            rodentsSusceptibleEcotone += rodentAbundance.getRodents();
+            rodentsInfectedEcotone += rodentAbundance.getInfectedRodents();
         }
 
         dailyMeanTemperature = temperature.getMeanTemperature();
@@ -88,7 +121,7 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double)nymphsAllHabitats,
                 (double)nymphsInfectedAllHabitats,
@@ -98,6 +131,14 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
                 (double)nymphsInfectedMeadow,
                 (double)nymphsEcotone,
                 (double)nymphsInfectedEcotone,
+                (double)rodentsSusceptibleAllHabitats,
+                (double)rodentsInfectedAllHabitats,
+                (double)rodentsSusceptibleForest,
+                (double)rodentsInfectedForest,
+                (double)rodentsSusceptibleMeadow,
+                (double)rodentsInfectedMeadow,
+                (double)rodentsSusceptibleEcotone,
+                (double)rodentsInfectedEcotone,
                 dailyMeanTemperature,
                 dailyMaxTemperature,
                 dailyHumidity
@@ -112,6 +153,16 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         nymphsInfectedForest = 0;
         nymphsInfectedMeadow = 0;
         nymphsInfectedEcotone = 0;
+
+        rodentsSusceptibleAllHabitats = 0;
+        rodentsSusceptibleForest = 0;
+        rodentsSusceptibleMeadow = 0;
+        rodentsSusceptibleEcotone = 0;
+
+        rodentsInfectedAllHabitats = 0;
+        rodentsInfectedForest = 0;
+        rodentsInfectedMeadow = 0;
+        rodentsInfectedEcotone = 0;
     }
 
     @Override
