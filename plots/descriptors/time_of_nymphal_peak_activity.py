@@ -42,8 +42,8 @@ observers = {
 
 x_axis = {
     1: ["year", "Year", 1948, 2100],
-    2: ["mean_annual", "Annual mean temperature (°C)", 5, 16],
-    3: ["median_annual", "Annual median temperature (°C)", 5, 16],
+    2: ["mean_annual", "Annual mean temperature (°C)", 2, 16],
+    3: ["median_annual", "Annual median temperature (°C)", 2, 16],
     4: ["mean_jan_jun", "Mean temperature between January and June (°C)", 2, 16],
     5: ["median_jan_jun", "Median temperature between January and June (°C)", 2, 16],
 }
