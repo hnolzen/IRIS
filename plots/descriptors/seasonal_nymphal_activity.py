@@ -152,7 +152,7 @@ for season in seasons:
 
     lower_x_lim = x_axis.get(x_axis_type)[2]
     upper_x_lim = x_axis.get(x_axis_type)[3]
-    ax.set_xlim(lower_x_lim, upper_x_lim)
+    plt.xlim(lower_x_lim, upper_x_lim + 0.5)
 
     plt.tick_params(labelsize=8)
 
