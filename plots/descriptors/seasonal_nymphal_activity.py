@@ -147,6 +147,9 @@ for season in seasons:
     if with_density:
         plt.ylim(0, 70)
 
+    if x_axis_type == 1:
+        plt.axvline(x=2020.5, color=COLOR_BOUNDARY_LINE, ls="--", lw=0.8)
+
     lower_x_lim = x_axis.get(x_axis_type)[2]
     upper_x_lim = x_axis.get(x_axis_type)[3]
     ax.set_xlim(lower_x_lim, upper_x_lim)
