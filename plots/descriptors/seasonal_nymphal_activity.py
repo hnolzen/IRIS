@@ -177,7 +177,7 @@ for season in seasons:
     if with_density:
         plt.ylabel("Nymphs per 100 $m^2$", fontsize=8)
 
-    plt.legend(fontsize=6)
+    plt.legend(fontsize=5)
 
     i = i + 1
 
