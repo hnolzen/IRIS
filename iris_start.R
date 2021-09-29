@@ -57,11 +57,11 @@ year_start <- 1949
 year_end <- 2020
 climate_simulation <- FALSE
 random_seed <- 42
-initial_larvae <- 145
-initial_nymphs <- 145
+initial_larvae <- 150
+initial_nymphs <- 150
 initial_adults <- 150
-initial_infected_larvae <- 5
-initial_infected_nymphs <- 5
+initial_infected_larvae <- 0
+initial_infected_nymphs <- 0
 activation_rate <- 0.022
 #output_mode <- "csv_timeseries"
 #output_mode <- "csv_timeseries_summary"
