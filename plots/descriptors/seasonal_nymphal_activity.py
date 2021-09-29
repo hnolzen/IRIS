@@ -129,11 +129,11 @@ fig, ax = plt.subplots()
 
 x_values = f"{x_axis.get(x_axis_type)[0]}"
 x_label = f"{x_axis.get(x_axis_type)[1]}"
-i = 1
-for season in seasons:
+
+for i, season in enumerate(seasons):
     plot_data_season = plot_data[plot_data["season"] == season]
 
-    plt.subplot(2, 2, i)
+    plt.subplot(2, 2, i + 1)
 
     plt.scatter(
         plot_data_season[x_values],
@@ -178,8 +178,6 @@ for season in seasons:
         plt.ylabel("Nymphs per 100 $m^2$", fontsize=8)
 
     plt.legend(fontsize=5)
-
-    i = i + 1
 
 plt.tight_layout()
 plt.savefig(
