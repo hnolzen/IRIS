@@ -1,6 +1,6 @@
 package eu.ecoepi.iris.resources;
 
-import eu.ecoepi.iris.LifeCycleStage;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.components.Habitat;
 
 import java.util.Map;
@@ -10,21 +10,6 @@ public class Parameters {
     public static final int TIME_STEPS = 365;
     public static final int GRID_WIDTH = 12;
     public static final int GRID_HEIGHT = 12;
-
-    public static final int INITIAL_LARVAE = 0;
-    public static final int INITIAL_NYMPHS = 0;
-    public static final int INITIAL_ADULTS = 0;
-
-    public static final int INITIAL_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_ENGORGED_NYMPHS = 0;
-    public static final int INITIAL_ENGORGED_ADULTS = 0;
-
-    public static final int INITIAL_LATE_ENGORGED_LARVAE = 0;
-    public static final int INITIAL_LATE_ENGORGED_NYMPHS = 0;
-
-    public static final int INITIAL_INFECTED_LARVAE = 0;
-    public static final int INITIAL_INFECTED_NYMPHS = 0;
-    public static final int INITIAL_INFECTED_ADULTS = 0;
 
     public static final int BEGIN_OF_DEVELOPMENT = 181;                     // Beginning of July
     public static final int END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS = 289;      // Mid-October
@@ -79,17 +64,24 @@ public class Parameters {
             Habitat.Type.WOOD, 0.02f
     );
 
-    public static final Map<LifeCycleStage, Float> FREEZING_RATE = Map.of(
-            LifeCycleStage.LARVAE_QUESTING, 0.03f,
-            LifeCycleStage.NYMPHS_QUESTING, 0.03f,
-            LifeCycleStage.ADULTS_QUESTING, 0.03f
+    public static final Map<CohortStateTicks, Float> FREEZING_RATE = Map.of(
+            CohortStateTicks.LARVAE_QUESTING, 0.03f,
+            CohortStateTicks.LARVAE_QUESTING_INFECTED, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0.03f,
+            CohortStateTicks.ADULTS_QUESTING, 0.03f
     );
 
-    public static final Map<LifeCycleStage, Float> FEEDING_RATE = Map.of(
-            LifeCycleStage.LARVAE_QUESTING, 0.01f,
-            LifeCycleStage.NYMPHS_QUESTING, 0.03f,
-            LifeCycleStage.ADULTS_QUESTING, 0.05f
+    public static final Map<CohortStateTicks, Float> FEEDING_RATE = Map.of(
+            CohortStateTicks.LARVAE_QUESTING, 0.01f,
+            CohortStateTicks.LARVAE_QUESTING_INFECTED, 0.01f,
+            CohortStateTicks.NYMPHS_QUESTING, 0.03f,
+            CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0.03f,
+            CohortStateTicks.ADULTS_QUESTING, 0.05f
     );
+
+    public static final float REPLACEMENT_RATE_RODENTS = 0.012f;  // 1 / (12 weeks x 7 days)
+    public static final float INFECTION_PROBABILITY = 0.9f;
 
     public static final double[] DISTANCE_PROB = {0.25, 0.25, 0.20, 0.15, 0.05, 0.04, 0.03, 0.02, 0.01};
 

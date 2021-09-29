@@ -14,6 +14,7 @@ import java.io.IOException;
 public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
+    ComponentMapper<HostAbundance> abundanceMapperRodents;
 
     private final PrintWriter csvWriter;
     
@@ -23,38 +24,72 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
     private int nymphs;
     private int adults;
 
+    private int larvaeInfected;
+    private int nymphsInfected;
+
+    private int rodentsSusceptible;
+    private int rodentsInfected;
+
     @Wire
     TimeStep timeStep;
 
     public CsvSummaryTimeSeriesWriter(String path) throws IOException {
         csvWriter = new PrintWriter(path);
-        csvWriter.print("tick,questing_larvae,questing_nymphs,questing_adults\n");
+        csvWriter.print(
+                "tick," +
+                "questing_larvae," +
+                "questing_nymphs," +
+                "questing_adults," +
+                "questing_larvae_infected," +
+                "questing_nymphs_infected" +
+                "rodents_susceptible" +
+                "rodents_infected" +
+                "\n"
+        );
     }
     
     @Override
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
+        var rodentAbundance = abundanceMapperRodents.get(entityId);
         
         count++;
         
-        larvae += abundance.getLarvae();
-        nymphs += abundance.getNymphs();
-        adults += abundance.getAdults();
+        larvae += abundance.getQuestingLarvae();
+        nymphs += abundance.getQuestingNymphs();
+        adults += abundance.getQuestingAdults();
+
+        larvaeInfected += abundance.getInfectedQuestingLarvae();
+        nymphsInfected += abundance.getInfectedQuestingNymphs();
+
+        rodentsSusceptible += rodentAbundance.getRodents();
+        rodentsInfected += rodentAbundance.getInfectedRodents();
     }
     
     @Override
     protected void end() {
-        csvWriter.format("%d,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f\n",
             timeStep.getCurrent(),
             (double)larvae / (double)count,
             (double)nymphs / (double)count,
-            (double)adults / (double)count);
+            (double)adults / (double)count,
+            (double)larvaeInfected / (double)count,
+            (double)nymphsInfected / (double)count,
+            (double)rodentsSusceptible / (double)count,
+            (double)rodentsInfected / (double)count
+        );
             
         count = 0;
         
         larvae = 0;
         nymphs = 0;
         adults = 0;
+
+        larvaeInfected = 0;
+        nymphsInfected = 0;
+
+        rodentsSusceptible = 0;
+        rodentsInfected = 0;
     }
 
     @Override

@@ -9,10 +9,7 @@ import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.SpatialIndex;
 import eu.ecoepi.iris.resources.TimeStep;
-import eu.ecoepi.iris.systems.Activity;
-import eu.ecoepi.iris.systems.Feeding;
-import eu.ecoepi.iris.systems.TickLifeCycle;
-import eu.ecoepi.iris.systems.Weather;
+import eu.ecoepi.iris.systems.*;
 import org.apache.commons.math3.random.MersenneTwister;
 
 /**
@@ -26,6 +23,10 @@ public class Model {
         public int initialInactiveLarvae = 150;
         public int initialInactiveNymphs = 150;
         public int initialInactiveAdults = 150;
+        public int initialInfectedInactiveLarvae = 0;
+        public int initialInfectedInactiveNymphs = 0;
+        public int initialRodents = 5;
+        public int initialInfectedRodents = 5;
         public float activationRate = 0.02f;
         public String outputMode = "csv_timeseries_summary";
     }
@@ -63,6 +64,7 @@ public class Model {
                 .with(new Activity(options.activationRate))
                 .with(new Feeding(rng))
                 .with(new TickLifeCycle())
+                .with(new HostLifeCycle())
                 .with(outputWriter)
                 .build()
                 .register(new SpatialIndex())
@@ -104,21 +106,19 @@ public class Model {
                 index.insert(position, entityId);
 
                 var abundance = new TickAbundance(
-                        Parameters.INITIAL_LARVAE,
-                        Parameters.INITIAL_NYMPHS,
-                        Parameters.INITIAL_ADULTS,
                         options.initialInactiveLarvae,
                         options.initialInactiveNymphs,
                         options.initialInactiveAdults,
-                        Parameters.INITIAL_ENGORGED_LARVAE,
-                        Parameters.INITIAL_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_ENGORGED_ADULTS,
-                        Parameters.INITIAL_LATE_ENGORGED_LARVAE,
-                        Parameters.INITIAL_LATE_ENGORGED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_LARVAE,
-                        Parameters.INITIAL_INFECTED_NYMPHS,
-                        Parameters.INITIAL_INFECTED_ADULTS);
+                        options.initialInfectedInactiveLarvae,
+                        options.initialInfectedInactiveNymphs
+                );
                 editor.add(abundance);
+
+                var hostAbundance = new HostAbundance(
+                        options.initialRodents,
+                        options.initialInfectedRodents
+                );
+                editor.add(hostAbundance);
 
                 var habitat = new Habitat(habitatType);
                 editor.add(habitat);

@@ -54,21 +54,32 @@ public class Activity extends IteratingSystem {
             }
         }
 
-        var newActiveLarvae = 0;
+        var newQuestingLarvae = 0;
+        var newInfectedQuestingLarvae = 0;
         if (timestep.getCurrent() > Parameters.START_LARVAE_QUESTING) {
-            newActiveLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+            newQuestingLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
+            newInfectedQuestingLarvae = randomness.roundRandom(abundance.getInfectedInactiveLarvae() * activationRate * shareOfActivationRate);
         }
-        var newActiveNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
-        var newActiveAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
-        var newInactiveLarvae = randomness.roundRandom(abundance.getLarvae() * activationRate * (1 - shareOfActivationRate));
-        var newInactiveNymphs = randomness.roundRandom(abundance.getNymphs() * activationRate * (1 - shareOfActivationRate));
-        var newInactiveAdults = randomness.roundRandom(abundance.getAdults() * activationRate * (1 - shareOfActivationRate));
+        var newQuestingNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
+        var newQuestingAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
+        var newInactiveLarvae = randomness.roundRandom(abundance.getQuestingLarvae() * activationRate * (1 - shareOfActivationRate));
+        var newInactiveNymphs = randomness.roundRandom(abundance.getQuestingNymphs() * activationRate * (1 - shareOfActivationRate));
+        var newInactiveAdults = randomness.roundRandom(abundance.getQuestingAdults() * activationRate * (1 - shareOfActivationRate));
 
-        abundance.addLarvae(newActiveLarvae - newInactiveLarvae);
-        abundance.addNymphs(newActiveNymphs - newInactiveNymphs);
-        abundance.addAdults(newActiveAdults - newInactiveAdults);
-        abundance.addInactiveLarvae(newInactiveLarvae - newActiveLarvae);
-        abundance.addInactiveNymphs(newInactiveNymphs - newActiveNymphs);
-        abundance.addInactiveAdults(newInactiveAdults - newActiveAdults);
+        var newInfectedQuestingNymphs = randomness.roundRandom(abundance.getInfectedInactiveNymphs() * activationRate * shareOfActivationRate);
+        var newInfectedInactiveLarvae = randomness.roundRandom(abundance.getInfectedQuestingLarvae() * activationRate * (1 - shareOfActivationRate));
+        var newInfectedInactiveNymphs = randomness.roundRandom(abundance.getInfectedQuestingNymphs() * activationRate * (1 - shareOfActivationRate));
+
+        abundance.addQuestingLarvae(newQuestingLarvae - newInactiveLarvae);
+        abundance.addQuestingNymphs(newQuestingNymphs - newInactiveNymphs);
+        abundance.addQuestingAdults(newQuestingAdults - newInactiveAdults);
+        abundance.addInactiveLarvae(newInactiveLarvae - newQuestingLarvae);
+        abundance.addInactiveNymphs(newInactiveNymphs - newQuestingNymphs);
+        abundance.addInactiveAdults(newInactiveAdults - newQuestingAdults);
+
+        abundance.addInfectedQuestingLarvae(newInfectedQuestingLarvae - newInfectedInactiveLarvae);
+        abundance.addInfectedQuestingNymphs(newInfectedQuestingNymphs - newInfectedInactiveNymphs);
+        abundance.addInfectedInactiveLarvae(newInfectedInactiveLarvae - newInfectedQuestingLarvae);
+        abundance.addInfectedInactiveNymphs(newInfectedInactiveNymphs - newInfectedQuestingNymphs);
     }
 }

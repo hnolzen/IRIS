@@ -3,6 +3,8 @@ iris <- function(year,
                  initial_larvae,
                  initial_nymphs,
                  initial_adults,
+                 initial_infected_larvae,
+                 initial_infected_nymphs,
                  activation_rate,
                  iris_main_dir,
                  weather_dir,
@@ -24,6 +26,8 @@ iris <- function(year,
   iris_adults <- paste0("-a ", initial_adults)
   iris_larvae <- paste0("-l ", initial_larvae)
   iris_nymphs <- paste0("-n ", initial_nymphs)
+  iris_infected_larvae <- paste0("-i ", initial_infected_larvae)
+  iris_infected_nymphs <- paste0("-j ", initial_infected_nymphs)
   iris_activation_rate <- paste0("-r ", activation_rate)
   iris_weather <- paste0("-w ", weather_dir, "weather_", year, ".csv")
   iris_output <- paste0("-o " , output_dir, "/iris_abundance_", year, ".csv")
@@ -37,6 +41,8 @@ iris <- function(year,
                     iris_larvae,
                     iris_nymphs,
                     iris_adults,
+                    iris_infected_larvae,
+                    iris_infected_nymphs,
                     iris_activation_rate,
                     iris_output_mode,
                     sep = " ")
@@ -54,12 +60,14 @@ random_seed <- 42
 initial_larvae <- 150
 initial_nymphs <- 150
 initial_adults <- 150
+initial_infected_larvae <- 0
+initial_infected_nymphs <- 0
 activation_rate <- 0.022
 #output_mode <- "csv_timeseries"
 #output_mode <- "csv_timeseries_summary"
 #output_mode <- "csv_timeseries_summary_habitats"
-#output_mode <- "csv_timeseries_nymphs"
-output_mode <- "csv_timeseries_nymphs_habitats"
+output_mode <- "csv_timeseries_nymphs"
+#output_mode <- "csv_timeseries_nymphs_habitats"
 
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 
@@ -92,6 +100,8 @@ for (year in year_start : year_end) {
        initial_larvae,
        initial_nymphs,
        initial_adults,
+       initial_infected_larvae,
+       initial_infected_nymphs,
        activation_rate,
        iris_main_dir,
        weather_dir,

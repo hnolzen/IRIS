@@ -1,7 +1,8 @@
 package eu.ecoepi.iris.components;
 
 import com.artemis.Component;
-import eu.ecoepi.iris.LifeCycleStage;
+import eu.ecoepi.iris.CohortStateTicks;
+import eu.ecoepi.iris.resources.Randomness;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +10,7 @@ import java.util.Objects;
 
 public class TickAbundance extends Component {
 
-    final Map<LifeCycleStage, Integer> abundance = new HashMap<>();
-    final Map<LifeCycleStage, Integer> infected = new HashMap<>();
+    final Map<CohortStateTicks, Integer> abundance = new HashMap<>();
 
     int feedingEventsLarvae = 0;
     int feedingEventsNymphs = 0;
@@ -19,25 +19,31 @@ public class TickAbundance extends Component {
     public TickAbundance() {
     }
 
-    public TickAbundance(int larvae, int nymphs, int adults,
-                         int inactiveLarvae, int inactiveNymphs, int inactiveAdults,
-                         int engorgedLarvae, int engorgedNymphs, int engorgedAdults,
-                         int lateEngorgedLarvae, int lateEngorgedNymphs,
-                         int infectedLarvae, int infectedNymphs, int infectedAdults) {
-        abundance.put(LifeCycleStage.LARVAE_QUESTING, larvae);
-        abundance.put(LifeCycleStage.NYMPHS_QUESTING, nymphs);
-        abundance.put(LifeCycleStage.ADULTS_QUESTING, adults);
-        abundance.put(LifeCycleStage.LARVAE_INACTIVE, inactiveLarvae);
-        abundance.put(LifeCycleStage.NYMPHS_INACTIVE, inactiveNymphs);
-        abundance.put(LifeCycleStage.ADULTS_INACTIVE, inactiveAdults);
-        abundance.put(LifeCycleStage.LARVAE_ENGORGED, engorgedLarvae);
-        abundance.put(LifeCycleStage.NYMPHS_ENGORGED, engorgedNymphs);
-        abundance.put(LifeCycleStage.ADULTS_ENGORGED, engorgedAdults);
-        abundance.put(LifeCycleStage.LARVAE_LATE_ENGORGED, lateEngorgedLarvae);
-        abundance.put(LifeCycleStage.NYMPHS_LATE_ENGORGED, lateEngorgedNymphs);
-        infected.put(LifeCycleStage.LARVAE_QUESTING, infectedLarvae);
-        infected.put(LifeCycleStage.NYMPHS_QUESTING, infectedNymphs);
-        infected.put(LifeCycleStage.ADULTS_QUESTING, infectedAdults);
+    public TickAbundance(int inactiveLarvae,
+                         int inactiveNymphs,
+                         int inactiveAdults,
+                         int infectedInactiveLarvae,
+                         int infectedInactiveNymphs
+                         ) {
+        abundance.put(CohortStateTicks.LARVAE_INACTIVE, inactiveLarvae);
+        abundance.put(CohortStateTicks.NYMPHS_INACTIVE, inactiveNymphs);
+        abundance.put(CohortStateTicks.ADULTS_INACTIVE, inactiveAdults);
+        abundance.put(CohortStateTicks.LARVAE_INACTIVE_INFECTED, infectedInactiveLarvae);
+        abundance.put(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, infectedInactiveNymphs);
+        abundance.put(CohortStateTicks.LARVAE_QUESTING, 0);
+        abundance.put(CohortStateTicks.NYMPHS_QUESTING, 0);
+        abundance.put(CohortStateTicks.ADULTS_QUESTING, 0);
+        abundance.put(CohortStateTicks.LARVAE_QUESTING_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0);
+        abundance.put(CohortStateTicks.LARVAE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_ENGORGED, 0);
+        abundance.put(CohortStateTicks.ADULTS_ENGORGED, 0);
+        abundance.put(CohortStateTicks.LARVAE_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED, 0);
+        abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED, 0);
+        abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED, 0);
     }
 
     @Override
@@ -45,156 +51,209 @@ public class TickAbundance extends Component {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TickAbundance that = (TickAbundance) o;
-        return Objects.equals(abundance, that.abundance) &&
-                Objects.equals(infected, that.infected);
+        return Objects.equals(abundance, that.abundance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(abundance, infected);
+        return Objects.hash(abundance);
     }
 
-    public void addFeedingEventLarvae(int event){
+    public void addFeedingEventLarvae(int event) {
         feedingEventsLarvae += event;
     }
 
-    public void addFeedingEventNymphs(int event){
+    public void addFeedingEventNymphs(int event) {
         feedingEventsNymphs += event;
     }
 
-    public void addFeedingEventAdults(int event){
+    public void addFeedingEventAdults(int event) {
         feedingEventsAdults += event;
     }
 
-    public int getFeedingEventsLarvae(){
+    public int getFeedingEventsLarvae() {
         return feedingEventsLarvae;
     }
 
-    public int getFeedingEventsNymphs(){
+    public int getFeedingEventsNymphs() {
         return feedingEventsNymphs;
     }
 
-    public int getFeedingEventsAdults(){
+    public int getFeedingEventsAdults() {
         return feedingEventsNymphs;
     }
 
-    public int getStage(LifeCycleStage stage) {
+    public int getStage(CohortStateTicks stage) {
         return abundance.get(stage);
     }
 
-    public int getLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_QUESTING);
+    public int removeFromStage(CohortStateTicks stage, float rate, Randomness randomness) {
+        var old = abundance.get(stage);
+        var removed = randomness.roundRandom(old * rate);
+        abundance.put(stage, old - removed);
+
+        return removed;
     }
 
-    public int getNymphs() {
-        return abundance.get(LifeCycleStage.NYMPHS_QUESTING);
+    public void addToStage(CohortStateTicks stage, int count){
+        abundance.compute(stage, (stage1, count1) -> count1 + count);
     }
 
-    public int getAdults() {
-        return abundance.get(LifeCycleStage.ADULTS_QUESTING);
+
+    public int getQuestingLarvae() {
+        return abundance.get(CohortStateTicks.LARVAE_QUESTING);
+    }
+
+    public int getInfectedQuestingLarvae() {
+        return abundance.get(CohortStateTicks.LARVAE_QUESTING_INFECTED);
+    }
+
+    public int getQuestingNymphs() {
+        return abundance.get(CohortStateTicks.NYMPHS_QUESTING);
+    }
+
+    public int getInfectedQuestingNymphs() {
+        return abundance.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+    }
+
+    public int getQuestingAdults() {
+        return abundance.get(CohortStateTicks.ADULTS_QUESTING);
     }
 
     public int getInactiveLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_INACTIVE);
+        return abundance.get(CohortStateTicks.LARVAE_INACTIVE);
+    }
+
+    public int getInfectedInactiveLarvae() {
+        return abundance.get(CohortStateTicks.LARVAE_INACTIVE_INFECTED);
     }
 
     public int getInactiveNymphs() {
-        return abundance.get(LifeCycleStage.NYMPHS_INACTIVE);
+        return abundance.get(CohortStateTicks.NYMPHS_INACTIVE);
+    }
+
+    public int getInfectedInactiveNymphs() {
+        return abundance.get(CohortStateTicks.NYMPHS_INACTIVE_INFECTED);
     }
 
     public int getInactiveAdults() {
-        return abundance.get(LifeCycleStage.ADULTS_INACTIVE);
+        return abundance.get(CohortStateTicks.ADULTS_INACTIVE);
     }
 
     public int getEngorgedLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_ENGORGED);
+        return abundance.get(CohortStateTicks.LARVAE_ENGORGED);
+    }
+
+    public int getInfectedEngorgedLarvae() {
+        return abundance.get(CohortStateTicks.LARVAE_ENGORGED_INFECTED);
     }
 
     public int getEngorgedNymphs() {
-        return abundance.get(LifeCycleStage.NYMPHS_ENGORGED);
+        return abundance.get(CohortStateTicks.NYMPHS_ENGORGED);
+    }
+
+    public int getInfectedEngorgedNymphs() {
+        return abundance.get(CohortStateTicks.NYMPHS_ENGORGED_INFECTED);
     }
 
     public int getEngorgedAdults() {
-        return abundance.get(LifeCycleStage.ADULTS_ENGORGED);
+        return abundance.get(CohortStateTicks.ADULTS_ENGORGED);
     }
 
     public int getLateEngorgedLarvae() {
-        return abundance.get(LifeCycleStage.LARVAE_LATE_ENGORGED);
+        return abundance.get(CohortStateTicks.LARVAE_LATE_ENGORGED);
+    }
+
+    public int getInfectedLateEngorgedLarvae() {
+        return abundance.get(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED);
     }
 
     public int getLateEngorgedNymphs() {
-        return abundance.get(LifeCycleStage.NYMPHS_LATE_ENGORGED);
+        return abundance.get(CohortStateTicks.NYMPHS_LATE_ENGORGED);
     }
 
-    public int getInfectedLarvae() {
-        return infected.get(LifeCycleStage.LARVAE_QUESTING);
+    public int getInfectedLateEngorgedNymphs() {
+        return abundance.get(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED);
     }
 
-    public int getInfectedNymphs() {
-        return infected.get(LifeCycleStage.NYMPHS_QUESTING);
-    }
-
-    public int getInfectedAdults() {
-        return infected.get(LifeCycleStage.ADULTS_QUESTING);
-    }
-
-    public void addStage(LifeCycleStage stage, int num) {
+    public void addStage(CohortStateTicks stage, int num) {
         abundance.compute(stage, (_stage, count) -> count + num);
     }
 
-    public void addLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_QUESTING, (stage, count) -> count + larvae);
+    public void addQuestingLarvae(int larvae) {
+        abundance.compute(CohortStateTicks.LARVAE_QUESTING, (stage, count) -> count + larvae);
     }
 
-    public void addNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPHS_QUESTING, (stage, count) -> count + nymphs);
+    public void addInfectedQuestingLarvae(int larvae) {
+        abundance.compute(CohortStateTicks.LARVAE_QUESTING_INFECTED, (stage, count) -> count + larvae);
     }
 
-    public void addAdults(int adults) {
-        abundance.compute(LifeCycleStage.ADULTS_QUESTING, (stage, count) -> count + adults);
+    public void addQuestingNymphs(int nymphs) {
+        abundance.compute(CohortStateTicks.NYMPHS_QUESTING, (stage, count) -> count + nymphs);
+    }
+
+    public void addInfectedQuestingNymphs(int nymphs) {
+        abundance.compute(CohortStateTicks.NYMPHS_QUESTING_INFECTED, (stage, count) -> count + nymphs);
+    }
+
+    public void addQuestingAdults(int adults) {
+        abundance.compute(CohortStateTicks.ADULTS_QUESTING, (stage, count) -> count + adults);
     }
 
     public void addInactiveLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_INACTIVE, (stage, count) -> count + larvae);
+        abundance.compute(CohortStateTicks.LARVAE_INACTIVE, (stage, count) -> count + larvae);
+    }
+
+    public void addInfectedInactiveLarvae(int larvae) {
+        abundance.compute(CohortStateTicks.LARVAE_INACTIVE_INFECTED, (stage, count) -> count + larvae);
     }
 
     public void addInactiveNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPHS_INACTIVE, (stage, count) -> count + nymphs);
+        abundance.compute(CohortStateTicks.NYMPHS_INACTIVE, (stage, count) -> count + nymphs);
+    }
+
+    public void addInfectedInactiveNymphs(int nymphs) {
+        abundance.compute(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, (stage, count) -> count + nymphs);
     }
 
     public void addInactiveAdults(int adults) {
-        abundance.compute(LifeCycleStage.ADULTS_INACTIVE, (stage, count) -> count + adults);
+        abundance.compute(CohortStateTicks.ADULTS_INACTIVE, (stage, count) -> count + adults);
     }
 
     public void addEngorgedLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_ENGORGED, (stage, count) -> count + larvae);
+        abundance.compute(CohortStateTicks.LARVAE_ENGORGED, (stage, count) -> count + larvae);
+    }
+
+    public void addInfectedEngorgedLarvae(int larvae) {
+        abundance.compute(CohortStateTicks.LARVAE_ENGORGED_INFECTED, (stage, count) -> count + larvae);
     }
 
     public void addEngorgedNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPHS_ENGORGED, (stage, count) -> count + nymphs);
+        abundance.compute(CohortStateTicks.NYMPHS_ENGORGED, (stage, count) -> count + nymphs);
+    }
+
+    public void addInfectedEngorgedNymphs(int nymphs) {
+        abundance.compute(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, (stage, count) -> count + nymphs);
     }
 
     public void addEngorgedAdults(int adults) {
-        abundance.compute(LifeCycleStage.ADULTS_ENGORGED, (stage, count) -> count + adults);
+        abundance.compute(CohortStateTicks.ADULTS_ENGORGED, (stage, count) -> count + adults);
     }
 
     public void addLateEngorgedLarvae(int larvae) {
-        abundance.compute(LifeCycleStage.LARVAE_LATE_ENGORGED, (stage, count) -> count + larvae);
+        abundance.compute(CohortStateTicks.LARVAE_LATE_ENGORGED, (stage, count) -> count + larvae);
+    }
+
+    public void addInfectedLateEngorgedLarvae(int larvae) {
+        abundance.compute(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED, (stage, count) -> count + larvae);
     }
 
     public void addLateEngorgedNymphs(int nymphs) {
-        abundance.compute(LifeCycleStage.NYMPHS_LATE_ENGORGED, (stage, count) -> count + nymphs);
+        abundance.compute(CohortStateTicks.NYMPHS_LATE_ENGORGED, (stage, count) -> count + nymphs);
     }
 
-    public void addInfectedLarvae(int larvae) {
-        infected.compute(LifeCycleStage.LARVAE_QUESTING, (stage, count) -> count + larvae);
+    public void addInfectedLateEngorgedNymphs(int nymphs) {
+        abundance.compute(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED, (stage, count) -> count + nymphs);
     }
 
-    public void addInfectedNymphs(int nymphs) {
-        infected.compute(LifeCycleStage.NYMPHS_QUESTING, (stage, count) -> count + nymphs);
-    }
-
-    public void addInfectedAdults(int adults) {
-        infected.compute(LifeCycleStage.ADULTS_QUESTING, (stage, count) -> count + adults);
-    }
 }
