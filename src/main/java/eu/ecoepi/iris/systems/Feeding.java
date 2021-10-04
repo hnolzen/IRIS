@@ -82,7 +82,8 @@ public class Feeding extends IteratingSystem {
                 abundanceToRandom.addEngorgedLarvae(feedingLarvae);
                 abundanceToRandom.addInfectedEngorgedLarvae(feedingInfectedLarvae);
             }
-            tickAbundance.addFeedingEventLarvae(feedingLarvae + feedingInfectedLarvae);
+            tickAbundance.addFeedingEventLarvae(feedingLarvae);
+            tickAbundance.addFeedingEventInfectedLarvae(feedingInfectedLarvae);
         }
 
         {
@@ -107,7 +108,8 @@ public class Feeding extends IteratingSystem {
                 abundanceToRandom.addEngorgedNymphs(feedingNymphs);
                 abundanceToRandom.addInfectedEngorgedNymphs(feedingInfectedNymphs);
             }
-            tickAbundance.addFeedingEventNymphs(feedingNymphs + feedingInfectedNymphs);
+            tickAbundance.addFeedingEventNymphs(feedingNymphs);
+            tickAbundance.addFeedingEventInfectedNymphs(feedingInfectedNymphs);
 
             var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * (1.0f - rodentPrevalence));
             hostAbundance.addRodents(-newInfectedRodents);

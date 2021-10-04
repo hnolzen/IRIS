@@ -13,7 +13,9 @@ public class TickAbundance extends Component {
     final Map<CohortStateTicks, Integer> abundance = new HashMap<>();
 
     int feedingEventsLarvae = 0;
+    int feedingEventsInfectedLarvae = 0;
     int feedingEventsNymphs = 0;
+    int feedingEventsInfectedNymphs = 0;
     int feedingEventsAdults = 0;
 
     public TickAbundance() {
@@ -63,8 +65,16 @@ public class TickAbundance extends Component {
         feedingEventsLarvae += event;
     }
 
+    public void addFeedingEventInfectedLarvae(int event) {
+        feedingEventsInfectedLarvae += event;
+    }
+
     public void addFeedingEventNymphs(int event) {
         feedingEventsNymphs += event;
+    }
+
+    public void addFeedingEventInfectedNymphs(int event) {
+        feedingEventsInfectedNymphs += event;
     }
 
     public void addFeedingEventAdults(int event) {
@@ -75,8 +85,16 @@ public class TickAbundance extends Component {
         return feedingEventsLarvae;
     }
 
+    public int getFeedingEventsInfectedLarvae() {
+        return feedingEventsInfectedLarvae;
+    }
+
     public int getFeedingEventsNymphs() {
         return feedingEventsNymphs;
+    }
+
+    public int getFeedingEventsInfectedNymphs() {
+        return feedingEventsInfectedNymphs;
     }
 
     public int getFeedingEventsAdults() {
