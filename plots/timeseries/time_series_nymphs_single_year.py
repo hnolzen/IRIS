@@ -10,10 +10,36 @@ out_dir = os.path.abspath(main_dir + "/output/")
 
 GRID_CELLS = 144
 MONTHLY_BOUNDARIES = "#d9d9d9"
+
 LINE_COLOR_NYMPHS = "#3182bd"
-LINE_COLOR_NYMPHS_INFECTED = "#f21f00"
 FILL_COLOR_NYMPHS = "#9ecae1"
-FILL_COLOR_INFECTED = "#ff8370"
+
+LINE_COLOR_LARVAE = "#f29d00"
+FILL_COLOR_LARVAE = "#ffb326"
+
+LINE_COLOR_QUESTING_NYMPHS_INFECTED = "#f21f00"
+FILL_COLOR_QUESTING_NYMPHS_INFECTED = "#ff8370"
+
+LINE_COLOR_QUESTING_LARVAE_INFECTED = "#ff385c"
+FILL_COLOR_QUESTING_LARVAE_INFECTED = "#e3526c"
+
+LINE_COLOR_ENGORGED_LARVAE_INFECTED = "#ff385c"
+FILL_COLOR_ENGORGED_LARVAE_INFECTED = "#e3526c"
+
+LINE_COLOR_LATE_ENGORGED_LARVAE_INFECTED = "#ff385c"
+FILL_COLOR_LATE_ENGORGED_LARVAE_INFECTED = "#e3526c"
+
+LINE_COLOR_ENGORGED_NYMPHS_INFECTED = "#f21f00"
+FILL_COLOR_ENGORGED_NYMPHS_INFECTED = "#ff8370"
+
+LINE_COLOR_LATE_ENGORGED_NYMPHS_INFECTED = "#f21f00"
+FILL_COLOR_LATE_ENGORGED_NYMPHS_INFECTED = "#ff8370"
+
+LINE_COLOR_FEEDING_EVENTS_LARVAE_INFECTED = "#ff385c"
+FILL_COLOR_FEEDING_EVENTS_LARVAE_INFECTED = "#e3526c"
+
+LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#f21f00"
+FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#ff8370"
 
 models = {
     0: "DWD",
@@ -106,7 +132,15 @@ year = 2018
 input_model = 0
 observer = 5
 with_questing_nymphs = True
-with_questing_nymphs_infected = True
+with_questing_larvae = False
+with_questing_nymphs_infected = False
+with_questing_larvae_infected = False
+with_engorged_larvae_infected = False
+with_engorged_nymphs_infected = True
+with_late_engorged_larvae_infected = False
+with_late_engorged_nymphs_infected = False
+with_feeding_events_nymphs_infected = False
+with_feeding_events_larvae_infected = False
 with_density = True
 with_color_fill = True
 with_smoothing = True
@@ -130,13 +164,85 @@ if with_questing_nymphs:
         "Questing nymphs",
     )
 
+if with_questing_larvae:
+    plot_line(
+        data["tick"],
+        data["questing_larvae"],
+        LINE_COLOR_LARVAE,
+        FILL_COLOR_LARVAE,
+        "Questing larvae",
+    )
+
 if with_questing_nymphs_infected:
     plot_line(
         data["tick"],
         data["questing_nymphs_infected"],
-        LINE_COLOR_NYMPHS_INFECTED,
-        FILL_COLOR_INFECTED,
+        LINE_COLOR_QUESTING_NYMPHS_INFECTED,
+        FILL_COLOR_QUESTING_NYMPHS_INFECTED,
         "Infected questing nymphs",
+    )
+
+if with_questing_larvae_infected:
+    plot_line(
+        data["tick"],
+        data["questing_larvae_infected"],
+        LINE_COLOR_QUESTING_LARVAE_INFECTED,
+        FILL_COLOR_QUESTING_LARVAE_INFECTED,
+        "Infected questing larvae",
+    )
+
+if with_engorged_larvae_infected:
+    plot_line(
+        data["tick"],
+        data["larvae_engorged_infected"],
+        LINE_COLOR_ENGORGED_LARVAE_INFECTED,
+        FILL_COLOR_ENGORGED_LARVAE_INFECTED,
+        "Infected engorged larvae",
+    )
+
+if with_late_engorged_larvae_infected:
+    plot_line(
+        data["tick"],
+        data["larvae_late_engorged_infected"],
+        LINE_COLOR_LATE_ENGORGED_LARVAE_INFECTED,
+        FILL_COLOR_LATE_ENGORGED_LARVAE_INFECTED,
+        "Infected late engorged larvae",
+    )
+
+if with_engorged_nymphs_infected:
+    plot_line(
+        data["tick"],
+        data["nymphs_engorged_infected"],
+        LINE_COLOR_ENGORGED_NYMPHS_INFECTED,
+        FILL_COLOR_ENGORGED_NYMPHS_INFECTED,
+        "Infected engorged nymphs",
+    )
+
+if with_late_engorged_nymphs_infected:
+    plot_line(
+        data["tick"],
+        data["nymphs_late_engorged_infected"],
+        LINE_COLOR_LATE_ENGORGED_NYMPHS_INFECTED,
+        FILL_COLOR_LATE_ENGORGED_NYMPHS_INFECTED,
+        "Infected late engorged nymphs",
+    )
+
+if with_feeding_events_larvae_infected:
+    plot_line(
+        data["tick"],
+        data["feeding_events_larvae_infected"],
+        LINE_COLOR_FEEDING_EVENTS_LARVAE_INFECTED,
+        FILL_COLOR_FEEDING_EVENTS_LARVAE_INFECTED,
+        "Feeding events of infected larvae",
+    )
+    
+if with_feeding_events_nymphs_infected:
+    plot_line(
+        data["tick"],
+        data["feeding_events_nymphs_infected"],
+        LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
+        FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
+        "Feeding events of infected nymphs",
     )
 
 plt.ylim(0, 5000)
