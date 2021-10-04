@@ -34,6 +34,7 @@ observers = {
     2: "CsvTimeSeriesWriter",
     3: "CsvTimeSeriesWriterNymphs",
     4: "CsvTimeSeriesWriterNymphsHabitats",
+    5: "CsvTimeSeriesWriterInfection",
 }
 
 x_axis = {

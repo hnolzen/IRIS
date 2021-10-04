@@ -50,13 +50,17 @@ public class Model {
             case "csv_timeseries_nymphs_habitats" ->
                     new CsvTimeSeriesWriterNymphsHabitats(options.output);
 
+            case "csv_timeseries_infection" ->
+                    new CsvTimeSeriesWriterInfection(options.output);
+
             default -> throw new IllegalStateException("Unexpected value: " + options.outputMode +
                     ". Possible values are: \n" +
                     "1) 'csv_timeseries' \n" +
                     "2) 'csv_timeseries_summary' \n" +
                     "3) 'csv_timeseries_summary_habitats' \n" +
                     "4) 'csv_timeseries_nymphs' \n" +
-                    "5) 'csv_timeseries_nymphs_habitats' \n");
+                    "5) 'csv_timeseries_nymphs_habitats' \n" +
+                    "6) 'csv_timeseries_infection' \n");
         };
 
         var config = new WorldConfigurationBuilder()
