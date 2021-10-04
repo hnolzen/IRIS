@@ -66,8 +66,9 @@ activation_rate <- 0.022
 #output_mode <- "csv_timeseries"
 #output_mode <- "csv_timeseries_summary"
 #output_mode <- "csv_timeseries_summary_habitats"
-output_mode <- "csv_timeseries_nymphs"
+#output_mode <- "csv_timeseries_nymphs"
 #output_mode <- "csv_timeseries_nymphs_habitats"
+output_mode <- "csv_timeseries_infection"
 
 weather_dir <- paste0(iris_main_dir, "/input/weather/dwd_", location, "/")
 

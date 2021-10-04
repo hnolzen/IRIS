@@ -40,6 +40,7 @@ observers = {
     2: "CsvTimeSeriesWriter",
     3: "CsvTimeSeriesWriterNymphs",
     4: "CsvTimeSeriesWriterNymphsHabitats",
+    5: "CsvTimeSeriesWriterInfection",
 }
 
 x_axis = {
@@ -103,9 +104,9 @@ def plot_line(df_x, df_y, c_line, c_fill, l_name):
 
 year = 2018
 input_model = 0
-observer = 3
+observer = 5
 with_questing_nymphs = True
-with_questing_nymphs_infected = False
+with_questing_nymphs_infected = True
 with_density = True
 with_color_fill = True
 with_smoothing = True
