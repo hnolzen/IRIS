@@ -30,7 +30,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int larvaeEngorged;
     private int larvaeLateEngorged;
 
-    private int feedingEvents;
+    private int feedingEventsLarvae;
+    private int feedingEventsInfectedLarvae;
+    private int feedingEventsNymphs;
+    private int feedingEventsInfectedNymphs;
 
     private int rodentsSusceptible;
     private int rodentsInfected;
@@ -54,7 +57,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 "questing_larvae_infected," +
                 "larvae_engorged," +
                 "larvae_late_engorged," +
-                "feeding_events," +
+                "feeding_events_larvae," +
+                "feeding_events_larvae_infected," +
+                "feeding_events_nymphs," +
+                "feeding_events_nymphs_infected," +
                 "rodents_susceptible," +
                 "rodents_infected," +
                 "mean_temperature," +
@@ -81,7 +87,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         larvaeEngorged += abundance.getEngorgedLarvae();
         larvaeLateEngorged += abundance.getLateEngorgedLarvae();
 
-        feedingEvents += abundance.getFeedingEventsNymphs();
+        feedingEventsLarvae += abundance.getFeedingEventsLarvae();
+        feedingEventsInfectedLarvae += abundance.getFeedingEventsInfectedLarvae();
+        feedingEventsNymphs += abundance.getFeedingEventsNymphs();
+        feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
 
         rodentsSusceptible += rodentAbundance.getRodents();
         rodentsInfected += rodentAbundance.getInfectedRodents();
@@ -94,7 +103,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double)nymphs,
                 (double)nymphsInfected,
@@ -104,7 +113,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 (double)larvaeInfected,
                 (double)larvaeEngorged,
                 (double)larvaeLateEngorged,
-                (double)feedingEvents,
+                (double)feedingEventsLarvae,
+                (double)feedingEventsInfectedLarvae,
+                (double)feedingEventsNymphs,
+                (double)feedingEventsInfectedNymphs,
                 (double)rodentsSusceptible,
                 (double)rodentsInfected,
                 dailyMeanTemperature,
@@ -122,7 +134,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         larvaeInfected = 0;
         larvaeLateEngorged = 0;
 
-        feedingEvents = 0;
+        feedingEventsLarvae = 0;
+        feedingEventsInfectedLarvae = 0;
+        feedingEventsNymphs = 0;
+        feedingEventsInfectedNymphs = 0;
 
         rodentsSusceptible = 0;
         rodentsInfected = 0;
