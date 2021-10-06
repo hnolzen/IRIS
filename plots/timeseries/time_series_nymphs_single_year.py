@@ -20,8 +20,14 @@ FILL_COLOR_LARVAE = "#ffb326"
 LINE_COLOR_QUESTING_NYMPHS_INFECTED = "#f21f00"
 FILL_COLOR_QUESTING_NYMPHS_INFECTED = "#ff8370"
 
+LINE_COLOR_INACTIVE_NYMPHS_INFECTED = "#ae017e"
+FILL_COLOR_INACTIVE_NYMPHS_INFECTED = "#f768a1"
+
 LINE_COLOR_QUESTING_LARVAE_INFECTED = "#ff385c"
 FILL_COLOR_QUESTING_LARVAE_INFECTED = "#e3526c"
+
+LINE_COLOR_INACTIVE_LARVAE_INFECTED = "#67000d"
+FILL_COLOR_INACTIVE_LARVAE_INFECTED = "#a50f15"
 
 LINE_COLOR_ENGORGED_LARVAE_INFECTED = "#ff385c"
 FILL_COLOR_ENGORGED_LARVAE_INFECTED = "#e3526c"
@@ -135,6 +141,8 @@ with_questing_nymphs = True
 with_questing_larvae = False
 with_questing_nymphs_infected = False
 with_questing_larvae_infected = False
+with_inactive_nymphs_infected = False
+with_inactive_larvae_infected = False
 with_engorged_larvae_infected = False
 with_engorged_nymphs_infected = True
 with_late_engorged_larvae_infected = False
@@ -189,6 +197,15 @@ if with_questing_larvae_infected:
         LINE_COLOR_QUESTING_LARVAE_INFECTED,
         FILL_COLOR_QUESTING_LARVAE_INFECTED,
         "Infected questing larvae",
+    )
+
+if with_inactive_larvae_infected:
+    plot_line(
+        data["tick"],
+        data["larvae_inactive_infected"],
+        LINE_COLOR_INACTIVE_LARVAE_INFECTED,
+        FILL_COLOR_INACTIVE_LARVAE_INFECTED,
+        "Infected inactive larvae",
     )
 
 if with_engorged_larvae_infected:
