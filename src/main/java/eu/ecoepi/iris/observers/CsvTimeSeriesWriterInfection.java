@@ -40,6 +40,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int feedingEventsInfectedLarvae;
     private int feedingEventsNymphs;
     private int feedingEventsInfectedNymphs;
+    private int totalFeedingEventsInfected;
 
     private int rodentsSusceptible;
     private int rodentsInfected;
@@ -56,23 +57,24 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         csvWriter.print(
                 "tick," +
                 "nymphs_questing," +
-                "nymphs_questing_infected," +
-                "nymphs_inactive_infected," +
+                "nymphs_questing_inf," +
+                "nymphs_inactive_inf," +
                 "nymphs_engorged," +
-                "nymphs_engorged_infected," +
+                "nymphs_engorged_inf," +
                 "nymphs_late_engorged," +
-                "nymphs_late_engorged_infected," +
+                "nymphs_late_engorged_inf," +
                 "larvae_questing," +
-                "larvae_questing_infected," +
-                "larvae_inactive_infected," +
+                "larvae_questing_inf," +
+                "larvae_inactive_inf," +
                 "larvae_engorged," +
-                "larvae_engorged_infected," +
+                "larvae_engorged_inf," +
                 "larvae_late_engorged," +
-                "larvae_late_engorged_infected," +
-                "feeding_events_larvae," +
-                "feeding_events_larvae_infected," +
-                "feeding_events_nymphs," +
-                "feeding_events_nymphs_infected," +
+                "larvae_late_engorged_inf," +
+                "larvae_feeding_events," +
+                "larvae_feeding_events_inf," +
+                "nymphs_feeding_events," +
+                "nymphs_feeding_events_inf," +
+                "total_feeding_events_inf," +
                 "rodents_susceptible," +
                 "rodents_infected," +
                 "mean_temperature," +
@@ -109,6 +111,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         feedingEventsInfectedLarvae += abundance.getFeedingEventsInfectedLarvae();
         feedingEventsNymphs += abundance.getFeedingEventsNymphs();
         feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
+        totalFeedingEventsInfected += (feedingEventsInfectedLarvae + feedingEventsInfectedNymphs);
 
         rodentsSusceptible += rodentAbundance.getRodents();
         rodentsInfected += rodentAbundance.getInfectedRodents();
@@ -121,28 +124,29 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
-                (double)nymphsQuesting,
-                (double)nymphsInfectedQuesting,
-                (double)nymphsInfectedInactive,
-                (double)nymphsEngorged,
-                (double)nymphsInfectedEngorged,
-                (double)nymphsLateEngorged,
-                (double)nymphsInfectedLateEngorged,
-                (double)larvaeQuesting,
-                (double)larvaeInfectedQuesting,
-                (double)larvaeInfectedInactive,
-                (double)larvaeEngorged,
-                (double)larvaeInfectedEngorged,
-                (double)larvaeLateEngorged,
-                (double)larvaeInfectedLateEngorged,
-                (double)feedingEventsLarvae,
-                (double)feedingEventsInfectedLarvae,
-                (double)feedingEventsNymphs,
-                (double)feedingEventsInfectedNymphs,
-                (double)rodentsSusceptible,
-                (double)rodentsInfected,
+                (double) nymphsQuesting,
+                (double) nymphsInfectedQuesting,
+                (double) nymphsInfectedInactive,
+                (double) nymphsEngorged,
+                (double) nymphsInfectedEngorged,
+                (double) nymphsLateEngorged,
+                (double) nymphsInfectedLateEngorged,
+                (double) larvaeQuesting,
+                (double) larvaeInfectedQuesting,
+                (double) larvaeInfectedInactive,
+                (double) larvaeEngorged,
+                (double) larvaeInfectedEngorged,
+                (double) larvaeLateEngorged,
+                (double) larvaeInfectedLateEngorged,
+                (double) feedingEventsLarvae,
+                (double) feedingEventsInfectedLarvae,
+                (double) feedingEventsNymphs,
+                (double) feedingEventsInfectedNymphs,
+                (double) totalFeedingEventsInfected,
+                (double) rodentsSusceptible,
+                (double) rodentsInfected,
                 dailyMeanTemperature,
                 dailyMaxTemperature,
                 dailyHumidity
@@ -168,6 +172,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         feedingEventsInfectedLarvae = 0;
         feedingEventsNymphs = 0;
         feedingEventsInfectedNymphs = 0;
+        totalFeedingEventsInfected = 0;
 
         rodentsSusceptible = 0;
         rodentsInfected = 0;

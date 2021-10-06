@@ -11,45 +11,6 @@ out_dir = os.path.abspath(main_dir + "/output/")
 GRID_CELLS = 144
 MONTHLY_BOUNDARIES = "#d9d9d9"
 
-LINE_COLOR_NYMPHS = "#3182bd"
-FILL_COLOR_NYMPHS = "#9ecae1"
-
-LINE_COLOR_LARVAE = "#f29d00"
-FILL_COLOR_LARVAE = "#ffb326"
-
-LINE_COLOR_QUESTING_NYMPHS_INFECTED = "#f21f00"
-FILL_COLOR_QUESTING_NYMPHS_INFECTED = "#ff8370"
-
-LINE_COLOR_INACTIVE_NYMPHS_INFECTED = "#ae017e"
-FILL_COLOR_INACTIVE_NYMPHS_INFECTED = "#f768a1"
-
-LINE_COLOR_QUESTING_LARVAE_INFECTED = "#ff385c"
-FILL_COLOR_QUESTING_LARVAE_INFECTED = "#e3526c"
-
-LINE_COLOR_INACTIVE_LARVAE_INFECTED = "#67000d"
-FILL_COLOR_INACTIVE_LARVAE_INFECTED = "#a50f15"
-
-LINE_COLOR_ENGORGED_LARVAE_INFECTED = "#ff385c"
-FILL_COLOR_ENGORGED_LARVAE_INFECTED = "#e3526c"
-
-LINE_COLOR_LATE_ENGORGED_LARVAE_INFECTED = "#ff385c"
-FILL_COLOR_LATE_ENGORGED_LARVAE_INFECTED = "#e3526c"
-
-LINE_COLOR_ENGORGED_NYMPHS_INFECTED = "#f21f00"
-FILL_COLOR_ENGORGED_NYMPHS_INFECTED = "#ff8370"
-
-LINE_COLOR_LATE_ENGORGED_NYMPHS_INFECTED = "#f21f00"
-FILL_COLOR_LATE_ENGORGED_NYMPHS_INFECTED = "#ff8370"
-
-LINE_COLOR_FEEDING_EVENTS_LARVAE_INFECTED = "#ff385c"
-FILL_COLOR_FEEDING_EVENTS_LARVAE_INFECTED = "#e3526c"
-
-LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#f21f00"
-FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#ff8370"
-
-LINE_COLOR_TOTAL_FEEDING_EVENTS_INFECTED = "#000000"
-FILL_COLOR_TOTAL_FEEDING_EVENTS_INFECTED = "#f0f0f0"
-
 models = {
     0: "DWD",
     1: "CCCma-CanESM2_rcp85_r1i1p1_CLMcom-CCLM4-8-17_v1",
@@ -106,6 +67,22 @@ x_axis = {
     366: "",
 }
 
+cohorts = {
+    0: ["larvae_questing", "Questing larvae", "#f29d00", "#ffb326"],
+    1: ["nymphs_questing", "Questing nymphs", "#3182bd", "#9ecae1"],
+    2: ["larvae_questing_inf", "Infected questing larvae", "#ff385c"],
+    3: ["nymphs_questing_inf", "Infected questing nymphs", "#f21f00"],
+    4: ["larvae_inactive_inf", "Infected inactive larvae", "#67000d"],
+    5: ["nymphs_inactive_inf", "Infected inactive nymphs", "#ae017e"],
+    6: ["larvae_engorged_inf", "Infected engorged larvae", "#6a51a3"],
+    7: ["nymphs_engorged_inf", "Infected engorged nymphs", "#ae017e"],
+    8: ["larvae_late_engorged_inf", "Infected late engorged larvae", "#238b45"],
+    9: ["nymphs_late_engorged_inf", "Infected late engorged nymphs", "#7a0177"],
+    10: ["larvae_feeding_events_inf","Feeding events (infected larvae)","#fd8d3c"],
+    11: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#3690c0"],
+    12: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
+}
+
 
 def read_csv(year, input_model):
     input_dir = models[input_model]
@@ -120,51 +97,73 @@ def read_csv(year, input_model):
         print("FileNotFoundError: The file ", ex.filename, " was not found.")
 
 
-def plot_line(df_x, df_y, c_line, c_fill, l_name):
+def set_y_axis(y, y_lim):
+    y_axis_label_type = [
+        ["Larvae", "larvae"],
+        ["Nymphs", "nymphs"],
+        ["Ticks", "ticks"],
+    ]
+
+    j_first = y[0]
+    j_current = y[0]
+    for j in y:
+        if (j % 2 == j_first) & (j < 12):
+            label_type = y_axis_label_type[j_current]
+        else:
+            label_type = y_axis_label_type[2]
+            break
+
+    plt.ylim(0, y_lim)
+    ax.set_ylabel(f"Number of {label_type[1]}", fontsize=12)
+    
     if with_density:
-        df_y /= GRID_CELLS
-
-    if with_smoothing:
-        df_y = signal.savgol_filter(df_y, 53, 3)
-        plt.plot(df_x, df_y, lw=1.0, color=c_line, label=l_name)
-
-        if with_color_fill:
-            plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
-    else:
-        plt.plot(df_x, df_y, lw=1.0, color=c_line, label=l_name)
-
-        if with_color_fill:
-            plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
+        plt.ylim(0, y_lim / 100)
+        ax.set_ylabel(f"{label_type[0]} per 100 $m^2$", fontsize=12)
 
 
 year = 2018
 input_model = 0
 observer = 5
-
-with_questing_nymphs = True
-with_questing_larvae = False
-
-with_questing_nymphs_infected = False
-with_questing_larvae_infected = False
-
-with_inactive_nymphs_infected = False
-with_inactive_larvae_infected = False
-
-with_engorged_larvae_infected = False
-with_engorged_nymphs_infected = True
-
-with_late_engorged_larvae_infected = False
-with_late_engorged_nymphs_infected = False
-
-with_feeding_events_nymphs_infected = False
-with_feeding_events_larvae_infected = False
-with_total_feeding_events_infected = False
-
+y_axis_limit = 6000
 with_density = True
 with_color_fill = True
 with_smoothing = True
 output_format = "png"
 
+with_questing_larvae = True
+with_questing_nymphs = True
+
+with_questing_larvae_inf = False
+with_questing_nymphs_inf = False
+
+with_inactive_larvae_inf = False
+with_inactive_nymphs_inf = False
+
+with_engorged_larvae_inf = False
+with_engorged_nymphs_inf = False
+
+with_late_engorged_larvae_inf = False
+with_late_engorged_nymphs_inf = False
+
+with_feeding_events_larvae_inf = False
+with_feeding_events_nymphs_inf = False
+with_total_feeding_events_inf = False
+
+cohorts_to_plot = [
+    with_questing_nymphs,
+    with_questing_larvae,
+    with_questing_nymphs_inf,
+    with_questing_larvae_inf,
+    with_inactive_nymphs_inf,
+    with_inactive_larvae_inf,
+    with_engorged_larvae_inf,
+    with_engorged_nymphs_inf,
+    with_late_engorged_larvae_inf,
+    with_late_engorged_nymphs_inf,
+    with_feeding_events_nymphs_inf,
+    with_feeding_events_larvae_inf,
+    with_total_feeding_events_inf,
+]
 
 data = read_csv(year, input_model)
 
@@ -173,120 +172,28 @@ fig, ax = plt.subplots(figsize=(8, 3))
 for x_value in list(x_axis.keys())[2:24:2]:
     plt.axvline(x=x_value, color=MONTHLY_BOUNDARIES, ls="-", lw=0.5, alpha=0.5)
 
-if with_questing_nymphs:
-    plot_line(
-        data["tick"],
-        data["questing_nymphs"],
-        LINE_COLOR_NYMPHS,
-        FILL_COLOR_NYMPHS,
-        "Questing nymphs",
-    )
+x = data["tick"]
+y_labels = []
+for i, v in enumerate(cohorts_to_plot):
+    if v == True:
+        y_labels.append(i)
+        y = data[cohorts[i][0]]
+        y_label = cohorts[i][1]
+        c_line = cohorts[i][2]
 
-if with_questing_larvae:
-    plot_line(
-        data["tick"],
-        data["questing_larvae"],
-        LINE_COLOR_LARVAE,
-        FILL_COLOR_LARVAE,
-        "Questing larvae",
-    )
+        if with_density:
+            y /= GRID_CELLS
 
-if with_questing_nymphs_infected:
-    plot_line(
-        data["tick"],
-        data["questing_nymphs_infected"],
-        LINE_COLOR_QUESTING_NYMPHS_INFECTED,
-        FILL_COLOR_QUESTING_NYMPHS_INFECTED,
-        "Infected questing nymphs",
-    )
+        if with_smoothing:
+            y = signal.savgol_filter(y, 53, 3)
+            plt.plot(x, y, lw=1.0, color=c_line, label=y_label)
 
-if with_questing_larvae_infected:
-    plot_line(
-        data["tick"],
-        data["questing_larvae_infected"],
-        LINE_COLOR_QUESTING_LARVAE_INFECTED,
-        FILL_COLOR_QUESTING_LARVAE_INFECTED,
-        "Infected questing larvae",
-    )
+        if with_color_fill:
+            if len(cohorts[i]) > 3:
+                c_fill = cohorts[i][3]
+                plt.fill_between(x, 0, y, color=c_fill, alpha=0.5)
 
-if with_inactive_larvae_infected:
-    plot_line(
-        data["tick"],
-        data["larvae_inactive_infected"],
-        LINE_COLOR_INACTIVE_LARVAE_INFECTED,
-        FILL_COLOR_INACTIVE_LARVAE_INFECTED,
-        "Infected inactive larvae",
-    )
-
-if with_engorged_larvae_infected:
-    plot_line(
-        data["tick"],
-        data["larvae_engorged_infected"],
-        LINE_COLOR_ENGORGED_LARVAE_INFECTED,
-        FILL_COLOR_ENGORGED_LARVAE_INFECTED,
-        "Infected engorged larvae",
-    )
-
-if with_late_engorged_larvae_infected:
-    plot_line(
-        data["tick"],
-        data["larvae_late_engorged_infected"],
-        LINE_COLOR_LATE_ENGORGED_LARVAE_INFECTED,
-        FILL_COLOR_LATE_ENGORGED_LARVAE_INFECTED,
-        "Infected late engorged larvae",
-    )
-
-if with_engorged_nymphs_infected:
-    plot_line(
-        data["tick"],
-        data["nymphs_engorged_infected"],
-        LINE_COLOR_ENGORGED_NYMPHS_INFECTED,
-        FILL_COLOR_ENGORGED_NYMPHS_INFECTED,
-        "Infected engorged nymphs",
-    )
-
-if with_late_engorged_nymphs_infected:
-    plot_line(
-        data["tick"],
-        data["nymphs_late_engorged_infected"],
-        LINE_COLOR_LATE_ENGORGED_NYMPHS_INFECTED,
-        FILL_COLOR_LATE_ENGORGED_NYMPHS_INFECTED,
-        "Infected late engorged nymphs",
-    )
-
-if with_feeding_events_larvae_infected:
-    plot_line(
-        data["tick"],
-        data["feeding_events_larvae_infected"],
-        LINE_COLOR_FEEDING_EVENTS_LARVAE_INFECTED,
-        FILL_COLOR_FEEDING_EVENTS_LARVAE_INFECTED,
-        "Feeding events of infected larvae",
-    )
-    
-if with_feeding_events_nymphs_infected:
-    plot_line(
-        data["tick"],
-        data["feeding_events_nymphs_infected"],
-        LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
-        FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
-        "Feeding events of infected nymphs",
-    )
-    
-if with_total_feeding_events_infected:
-    d1 = data["feeding_events_nymphs_infected"]
-    d2 = data["feeding_events_larvae_infected"]
-    data["total_feeding_events_infected"] = d1 + d2
-    plot_line(
-        data["tick"],
-        data["total_feeding_events_infected"],
-        LINE_COLOR_TOTAL_FEEDING_EVENTS_INFECTED,
-        FILL_COLOR_TOTAL_FEEDING_EVENTS_INFECTED,
-        "Total feeding events of infected ticks",
-    )
-
-plt.ylim(0, 5000)
-if with_density:
-    plt.ylim(0, 50)
+set_y_axis(y_labels, y_axis_limit)
 
 ax.set_xticks(list(x_axis.keys()))
 ax.set_xticklabels(list(x_axis.values()), fontsize=10)
@@ -295,16 +202,12 @@ for tick in ax.xaxis.get_major_ticks()[1::2]:
     tick.tick1line.set_markersize(0)
     tick.tick2line.set_markersize(0)
 
-ax.set_ylabel("Number of nymphs", fontsize=12)
-if with_density:
-    ax.set_ylabel("Nymphs per 100 $m^2$", fontsize=12)
-
 ax.margins(x=0)
 ax.margins(y=0)
 
 plt.title(f"{year}", fontweight="bold", fontsize=12)
 
-plt.legend(loc="upper right", fontsize=10)
+plt.legend(fontsize=10)
 
 plt.tight_layout()
 
