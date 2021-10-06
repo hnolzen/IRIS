@@ -47,6 +47,9 @@ FILL_COLOR_FEEDING_EVENTS_LARVAE_INFECTED = "#e3526c"
 LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#f21f00"
 FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED = "#ff8370"
 
+LINE_COLOR_TOTAL_FEEDING_EVENTS_INFECTED = "#000000"
+FILL_COLOR_TOTAL_FEEDING_EVENTS_INFECTED = "#f0f0f0"
+
 models = {
     0: "DWD",
     1: "CCCma-CanESM2_rcp85_r1i1p1_CLMcom-CCLM4-8-17_v1",
@@ -137,18 +140,26 @@ def plot_line(df_x, df_y, c_line, c_fill, l_name):
 year = 2018
 input_model = 0
 observer = 5
+
 with_questing_nymphs = True
 with_questing_larvae = False
+
 with_questing_nymphs_infected = False
 with_questing_larvae_infected = False
+
 with_inactive_nymphs_infected = False
 with_inactive_larvae_infected = False
+
 with_engorged_larvae_infected = False
 with_engorged_nymphs_infected = True
+
 with_late_engorged_larvae_infected = False
 with_late_engorged_nymphs_infected = False
+
 with_feeding_events_nymphs_infected = False
 with_feeding_events_larvae_infected = False
+with_total_feeding_events_infected = False
+
 with_density = True
 with_color_fill = True
 with_smoothing = True
@@ -156,7 +167,6 @@ output_format = "png"
 
 
 data = read_csv(year, input_model)
-
 
 fig, ax = plt.subplots(figsize=(8, 3))
 
@@ -260,6 +270,18 @@ if with_feeding_events_nymphs_infected:
         LINE_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
         FILL_COLOR_FEEDING_EVENTS_NYMPHS_INFECTED,
         "Feeding events of infected nymphs",
+    )
+    
+if with_total_feeding_events_infected:
+    d1 = data["feeding_events_nymphs_infected"]
+    d2 = data["feeding_events_larvae_infected"]
+    data["total_feeding_events_infected"] = d1 + d2
+    plot_line(
+        data["tick"],
+        data["total_feeding_events_infected"],
+        LINE_COLOR_TOTAL_FEEDING_EVENTS_INFECTED,
+        FILL_COLOR_TOTAL_FEEDING_EVENTS_INFECTED,
+        "Total feeding events of infected ticks",
     )
 
 plt.ylim(0, 5000)
