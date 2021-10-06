@@ -309,7 +309,7 @@ plt.legend(loc="upper right", fontsize=10)
 plt.tight_layout()
 
 plt.savefig(
-    f"timeseries_nymphs_{year}_{models[input_model]}.{output_format}",
+    f"timeseries_{year}_{models[input_model]}.{output_format}",
     dpi=400,
 )
 plt.close(fig)
