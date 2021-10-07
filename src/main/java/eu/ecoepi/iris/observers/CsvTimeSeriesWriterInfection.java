@@ -111,7 +111,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         feedingEventsInfectedLarvae += abundance.getFeedingEventsInfectedLarvae();
         feedingEventsNymphs += abundance.getFeedingEventsNymphs();
         feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
-        totalFeedingEventsInfected += (feedingEventsInfectedLarvae + feedingEventsInfectedNymphs);
+        totalFeedingEventsInfected = feedingEventsInfectedLarvae + feedingEventsInfectedNymphs;
 
         rodentsSusceptible += rodentAbundance.getRodents();
         rodentsInfected += rodentAbundance.getInfectedRodents();
