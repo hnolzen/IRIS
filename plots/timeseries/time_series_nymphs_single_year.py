@@ -105,8 +105,8 @@ def set_y_axis(y, y_lim):
         ["Ticks", "ticks"],
     ]
 
-    j_first = y[0]
-    j_current = y[0]
+    j_first = y[0] % 2
+    j_current = y[0] % 2
     for j in y:
         if (j % 2 == j_first) & (j < 14):
             label_type = y_axis_label_type[j_current]
