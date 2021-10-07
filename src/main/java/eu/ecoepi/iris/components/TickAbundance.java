@@ -18,6 +18,9 @@ public class TickAbundance extends Component {
     int feedingEventsInfectedNymphs = 0;
     int feedingEventsAdults = 0;
 
+    int feedingEventsNewInfectedLarvae = 0;
+    int feedingEventsNewInfectedNymphs = 0;
+
     public TickAbundance() {
     }
 
@@ -69,12 +72,20 @@ public class TickAbundance extends Component {
         feedingEventsInfectedLarvae += event;
     }
 
+    public void addFeedingEventNewInfectedLarvae(int event) {
+        feedingEventsNewInfectedLarvae += event;
+    }
+
     public void addFeedingEventNymphs(int event) {
         feedingEventsNymphs += event;
     }
 
     public void addFeedingEventInfectedNymphs(int event) {
         feedingEventsInfectedNymphs += event;
+    }
+
+    public void addFeedingEventNewInfectedNymphs(int event) {
+        feedingEventsNewInfectedNymphs += event;
     }
 
     public void addFeedingEventAdults(int event) {
@@ -89,12 +100,20 @@ public class TickAbundance extends Component {
         return feedingEventsInfectedLarvae;
     }
 
+    public int getFeedingEventsNewInfectedLarvae() {
+        return feedingEventsNewInfectedLarvae;
+    }
+
     public int getFeedingEventsNymphs() {
         return feedingEventsNymphs;
     }
 
     public int getFeedingEventsInfectedNymphs() {
         return feedingEventsInfectedNymphs;
+    }
+
+    public int getFeedingEventsNewInfectedNymphs() {
+        return feedingEventsNewInfectedNymphs;
     }
 
     public int getFeedingEventsAdults() {

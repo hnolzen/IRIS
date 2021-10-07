@@ -3,17 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import signal
 
-
 file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 out_dir = os.path.abspath(main_dir + "/output/")
 
 GRID_CELLS = 144
 MONTHLY_BOUNDARIES = "#d9d9d9"
-LINE_COLOR_NYMPHS = "#3182bd"
-LINE_COLOR_NYMPHS_INFECTED = "#f21f00"
-FILL_COLOR_NYMPHS = "#9ecae1"
-FILL_COLOR_INFECTED = "#ff8370"
 
 models = {
     0: "DWD",
@@ -71,6 +66,24 @@ x_axis = {
     366: "",
 }
 
+cohorts = {
+    0: ["larvae_questing", "Questing larvae", "#f29d00", "#ffb326"],
+    1: ["nymphs_questing", "Questing nymphs", "#3182bd", "#9ecae1"],
+    2: ["larvae_questing_inf", "Infected questing larvae", "#fc9272"],
+    3: ["nymphs_questing_inf", "Infected questing nymphs", "#e31a1c"],
+    4: ["larvae_inactive_inf", "Infected inactive larvae", "#67000d"],
+    5: ["nymphs_inactive_inf", "Infected inactive nymphs", "#ae017e"],
+    6: ["larvae_engorged_inf", "Infected engorged larvae", "#f768a1"],
+    7: ["nymphs_engorged_inf", "Infected engorged nymphs", "#ae017e"],
+    8: ["larvae_late_engorged_inf", "Infected late engorged larvae", "#fed976"],
+    9: ["nymphs_late_engorged_inf", "Infected late engorged nymphs", "#6baed6"],
+    10: ["larvae_feeding_events_inf","Feeding events (infected larvae)","#fd8d3c"],
+    11: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#2171b5"],
+    12: ["larvae_new_feeding_events_inf","Feeding events (new infected larvae)","#fed976"],
+    13: ["nymphs_new_feeding_events_inf", "Feeding events (new infected nymphs)","#6baed6"],
+    14: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
+}
+
 
 def read_csv(year, input_model):
     input_dir = models[input_model]
@@ -85,63 +98,109 @@ def read_csv(year, input_model):
         print("FileNotFoundError: The file ", ex.filename, " was not found.")
 
 
-def plot_line(df_x, df_y, c_line, c_fill, l_name):
+def set_y_axis(y, y_lim):
+    y_axis_label_type = [
+        ["Larvae", "larvae"],
+        ["Nymphs", "nymphs"],
+        ["Ticks", "ticks"],
+    ]
+
+    j_first = y[0] % 2
+    j_current = y[0] % 2
+    for j in y:
+        if (j % 2 == j_first) & (j < 14):
+            label_type = y_axis_label_type[j_current]
+        else:
+            label_type = y_axis_label_type[2]
+            break
+
+    plt.ylim(0, y_lim)
+    ax.set_ylabel(f"Number of {label_type[1]}", fontsize=12)
+    
     if with_density:
-        df_y /= GRID_CELLS
-
-    if with_smoothing:
-        df_y = signal.savgol_filter(df_y, 53, 3)
-        plt.plot(df_x, df_y, lw=1.0, color=c_line, label=l_name)
-
-        if with_color_fill:
-            plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
-    else:
-        plt.plot(df_x, df_y, lw=1.0, color=c_line, label=l_name)
-
-        if with_color_fill:
-            plt.fill_between(df_x, 0, df_y, color=c_fill, alpha=0.5)
+        plt.ylim(0, y_lim / 100)
+        ax.set_ylabel(f"{label_type[0]} per 100 $m^2$", fontsize=12)
 
 
 year = 2018
 input_model = 0
 observer = 5
-with_questing_nymphs = True
-with_questing_nymphs_infected = True
+y_axis_limit = 6000
 with_density = True
 with_color_fill = True
 with_smoothing = True
 output_format = "png"
 
+with_questing_larvae = True
+with_questing_nymphs = True
+
+with_questing_larvae_inf = False
+with_questing_nymphs_inf = False
+
+with_inactive_larvae_inf = False
+with_inactive_nymphs_inf = False
+
+with_engorged_larvae_inf = False
+with_engorged_nymphs_inf = False
+
+with_late_engorged_larvae_inf = False
+with_late_engorged_nymphs_inf = False
+
+with_feeding_events_larvae_inf = False
+with_feeding_events_nymphs_inf = False
+
+with_new_feeding_events_larvae_inf = False
+with_new_feeding_events_nymphs_inf = False
+
+with_total_feeding_events_inf = False
+
+cohorts_to_plot = [
+    with_questing_larvae,
+    with_questing_nymphs,
+    with_questing_larvae_inf,
+    with_questing_nymphs_inf,
+    with_inactive_larvae_inf,
+    with_inactive_nymphs_inf,
+    with_engorged_larvae_inf,
+    with_engorged_nymphs_inf,
+    with_late_engorged_larvae_inf,
+    with_late_engorged_nymphs_inf,
+    with_feeding_events_larvae_inf,
+    with_feeding_events_nymphs_inf,
+    with_new_feeding_events_larvae_inf,
+    with_new_feeding_events_nymphs_inf,
+    with_total_feeding_events_inf,
+]
 
 data = read_csv(year, input_model)
-
 
 fig, ax = plt.subplots(figsize=(8, 3))
 
 for x_value in list(x_axis.keys())[2:24:2]:
     plt.axvline(x=x_value, color=MONTHLY_BOUNDARIES, ls="-", lw=0.5, alpha=0.5)
 
-if with_questing_nymphs:
-    plot_line(
-        data["tick"],
-        data["questing_nymphs"],
-        LINE_COLOR_NYMPHS,
-        FILL_COLOR_NYMPHS,
-        "Questing nymphs",
-    )
+x = data["tick"]
+y_labels = []
+for i, v in enumerate(cohorts_to_plot):
+    if v == True:
+        y_labels.append(i)
+        y = data[cohorts[i][0]]
+        y_label = cohorts[i][1]
+        c_line = cohorts[i][2]
 
-if with_questing_nymphs_infected:
-    plot_line(
-        data["tick"],
-        data["questing_nymphs_infected"],
-        LINE_COLOR_NYMPHS_INFECTED,
-        FILL_COLOR_INFECTED,
-        "Infected questing nymphs",
-    )
+        if with_density:
+            y /= GRID_CELLS
 
-plt.ylim(0, 5000)
-if with_density:
-    plt.ylim(0, 50)
+        if with_smoothing:
+            y = signal.savgol_filter(y, 53, 3)
+            plt.plot(x, y, lw=1.0, color=c_line, label=y_label)
+
+        if with_color_fill:
+            if len(cohorts[i]) > 3:
+                c_fill = cohorts[i][3]
+                plt.fill_between(x, 0, y, color=c_fill, alpha=0.5)
+              
+set_y_axis(y_labels, y_axis_limit)
 
 ax.set_xticks(list(x_axis.keys()))
 ax.set_xticklabels(list(x_axis.values()), fontsize=10)
@@ -150,21 +209,21 @@ for tick in ax.xaxis.get_major_ticks()[1::2]:
     tick.tick1line.set_markersize(0)
     tick.tick2line.set_markersize(0)
 
-ax.set_ylabel("Number of nymphs", fontsize=12)
-if with_density:
-    ax.set_ylabel("Nymphs per 100 $m^2$", fontsize=12)
-
 ax.margins(x=0)
 ax.margins(y=0)
 
 plt.title(f"{year}", fontweight="bold", fontsize=12)
 
-plt.legend(loc="upper right", fontsize=10)
+plt.legend(fontsize=8)
 
 plt.tight_layout()
 
+filename_cohorts = ""
+for i in y_labels:
+    filename_cohorts += cohorts[i][0] + "_"
+
 plt.savefig(
-    f"timeseries_nymphs_{year}_{models[input_model]}.{output_format}",
+    f"timeseries_{year}_{filename_cohorts}{models[input_model]}.{output_format}",
     dpi=400,
 )
 plt.close(fig)

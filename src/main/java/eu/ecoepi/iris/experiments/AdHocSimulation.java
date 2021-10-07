@@ -53,6 +53,16 @@ public class AdHocSimulation {
                 .longOpt("infectedInactiveNymphs")
                 .build());
 
+        cmdOptions.addOption(Option.builder("u")
+                .hasArg()
+                .longOpt("rodents")
+                .build());
+
+        cmdOptions.addOption(Option.builder("v")
+                .hasArg()
+                .longOpt("infectedRodents")
+                .build());
+
         cmdOptions.addOption(Option.builder("r")
                 .hasArg()
                 .longOpt("activation")
@@ -69,9 +79,7 @@ public class AdHocSimulation {
         var options = new Model.Options();
 
         options.seed = Long.parseLong(cmd.getOptionValue("s", "42"));
-
         options.output = cmd.getOptionValue("o");
-
         options.weather = cmd.getOptionValue("w");
 
         options.initialInactiveLarvae = Integer.parseInt(cmd.getOptionValue("l", "150"));
@@ -79,6 +87,9 @@ public class AdHocSimulation {
         options.initialInactiveAdults = Integer.parseInt(cmd.getOptionValue("a", "150"));
         options.initialInfectedInactiveLarvae = Integer.parseInt(cmd.getOptionValue("i", "0"));
         options.initialInfectedInactiveNymphs = Integer.parseInt(cmd.getOptionValue("j", "0"));
+
+        options.initialRodents = Integer.parseInt(cmd.getOptionValue("u", "10"));
+        options.initialInfectedRodents = Integer.parseInt(cmd.getOptionValue("v", "0"));
 
         options.activationRate = Float.parseFloat(cmd.getOptionValue("r", "0.05"));
         
