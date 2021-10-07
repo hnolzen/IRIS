@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import signal
 
-
 file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 out_dir = os.path.abspath(main_dir + "/output/")
@@ -79,8 +78,10 @@ cohorts = {
     8: ["larvae_late_engorged_inf", "Infected late engorged larvae", "#238b45"],
     9: ["nymphs_late_engorged_inf", "Infected late engorged nymphs", "#7a0177"],
     10: ["larvae_feeding_events_inf","Feeding events (infected larvae)","#fd8d3c"],
-    11: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#3690c0"],
-    12: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
+    11: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#2171b5"],
+    12: ["larvae_new_feeding_events_inf","Feeding events (new infected larvae)","#fed976"],
+    13: ["nymphs_new_feeding_events_inf", "Feeding events (new infected nymphs)","#6baed6"],
+    14: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
 }
 
 
@@ -107,7 +108,7 @@ def set_y_axis(y, y_lim):
     j_first = y[0]
     j_current = y[0]
     for j in y:
-        if (j % 2 == j_first) & (j < 12):
+        if (j % 2 == j_first) & (j < 14):
             label_type = y_axis_label_type[j_current]
         else:
             label_type = y_axis_label_type[2]
@@ -147,21 +148,27 @@ with_late_engorged_nymphs_inf = False
 
 with_feeding_events_larvae_inf = False
 with_feeding_events_nymphs_inf = False
+
+with_new_feeding_events_larvae_inf = False
+with_new_feeding_events_nymphs_inf = False
+
 with_total_feeding_events_inf = False
 
 cohorts_to_plot = [
-    with_questing_nymphs,
     with_questing_larvae,
-    with_questing_nymphs_inf,
+    with_questing_nymphs,
     with_questing_larvae_inf,
-    with_inactive_nymphs_inf,
+    with_questing_nymphs_inf,
     with_inactive_larvae_inf,
+    with_inactive_nymphs_inf,
     with_engorged_larvae_inf,
     with_engorged_nymphs_inf,
     with_late_engorged_larvae_inf,
     with_late_engorged_nymphs_inf,
-    with_feeding_events_nymphs_inf,
     with_feeding_events_larvae_inf,
+    with_feeding_events_nymphs_inf,
+    with_new_feeding_events_larvae_inf,
+    with_new_feeding_events_nymphs_inf,
     with_total_feeding_events_inf,
 ]
 

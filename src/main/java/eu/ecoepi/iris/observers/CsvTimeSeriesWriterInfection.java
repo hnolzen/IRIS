@@ -42,6 +42,9 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int feedingEventsInfectedNymphs;
     private int totalFeedingEventsInfected;
 
+    private int feedingEventsNewInfectedLarvae;
+    private int feedingEventsNewInfectedNymphs;
+
     private int rodentsSusceptible;
     private int rodentsInfected;
 
@@ -75,6 +78,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 "nymphs_feeding_events," +
                 "nymphs_feeding_events_inf," +
                 "total_feeding_events_inf," +
+                "larvae_new_feeding_events_inf," +
+                "nymphs_new_feeding_events_inf," +
                 "rodents_susceptible," +
                 "rodents_infected," +
                 "mean_temperature," +
@@ -113,6 +118,9 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
         totalFeedingEventsInfected = feedingEventsInfectedLarvae + feedingEventsInfectedNymphs;
 
+        feedingEventsNewInfectedLarvae += abundance.getFeedingEventsNewInfectedLarvae();
+        feedingEventsNewInfectedNymphs += abundance.getFeedingEventsNewInfectedNymphs();
+
         rodentsSusceptible += rodentAbundance.getRodents();
         rodentsInfected += rodentAbundance.getInfectedRodents();
 
@@ -145,6 +153,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 (double) feedingEventsNymphs,
                 (double) feedingEventsInfectedNymphs,
                 (double) totalFeedingEventsInfected,
+                (double) feedingEventsNewInfectedLarvae,
+                (double) feedingEventsNewInfectedNymphs,
                 (double) rodentsSusceptible,
                 (double) rodentsInfected,
                 dailyMeanTemperature,
@@ -173,6 +183,9 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         feedingEventsNymphs = 0;
         feedingEventsInfectedNymphs = 0;
         totalFeedingEventsInfected = 0;
+
+        feedingEventsNewInfectedLarvae = 0;
+        feedingEventsNewInfectedNymphs = 0;
 
         rodentsSusceptible = 0;
         rodentsInfected = 0;
