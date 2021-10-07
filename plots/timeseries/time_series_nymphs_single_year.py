@@ -192,7 +192,7 @@ for i, v in enumerate(cohorts_to_plot):
             if len(cohorts[i]) > 3:
                 c_fill = cohorts[i][3]
                 plt.fill_between(x, 0, y, color=c_fill, alpha=0.5)
-
+              
 set_y_axis(y_labels, y_axis_limit)
 
 ax.set_xticks(list(x_axis.keys()))
@@ -211,8 +211,12 @@ plt.legend(fontsize=10)
 
 plt.tight_layout()
 
+filename_cohorts = ""
+for i in y_labels:
+    filename_cohorts += cohorts[i][0] + "_"
+
 plt.savefig(
-    f"timeseries_{year}_{models[input_model]}.{output_format}",
+    f"timeseries_{year}_{filename_cohorts}{models[input_model]}.{output_format}",
     dpi=400,
 )
 plt.close(fig)
