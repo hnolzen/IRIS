@@ -214,7 +214,7 @@ ax.margins(y=0)
 
 plt.title(f"{year}", fontweight="bold", fontsize=12)
 
-plt.legend(fontsize=10)
+plt.legend(fontsize=8)
 
 plt.tight_layout()
 
