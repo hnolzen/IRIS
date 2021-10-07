@@ -25,8 +25,8 @@ public class Model {
         public int initialInactiveAdults = 150;
         public int initialInfectedInactiveLarvae = 0;
         public int initialInfectedInactiveNymphs = 0;
-        public int initialRodents = 5;
-        public int initialInfectedRodents = 5;
+        public int initialRodents = 10;
+        public int initialInfectedRodents = 0;
         public float activationRate = 0.02f;
         public String outputMode = "csv_timeseries_summary";
     }
