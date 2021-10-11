@@ -77,21 +77,21 @@ public class TickLifeCycle extends IteratingSystem {
     private void freezing(TickAbundance abundance, Temperature temperature) {
         if (temperature.getMinTemperature() < Parameters.FREEZING_MIN_TEMP_WITHOUT_SNOW) {
 
-            var frozenLarvae = randomness.roundRandom((float) abundance.getQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            var frozenNymphs = randomness.roundRandom((float) abundance.getQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            var frozenAdults = randomness.roundRandom((float) abundance.getQuestingAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
+            var frozenLarvae = randomness.roundRandom((float) abundance.getInactiveLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE));
+            var frozenNymphs = randomness.roundRandom((float) abundance.getInactiveNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE));
+            var frozenAdults = randomness.roundRandom((float) abundance.getInactiveAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_INACTIVE));
 
             var frozenInfectedLarvae =
-                    randomness.roundRandom((float) abundance.getInfectedQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
+                    randomness.roundRandom((float) abundance.getInfectedInactiveLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE_INFECTED));
             var frozenInfectedNymphs =
-                    randomness.roundRandom((float) abundance.getInfectedQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
+                    randomness.roundRandom((float) abundance.getInfectedInactiveNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE_INFECTED));
 
-            abundance.addQuestingLarvae(-frozenLarvae);
-            abundance.addQuestingNymphs(-frozenNymphs);
-            abundance.addQuestingAdults(-frozenAdults);
+            abundance.addInactiveLarvae(-frozenLarvae);
+            abundance.addInactiveNymphs(-frozenNymphs);
+            abundance.addInactiveAdults(-frozenAdults);
 
-            abundance.addInfectedQuestingLarvae(-frozenInfectedLarvae);
-            abundance.addInfectedQuestingNymphs(-frozenInfectedNymphs);
+            abundance.addInfectedInactiveLarvae(-frozenInfectedLarvae);
+            abundance.addInfectedInactiveNymphs(-frozenInfectedNymphs);
         }
     }
 
