@@ -44,12 +44,12 @@ public class TickLifeCycle extends IteratingSystem {
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_LARVAE_TO_NYMPHS - currentTimeStep;
-                var nextStageNymphs = randomness.roundRandom((float) abundance.getEngorgedLarvae() / (float) remainingDays);
-                var nextStageInfectedNymphs = randomness.roundRandom((float) abundance.getInfectedEngorgedLarvae() / (float) remainingDays);
-                abundance.addInactiveNymphs(nextStageNymphs);
-                abundance.addEngorgedLarvae(-nextStageNymphs);
-                abundance.addInfectedInactiveNymphs(nextStageInfectedNymphs);
-                abundance.addInfectedEngorgedLarvae(-nextStageInfectedNymphs);
+                var nextStageNymphs = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_ENGORGED) / (float) remainingDays);
+                var nextStageInfectedNymphs = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED) / (float) remainingDays);
+                abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE, nextStageNymphs);
+                abundance.addToStage(CohortStateTicks.LARVAE_ENGORGED, -nextStageNymphs);
+                abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, nextStageInfectedNymphs);
+                abundance.addToStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED, -nextStageInfectedNymphs);
             }
 
             /*
@@ -58,18 +58,19 @@ public class TickLifeCycle extends IteratingSystem {
             */
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_NYMPHS_TO_ADULTS - currentTimeStep;
-                var nextStageAdults = randomness.roundRandom((float) abundance.getEngorgedNymphs()  / (float) remainingDays);
-                var nextStageAdultsFromInfectedEngorgedNymphs = randomness.roundRandom((float) abundance.getInfectedEngorgedNymphs() / (float) remainingDays);
-                abundance.addInactiveAdults(nextStageAdults + nextStageAdultsFromInfectedEngorgedNymphs);
-                abundance.addEngorgedNymphs(-nextStageAdults);
-                abundance.addInfectedEngorgedNymphs(-nextStageAdultsFromInfectedEngorgedNymphs);
+                var nextStageAdults = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED) / (float) remainingDays);
+                var nextStageAdultsFromInfectedEngorgedNymphs =
+                        randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED) / (float) remainingDays);
+                abundance.addToStage(CohortStateTicks.ADULTS_INACTIVE, nextStageAdults + nextStageAdultsFromInfectedEngorgedNymphs);
+                abundance.addToStage(CohortStateTicks.NYMPHS_ENGORGED, -nextStageAdults);
+                abundance.addToStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, -nextStageAdultsFromInfectedEngorgedNymphs);
             }
 
             if (currentTimeStep < Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE) {
                 var remainingDays = Parameters.END_OF_DEVELOPMENT_ADULTS_TO_LARVAE - currentTimeStep;
-                var nextStageLarvae = randomness.roundRandom((float) abundance.getEngorgedAdults() / (float) remainingDays);
-                abundance.addInactiveLarvae(nextStageLarvae);
-                abundance.addEngorgedAdults(-nextStageLarvae);
+                var nextStageLarvae = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.ADULTS_ENGORGED) / (float) remainingDays);
+                abundance.addToStage(CohortStateTicks.LARVAE_INACTIVE, nextStageLarvae);
+                abundance.addToStage(CohortStateTicks.ADULTS_ENGORGED, -nextStageLarvae);
             }
         }
     }
@@ -77,37 +78,43 @@ public class TickLifeCycle extends IteratingSystem {
     private void freezing(TickAbundance abundance, Temperature temperature) {
         if (temperature.getMinTemperature() < Parameters.FREEZING_MIN_TEMP_WITHOUT_SNOW) {
 
-            var frozenInactiveLarvae = randomness.roundRandom((float) abundance.getInactiveLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE));
-            var frozenInactiveNymphs = randomness.roundRandom((float) abundance.getInactiveNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE));
-            var frozenInactiveAdults = randomness.roundRandom((float) abundance.getInactiveAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_INACTIVE));
+            var frozenInactiveLarvae =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_INACTIVE) * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE));
+            var frozenInactiveNymphs =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE) * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE));
+            var frozenInactiveAdults =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.ADULTS_INACTIVE) * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_INACTIVE));
 
-            var frozenQuestingLarvae = randomness.roundRandom((float) abundance.getQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
-            var frozenQuestingNymphs = randomness.roundRandom((float) abundance.getQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
-            var frozenQuestingAdults = randomness.roundRandom((float) abundance.getQuestingAdults() * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
+            var frozenQuestingLarvae =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING));
+            var frozenQuestingNymphs =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING));
+            var frozenQuestingAdults =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.ADULTS_QUESTING) * Parameters.FREEZING_RATE.get(CohortStateTicks.ADULTS_QUESTING));
 
             var frozenInfectedInactiveLarvae =
-                    randomness.roundRandom((float) abundance.getInfectedInactiveLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE_INFECTED));
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED) * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_INACTIVE_INFECTED));
             var frozenInfectedInactiveNymphs =
-                    randomness.roundRandom((float) abundance.getInfectedInactiveNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE_INFECTED));
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED) * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_INACTIVE_INFECTED));
 
             var frozenInfectedQuestingLarvae =
-                    randomness.roundRandom((float) abundance.getInfectedQuestingLarvae() * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * Parameters.FREEZING_RATE.get(CohortStateTicks.LARVAE_QUESTING_INFECTED));
             var frozenInfectedQuestingNymphs =
-                    randomness.roundRandom((float) abundance.getInfectedQuestingNymphs() * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * Parameters.FREEZING_RATE.get(CohortStateTicks.NYMPHS_QUESTING_INFECTED));
 
-            abundance.addInactiveLarvae(-frozenInactiveLarvae);
-            abundance.addInactiveNymphs(-frozenInactiveNymphs);
-            abundance.addInactiveAdults(-frozenInactiveAdults);
+            abundance.addToStage(CohortStateTicks.LARVAE_INACTIVE, -frozenInactiveLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE, -frozenInactiveNymphs);
+            abundance.addToStage(CohortStateTicks.ADULTS_INACTIVE, -frozenInactiveAdults);
 
-            abundance.addQuestingLarvae(-frozenQuestingLarvae);
-            abundance.addQuestingNymphs(-frozenQuestingNymphs);
-            abundance.addQuestingAdults(-frozenQuestingAdults);
+            abundance.addToStage(CohortStateTicks.LARVAE_QUESTING, -frozenQuestingLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING, -frozenQuestingNymphs);
+            abundance.addToStage(CohortStateTicks.ADULTS_QUESTING, -frozenQuestingAdults);
 
-            abundance.addInfectedInactiveLarvae(-frozenInfectedInactiveLarvae);
-            abundance.addInfectedInactiveNymphs(-frozenInfectedInactiveNymphs);
+            abundance.addToStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED, -frozenInfectedInactiveLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, -frozenInfectedInactiveNymphs);
 
-            abundance.addInfectedQuestingLarvae(-frozenInfectedQuestingLarvae);
-            abundance.addInfectedQuestingNymphs(-frozenInfectedQuestingNymphs);
+            abundance.addToStage(CohortStateTicks.LARVAE_QUESTING_INFECTED, -frozenInfectedQuestingLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED, -frozenInfectedQuestingNymphs);
         }
     }
 
@@ -115,19 +122,21 @@ public class TickLifeCycle extends IteratingSystem {
         if (humidity.getRelativeHumidity() < Parameters.DESICCATION_MINIMAL_HUMIDITY &&
                 temperature.getMeanTemperature() > Parameters.DESICCATION_MINIMAL_MEAN_TEMP) {
 
-            var desiccatedLarvae = randomness.roundRandom((float) abundance.getQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedNymphs = randomness.roundRandom((float) abundance.getQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedAdults = randomness.roundRandom((float) abundance.getQuestingAdults() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedLarvae = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_QUESTING) * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedNymphs = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedAdults = randomness.roundRandom((float) abundance.getStage(CohortStateTicks.ADULTS_QUESTING) * Parameters.DESICCATION_RATE.get(habitat.getType()));
 
-            var desiccatedInfectedLarvae = randomness.roundRandom((float) abundance.getInfectedQuestingLarvae() * Parameters.DESICCATION_RATE.get(habitat.getType()));
-            var desiccatedInfectedNymphs = randomness.roundRandom((float) abundance.getInfectedQuestingNymphs() * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedInfectedLarvae =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * Parameters.DESICCATION_RATE.get(habitat.getType()));
+            var desiccatedInfectedNymphs =
+                    randomness.roundRandom((float) abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * Parameters.DESICCATION_RATE.get(habitat.getType()));
 
-            abundance.addQuestingLarvae(-desiccatedLarvae);
-            abundance.addQuestingNymphs(-desiccatedNymphs);
-            abundance.addQuestingAdults(-desiccatedAdults);
+            abundance.addToStage(CohortStateTicks.LARVAE_QUESTING, -desiccatedLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING, -desiccatedNymphs);
+            abundance.addToStage(CohortStateTicks.ADULTS_QUESTING, -desiccatedAdults);
 
-            abundance.addInfectedQuestingLarvae(-desiccatedInfectedLarvae);
-            abundance.addInfectedQuestingNymphs(-desiccatedInfectedNymphs);
+            abundance.addToStage(CohortStateTicks.LARVAE_QUESTING_INFECTED, -desiccatedInfectedLarvae);
+            abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED, -desiccatedInfectedNymphs);
         }
     }
 }
