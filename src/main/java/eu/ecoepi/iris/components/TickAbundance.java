@@ -11,12 +11,7 @@ import java.util.Objects;
 public class TickAbundance extends Component {
 
     final Map<CohortStateTicks, Integer> abundance = new HashMap<>();
-
-    int feedingEventsLarvae = 0;
-    int feedingEventsInfectedLarvae = 0;
-    int feedingEventsNymphs = 0;
-    int feedingEventsInfectedNymphs = 0;
-    int feedingEventsAdults = 0;
+    final Map<CohortStateTicks, Integer> feeding = new HashMap<>();
 
     int feedingEventsNewInfectedLarvae = 0;
     int feedingEventsNewInfectedNymphs = 0;
@@ -49,6 +44,11 @@ public class TickAbundance extends Component {
         abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED, 0);
         abundance.put(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED, 0);
         abundance.put(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED, 0);
+        feeding.put(CohortStateTicks.LARVAE_QUESTING, 0);
+        feeding.put(CohortStateTicks.LARVAE_QUESTING_INFECTED, 0);
+        feeding.put(CohortStateTicks.NYMPHS_QUESTING, 0);
+        feeding.put(CohortStateTicks.NYMPHS_QUESTING_INFECTED, 0);
+        feeding.put(CohortStateTicks.ADULTS_QUESTING, 0);
     }
 
     @Override
@@ -64,60 +64,28 @@ public class TickAbundance extends Component {
         return Objects.hash(abundance);
     }
 
-    public void addFeedingEventLarvae(int event) {
-        feedingEventsLarvae += event;
-    }
-
-    public void addFeedingEventInfectedLarvae(int event) {
-        feedingEventsInfectedLarvae += event;
-    }
-
     public void addFeedingEventNewInfectedLarvae(int event) {
         feedingEventsNewInfectedLarvae += event;
-    }
-
-    public void addFeedingEventNymphs(int event) {
-        feedingEventsNymphs += event;
-    }
-
-    public void addFeedingEventInfectedNymphs(int event) {
-        feedingEventsInfectedNymphs += event;
     }
 
     public void addFeedingEventNewInfectedNymphs(int event) {
         feedingEventsNewInfectedNymphs += event;
     }
 
-    public void addFeedingEventAdults(int event) {
-        feedingEventsAdults += event;
-    }
-
-    public int getFeedingEventsLarvae() {
-        return feedingEventsLarvae;
-    }
-
-    public int getFeedingEventsInfectedLarvae() {
-        return feedingEventsInfectedLarvae;
-    }
-
     public int getFeedingEventsNewInfectedLarvae() {
         return feedingEventsNewInfectedLarvae;
-    }
-
-    public int getFeedingEventsNymphs() {
-        return feedingEventsNymphs;
-    }
-
-    public int getFeedingEventsInfectedNymphs() {
-        return feedingEventsInfectedNymphs;
     }
 
     public int getFeedingEventsNewInfectedNymphs() {
         return feedingEventsNewInfectedNymphs;
     }
 
-    public int getFeedingEventsAdults() {
-        return feedingEventsNymphs;
+    public void addFeedingEvents(CohortStateTicks stage, int number) {
+        feeding.compute(stage, (_stage, count) -> count + number);
+    }
+
+    public int getFeedingEvents(CohortStateTicks stage) {
+        return feeding.get(stage);
     }
 
     public int getStage(CohortStateTicks stage) {

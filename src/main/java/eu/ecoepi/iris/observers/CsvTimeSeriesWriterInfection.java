@@ -113,10 +113,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         larvaeLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED);
         larvaeInfectedLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED);
 
-        feedingEventsLarvae += abundance.getFeedingEventsLarvae();
-        feedingEventsInfectedLarvae += abundance.getFeedingEventsInfectedLarvae();
-        feedingEventsNymphs += abundance.getFeedingEventsNymphs();
-        feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
+        feedingEventsLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING);
+        feedingEventsInfectedLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING_INFECTED);
+        feedingEventsNymphs += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING);
+        feedingEventsInfectedNymphs += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
         totalFeedingEventsInfected = feedingEventsInfectedLarvae + feedingEventsInfectedNymphs;
 
         feedingEventsNewInfectedLarvae += abundance.getFeedingEventsNewInfectedLarvae();

@@ -66,7 +66,7 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         nymphsInfected += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
         nymphsEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED);
         nymphsLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED);
-        feedingEvents += abundance.getFeedingEventsNymphs();
+        feedingEvents += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING);
 
         rodentsSusceptible += rodentAbundance.getRodentsSusceptible();
         rodentsInfected += rodentAbundance.getRodentsInfected();

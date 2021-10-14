@@ -81,8 +81,8 @@ public class Feeding extends IteratingSystem {
                 abundanceToRandom.addToStage(CohortStateTicks.LARVAE_ENGORGED, feedingLarvae);
                 abundanceToRandom.addToStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED, feedingInfectedLarvae);
             }
-            tickAbundance.addFeedingEventLarvae(feedingLarvae);
-            tickAbundance.addFeedingEventInfectedLarvae(feedingInfectedLarvae);
+            tickAbundance.addFeedingEvents(CohortStateTicks.LARVAE_QUESTING, feedingLarvae);
+            tickAbundance.addFeedingEvents(CohortStateTicks.LARVAE_QUESTING_INFECTED, feedingInfectedLarvae);
             tickAbundance.addFeedingEventNewInfectedLarvae(newInfectedLarvae);
         }
 
@@ -106,8 +106,8 @@ public class Feeding extends IteratingSystem {
                 abundanceToRandom.addToStage(CohortStateTicks.NYMPHS_ENGORGED, feedingNymphs);
                 abundanceToRandom.addToStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED, feedingInfectedNymphs);
             }
-            tickAbundance.addFeedingEventNymphs(feedingNymphs);
-            tickAbundance.addFeedingEventInfectedNymphs(feedingInfectedNymphs);
+            tickAbundance.addFeedingEvents(CohortStateTicks.NYMPHS_QUESTING, feedingNymphs);
+            tickAbundance.addFeedingEvents(CohortStateTicks.NYMPHS_QUESTING_INFECTED, feedingInfectedNymphs);
             tickAbundance.addFeedingEventNewInfectedNymphs(newInfectedNymphs);
 
             var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * (1.0f - rodentPrevalence));
@@ -124,7 +124,7 @@ public class Feeding extends IteratingSystem {
 
             tickAbundance.addToStage(CohortStateTicks.ADULTS_QUESTING, -feedingAdults);
             abundanceToRandom.addToStage(CohortStateTicks.ADULTS_ENGORGED, feedingAdults);
-            tickAbundance.addFeedingEventAdults(feedingAdults);
+            tickAbundance.addFeedingEvents(CohortStateTicks.ADULTS_QUESTING, feedingAdults);
         }
     }
 }
