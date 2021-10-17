@@ -62,8 +62,8 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
         larvaeInfected += abundance.getInfectedQuestingLarvae();
         nymphsInfected += abundance.getInfectedQuestingNymphs();
 
-        rodentsSusceptible += rodentAbundance.getRodents();
-        rodentsInfected += rodentAbundance.getInfectedRodents();
+        rodentsSusceptible += rodentAbundance.getRodentsSusceptible();
+        rodentsInfected += rodentAbundance.getRodentsInfected();
     }
     
     @Override

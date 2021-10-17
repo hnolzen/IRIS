@@ -86,31 +86,31 @@ public class CsvTimeSeriesWriterNymphsHabitats extends IteratingSystem {
         nymphsAllHabitats += abundance.getQuestingNymphs();
         nymphsInfectedAllHabitats += abundance.getInfectedQuestingNymphs();
 
-        rodentsSusceptibleAllHabitats += rodentAbundance.getRodents();
-        rodentsInfectedAllHabitats += rodentAbundance.getInfectedRodents();
+        rodentsSusceptibleAllHabitats += rodentAbundance.getRodentsSusceptible();
+        rodentsInfectedAllHabitats += rodentAbundance.getRodentsInfected();
 
         if (habitat.getType() == Habitat.Type.WOOD) {
             nymphsForest += abundance.getQuestingNymphs();
             nymphsInfectedForest += abundance.getInfectedQuestingNymphs();
 
-            rodentsSusceptibleForest += rodentAbundance.getRodents();
-            rodentsInfectedForest += rodentAbundance.getInfectedRodents();
+            rodentsSusceptibleForest += rodentAbundance.getRodentsSusceptible();
+            rodentsInfectedForest += rodentAbundance.getRodentsInfected();
         }
 
         if (habitat.getType() == Habitat.Type.MEADOW) {
             nymphsMeadow += abundance.getQuestingNymphs();
             nymphsInfectedMeadow += abundance.getInfectedQuestingNymphs();
 
-            rodentsSusceptibleMeadow += rodentAbundance.getRodents();
-            rodentsInfectedMeadow += rodentAbundance.getInfectedRodents();
+            rodentsSusceptibleMeadow += rodentAbundance.getRodentsSusceptible();
+            rodentsInfectedMeadow += rodentAbundance.getRodentsInfected();
         }
 
         if (habitat.getType() == Habitat.Type.ECOTONE) {
             nymphsEcotone += abundance.getQuestingNymphs();
             nymphsInfectedEcotone += abundance.getInfectedQuestingNymphs();
 
-            rodentsSusceptibleEcotone += rodentAbundance.getRodents();
-            rodentsInfectedEcotone += rodentAbundance.getInfectedRodents();
+            rodentsSusceptibleEcotone += rodentAbundance.getRodentsSusceptible();
+            rodentsInfectedEcotone += rodentAbundance.getRodentsInfected();
         }
 
         dailyMeanTemperature = temperature.getMeanTemperature();

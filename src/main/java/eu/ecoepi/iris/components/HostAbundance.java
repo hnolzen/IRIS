@@ -1,22 +1,19 @@
 package eu.ecoepi.iris.components;
 
 import com.artemis.Component;
-import eu.ecoepi.iris.CohortStateHosts;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class HostAbundance extends Component {
 
-    final Map<CohortStateHosts, Integer> abundance = new HashMap<>();
+    int rodentsSusceptible;
+    int rodentsInfected;
 
     public HostAbundance() {
     }
 
-    public HostAbundance(int rodents, int infectedRodents) {
-        abundance.put(CohortStateHosts.RODENTS_SUSCEPTIBLE, rodents);
-        abundance.put(CohortStateHosts.RODENTS_INFECTED, infectedRodents);
+    public HostAbundance(int rodentsSusceptible, int rodentsInfected) {
+        this.rodentsSusceptible = rodentsSusceptible;
+        this.rodentsInfected = rodentsInfected;
     }
 
     @Override
@@ -24,28 +21,28 @@ public class HostAbundance extends Component {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HostAbundance that = (HostAbundance) o;
-        return Objects.equals(abundance, that.abundance);
+        return rodentsSusceptible == that.rodentsSusceptible && rodentsInfected == that.rodentsInfected;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(abundance);
+        return Objects.hash(rodentsSusceptible, rodentsInfected);
     }
 
-    public int getRodents() {
-        return abundance.get(CohortStateHosts.RODENTS_SUSCEPTIBLE);
+    public int getRodentsSusceptible() {
+        return rodentsSusceptible;
     }
 
-    public int getInfectedRodents() {
-        return abundance.get(CohortStateHosts.RODENTS_INFECTED);
+    public int getRodentsInfected() {
+        return rodentsInfected;
     }
 
-    public void addRodents(int rodents) {
-        abundance.compute(CohortStateHosts.RODENTS_SUSCEPTIBLE, (stage, count) -> count + rodents);
+    public void addRodentsSusceptible(int number) {
+        rodentsSusceptible += number;
     }
 
-    public void addInfectedRodents(int rodents) {
-        abundance.compute(CohortStateHosts.RODENTS_INFECTED, (stage, count) -> count + rodents);
+    public void addRodentsInfected(int number) {
+        rodentsInfected += number;
     }
 
 }

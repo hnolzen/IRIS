@@ -67,8 +67,8 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         nymphsLateEngorged += abundance.getLateEngorgedNymphs();
         feedingEvents += abundance.getFeedingEventsNymphs();
 
-        rodentsSusceptible += rodentAbundance.getRodents();
-        rodentsInfected += rodentAbundance.getInfectedRodents();
+        rodentsSusceptible += rodentAbundance.getRodentsSusceptible();
+        rodentsInfected += rodentAbundance.getRodentsInfected();
 
         dailyMeanTemperature = temperature.getMeanTemperature();
         dailyMaxTemperature = temperature.getMaxTemperature();
