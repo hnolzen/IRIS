@@ -7,7 +7,7 @@ import os
 
 file_dir = os.path.dirname(os.path.abspath('__file__'))
 iris_main_dir = os.path.abspath(os.path.join(file_dir, "..", ".."))
-iris_output_sensitivity_dir = os.path.abspath(iris_main_dir + '/output/sensitivity_analysis_global_optimisation_ticks_years')
+iris_output_sensitivity_dir = os.path.abspath(iris_main_dir + '/output')
 
 haselmühl_data = pd.read_excel(iris_main_dir + '/input/fructification_index/nymphs_haselmühl.xlsx', header = 1, skiprows = 2)
 haselmühl_data['month'] = haselmühl_data['date'].str[5:7].astype(int)
@@ -17,7 +17,7 @@ for filename in os.listdir(iris_output_sensitivity_dir):
     file_params = filename.split('.csv')[0].split('_')
     year = int(file_params[2])
     initial_ticks = int(file_params[3])
-    activation_rate = int(file_params[5])
+    activation_rate = int(file_params[4])
     
     iris_output = pd.read_csv(iris_output_sensitivity_dir + '/' + filename, header = 0)
     
@@ -58,4 +58,5 @@ for filename in os.listdir(iris_output_sensitivity_dir):
     plt.xticks(x, ('Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
     plt.title(f'Year = {year}, RMSE = {rmse} \n Initial ticks = {initial_ticks}, Activation rate = {activation_rate / 1000}', fontweight='bold')
     
-    plt.savefig(f'iris_vs_haselmühl_{year}_{rmse}_{initial_ticks}_{activation_rate}.png', dpi = 600)
+    plt.savefig(f'iris_vs_haselmühl_{year}.png', dpi = 600, format = 'png')
+    plt.savefig(f'iris_vs_haselmühl_{year}.pdf', dpi = 600, format = 'pdf')
