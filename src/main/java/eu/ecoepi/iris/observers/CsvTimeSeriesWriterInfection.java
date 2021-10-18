@@ -132,7 +132,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double) nymphsQuesting,
                 (double) nymphsInfectedQuesting,
