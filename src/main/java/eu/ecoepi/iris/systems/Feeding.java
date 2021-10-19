@@ -59,7 +59,7 @@ public class Feeding extends IteratingSystem {
         var position = positionMapper.get(entityId);
 
         var lateFeeding = timestep.getCurrent() >= Parameters.LATE_FEEDING_TIME;
-        var rodentPrevalence = hostAbundance.getInfectedRodents() / (float) (hostAbundance.getRodents() + hostAbundance.getInfectedRodents());
+        var rodentPrevalence = hostAbundance.getRodentsInfected() / (float) (hostAbundance.getRodentsSusceptible() + hostAbundance.getRodentsInfected());
 
         {
             var x = distribution.sample();
@@ -111,8 +111,8 @@ public class Feeding extends IteratingSystem {
             tickAbundance.addFeedingEventNewInfectedNymphs(newInfectedNymphs);
 
             var newInfectedRodents = randomness.roundRandom(Parameters.INFECTION_PROBABILITY * feedingInfectedNymphs * (1.0f - rodentPrevalence));
-            hostAbundance.addRodents(-newInfectedRodents);
-            hostAbundance.addInfectedRodents(newInfectedRodents);
+            hostAbundance.addRodentsSusceptible(-newInfectedRodents);
+            hostAbundance.addRodentsInfected(newInfectedRodents);
         }
 
         {

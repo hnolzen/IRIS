@@ -20,9 +20,9 @@ public class HostLifeCycle extends IteratingSystem {
     protected void process(int entityId) {
         var abundance = abundanceMapper.get(entityId);
 
-        var replacedInfectedRodents = randomness.roundRandom((float) abundance.getInfectedRodents() * Parameters.REPLACEMENT_RATE_RODENTS);
+        var replacedInfectedRodents = randomness.roundRandom((float) abundance.getRodentsInfected() * Parameters.REPLACEMENT_RATE_RODENTS);
 
-        abundance.addRodents(replacedInfectedRodents);
-        abundance.addInfectedRodents(-replacedInfectedRodents);
+        abundance.addRodentsSusceptible(replacedInfectedRodents);
+        abundance.addRodentsInfected(-replacedInfectedRodents);
     }
 }
