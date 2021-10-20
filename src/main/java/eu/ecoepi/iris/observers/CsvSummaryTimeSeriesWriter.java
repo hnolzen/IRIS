@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
@@ -55,12 +56,12 @@ public class CsvSummaryTimeSeriesWriter extends IteratingSystem {
         
         count++;
         
-        larvae += abundance.getQuestingLarvae();
-        nymphs += abundance.getQuestingNymphs();
-        adults += abundance.getQuestingAdults();
+        larvae += abundance.getStage(CohortStateTicks.LARVAE_QUESTING);
+        nymphs += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+        adults += abundance.getStage(CohortStateTicks.ADULTS_QUESTING);
 
-        larvaeInfected += abundance.getInfectedQuestingLarvae();
-        nymphsInfected += abundance.getInfectedQuestingNymphs();
+        larvaeInfected += abundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED);
+        nymphsInfected += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
 
         rodentsSusceptible += rodentAbundance.getRodentsSusceptible();
         rodentsInfected += rodentAbundance.getRodentsInfected();

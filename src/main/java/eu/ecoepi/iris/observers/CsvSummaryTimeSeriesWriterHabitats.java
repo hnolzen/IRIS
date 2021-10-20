@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
@@ -73,31 +74,31 @@ public class CsvSummaryTimeSeriesWriterHabitats extends IteratingSystem {
 
         count++;
 
-        nymphsAllHabitats += abundance.getQuestingNymphs();
-        nymphsInfectedAllHabitats += abundance.getInfectedQuestingNymphs();
+        nymphsAllHabitats += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+        nymphsInfectedAllHabitats += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
 
         rodentsSusceptibleAllHabitats += rodentAbundance.getRodentsSusceptible();
         rodentsInfectedAllHabitats += rodentAbundance.getRodentsInfected();
 
         if (habitat.getType() == Habitat.Type.WOOD) {
-            nymphsForest += abundance.getQuestingNymphs();
-            nymphsInfectedForest += abundance.getInfectedQuestingNymphs();
+            nymphsForest += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+            nymphsInfectedForest += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
 
             rodentsSusceptibleForest += rodentAbundance.getRodentsSusceptible();
             rodentsInfectedForest += rodentAbundance.getRodentsInfected();
         }
 
         if (habitat.getType() == Habitat.Type.MEADOW) {
-            nymphsMeadow += abundance.getQuestingNymphs();
-            nymphsInfectedMeadow += abundance.getInfectedQuestingNymphs();
+            nymphsMeadow += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+            nymphsInfectedMeadow += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
 
             rodentsSusceptibleMeadow += rodentAbundance.getRodentsSusceptible();
             rodentsInfectedMeadow += rodentAbundance.getRodentsInfected();
         }
 
         if (habitat.getType() == Habitat.Type.ECOTONE) {
-            nymphsEcotone += abundance.getQuestingNymphs();
-            nymphsInfectedEcotone += abundance.getInfectedQuestingNymphs();
+            nymphsEcotone += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+            nymphsInfectedEcotone += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
 
             rodentsSusceptibleEcotone += rodentAbundance.getRodentsSusceptible();
             rodentsInfectedEcotone += rodentAbundance.getRodentsInfected();

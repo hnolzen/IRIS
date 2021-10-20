@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
@@ -96,26 +97,26 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        nymphsQuesting += abundance.getQuestingNymphs();
-        nymphsInfectedQuesting += abundance.getInfectedQuestingNymphs();
-        nymphsInfectedInactive += abundance.getInfectedInactiveNymphs();
-        nymphsEngorged += abundance.getEngorgedNymphs();
-        nymphsInfectedEngorged += abundance.getInfectedEngorgedNymphs();
-        nymphsLateEngorged += abundance.getLateEngorgedNymphs();
-        nymphsInfectedLateEngorged += abundance.getInfectedLateEngorgedNymphs();
+        nymphsQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+        nymphsInfectedQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+        nymphsInfectedInactive += abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED);
+        nymphsEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED);
+        nymphsInfectedEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED);
+        nymphsLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED);
+        nymphsInfectedLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED);
 
-        larvaeQuesting += abundance.getQuestingLarvae();
-        larvaeInfectedQuesting += abundance.getInfectedQuestingLarvae();
-        larvaeInfectedInactive += abundance.getInfectedInactiveLarvae();
-        larvaeEngorged += abundance.getEngorgedLarvae();
-        larvaeInfectedEngorged += abundance.getInfectedEngorgedLarvae();
-        larvaeLateEngorged += abundance.getLateEngorgedLarvae();
-        larvaeInfectedLateEngorged += abundance.getInfectedLateEngorgedLarvae();
+        larvaeQuesting += abundance.getStage(CohortStateTicks.LARVAE_QUESTING);
+        larvaeInfectedQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+        larvaeInfectedInactive += abundance.getStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED);
+        larvaeEngorged += abundance.getStage(CohortStateTicks.LARVAE_ENGORGED);
+        larvaeInfectedEngorged += abundance.getStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED);
+        larvaeLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED);
+        larvaeInfectedLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED);
 
-        feedingEventsLarvae += abundance.getFeedingEventsLarvae();
-        feedingEventsInfectedLarvae += abundance.getFeedingEventsInfectedLarvae();
-        feedingEventsNymphs += abundance.getFeedingEventsNymphs();
-        feedingEventsInfectedNymphs += abundance.getFeedingEventsInfectedNymphs();
+        feedingEventsLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING);
+        feedingEventsInfectedLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING_INFECTED);
+        feedingEventsNymphs += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING);
+        feedingEventsInfectedNymphs += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
         totalFeedingEventsInfected = feedingEventsInfectedLarvae + feedingEventsInfectedNymphs;
 
         feedingEventsNewInfectedLarvae += abundance.getFeedingEventsNewInfectedLarvae();

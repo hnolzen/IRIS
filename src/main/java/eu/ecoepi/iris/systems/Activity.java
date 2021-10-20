@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.Parameters;
 import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.TimeStep;
@@ -57,29 +58,29 @@ public class Activity extends IteratingSystem {
         var newQuestingLarvae = 0;
         var newInfectedQuestingLarvae = 0;
         if (timestep.getCurrent() > Parameters.START_LARVAE_QUESTING) {
-            newQuestingLarvae = randomness.roundRandom(abundance.getInactiveLarvae() * activationRate * shareOfActivationRate);
-            newInfectedQuestingLarvae = randomness.roundRandom(abundance.getInfectedInactiveLarvae() * activationRate * shareOfActivationRate);
+            newQuestingLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_INACTIVE) * activationRate * shareOfActivationRate);
+            newInfectedQuestingLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED) * activationRate * shareOfActivationRate);
         }
-        var newQuestingNymphs = randomness.roundRandom(abundance.getInactiveNymphs() * activationRate * shareOfActivationRate);
-        var newQuestingAdults = randomness.roundRandom(abundance.getInactiveAdults() * activationRate * shareOfActivationRate);
-        var newInactiveLarvae = randomness.roundRandom(abundance.getQuestingLarvae() * activationRate * (1 - shareOfActivationRate));
-        var newInactiveNymphs = randomness.roundRandom(abundance.getQuestingNymphs() * activationRate * (1 - shareOfActivationRate));
-        var newInactiveAdults = randomness.roundRandom(abundance.getQuestingAdults() * activationRate * (1 - shareOfActivationRate));
+        var newQuestingNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE) * activationRate * shareOfActivationRate);
+        var newQuestingAdults = randomness.roundRandom(abundance.getStage(CohortStateTicks.ADULTS_INACTIVE) * activationRate * shareOfActivationRate);
+        var newInactiveLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_QUESTING) * activationRate * (1 - shareOfActivationRate));
+        var newInactiveNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_QUESTING) * activationRate * (1 - shareOfActivationRate));
+        var newInactiveAdults = randomness.roundRandom(abundance.getStage(CohortStateTicks.ADULTS_QUESTING) * activationRate * (1 - shareOfActivationRate));
 
-        var newInfectedQuestingNymphs = randomness.roundRandom(abundance.getInfectedInactiveNymphs() * activationRate * shareOfActivationRate);
-        var newInfectedInactiveLarvae = randomness.roundRandom(abundance.getInfectedQuestingLarvae() * activationRate * (1 - shareOfActivationRate));
-        var newInfectedInactiveNymphs = randomness.roundRandom(abundance.getInfectedQuestingNymphs() * activationRate * (1 - shareOfActivationRate));
+        var newInfectedQuestingNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED) * activationRate * shareOfActivationRate);
+        var newInfectedInactiveLarvae = randomness.roundRandom(abundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED) * activationRate * (1 - shareOfActivationRate));
+        var newInfectedInactiveNymphs = randomness.roundRandom(abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED) * activationRate * (1 - shareOfActivationRate));
 
-        abundance.addQuestingLarvae(newQuestingLarvae - newInactiveLarvae);
-        abundance.addQuestingNymphs(newQuestingNymphs - newInactiveNymphs);
-        abundance.addQuestingAdults(newQuestingAdults - newInactiveAdults);
-        abundance.addInactiveLarvae(newInactiveLarvae - newQuestingLarvae);
-        abundance.addInactiveNymphs(newInactiveNymphs - newQuestingNymphs);
-        abundance.addInactiveAdults(newInactiveAdults - newQuestingAdults);
+        abundance.addToStage(CohortStateTicks.LARVAE_QUESTING, newQuestingLarvae - newInactiveLarvae);
+        abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING, newQuestingNymphs - newInactiveNymphs);
+        abundance.addToStage(CohortStateTicks.ADULTS_QUESTING, newQuestingAdults - newInactiveAdults);
+        abundance.addToStage(CohortStateTicks.LARVAE_INACTIVE, newInactiveLarvae - newQuestingLarvae);
+        abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE, newInactiveNymphs - newQuestingNymphs);
+        abundance.addToStage(CohortStateTicks.ADULTS_INACTIVE, newInactiveAdults - newQuestingAdults);
 
-        abundance.addInfectedQuestingLarvae(newInfectedQuestingLarvae - newInfectedInactiveLarvae);
-        abundance.addInfectedQuestingNymphs(newInfectedQuestingNymphs - newInfectedInactiveNymphs);
-        abundance.addInfectedInactiveLarvae(newInfectedInactiveLarvae - newInfectedQuestingLarvae);
-        abundance.addInfectedInactiveNymphs(newInfectedInactiveNymphs - newInfectedQuestingNymphs);
+        abundance.addToStage(CohortStateTicks.LARVAE_QUESTING_INFECTED, newInfectedQuestingLarvae - newInfectedInactiveLarvae);
+        abundance.addToStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED, newInfectedQuestingNymphs - newInfectedInactiveNymphs);
+        abundance.addToStage(CohortStateTicks.LARVAE_QUESTING_INFECTED, newInfectedInactiveLarvae - newInfectedQuestingLarvae);
+        abundance.addToStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED, newInfectedInactiveNymphs - newInfectedQuestingNymphs);
     }
 }

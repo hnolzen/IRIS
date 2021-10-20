@@ -4,13 +4,14 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@All({TickAbundance.class, Position.class})
+@All({TickAbundance.class, HostAbundance.class, Position.class})
 public class CsvTimeSeriesWriter extends IteratingSystem {
 
     ComponentMapper<TickAbundance> abundanceMapper;
@@ -78,34 +79,34 @@ public class CsvTimeSeriesWriter extends IteratingSystem {
             position.getX(),
             position.getY(),
             habitat.getType(),
-            abundance.getQuestingLarvae(),
-            abundance.getInfectedQuestingLarvae(),
-            abundance.getQuestingNymphs(),
-            abundance.getInfectedQuestingNymphs(),
-            abundance.getQuestingAdults(),
-            abundance.getInactiveLarvae(),
-            abundance.getInfectedInactiveLarvae(),
-            abundance.getInactiveNymphs(),
-            abundance.getInfectedInactiveNymphs(),
-            abundance.getInactiveAdults(),
-            abundance.getEngorgedLarvae(),
-            abundance.getInfectedEngorgedLarvae(),
-            abundance.getEngorgedNymphs(),
-            abundance.getInfectedEngorgedNymphs(),
-            abundance.getEngorgedAdults(),
-            abundance.getLateEngorgedLarvae(),
-            abundance.getInfectedLateEngorgedLarvae(),
-            abundance.getLateEngorgedNymphs(),
-            abundance.getInfectedLateEngorgedNymphs(),
+            abundance.getStage(CohortStateTicks.LARVAE_QUESTING),
+            abundance.getStage(CohortStateTicks.LARVAE_QUESTING_INFECTED),
+            abundance.getStage(CohortStateTicks.NYMPHS_QUESTING),
+            abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED),
+            abundance.getStage(CohortStateTicks.ADULTS_QUESTING),
+            abundance.getStage(CohortStateTicks.LARVAE_INACTIVE),
+            abundance.getStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED),
+            abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE),
+            abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED),
+            abundance.getStage(CohortStateTicks.ADULTS_INACTIVE),
+            abundance.getStage(CohortStateTicks.LARVAE_ENGORGED),
+            abundance.getStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED),
+            abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED),
+            abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED),
+            abundance.getStage(CohortStateTicks.ADULTS_ENGORGED),
+            abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED),
+            abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED),
+            abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED),
+            abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED),
             rodentAbundance.getRodentsSusceptible(),
             rodentAbundance.getRodentsInfected(),
             temperature.getMeanTemperature(),
             temperature.getMinTemperature(),
             temperature.getMaxTemperature(),
             humidity.getRelativeHumidity(),
-            abundance.getFeedingEventsLarvae(),
-            abundance.getFeedingEventsNymphs(),
-            abundance.getFeedingEventsAdults());
+            abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING),
+            abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING),
+            abundance.getFeedingEvents(CohortStateTicks.ADULTS_QUESTING));
     }
 
     @Override

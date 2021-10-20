@@ -4,6 +4,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import eu.ecoepi.iris.CohortStateTicks;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
@@ -61,11 +62,11 @@ public class CsvTimeSeriesWriterNymphs extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        nymphs += abundance.getQuestingNymphs();
-        nymphsInfected += abundance.getInfectedQuestingNymphs();
-        nymphsEngorged += abundance.getEngorgedNymphs();
-        nymphsLateEngorged += abundance.getLateEngorgedNymphs();
-        feedingEvents += abundance.getFeedingEventsNymphs();
+        nymphs += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+        nymphsInfected += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+        nymphsEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED);
+        nymphsLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED);
+        feedingEvents += abundance.getFeedingEvents(CohortStateTicks.NYMPHS_QUESTING);
 
         rodentsSusceptible += rodentAbundance.getRodentsSusceptible();
         rodentsInfected += rodentAbundance.getRodentsInfected();
