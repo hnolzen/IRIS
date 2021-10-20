@@ -30,8 +30,7 @@ observers = {
 
 
 def create_output_folder(output_dir):
-    if not os.path.isdir(output_dir):
-        os.mkdir(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
 
 def iris(
