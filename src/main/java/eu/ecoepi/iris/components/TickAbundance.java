@@ -13,6 +13,11 @@ public class TickAbundance extends Component {
     final Map<CohortStateTicks, Integer> abundance = new HashMap<>();
     final Map<CohortStateTicks, Integer> feeding = new HashMap<>();
 
+    /*
+    The following two variables are mainly helper variables for observation to distinguish
+    between feeding events of already infected and newly infected larvae and nymphs.
+    Therefore, they are not implemented as tick cohorts.
+     */
     int feedingEventsNewInfectedLarvae = 0;
     int feedingEventsNewInfectedNymphs = 0;
 
