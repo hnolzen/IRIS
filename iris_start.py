@@ -1,4 +1,5 @@
 import os
+import subprocess
 import numpy as np
 
 climate_models = [
@@ -50,43 +51,26 @@ def iris(
     observer,
 ):
 
-    iris_java_exe = "java.exe"
-    iris_jar = "-jar " + jar_dir + "/IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar"
-    iris_experiment = "eu.ecoepi.iris.experiments.AdHocSimulation"
-    iris_seed = "-s " + str(random_seed)
-    iris_adults = "-a " + str(initial_adults)
-    iris_larvae = "-l " + str(initial_larvae)
-    iris_nymphs = "-n " + str(initial_nymphs)
-    iris_infected_larvae = "-i " + str(initial_infected_larvae)
-    iris_infected_nymphs = "-j " + str(initial_infected_nymphs)
-    iris_rodents = "-u " + str(initial_rodents)
-    iris_infected_rodents = "-v " + str(initial_infected_rodents)
-    iris_activation_rate = "-r " + str(activation_rate)
-    iris_weather = "-w " + weather_dir + "weather_" + str(year) + ".csv"
-    iris_output = "-o " + output_dir + "/iris_abundance_" + str(year) + ".csv"
-    iris_observer = "-m " + observer
-
-    iris_run = " ".join(
+    subprocess.run(
         [
-            iris_java_exe,
-            iris_jar,
-            iris_experiment,
-            iris_weather,
-            iris_seed,
-            iris_output,
-            iris_larvae,
-            iris_nymphs,
-            iris_adults,
-            iris_infected_larvae,
-            iris_infected_nymphs,
-            iris_rodents,
-            iris_infected_rodents,
-            iris_activation_rate,
-            iris_observer,
-        ]
+            "java.exe",
+            "-jar", jar_dir + "/IRIS-1.0-SNAPSHOT-jar-with-dependencies.jar",
+            "eu.ecoepi.iris.experiments.AdHocSimulation",
+            "-s", str(random_seed),
+            "-a", str(initial_adults),
+            "-l", str(initial_larvae),
+            "-n", str(initial_nymphs),
+            "-i", str(initial_infected_larvae),
+            "-j", str(initial_infected_nymphs),
+            "-u", str(initial_rodents),
+            "-v", str(initial_infected_rodents),
+            "-r", str(activation_rate),
+            "-w", weather_dir + "weather_" + str(year) + ".csv",
+            "-o", output_dir + "/iris_abundance_" + str(year) + ".csv",
+            "-m", observer,
+        ],
+        check=True,
     )
-
-    os.system(iris_run)
 
 
 main_dir = os.path.dirname(os.path.abspath("__file__"))
