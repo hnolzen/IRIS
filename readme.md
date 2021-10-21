@@ -26,7 +26,6 @@ Command line arguments for model parameterisation:
 | document                      | description                                                              |
 |-------------------------------|--------------------------------------------------------------------------|
 | [ODD.pdf][ODD]                | Model description (ODD protocol)                                         |
-| [TRACE.pdf][TRACE]            | TRACE documentation                                                      |
 
 
 ## Model files and folders
