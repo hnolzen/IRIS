@@ -353,10 +353,10 @@ The development from one life cycle stage to the next takes place over specific 
 \toprule
 \textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
 \midrule
-Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{Kahl}   		\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{Kahl}      	\\
-Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{Kahl}     	\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{Kahl}			\\
+Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \textcite{Kahl}   		\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \textcite{Kahl}      	\\
+Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \textcite{Kahl}     	\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \textcite{Kahl}			\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -376,7 +376,7 @@ In each time step this sub model checks the relative humidity and temperature. I
 \multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \textcite{Medlock.2013} \\
 													   	& 					 & 						 &					   &  \textcite{Gray.2016}	\\
 														& 					 & 						 &					   &  \textcite{Hauser.2018} \\
-\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \cite{Ostfeld.2015} \\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \textcite{Ostfeld.2015} \\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	& own estimation \\
 				 							& Ecotone 				 &   0.05  & 1/day  & own estimation \\
 				 							& Meadow    			 &   0.10  & 1/day  & own estimation \\
@@ -414,7 +414,7 @@ In each time step, the activity sub model checks the prevailing conditions in te
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\cite{Gray.2016} \\
+\multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\textcite{Gray.2016} \\
 												    &		&	 &		 & \textcite{MacLeod.1935} \\
 \tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \textcite{Perret.2000} \\
 \tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \textcite{Perret.2000} \\
@@ -446,7 +446,7 @@ In each time step, ticks feed across all cells of the model landscape at a speci
 \multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & own estimation \\
 									  & Nymph	& 0.03	& 1/day & float	 & own estimation \\
 									  & Adult	& 0.05	& 1/day & float	 & own estimation \\
-\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \cite{tba} \\
+\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \textcite{tba} \\
 \bottomrule
 \end{tabularx}
 \end{table}
