@@ -84,6 +84,8 @@ cohorts = {
     14: ["larvae_new_feeding_events_inf","Feeding events (new infected larvae)","#fed976"],
     15: ["nymphs_new_feeding_events_inf", "Feeding events (new infected nymphs)","#6baed6"],
     16: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
+    17: ["larvae_prevalence_inf", "Prevalence of infected larvae","#ef6548"],
+    18: ["nymphs_prevalence_inf", "Prevalence of infected nymphs","#cb181d"],
 }
 
 
@@ -110,7 +112,7 @@ def set_y_axis(y, y_lim):
     j_first = y[0] % 2
     j_current = y[0] % 2
     for j in y:
-        if (j % 2 == j_first) & (j < 16):
+        if (j % 2 == j_first) & (j < 18):
             label_type = y_axis_label_type[j_current]
         else:
             label_type = y_axis_label_type[2]
@@ -122,6 +124,10 @@ def set_y_axis(y, y_lim):
     if with_density:
         plt.ylim(0, y_lim / 100)
         ax.set_ylabel(f"{label_type[0]} per 100 $m^2$", fontsize=12)
+    
+    if with_prevalence_larvae_inf or with_prevalence_nymphs_inf:
+        plt.ylim(0, y_lim / 100)
+        ax.set_ylabel("%", fontsize=12)
 
 
 year = 2018
@@ -159,6 +165,9 @@ with_new_feeding_events_nymphs_inf = False
 
 with_total_feeding_events_inf = False
 
+with_prevalence_larvae_inf = False
+with_prevalence_nymphs_inf = False
+
 cohorts_to_plot = [
     with_questing_larvae,
     with_questing_nymphs,
@@ -177,6 +186,8 @@ cohorts_to_plot = [
     with_new_feeding_events_larvae_inf,
     with_new_feeding_events_nymphs_inf,
     with_total_feeding_events_inf,
+    with_prevalence_larvae_inf,
+    with_prevalence_nymphs_inf,
 ]
 
 data = read_csv(year, input_model)

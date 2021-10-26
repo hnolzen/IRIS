@@ -5,6 +5,7 @@ import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import eu.ecoepi.iris.CohortStateTicks;
+import eu.ecoepi.iris.resources.Randomness;
 import eu.ecoepi.iris.resources.TimeStep;
 import eu.ecoepi.iris.components.*;
 
@@ -29,6 +30,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int nymphsInfectedEngorged;
     private int nymphsLateEngorged;
     private int nymphsInfectedLateEngorged;
+    private float nymphsInfectedPrevalence;
 
     private int larvaeAllQuesting;
     private int larvaeSusceptibleQuesting;
@@ -38,6 +40,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int larvaeInfectedEngorged;
     private int larvaeLateEngorged;
     private int larvaeInfectedLateEngorged;
+    private float larvaeInfectedPrevalence;
 
     private int feedingEventsLarvae;
     private int feedingEventsInfectedLarvae;
@@ -58,6 +61,9 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Wire
     TimeStep timeStep;
 
+    @Wire
+    Randomness randomness;
+
     public CsvTimeSeriesWriterInfection(String path) throws IOException {
         csvWriter = new PrintWriter(path);
         csvWriter.print(
@@ -70,6 +76,10 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 "nymphs_engorged_inf," +
                 "nymphs_late_engorged," +
                 "nymphs_late_engorged_inf," +
+                "nymphs_feeding_events," +
+                "nymphs_feeding_events_inf," +
+                "nymphs_new_feeding_events_inf," +
+                "nymphs_prevalence_inf," +
                 "larvae_questing," +
                 "larvae_questing_sus," +
                 "larvae_questing_inf," +
@@ -80,11 +90,9 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 "larvae_late_engorged_inf," +
                 "larvae_feeding_events," +
                 "larvae_feeding_events_inf," +
-                "nymphs_feeding_events," +
-                "nymphs_feeding_events_inf," +
-                "total_feeding_events_inf," +
                 "larvae_new_feeding_events_inf," +
-                "nymphs_new_feeding_events_inf," +
+                "larvae_prevalence_inf," +
+                "total_feeding_events_inf," +
                 "rodents_susceptible," +
                 "rodents_infected," +
                 "mean_temperature," +
@@ -109,6 +117,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         nymphsInfectedEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED);
         nymphsLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED);
         nymphsInfectedLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED);
+        nymphsInfectedPrevalence = nymphsAllQuesting != 0 ? (float) nymphsInfectedQuesting / (float) nymphsAllQuesting : Float.NaN;
 
         larvaeSusceptibleQuesting += abundance.getStage(CohortStateTicks.LARVAE_QUESTING);
         larvaeInfectedQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
@@ -118,6 +127,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         larvaeInfectedEngorged += abundance.getStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED);
         larvaeLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED);
         larvaeInfectedLateEngorged += abundance.getStage(CohortStateTicks.LARVAE_LATE_ENGORGED_INFECTED);
+        larvaeInfectedPrevalence = larvaeAllQuesting != 0 ? (float) larvaeInfectedQuesting / (float) larvaeAllQuesting : Float.NaN;
 
         feedingEventsLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING);
         feedingEventsInfectedLarvae += abundance.getFeedingEvents(CohortStateTicks.LARVAE_QUESTING_INFECTED);
@@ -139,7 +149,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
                 (double) nymphsAllQuesting,
                 (double) nymphsSusceptibleQuesting,
@@ -149,6 +159,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 (double) nymphsInfectedEngorged,
                 (double) nymphsLateEngorged,
                 (double) nymphsInfectedLateEngorged,
+                (double) nymphsInfectedPrevalence,
                 (double) larvaeAllQuesting,
                 (double) larvaeSusceptibleQuesting,
                 (double) larvaeInfectedQuesting,
@@ -157,6 +168,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 (double) larvaeInfectedEngorged,
                 (double) larvaeLateEngorged,
                 (double) larvaeInfectedLateEngorged,
+                (double) larvaeInfectedPrevalence,
                 (double) feedingEventsLarvae,
                 (double) feedingEventsInfectedLarvae,
                 (double) feedingEventsNymphs,
@@ -179,6 +191,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         nymphsInfectedEngorged = 0;
         nymphsLateEngorged = 0;
         nymphsInfectedLateEngorged = 0;
+        nymphsInfectedPrevalence = 0;
 
         larvaeAllQuesting = 0;
         larvaeSusceptibleQuesting = 0;
@@ -188,6 +201,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         larvaeInfectedEngorged = 0;
         larvaeLateEngorged = 0;
         larvaeInfectedLateEngorged = 0;
+        larvaeInfectedPrevalence = 0;
 
         feedingEventsLarvae = 0;
         feedingEventsInfectedLarvae = 0;
