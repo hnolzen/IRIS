@@ -69,19 +69,21 @@ x_axis = {
 cohorts = {
     0: ["larvae_questing", "Questing larvae", "#f29d00", "#ffb326"],
     1: ["nymphs_questing", "Questing nymphs", "#3182bd", "#9ecae1"],
-    2: ["larvae_questing_inf", "Infected questing larvae", "#fc9272"],
-    3: ["nymphs_questing_inf", "Infected questing nymphs", "#e31a1c"],
-    4: ["larvae_inactive_inf", "Infected inactive larvae", "#67000d"],
-    5: ["nymphs_inactive_inf", "Infected inactive nymphs", "#ae017e"],
-    6: ["larvae_engorged_inf", "Infected engorged larvae", "#f768a1"],
-    7: ["nymphs_engorged_inf", "Infected engorged nymphs", "#ae017e"],
-    8: ["larvae_late_engorged_inf", "Infected late engorged larvae", "#fed976"],
-    9: ["nymphs_late_engorged_inf", "Infected late engorged nymphs", "#6baed6"],
-    10: ["larvae_feeding_events_inf","Feeding events (infected larvae)","#fd8d3c"],
-    11: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#2171b5"],
-    12: ["larvae_new_feeding_events_inf","Feeding events (new infected larvae)","#fed976"],
-    13: ["nymphs_new_feeding_events_inf", "Feeding events (new infected nymphs)","#6baed6"],
-    14: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
+    2: ["larvae_questing_sus", "Susceptible questing larvae", "#fc9272"],
+    3: ["nymphs_questing_sus", "Susceptible questing nymphs", "#e31a1c"],
+    4: ["larvae_questing_inf", "Infected questing larvae", "#fc9272"],
+    5: ["nymphs_questing_inf", "Infected questing nymphs", "#e31a1c"],
+    6: ["larvae_inactive_inf", "Infected inactive larvae", "#67000d"],
+    7: ["nymphs_inactive_inf", "Infected inactive nymphs", "#ae017e"],
+    8: ["larvae_engorged_inf", "Infected engorged larvae", "#f768a1"],
+    9: ["nymphs_engorged_inf", "Infected engorged nymphs", "#ae017e"],
+    10: ["larvae_late_engorged_inf", "Infected late engorged larvae", "#fed976"],
+    11: ["nymphs_late_engorged_inf", "Infected late engorged nymphs", "#6baed6"],
+    12: ["larvae_feeding_events_inf","Feeding events (infected larvae)","#fd8d3c"],
+    13: ["nymphs_feeding_events_inf", "Feeding events (infected nymphs)","#2171b5"],
+    14: ["larvae_new_feeding_events_inf","Feeding events (new infected larvae)","#fed976"],
+    15: ["nymphs_new_feeding_events_inf", "Feeding events (new infected nymphs)","#6baed6"],
+    16: ["total_feeding_events_inf", "Total feeding events (infected ticks)","#3690c0"],
 }
 
 
@@ -108,7 +110,7 @@ def set_y_axis(y, y_lim):
     j_first = y[0] % 2
     j_current = y[0] % 2
     for j in y:
-        if (j % 2 == j_first) & (j < 14):
+        if (j % 2 == j_first) & (j < 16):
             label_type = y_axis_label_type[j_current]
         else:
             label_type = y_axis_label_type[2]
@@ -131,14 +133,17 @@ with_color_fill = True
 with_smoothing = True
 output_format = "png"
 
-with_questing_larvae = True
+with_questing_larvae = False
 with_questing_nymphs = True
 
+with_questing_larvae_sus = False
+with_questing_nymphs_sus = False
+
 with_questing_larvae_inf = False
-with_questing_nymphs_inf = False
+with_questing_nymphs_inf = True
 
 with_inactive_larvae_inf = False
-with_inactive_nymphs_inf = False
+with_inactive_nymphs_inf = True
 
 with_engorged_larvae_inf = False
 with_engorged_nymphs_inf = False
@@ -157,6 +162,8 @@ with_total_feeding_events_inf = False
 cohorts_to_plot = [
     with_questing_larvae,
     with_questing_nymphs,
+    with_questing_larvae_sus,
+    with_questing_nymphs_sus,
     with_questing_larvae_inf,
     with_questing_nymphs_inf,
     with_inactive_larvae_inf,

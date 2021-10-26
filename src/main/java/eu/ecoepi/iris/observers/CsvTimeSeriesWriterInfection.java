@@ -21,7 +21,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
 
     private final PrintWriter csvWriter;
 
-    private int nymphsQuesting;
+    private int nymphsAllQuesting;
+    private int nymphsSusceptibleQuesting;
     private int nymphsInfectedQuesting;
     private int nymphsInfectedInactive;
     private int nymphsEngorged;
@@ -29,7 +30,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     private int nymphsLateEngorged;
     private int nymphsInfectedLateEngorged;
 
-    private int larvaeQuesting;
+    private int larvaeAllQuesting;
+    private int larvaeSusceptibleQuesting;
     private int larvaeInfectedQuesting;
     private int larvaeInfectedInactive;
     private int larvaeEngorged;
@@ -61,6 +63,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         csvWriter.print(
                 "tick," +
                 "nymphs_questing," +
+                "nymphs_questing_sus," +
                 "nymphs_questing_inf," +
                 "nymphs_inactive_inf," +
                 "nymphs_engorged," +
@@ -68,6 +71,7 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 "nymphs_late_engorged," +
                 "nymphs_late_engorged_inf," +
                 "larvae_questing," +
+                "larvae_questing_sus," +
                 "larvae_questing_inf," +
                 "larvae_inactive_inf," +
                 "larvae_engorged," +
@@ -97,16 +101,18 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         var temperature = temperatureMapper.get(entityId);
         var humidity = humidityMapper.get(entityId);
 
-        nymphsQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
+        nymphsSusceptibleQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING);
         nymphsInfectedQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+        nymphsAllQuesting = nymphsSusceptibleQuesting + nymphsInfectedQuesting;
         nymphsInfectedInactive += abundance.getStage(CohortStateTicks.NYMPHS_INACTIVE_INFECTED);
         nymphsEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED);
         nymphsInfectedEngorged += abundance.getStage(CohortStateTicks.NYMPHS_ENGORGED_INFECTED);
         nymphsLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED);
         nymphsInfectedLateEngorged += abundance.getStage(CohortStateTicks.NYMPHS_LATE_ENGORGED_INFECTED);
 
-        larvaeQuesting += abundance.getStage(CohortStateTicks.LARVAE_QUESTING);
+        larvaeSusceptibleQuesting += abundance.getStage(CohortStateTicks.LARVAE_QUESTING);
         larvaeInfectedQuesting += abundance.getStage(CohortStateTicks.NYMPHS_QUESTING_INFECTED);
+        larvaeAllQuesting = larvaeSusceptibleQuesting + larvaeInfectedQuesting;
         larvaeInfectedInactive += abundance.getStage(CohortStateTicks.LARVAE_INACTIVE_INFECTED);
         larvaeEngorged += abundance.getStage(CohortStateTicks.LARVAE_ENGORGED);
         larvaeInfectedEngorged += abundance.getStage(CohortStateTicks.LARVAE_ENGORGED_INFECTED);
@@ -133,16 +139,18 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
     @Override
     protected void end() {
 
-        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+        csvWriter.format("%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                 timeStep.getCurrent(),
-                (double) nymphsQuesting,
+                (double) nymphsAllQuesting,
+                (double) nymphsSusceptibleQuesting,
                 (double) nymphsInfectedQuesting,
                 (double) nymphsInfectedInactive,
                 (double) nymphsEngorged,
                 (double) nymphsInfectedEngorged,
                 (double) nymphsLateEngorged,
                 (double) nymphsInfectedLateEngorged,
-                (double) larvaeQuesting,
+                (double) larvaeAllQuesting,
+                (double) larvaeSusceptibleQuesting,
                 (double) larvaeInfectedQuesting,
                 (double) larvaeInfectedInactive,
                 (double) larvaeEngorged,
@@ -163,7 +171,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
                 dailyHumidity
         );
 
-        nymphsQuesting = 0;
+        nymphsAllQuesting = 0;
+        nymphsSusceptibleQuesting = 0;
         nymphsInfectedQuesting = 0;
         nymphsInfectedInactive = 0;
         nymphsEngorged = 0;
@@ -171,7 +180,8 @@ public class CsvTimeSeriesWriterInfection extends IteratingSystem {
         nymphsLateEngorged = 0;
         nymphsInfectedLateEngorged = 0;
 
-        larvaeQuesting = 0;
+        larvaeAllQuesting = 0;
+        larvaeSusceptibleQuesting = 0;
         larvaeInfectedQuesting = 0;
         larvaeInfectedInactive = 0;
         larvaeEngorged = 0;
