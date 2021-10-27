@@ -1,9 +1,7 @@
 # IRIS - Ixodes RIcinus Simulator 
 
-IRIS (Ixodes RIcinus Simulator) is a population model for local dynamics of Ixodes ricinus ticks under changing climate. It is designed as a
- spatially-explicit compartmental model that operates on a local scale. We plan to add a transmission model for borrelian dynamics in the near future.
-
-This model is being developed as part of the [HICAM project][HICAM].
+IRIS (Ixodes RIcinus Simulator) is a population model to simulate spatio-temporal dynamics of *Ixodes ricinus* ticks. It is designed as a
+ spatially-explicit compartmental model that operates on a local scale. This model has been developed as part of the [HI-CAM][HICAM] initiative.
 
 ## Run
 
@@ -29,7 +27,7 @@ Command line arguments for model parameterisation:
 
 #### Available output observers:
 
-The following available output observers  
+The following output observers are available: 
 
 | observer                         | ID  | description                                          | 
 |----------------------------------|-----|------------------------------------------------------|
@@ -62,7 +60,7 @@ The following available output observers
 
 ### Contact
 
-If you have questions regarding the research of the IRIS modelling project, please [create an issue][ISSUE] or contact us via email.
+If you have questions regarding this project, please [create an issue][ISSUE] or contact us via email.
 
 
 [HICAM]: https://www.ufz.de/index.php?en=47573
