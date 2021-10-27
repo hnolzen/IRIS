@@ -66,7 +66,7 @@ def iris(
             "-v", str(initial_infected_rodents),
             "-r", str(activation_rate),
             "-w", weather_dir + "weather_" + str(year) + ".csv",
-            "-o", output_dir + "/iris_abundance_" + str(year) + ".csv",
+            "-o", output_dir + "/iris_output_" + str(year) + ".csv",
             "-m", observer,
         ],
         check=True,

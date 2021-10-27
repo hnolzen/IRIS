@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-data = pd.read_csv('iris_abundance.csv', header = 0)
+data = pd.read_csv('iris_output.csv', header = 0)
 
 heat_array = np.zeros((12, 12))
 frames = []

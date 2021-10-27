@@ -82,7 +82,7 @@ x_axis = {
 def read_csv(year, input_model):
     input_dir = models[input_model]
     file_path = (
-        out_dir + f"/{observers[observer]}/{input_dir}/iris_abundance_{year}.csv"
+        out_dir + f"/{observers[observer]}/{input_dir}/iris_output_{year}.csv"
     )
     try:
         df = pd.read_csv(file_path, header=0)
