@@ -32,9 +32,9 @@ Command line arguments for model parameterisation:
 
 | file / folder        | description                                                                       |
 |----------------------|-----------------------------------------------------------------------------------|
-| `iris_start.R`       | Script to run IRIS from R                                                         |
+| `iris_start.py`      | Python Script to run IRIS                                                         |
 | `documents`          | Location of model documentation files (ODD protocol, TRACE documentation)         |
-| `experiments`        | Location of script files to run various experiments (e.g. sensitivity analyses)   |
+| `experiments`        | Location of script files to run sensitivity analyses, perform parameter optimisation, etc.  |
 | `input`              | Location of input files (weather data, fructification data)                       |
 | `output`             | Location of model output files                                                    |
 | `plots`              | Location of script files to visualise model outputs                               |
