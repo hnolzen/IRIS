@@ -41,9 +41,10 @@ The following available output observers
 | csv_timeseries_infection         | 6   | writes out all output variables that are relevant for the analysis of the borreliosis dynamics. |
 
 ## Documents and folders
-| document                      | description                                                              |
-|-------------------------------|--------------------------------------------------------------------------|
-| [ODD.pdf][ODD]                | Model description (ODD protocol)                                         |
+| document                           | description                                       |
+|------------------------------------|---------------------------------------------------|
+| [ODD.pdf][ODD]                     | Model description (ODD protocol)                  |
+| [IRIS_validation_report.pdf][VAL]  | Validation report                                 |
 
 
 ## Model files and folders
@@ -51,7 +52,7 @@ The following available output observers
 | file / folder        | description                                                                       |
 |----------------------|-----------------------------------------------------------------------------------|
 | `iris_start.py`      | Python Script to run IRIS                                                         |
-| `documents`          | Location of model documentation files (ODD protocol, TRACE documentation)         |
+| `documents`          | Location of model documentation files (ODD protocol, validation report)           |
 | `experiments`        | Location of script files to run sensitivity analyses, perform parameter optimisation, etc.  |
 | `input`              | Location of input files (weather data, fructification data)                       |
 | `output`             | Location of model output files                                                    |
@@ -65,6 +66,6 @@ If you have questions regarding the research of the IRIS modelling project, plea
 
 
 [HICAM]: https://www.ufz.de/index.php?en=47573
-[ODD]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/iris_odd.pdf?job=build
-[TRACE]: documents/trace/iris_trace.pdf
+[ODD]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/documents/odd/iris_odd.pdf?job=build
+[VAL]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/documents/validation/iris_validation_report.pdf?job=build
 [ISSUE]: https://git.ufz.de/ecoepi/iris/-/issues
