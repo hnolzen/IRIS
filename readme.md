@@ -19,8 +19,26 @@ Command line arguments for model parameterisation:
 | -l           | 150         | initial number of inactive larvae.     | Integer values >= 0 are valid      |
 | -n           | 150         | initial number of inactive nymphs.     | Integer values >= 0 are valid      |
 | -a           | 150         | initial number of inactive adults.     | Integer values >= 0 are valid      |
-| -r           | 0.02        | activation rate                        | Float values >= 0.0 are valid      |
-| -u           | true       | write only summary outputs             |                                    | 
+| -i           | 0           | initial number of infected larvae.     | Integer values >= 0 are valid      |
+| -j           | 0           | initial number of inactive nymphs.     | Integer values >= 0 are valid      |
+| -u           | 10          | initial number of susceptible rodents. | Integer values >= 0 are valid      |
+| -v           | 0           | initial number of infected rodents.    | Integer values >= 0 are valid      |
+| -r           | 0.022       | activation rate                        | Float values >= 0.0 are valid      |
+| -m           | -           | set csv output observer.               | {1, 2, 3, 4, 5, 6}                 |
+
+
+#### Available output observers:
+
+The following available output observers  
+
+| observer                         | ID  | description                                          | 
+|----------------------------------|-----|------------------------------------------------------|
+| csv_timeseries                   | 1   | writes out all output variables.                     |
+| csv_timeseries_summary           | 2   | writes out summary output variables, i.e. the mean of all grid cells. |
+| csv_timeseries_summary_habitats  | 3   | observer 2 differentiated by habitats.               | 
+| csv_timeseries_nymphs            | 4   | writes out all output variables relevant for the analysis of questing nymphs. | 
+| csv_timeseries_nymphs_habitats   | 5   | observer 4 differentiated by habitats.               |
+| csv_timeseries_infection         | 6   | writes out all output variables that are relevant for the analysis of the borreliosis dynamics. |
 
 ## Documents and folders
 | document                      | description                                                              |
