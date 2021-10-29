@@ -291,25 +291,30 @@ Bias adjustment is a post-processing method to identify and adjust for possible 
 Homogenisation means that non-climatic factors such as relocation of weather stations or changing of measuring instruments are detected and removed from the climate data to improve the overall quality~\parencite{Ribeiro.2016, Costa.2009}.
 
 \begin{table}[h!]
-\caption[Overview of EURO-CORDEX simulations used for model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data.}
+\caption[Overview of EURO-CORDEX simulations used as model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data. For the 15 GCM-RCM combinations the mean annual temperature (BIO01) in Germany for four periods are given. All simulations were run with the RCP8.5 scenario with the r1i1p1 driving ensemble, only the two MPI-M models were run with the r3i1p1 ensemble.}
 \label{tab:climate_models}
-\begin{tabularx}{\textwidth}{ll}
+\begin{tabularx}{\textwidth}{lll}
 \toprule
-\textbf{Driving GCM and realisation}  & \textbf{Downscaling RCM} 	\\
+\textbf{Institute} 	& \textbf{Driving global climate model (GCM)}  	& \textbf{Downscaling RCM} 	\\
 \midrule
-CanESM2; r1i1p1 				 	  & CCLM4-8-17; v1  		 	\\
-CanESM2; r1i1p1 				 	  & REMO2015; v1 				\\
-HadGEM2-ES; r1i1p1 					  & Aladin63; v1 				\\
-HadGEM2-ES; r1i1p1 					  & HadREM3; v1 				\\
-HadGEM2-ES; r1i1p1 					  & HIRHAM5; v2 				\\
-HadGEM2-ES; r1i1p1 					  & RACMO22E; v2 				\\
-HadGEM2-ES; r1i1p1 					  & RCA4; v1 					\\
-HadGEM2-ES; r1i1p1 					  & RegCM4-6; v1 				\\
-HadGEM2-ES; r1i1p1 					  & REMO2015; v1 				\\
-IPSL-CM5A-MR; r1i1p1 				  & RCA4; v1 					\\
-IPSL-CM5A-MR; r1i1p1 				  & WRF381P; v1 				\\
-MPI-ESM-LR; r3i1p1 					  & RCA4; v1 					\\
-MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
+CCCma				& CanESM2 										& CCLM4-8-17 (v1)  		 	\\
+					& CanESM2		 				 	  			& REMO2015 (v1) 			\\
+\midrule
+IPSL 				& IPSL-CM5A-MR									& WRF381P (v1) 				\\
+					& 												& RACMO22E (v1) 			\\
+					& 												& RCA4 (v1) 				\\
+\midrule					
+MOHC				& HadGEM2 ES									& Aladin63 (v1) 			\\
+					& 												& HIRHAM5 (v2) 				\\
+					& 												& REMO2015 (v1)  			\\
+					& 												& RegCM4-6 (v1)  			\\
+					& 												& WRF381P (v1) 				\\
+					& 												& RACMO22E (v2) 			\\
+					& 												& HadREM3-GA7-05 (v1) 		\\
+					& 												& RCA4 (v1) 				\\
+\midrule
+MPI-M 				& MPI-ESM-LR; r3i1p1 					  		& REMO2015 (v1) 			\\
+					&  					  							& RCA4 (v1)					\\
 \bottomrule
 \end{tabularx}
 \end{table}
