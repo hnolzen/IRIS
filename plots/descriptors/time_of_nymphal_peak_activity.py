@@ -85,7 +85,7 @@ def get_data(y_start, y_end, obs, x_axis_type):
                     df = pd.read_csv(filename, header=0)
 
                     df_jan_jun = df.iloc[1:181]
-                    df_jan_jun_nymphs = df_jan_jun["questing_nymphs"]
+                    df_jan_jun_nymphs = df_jan_jun["nymphs_questing"]
 
                     time_peak_activity = df_jan_jun_nymphs.idxmax()
 

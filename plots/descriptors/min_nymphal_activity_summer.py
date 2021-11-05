@@ -71,7 +71,7 @@ def get_data(y_start, y_end, obs, x_axis_type):
 
                     df_summer = df.iloc[SUMMER_START:SUMMER_END]
 
-                    min_activity = df_summer["questing_nymphs"].min()
+                    min_activity = df_summer["nymphs_questing"].min()
 
                     year_values.append(year)
                     min_activity_values.append(min_activity)

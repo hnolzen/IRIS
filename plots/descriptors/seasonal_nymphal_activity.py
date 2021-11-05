@@ -75,11 +75,11 @@ def get_data(year_start, year_end, obs, x_axis_type):
                             nymphs = df[
                                 (df["tick"] >= seasons[k][0])
                                 & (df["tick"] < seasons[k][0] + 1)
-                            ]["questing_nymphs"].mean()
+                            ]["nymphs_questing"].mean()
                         else:
                             nymphs = df[
                                 (df["tick"] < 60) | (df["tick"] >= seasons[k][0] + 1)
-                            ]["questing_nymphs"].mean()
+                            ]["nymphs_questing"].mean()
 
                         if with_density:
                             nymphs /= GRID_CELLS
