@@ -8,8 +8,8 @@ file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
-COLOR_DWD = "#41ab5d"
-COLOR_CLIMATE_FUTURE = "#3182bd"
+COLOR_DWD = "#ff8c00"
+COLOR_CLIMATE_FUTURE = "#3182bd90"
 COLOR_CLIMATE_PAST = "#8226de"
 COLOR_MODEL = "#feb24c"
 
@@ -132,7 +132,7 @@ year_end = 2099
 x_axis_type = 5
 observer = 5
 output_format = "png"
-with_fits = False
+with_fits = True
 with_past_climate_years = False
 with_color_model = False
 color_model = 1
@@ -192,7 +192,7 @@ ax.scatter(
     y_clm_future,
     label="Climate data (2021 - 2099)",
     marker=".",
-    s=20,
+    s=15,
     facecolors="none",
     color=COLOR_CLIMATE_FUTURE,
 )

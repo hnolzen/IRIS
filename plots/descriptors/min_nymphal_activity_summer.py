@@ -8,8 +8,8 @@ file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
-COLOR_DWD = "#41ab5d"
-COLOR_CLIMATE_FUTURE = "#3182bd"
+COLOR_DWD = "#ff8c00"
+COLOR_CLIMATE_FUTURE = "#3182bd90"
 COLOR_CLIMATE_PAST = "#8226de"
 COLOR_MODEL = "#feb24c"
 
