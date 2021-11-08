@@ -129,8 +129,8 @@ def get_data(y_start, y_end, obs, x_axis_type):
 
 year_start = 1949
 year_end = 2099
-x_axis_type = 1
-observer = 3
+x_axis_type = 5
+observer = 5
 output_format = "png"
 with_fits = False
 with_past_climate_years = False

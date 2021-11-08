@@ -109,7 +109,7 @@ def reg_function(x0):
 year_start = 1949
 year_end = 2098
 x_axis_type = 1
-observer = 3
+observer = 5
 output_format = "png"
 with_fits = False
 with_past_climate_years = True

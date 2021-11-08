@@ -117,8 +117,8 @@ def get_data(year_start, year_end, obs, x_axis_type):
 
 year_start = 1949
 year_end = 2098
-x_axis_type = 2
-observer = 3
+x_axis_type = 3
+observer = 5
 output_format = "png"
 with_density = True
 with_fits = True
