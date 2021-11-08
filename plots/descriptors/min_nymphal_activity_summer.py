@@ -224,8 +224,8 @@ ax.set_xlim(lower_x_lim, upper_x_lim)
 ax.set_ylim(0, 4500)
 
 x_ax_label = x_axis.get(x_axis_type)[1]
-ax.set_xlabel(x_ax_label, fontsize=11, fontweight="bold")
-ax.set_ylabel("Minimum number of questing nymphs", fontsize=11, fontweight="bold")
+ax.set_xlabel(x_ax_label, fontsize=10, fontweight="bold")
+ax.set_ylabel("Minimum number of questing nymphs", fontsize=10, fontweight="bold")
 
 plt.title("Minimum questing activity in summer (JJA)",fontweight="bold",fontsize=8)
 
