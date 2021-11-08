@@ -149,7 +149,7 @@ ax.scatter(
     y_clm_future,
     label="Climate data (2021 - 2099)",
     marker=".",
-    s=20,
+    s=15,
     facecolors="none",
     color=COLOR_CLIMATE_FUTURE,
 )
@@ -178,7 +178,7 @@ if with_past_climate_years:
 ax.scatter(
     x_dwd,
     y_dwd,
-    label="DWD data (1949 - 2020)",
+    label="DWD data     (1949 - 2020)",
     marker="x",
     s=15,
     color=COLOR_DWD,
@@ -199,8 +199,8 @@ if with_fits:
         x_clm_future.unique(),
         reg_function(2021)(x_clm_future.unique(), *popt_climate),
         "r-",
-        c="#525252",
-        lw=1.0,
+        c="#3182bd",
+        lw=1.5,
         ls="-",
         #label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
     )
@@ -209,9 +209,9 @@ if with_fits:
         x_dwd,
         reg_function(1949)(x_dwd, *popt_dwd),
         "r-",
-        c="black",
-        lw=1.0,
-        ls="--",
+        c=COLOR_DWD,
+        lw=1.5,
+        ls="-",
         #label="fit_dwd: a=%5.2f, b=%5.2f" % tuple(popt_dwd),
     )
 
