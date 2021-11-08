@@ -256,7 +256,7 @@ ax.set_yticklabels(list(y_axis.values()), fontsize=8)
 
 x_ax_label = x_axis.get(x_axis_type)[1]
 ax.set_xlabel(x_ax_label, fontsize=10, fontweight="bold")
-ax.set_ylabel("Day of maximum nymphal activity", fontsize=10, fontweight="bold")
+ax.set_ylabel("Date of maximum nymphal activity", fontsize=10, fontweight="bold")
 
 plt.legend(fontsize=7)
 
