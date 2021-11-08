@@ -9,7 +9,7 @@ main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
 COLOR_DWD = "#ff8c00"
-COLOR_CLIMATE_FUTURE = "#3182bd90"
+COLOR_CLIMATE_FUTURE = "#3182bd95"
 COLOR_CLIMATE_PAST = "#8226de"
 COLOR_MODEL = "#feb24c"
 
@@ -179,15 +179,6 @@ if with_fits:
 fig, ax = plt.subplots()
 
 ax.scatter(
-    x_dwd,
-    y_dwd,
-    label="DWD data (1949 - 2020)",
-    marker="x",
-    s=15,
-    color=COLOR_DWD,
-)
-
-ax.scatter(
     x_clm_future,
     y_clm_future,
     label="Climate data (2021 - 2099)",
@@ -195,6 +186,15 @@ ax.scatter(
     s=15,
     facecolors="none",
     color=COLOR_CLIMATE_FUTURE,
+)
+
+ax.scatter(
+    x_dwd,
+    y_dwd,
+    label="DWD data     (1949 - 2020)",
+    marker="x",
+    s=15,
+    color=COLOR_DWD,
 )
 
 if with_color_model:
@@ -222,17 +222,19 @@ if with_fits:
     fit_length = np.arange(0, x_axis.get(x_axis_type)[3])
 
     ax.plot(
-        fit_length, 
-        n_dwd + m_dwd * fit_length, 
-        color=COLOR_DWD, 
-        lw=0.75
-    )
-    
-    ax.plot(
         fit_length,
         n_clm_future + m_clm_future * fit_length,
         color=COLOR_CLIMATE_FUTURE,
-        lw=0.75,
+        lw=1.25,
+        #label="y = {:.2f}x+{:.2f}".format(n_clm_future, m_clm_future),
+    )
+    
+    ax.plot(
+        fit_length, 
+        n_dwd + m_dwd * fit_length, 
+        color=COLOR_DWD, 
+        lw=1.25,
+        #label="y = {:.2f}x+{:.2f}".format(n_dwd, m_dwd),
     )
 
     if with_past_climate_years:
@@ -240,7 +242,8 @@ if with_fits:
             fit_length,
             n_clm_past + m_clm_past * fit_length,
             color=COLOR_CLIMATE_PAST,
-            lw=0.75,
+            lw=1.25,
+            #label="y = {:.2f}x+{:.2f}".format(n_clm_past, m_clm_past),
         )
 
 

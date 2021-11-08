@@ -9,7 +9,7 @@ main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
 COLOR_DWD = "#ff8c00"
-COLOR_CLIMATE_FUTURE = "#3182bd90"
+COLOR_CLIMATE_FUTURE = "#3182bd95"
 COLOR_CLIMATE_PAST = "#8226de"
 COLOR_MODEL = "#feb24c"
 
@@ -145,15 +145,6 @@ if with_color_model:
 fig, ax = plt.subplots()
 
 ax.scatter(
-    x_dwd,
-    y_dwd,
-    label="DWD data (1949 - 2020)",
-    marker="x",
-    s=15,
-    color=COLOR_DWD,
-)
-
-ax.scatter(
     x_clm_future,
     y_clm_future,
     label="Climate data (2021 - 2099)",
@@ -184,6 +175,15 @@ if with_past_climate_years:
         color=COLOR_CLIMATE_PAST,
     )
 
+ax.scatter(
+    x_dwd,
+    y_dwd,
+    label="DWD data (1949 - 2020)",
+    marker="x",
+    s=15,
+    color=COLOR_DWD,
+)
+
 if with_fits:
     popt_dwd, pcov_dwd = curve_fit(
         reg_function(1949), x_dwd, y_dwd
@@ -196,23 +196,23 @@ if with_fits:
     )
 
     plt.plot(
-        x_dwd,
-        reg_function(1949)(x_dwd, *popt_dwd),
-        "r-",
-        c="black",
-        lw=1.0,
-        ls="--",
-        label="fit_dwd: a=%5.2f, b=%5.2f" % tuple(popt_dwd),
-    )
-
-    plt.plot(
         x_clm_future.unique(),
         reg_function(2021)(x_clm_future.unique(), *popt_climate),
         "r-",
         c="#525252",
         lw=1.0,
         ls="-",
-        label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
+        #label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
+    )
+    
+    plt.plot(
+        x_dwd,
+        reg_function(1949)(x_dwd, *popt_dwd),
+        "r-",
+        c="black",
+        lw=1.0,
+        ls="--",
+        #label="fit_dwd: a=%5.2f, b=%5.2f" % tuple(popt_dwd),
     )
 
 plt.axvline(x=2020.5, color=COLOR_BOUNDARY_LINE, ls="--", lw=0.8)
