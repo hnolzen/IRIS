@@ -111,8 +111,8 @@ year_end = 2098
 x_axis_type = 1
 observer = 5
 output_format = "png"
-with_fits = False
-with_past_climate_years = True
+with_fits = True
+with_past_climate_years = False
 with_color_model = False
 color_model = 1
 
@@ -185,19 +185,27 @@ ax.scatter(
 )
 
 if with_fits:
+    
+    start_value_dwd = 2
+    start_value_clm_future = 2
+    
+    if x_axis_type == 1:
+        start_value_dwd = 1949
+        start_value_clm_future = 2021
+    
     popt_dwd, pcov_dwd = curve_fit(
-        reg_function(1949), x_dwd, y_dwd
+        reg_function(start_value_dwd), x_dwd, y_dwd
     )
 
     popt_climate, pcov_climate = curve_fit(
-        reg_function(2021),
+        reg_function(start_value_clm_future),
         x_clm_future,
         y_clm_future,
     )
 
     plt.plot(
         x_clm_future.unique(),
-        reg_function(2021)(x_clm_future.unique(), *popt_climate),
+        reg_function(start_value_clm_future)(x_clm_future.unique(), *popt_climate),
         "r-",
         c="#3182bd",
         lw=1.5,
@@ -207,7 +215,7 @@ if with_fits:
     
     plt.plot(
         x_dwd,
-        reg_function(1949)(x_dwd, *popt_dwd),
+        reg_function(start_value_dwd)(x_dwd, *popt_dwd),
         "r-",
         c=COLOR_DWD,
         lw=1.5,
