@@ -172,11 +172,11 @@ for i, season in enumerate(seasons):
             label="y={:.2f}x+{:.2f}".format(res.slope, res.intercept),
         )
 
-    plt.xlabel(x_label, fontsize=8)
+    plt.xlabel(x_label, fontsize=8, fontweight="bold")
 
-    plt.ylabel("Number of nymphs", fontsize=8)
+    plt.ylabel("Number of nymphs", fontsize=8, fontweight="bold")
     if with_density:
-        plt.ylabel("Nymphs per 100 $m^2$", fontsize=8)
+        plt.ylabel("Nymphs per 100 $\mathbf{m^2}$", fontsize=8, fontweight="bold")
 
     plt.legend(fontsize=5)
 
