@@ -10,7 +10,7 @@ main_dir = os.path.abspath(file_dir + "/.." + "/..")
 COLOR_BOUNDARY_LINE = "#969696"
 COLOR_DWD = "#ff8c00"
 COLOR_CLIMATE_FUTURE = "#3182bd95"
-COLOR_CLIMATE_PAST = "#8226de"
+COLOR_CLIMATE_PAST = "#45454595"
 COLOR_MODEL = "#feb24c"
 
 SUMMER_START = 151   # 01 Jun 
