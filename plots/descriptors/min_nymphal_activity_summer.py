@@ -203,9 +203,11 @@ if with_fits:
         y_clm_future,
     )
 
+    x_fit_clm_future = np.arange(x_clm_future.min(), x_clm_future.max() + 1)
+    y_fit_clm_future = reg_function(start_value_clm_future)(x_fit_clm_future, *popt_climate)
     plt.plot(
-        x_clm_future.unique(),
-        reg_function(start_value_clm_future)(x_clm_future.unique(), *popt_climate),
+        x_fit_clm_future,
+        y_fit_clm_future,
         "r-",
         c="#3182bd",
         lw=1.5,
@@ -213,9 +215,11 @@ if with_fits:
         #label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
     )
     
+    x_fit_dwd = np.arange(x_dwd.min(), x_dwd.max() + 1)
+    y_fit_dwd = reg_function(start_value_dwd)(x_fit_dwd, *popt_dwd)
     plt.plot(
-        x_dwd,
-        reg_function(start_value_dwd)(x_dwd, *popt_dwd),
+        x_fit_dwd,
+        y_fit_dwd,
         "r-",
         c=COLOR_DWD,
         lw=1.5,
