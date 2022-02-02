@@ -201,7 +201,7 @@ The general way to model state transitions between each two tick cohorts is to d
 
 \textbf{Sensing:} Ticks are assumed to sense temperature and relative humidity. Due to the cohort-based nature of the model, sensing does not take place at the level of an individual tick but instead at the level of the respective cohorts.
 
-\textbf{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details)
+\textbf{Collectives:} Since this model is cohort-based, all of the eleven model cohorts can be interpreted as collectives that combine a subpopulation of a certain number of \emph{I. ricinus} ticks in each grid cell. Interaction between cohorts of different grid cells take place via the translocation process implemented in the \inlinecode{Feeding} component (see Section~\ref{feeding} for details).
 
 
 \newpage
@@ -213,18 +213,18 @@ The cohorts are initialised with a certain number of ticks assuming that these i
 \begin{table}[h!]
 \caption[Overview of model input parameters.]{Overview of model input parameters.}
 \label{tab:initialisation_parameters}
-\begin{tabularx}{\textwidth}{lllll}
+\begin{tabularx}{\textwidth}{llll}
 \toprule
-\textbf{Parameter} 	& \textbf{Symbol} & \textbf{Default value} & \textbf{Type} & \textbf{Description} \\
+\textbf{Parameter} & \textbf{Default value} & \textbf{Type} & \textbf{Description} \\
 \midrule
-seed    			&   & 42    & int     & random seed \\
-weather     		& - & -     & String  & path to weather input file \\
-output     			& - & -     & String  & path to set directory of output files \\
-initialLarvae       &   & 150   & int     & initial number of inactive larvae \\
-initialNymphs       &   & 150   & int     & initial number of inactive nymphs \\
-initialAdults       &   & 150   & int     & initial number of inactive adults \\
-activationRate      &   & 0.02  & float   & activation rate  \\
-summary       		&   & true & boolean & write only summary outputs \\
+seed    			& 42    & int     & random seed \\
+weather     		& -     & String  & path to weather input file \\
+output     			& -     & String  & path to set directory of output files \\
+initialLarvae       & 150   & int     & initial number of inactive larvae \\
+initialNymphs       & 150   & int     & initial number of inactive nymphs \\
+initialAdults       & 150   & int     & initial number of inactive adults \\
+activationRate      & 0.02  & float   & activation rate  \\
+summary       		& true & boolean  & write only summary outputs \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -262,8 +262,9 @@ IRIS uses observed weather and simulated climate data and optionally data on bee
 \item Daily near surface relative humidity [\%]
 \end{itemize}
 
-\subsection{Observed weather data} 
-Observed daily temperature and humidity data from the Deutscher Wetterdienst (DWD) was included in the model both for model calibration and simulation of past years~\footnote{\url{https://www.dwd.de/DE/leistungen/klimadatendeutschland/klimadatendeutschland.html}}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 49° 02', 12° 06'):
+\subsection{Observed weather data}
+Observed daily temperature and humidity data was included in the model both for model calibration and simulation of past years for the period between 1949 and 2020 from
+the~\textcite{GermanWeatherService.2021}. In particular, the following data was used from the weather station in Regensburg (Station ID: 4104; Location: 12.1023°E, 49.0426°N):
 
 \begin{itemize}[noitemsep]
 	\item Daily mean of temperature (TMK, [°C])
@@ -272,7 +273,7 @@ Observed daily temperature and humidity data from the Deutscher Wetterdienst (DW
 	\item Daily mean of relative humidity (UPM, [\%])
 \end{itemize}
 
-Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl or which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
+Since the weather station in Regensburg is located at an altitude of 365 metres, but the sampling site in Haselmühl for which the model calibration and simulations were carried out is located at a higher altitude of 430 metres, the temperature values from the DWD data set were adjusted by according to the dry-adiabatic temperature gradient. Specifically, the values were reduced by $-0.64 = (430 - 365) / 100 \times -0.98$ degrees Celsius. This adjustment must always be made individually for each location for which simulations are to be carried out whenever its altitude differs substantially from the altitude of the location of the measurement of temperatures.
 
 \subsection{Climate simulation data} 
 Climate simulation data covering Germany with a resolution of 0.11° x 0.11° (\~12.5 km) was provided by The Climate Service Center Germany (GERICS). A total of 15 combinations of Global Change Models (GCMs) and Regional Chance Models (RCMs) were provided for the RCP8.5 scenario, i.e.\ the scenario that exceeds 4K global warming (see Table~\ref{tab:climate_models} for an overview). Bias-adjusted EURO-CORDEX simulations~\parencite{Jacob.2014} were provided for the following parameters:
@@ -291,25 +292,30 @@ Bias adjustment is a post-processing method to identify and adjust for possible 
 Homogenisation means that non-climatic factors such as relocation of weather stations or changing of measuring instruments are detected and removed from the climate data to improve the overall quality~\parencite{Ribeiro.2016, Costa.2009}.
 
 \begin{table}[h!]
-\caption[Overview of EURO-CORDEX simulations used for model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data.}
+\caption[Overview of EURO-CORDEX simulations used as model input]{Overview of EURO-CORDEX simulations used for model input. The table shows 13 GCM-RCM combinations for the RCP8.5 scenario that were used to create time series of daily weather data. For the 15 GCM-RCM combinations the mean annual temperature (BIO01) in Germany for four periods are given. All simulations were run with the RCP8.5 scenario with the r1i1p1 driving ensemble, only the two MPI-M models were run with the r3i1p1 ensemble.}
 \label{tab:climate_models}
-\begin{tabularx}{\textwidth}{ll}
+\begin{tabularx}{\textwidth}{lll}
 \toprule
-\textbf{Driving GCM and realisation}  & \textbf{Downscaling RCM} 	\\
+\textbf{Institute} 	& \textbf{Driving global climate model (GCM)}  	& \textbf{Downscaling RCM} 	\\
 \midrule
-CanESM2; r1i1p1 				 	  & CCLM4-8-17; v1  		 	\\
-CanESM2; r1i1p1 				 	  & REMO2015; v1 				\\
-HadGEM2-ES; r1i1p1 					  & Aladin63; v1 				\\
-HadGEM2-ES; r1i1p1 					  & HadREM3; v1 				\\
-HadGEM2-ES; r1i1p1 					  & HIRHAM5; v2 				\\
-HadGEM2-ES; r1i1p1 					  & RACMO22E; v2 				\\
-HadGEM2-ES; r1i1p1 					  & RCA4; v1 					\\
-HadGEM2-ES; r1i1p1 					  & RegCM4-6; v1 				\\
-HadGEM2-ES; r1i1p1 					  & REMO2015; v1 				\\
-IPSL-CM5A-MR; r1i1p1 				  & RCA4; v1 					\\
-IPSL-CM5A-MR; r1i1p1 				  & WRF381P; v1 				\\
-MPI-ESM-LR; r3i1p1 					  & RCA4; v1 					\\
-MPI-ESM-LR; r3i1p1 					  & REMO2015; v1				\\
+CCCma				& CanESM2 										& CCLM4-8-17 (v1)  		 	\\
+					& CanESM2		 				 	  			& REMO2015 (v1) 			\\
+\midrule
+IPSL 				& IPSL-CM5A-MR									& WRF381P (v1) 				\\
+					& 												& RACMO22E (v1) 			\\
+					& 												& RCA4 (v1) 				\\
+\midrule					
+MOHC				& HadGEM2 ES									& Aladin63 (v1) 			\\
+					& 												& HIRHAM5 (v2) 				\\
+					& 												& REMO2015 (v1)  			\\
+					& 												& RegCM4-6 (v1)  			\\
+					& 												& WRF381P (v1) 				\\
+					& 												& RACMO22E (v2) 			\\
+					& 												& HadREM3-GA7-05 (v1) 		\\
+					& 												& RCA4 (v1) 				\\
+\midrule
+MPI-M 				& MPI-ESM-LR; r3i1p1 					  		& REMO2015 (v1) 			\\
+					&  					  							& RCA4 (v1)					\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -328,8 +334,8 @@ IRIS is able to use beech mast fructification data of the European beech \textit
 \textbf{Parameter} & \textbf{Symbol} & \textbf{Type}     & \textbf{Description}       \\
 \midrule
 meanTemperature    & $t_{mean}$      & double            & Daily mean temperature     \\
-minTemperature     & $t_{\min}$      & double            & Daily max temperature      \\
-maxTemperature     & $t_{\max}$      & double            & Daily min temperature      \\
+minTemperature     & $t_{\min}$      & double            & Daily min temperature      \\
+maxTemperature     & $t_{\max}$      & double            & Daily max temperature      \\
 humidity           & $h$             & double            & Daily humidity             \\
 \midrule
 fructificationIndex & $f$            & int               & Fructification index		  \\
@@ -353,10 +359,10 @@ The development from one life cycle stage to the next takes place over specific 
 \toprule
 \textbf{Time period} 	& \textbf{Time step} & \textbf{Parameter Name}							& \textbf{Type}    & \textbf{Reference} \\
 \midrule
-Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \cite{Kahl}   		\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \cite{Kahl}      	\\
-Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \cite{Kahl}     	\\
-Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \cite{Kahl}			\\
+Early July   			& 181   			 & \tiny{BEGIN\_OF\_DEVELOPMENT}					& int      & \textcite{Kahl}   		\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_LARVAE\_TO\_NYMPHS}	& int      & \textcite{Kahl}      	\\
+Early October    		& 274    			 & \tiny{END\_OF\_DEVELOPMENT\_NYMPHS\_TO\_ADULTS}	& int      & \textcite{Kahl}     	\\
+Mid-October     		& 289      			 & \tiny{END\_OF\_DEVELOPMENT\_ADULTS\_TO\_LARVAE}	& int      & \textcite{Kahl}			\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -376,7 +382,7 @@ In each time step this sub model checks the relative humidity and temperature. I
 \multirow{3}{*}{\tiny{DESICCATION\_MINIMAL\_HUMIDITY}} 	& \multirow{3}{*}{-} & \multirow{3}{*}{80.0} & \multirow{3}{*}{\%} &  \textcite{Medlock.2013} \\
 													   	& 					 & 						 &					   &  \textcite{Gray.2016}	\\
 														& 					 & 						 &					   &  \textcite{Hauser.2018} \\
-\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \cite{Ostfeld.2015} \\
+\tiny{DESICCATION\_MINIMAL\_MEAN\_TEMP} 	& -    			 		 &   15.0  & $°C$  &  \textcite{Ostfeld.2015} \\
 \multirow{3}{*}{\tiny{DESICCATION\_RATE}}  	& Forest       			 &   0.02  & 1/day 	& own estimation \\
 				 							& Ecotone 				 &   0.05  & 1/day  & own estimation \\
 				 							& Meadow    			 &   0.10  & 1/day  & own estimation \\
@@ -414,7 +420,7 @@ In each time step, the activity sub model checks the prevailing conditions in te
 \toprule
 \textbf{Parameter}	& \textbf{Value} & \textbf{Unit}	& \textbf{Type}	& \textbf{Reference} \\
 \midrule
-\multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\cite{Gray.2016} \\
+\multirow{2}{*}{\tiny{ACTIVATION\_NECESSARY\_MAXIMAL\_MAX\_TEMP}}	& \multirow{2}{*}{35.0}  & \multirow{2}{*}{°C} & \multirow{2}{*}{float} & ~\textcite{Gray.2016} \\
 												    &		&	 &		 & \textcite{MacLeod.1935} \\
 \tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MAX\_TEMP}	&  1.9  & °C & float & \textcite{Perret.2000} \\
 \tiny{ACTIVATION\_NECESSARY\_MINIMAL\_MEAN\_TEMP}&  1.2 	& °C & float & \textcite{Perret.2000} \\
@@ -446,7 +452,7 @@ In each time step, ticks feed across all cells of the model landscape at a speci
 \multirow{3}{*}{\tiny{FEEDING\_RATE}} & Larva	& 0.01	& 1/day & float	 & own estimation \\
 									  & Nymph	& 0.03	& 1/day & float	 & own estimation \\
 									  & Adult	& 0.05	& 1/day & float	 & own estimation \\
-\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \cite{tba} \\
+\tiny{LATE\_FEEDING\_TIME}			  & - & 232 & -	& int	 & \textcite{tba} \\
 \bottomrule
 \end{tabularx}
 \end{table}
