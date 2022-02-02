@@ -8,9 +8,9 @@ file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
-COLOR_DWD = "#41ab5d"
-COLOR_CLIMATE_FUTURE = "#3182bd"
-COLOR_CLIMATE_PAST = "#8226de"
+COLOR_DWD = "#ff8c00"
+COLOR_CLIMATE_FUTURE = "#3182bd95"
+COLOR_CLIMATE_PAST = "#45454595"
 COLOR_MODEL = "#feb24c"
 
 SUMMER_START = 151   # 01 Jun 
@@ -71,7 +71,7 @@ def get_data(y_start, y_end, obs, x_axis_type):
 
                     df_summer = df.iloc[SUMMER_START:SUMMER_END]
 
-                    min_activity = df_summer["questing_nymphs"].min()
+                    min_activity = df_summer["nymphs_questing"].min()
 
                     year_values.append(year)
                     min_activity_values.append(min_activity)
@@ -109,10 +109,10 @@ def reg_function(x0):
 year_start = 1949
 year_end = 2098
 x_axis_type = 1
-observer = 3
+observer = 5
 output_format = "png"
-with_fits = False
-with_past_climate_years = True
+with_fits = True
+with_past_climate_years = False
 with_color_model = False
 color_model = 1
 
@@ -145,20 +145,11 @@ if with_color_model:
 fig, ax = plt.subplots()
 
 ax.scatter(
-    x_dwd,
-    y_dwd,
-    label="DWD data (1949 - 2020)",
-    marker="x",
-    s=15,
-    color=COLOR_DWD,
-)
-
-ax.scatter(
     x_clm_future,
     y_clm_future,
     label="Climate data (2021 - 2099)",
     marker=".",
-    s=20,
+    s=15,
     facecolors="none",
     color=COLOR_CLIMATE_FUTURE,
 )
@@ -184,35 +175,56 @@ if with_past_climate_years:
         color=COLOR_CLIMATE_PAST,
     )
 
+ax.scatter(
+    x_dwd,
+    y_dwd,
+    label="DWD data     (1949 - 2020)",
+    marker="x",
+    s=15,
+    color=COLOR_DWD,
+)
+
 if with_fits:
+    
+    start_value_dwd = 2
+    start_value_clm_future = 2
+    
+    if x_axis_type == 1:
+        start_value_dwd = 1949
+        start_value_clm_future = 2021
+    
     popt_dwd, pcov_dwd = curve_fit(
-        reg_function(1949), x_dwd, y_dwd
+        reg_function(start_value_dwd), x_dwd, y_dwd
     )
 
     popt_climate, pcov_climate = curve_fit(
-        reg_function(2021),
+        reg_function(start_value_clm_future),
         x_clm_future,
         y_clm_future,
     )
 
+    x_fit_clm_future = np.arange(x_clm_future.min(), x_clm_future.max() + 1)
+    y_fit_clm_future = reg_function(start_value_clm_future)(x_fit_clm_future, *popt_climate)
     plt.plot(
-        x_dwd,
-        reg_function(1949)(x_dwd, *popt_dwd),
+        x_fit_clm_future,
+        y_fit_clm_future,
         "r-",
-        c="black",
-        lw=1.0,
-        ls="--",
-        label="fit_dwd: a=%5.2f, b=%5.2f" % tuple(popt_dwd),
-    )
-
-    plt.plot(
-        x_clm_future.unique(),
-        reg_function(2021)(x_clm_future.unique(), *popt_climate),
-        "r-",
-        c="#525252",
-        lw=1.0,
+        c="#3182bd",
+        lw=1.5,
         ls="-",
-        label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
+        #label="fit_climate_projection: a=%5.2f, b=%5.2f" % tuple(popt_climate),
+    )
+    
+    x_fit_dwd = np.arange(x_dwd.min(), x_dwd.max() + 1)
+    y_fit_dwd = reg_function(start_value_dwd)(x_fit_dwd, *popt_dwd)
+    plt.plot(
+        x_fit_dwd,
+        y_fit_dwd,
+        "r-",
+        c=COLOR_DWD,
+        lw=1.5,
+        ls="-",
+        #label="fit_dwd: a=%5.2f, b=%5.2f" % tuple(popt_dwd),
     )
 
 plt.axvline(x=2020.5, color=COLOR_BOUNDARY_LINE, ls="--", lw=0.8)
@@ -224,8 +236,8 @@ ax.set_xlim(lower_x_lim, upper_x_lim)
 ax.set_ylim(0, 4500)
 
 x_ax_label = x_axis.get(x_axis_type)[1]
-ax.set_xlabel(x_ax_label, fontsize=11, fontweight="bold")
-ax.set_ylabel("Minimum number of questing nymphs", fontsize=11, fontweight="bold")
+ax.set_xlabel(x_ax_label, fontsize=10, fontweight="bold")
+ax.set_ylabel("Minimum number of questing nymphs", fontsize=10, fontweight="bold")
 
 plt.title("Minimum questing activity in summer (JJA)",fontweight="bold",fontsize=8)
 

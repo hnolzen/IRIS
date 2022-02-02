@@ -8,8 +8,8 @@ file_dir = os.path.dirname(os.path.abspath("__file__"))
 main_dir = os.path.abspath(file_dir + "/.." + "/..")
 
 COLOR_BOUNDARY_LINE = "#969696"
-COLOR_DWD = "#41ab5d"
-COLOR_CLIMATE_FUTURE = "#3182bd"
+COLOR_DWD = "#ff8c00"
+COLOR_CLIMATE_FUTURE = "#3182bd95"
 COLOR_CLIMATE_PAST = "#8226de"
 COLOR_MODEL = "#feb24c"
 
@@ -85,7 +85,7 @@ def get_data(y_start, y_end, obs, x_axis_type):
                     df = pd.read_csv(filename, header=0)
 
                     df_jan_jun = df.iloc[1:181]
-                    df_jan_jun_nymphs = df_jan_jun["questing_nymphs"]
+                    df_jan_jun_nymphs = df_jan_jun["nymphs_questing"]
 
                     time_peak_activity = df_jan_jun_nymphs.idxmax()
 
@@ -129,10 +129,10 @@ def get_data(y_start, y_end, obs, x_axis_type):
 
 year_start = 1949
 year_end = 2099
-x_axis_type = 1
-observer = 3
+x_axis_type = 5
+observer = 5
 output_format = "png"
-with_fits = False
+with_fits = True
 with_past_climate_years = False
 with_color_model = False
 color_model = 1
@@ -179,22 +179,22 @@ if with_fits:
 fig, ax = plt.subplots()
 
 ax.scatter(
-    x_dwd,
-    y_dwd,
-    label="DWD data (1949 - 2020)",
-    marker="x",
-    s=15,
-    color=COLOR_DWD,
-)
-
-ax.scatter(
     x_clm_future,
     y_clm_future,
     label="Climate data (2021 - 2099)",
     marker=".",
-    s=20,
+    s=15,
     facecolors="none",
     color=COLOR_CLIMATE_FUTURE,
+)
+
+ax.scatter(
+    x_dwd,
+    y_dwd,
+    label="DWD data     (1949 - 2020)",
+    marker="x",
+    s=15,
+    color=COLOR_DWD,
 )
 
 if with_color_model:
@@ -222,17 +222,19 @@ if with_fits:
     fit_length = np.arange(0, x_axis.get(x_axis_type)[3])
 
     ax.plot(
-        fit_length, 
-        n_dwd + m_dwd * fit_length, 
-        color=COLOR_DWD, 
-        lw=0.75
-    )
-    
-    ax.plot(
         fit_length,
         n_clm_future + m_clm_future * fit_length,
         color=COLOR_CLIMATE_FUTURE,
-        lw=0.75,
+        lw=1.25,
+        #label="y = {:.2f}x+{:.2f}".format(n_clm_future, m_clm_future),
+    )
+    
+    ax.plot(
+        fit_length, 
+        n_dwd + m_dwd * fit_length, 
+        color=COLOR_DWD, 
+        lw=1.25,
+        #label="y = {:.2f}x+{:.2f}".format(n_dwd, m_dwd),
     )
 
     if with_past_climate_years:
@@ -240,7 +242,8 @@ if with_fits:
             fit_length,
             n_clm_past + m_clm_past * fit_length,
             color=COLOR_CLIMATE_PAST,
-            lw=0.75,
+            lw=1.25,
+            #label="y = {:.2f}x+{:.2f}".format(n_clm_past, m_clm_past),
         )
 
 
@@ -255,8 +258,8 @@ ax.set_yticks(list(y_axis.keys()))
 ax.set_yticklabels(list(y_axis.values()), fontsize=8)
 
 x_ax_label = x_axis.get(x_axis_type)[1]
-ax.set_xlabel(x_ax_label, fontsize=12, fontweight="bold")
-ax.set_ylabel("Day of maximum nymphal activity", fontsize=12, fontweight="bold")
+ax.set_xlabel(x_ax_label, fontsize=10, fontweight="bold")
+ax.set_ylabel("Date of maximum nymphal activity", fontsize=10, fontweight="bold")
 
 plt.legend(fontsize=7)
 

@@ -75,11 +75,11 @@ def get_data(year_start, year_end, obs, x_axis_type):
                             nymphs = df[
                                 (df["tick"] >= seasons[k][0])
                                 & (df["tick"] < seasons[k][0] + 1)
-                            ]["questing_nymphs"].mean()
+                            ]["nymphs_questing"].mean()
                         else:
                             nymphs = df[
                                 (df["tick"] < 60) | (df["tick"] >= seasons[k][0] + 1)
-                            ]["questing_nymphs"].mean()
+                            ]["nymphs_questing"].mean()
 
                         if with_density:
                             nymphs /= GRID_CELLS
@@ -117,8 +117,8 @@ def get_data(year_start, year_end, obs, x_axis_type):
 
 year_start = 1949
 year_end = 2098
-x_axis_type = 2
-observer = 3
+x_axis_type = 3
+observer = 5
 output_format = "png"
 with_density = True
 with_fits = True
@@ -172,11 +172,11 @@ for i, season in enumerate(seasons):
             label="y={:.2f}x+{:.2f}".format(res.slope, res.intercept),
         )
 
-    plt.xlabel(x_label, fontsize=8)
+    plt.xlabel(x_label, fontsize=8, fontweight="bold")
 
-    plt.ylabel("Number of nymphs", fontsize=8)
+    plt.ylabel("Number of nymphs", fontsize=8, fontweight="bold")
     if with_density:
-        plt.ylabel("Nymphs per 100 $m^2$", fontsize=8)
+        plt.ylabel("Nymphs per 100 $\mathbf{m^2}$", fontsize=8, fontweight="bold")
 
     plt.legend(fontsize=5)
 
