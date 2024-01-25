@@ -1,7 +1,9 @@
 # IRIS - Ixodes RIcinus Simulator 
 
 IRIS (Ixodes RIcinus Simulator) is a population model to simulate spatio-temporal dynamics of *Ixodes ricinus* ticks. It is designed as a
- spatially-explicit compartmental model that operates on a local scale. This model has been developed as part of the [HI-CAM][HICAM] initiative.
+spatially-explicit compartmental model that operates on a local scale.
+
+This model was developed in 2020 and 2021 for a research project. It has not been further developed since then. The original repository can be found at: https://git.ufz.de/ecoepi/iris
 
 ## Run
 
@@ -38,13 +40,6 @@ The following output observers are available:
 | csv_timeseries_nymphs_habitats   | 5   | observer 4 differentiated by habitats.               |
 | csv_timeseries_infection         | 6   | writes out all output variables that are relevant for the analysis of the borreliosis dynamics. |
 
-## Documents and folders
-| document                           | description                                       |
-|------------------------------------|---------------------------------------------------|
-| [ODD.pdf][ODD]                     | Model description (ODD protocol)                  |
-| [IRIS_validation_report.pdf][VAL]  | Validation report                                 |
-
-
 ## Model files and folders
 
 | file / folder        | description                                                                       |
@@ -56,14 +51,3 @@ The following output observers are available:
 | `output`             | Location of model output files                                                    |
 | `plots`              | Location of script files to visualise model outputs                               |
 | `src`                | Location of Java source files                                                     |
-
-
-### Contact
-
-If you have questions regarding this project, please [create an issue][ISSUE] or contact us via email.
-
-
-[HICAM]: https://www.ufz.de/index.php?en=47573
-[ODD]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/documents/odd/iris_odd.pdf?job=build
-[VAL]: https://git.ufz.de/ecoepi/iris/-/jobs/artifacts/master/raw/documents/validation/iris_validation_report.pdf?job=build
-[ISSUE]: https://git.ufz.de/ecoepi/iris/-/issues
