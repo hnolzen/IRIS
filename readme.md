@@ -51,3 +51,9 @@ The following output observers are available:
 | `output`             | Location of model output files                                                    |
 | `plots`              | Location of script files to visualise model outputs                               |
 | `src`                | Location of Java source files                                                     |
+
+
+
+## License
+
+This project is distributed under the [GNU General Public License v3.0](./COPYING).
