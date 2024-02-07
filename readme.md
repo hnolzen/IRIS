@@ -45,7 +45,7 @@ The following output observers are available:
 | file / folder        | description                                                                       |
 |----------------------|-----------------------------------------------------------------------------------|
 | `iris_start.py`      | Python Script to run IRIS                                                         |
-| `documents`          | Location of model documentation files (ODD protocol, validation report)           |
+| `documents`          | Location of model documentation files           |
 | `experiments`        | Location of script files to run sensitivity analyses, perform parameter optimisation, etc.  |
 | `input`              | Location of input files (weather data, fructification data)                       |
 | `output`             | Location of model output files                                                    |
